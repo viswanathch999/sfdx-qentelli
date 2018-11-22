@@ -1,0 +1,2 @@
+# sfdx-qentelli
+SFDX DEMO FOR ORGANIZATION QENTELLI
