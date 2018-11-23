@@ -1,10 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Package xmlns="http://soap.sforce.com/2006/04/metadata">
-    <fullName>Test change set for DevOpsPOC</fullName>
-    <description>This is a test change set</description>
+    <fullName>sfdx-demo</fullName>
     <types>
-        <members>UpdateProfileInfo_YPO</members>
-        <name>ApexPage</name>
+        <members>Account.AltavistaNews</members>
+        <name>WebLink</name>
     </types>
     <version>44.0</version>
 </Package>
