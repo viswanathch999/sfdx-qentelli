@@ -1,11 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Package xmlns="http://soap.sforce.com/2006/04/metadata">
-    <fullName>testing1</fullName>
+    <fullName>testing</fullName>
     <types>
         <members>Account.AltavistaNews</members>
-        <members>Lead.GoogleMaps</members>
-        <members>Lead.GoogleNews</members>
-        <members>Lead.GoogleSearch</members>
+        <members>Account.GoogleMaps</members>
         <name>WebLink</name>
     </types>
     <version>44.0</version>
