@@ -2,7 +2,7 @@
 
 if [ $# -lt 1 ]
 then
-    echo Usage: generatepkgXML.sh orgalias packageName
+    echo Usage: generatepkgXML.sh orgalias packageName/changesetName
     exit
 fi
 
