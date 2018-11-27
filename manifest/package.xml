@@ -1,17 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Package xmlns="http://soap.sforce.com/2006/04/metadata">
-    <fullName>qentelli</fullName>
+    <fullName>testing3</fullName>
     <types>
-        <members>GettingStarted</members>
-        <name>AuraDefinitionBundle</name>
-    </types>
-    <types>
-        <members>Getting_Started</members>
-        <name>CustomTab</name>
-    </types>
-    <types>
-        <members>Getting_Started</members>
-        <name>FlexiPage</name>
+        <members>unfiled$public/ContactFollowUpSAMPLE</members>
+        <members>unfiled$public/LeadsNewassignmentnotificationSAMPLE</members>
+        <members>unfiled$public/LeadsWebtoLeademailresponseSAMPLE</members>
+        <members>unfiled$public/SUPPORTNewassignmentnotificationSAMPLE</members>
+        <members>unfiled$public/SUPPORTSelfServiceNewCommentNotificationSAMPLE</members>
+        <name>EmailTemplate</name>
     </types>
     <version>44.0</version>
 </Package>
