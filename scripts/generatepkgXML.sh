@@ -2,7 +2,7 @@
 
 if [ $# -lt 1 ]
 then
-    echo Usage: generatepkgXML.sh orgalias packageName/changesetName
+    echo Usage: generatepkgXML.sh orgalias packageName
     exit
 fi
 
@@ -18,5 +18,4 @@ mkdir ./manifest/ # Create a New Manifest Directory
 
 cp -a ./mdapipkg/package.xml ./manifest/ # Copy package.XML to manifest directory
 
-rm -rf ./mdapipkg # Delete the mdapipkg source
 

@@ -1,4 +1,4 @@
-# SFDX  Qentelli
+# SFDX  App
 
 ## Dev, Build and Test
 
@@ -9,6 +9,6 @@
 ## Description of Files and Directories
 
 
-## Issue
+## Issues
 
 
