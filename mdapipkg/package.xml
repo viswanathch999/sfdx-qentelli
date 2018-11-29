@@ -3,6 +3,7 @@
     <fullName>demo</fullName>
     <types>
         <members>HelloWorld</members>
+        <members>Sample</members>
         <name>ApexClass</name>
     </types>
     <types>
