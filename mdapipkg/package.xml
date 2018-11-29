@@ -1,20 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Package xmlns="http://soap.sforce.com/2006/04/metadata">
-    <fullName>demo</fullName>
+    <fullName>demo-sfdx</fullName>
     <types>
-        <members>HelloWorld</members>
-        <members>Sample</members>
+        <members>Sampledemo</members>
         <name>ApexClass</name>
-    </types>
-    <types>
-        <members>unfiled$public/ContactFollowUpSAMPLE</members>
-        <members>unfiled$public/LeadsNewassignmentnotificationSAMPLE</members>
-        <members>unfiled$public/LeadsWebtoLeademailresponseSAMPLE</members>
-        <members>unfiled$public/SUPPORTNewassignmentnotificationSAMPLE</members>
-        <members>unfiled$public/SUPPORTSelfServiceNewCommentNotificationSAMPLE</members>
-        <members>unfiled$public/SUPPORTSelfServiceNewUserLoginInformationSAMPLE</members>
-        <members>unfiled$public/SUPPORTSelfServiceResetPasswordSAMPLE</members>
-        <name>EmailTemplate</name>
     </types>
     <version>44.0</version>
 </Package>
