@@ -112,7 +112,7 @@
 
     <!-- Deploy the unpackaged set of metadata retrieved with retrieveUnpackaged and run tests in this organization's namespace only-->
     <target name="deployUnpackaged">
-      <sf:deploy username="${sf2.username}" password="${sf2.password}" serverurl="${sf.serverurl}" maxPoll="${sf.maxPoll}" deployRoot="mdapiapkg" rollbackOnError="true"/>
+      <sf:deploy username="${sf2.username}" password="${sf2.password}" serverurl="${sf.serverurl}" maxPoll="${sf.maxPoll}" deployRoot="mdapipkg" rollbackOnError="true"/>
     </target>
 
     <!-- Deploy a zip of metadata files to the org -->
