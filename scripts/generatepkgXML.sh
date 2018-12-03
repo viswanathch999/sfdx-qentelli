@@ -20,6 +20,6 @@ rm -rf ./manifest/ # If manifest directory exists delete it
 
 mkdir ./manifest/ # Create a New Manifest Directory
 
-cp -a ./mdapipkg/package.xml ./manifest/ # Copy package.XML to manifest directory
+cp -a ./mdapipkg/unpackaged.zip ./manifest/ # Copy package.XML to manifest directory
 
 rm -rf ./mdapipkg # Delete the mdapipkg source
