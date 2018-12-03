@@ -26,8 +26,8 @@
          so unset values are treated as empty. Without this, ant expressions such as ${sf.username}
          will be treated literally.
     -->
-    <condition property="sf.username" value="vchereddy@nike.com"> <not> <isset property="sf.username"/> </not> </condition>
-    <condition property="sf.password" value="Qentelli@123YWKw8IBNfZ2SyEiXQkoTJkDjk"> <not> <isset property="sf.password"/> </not> </condition> 
+    <condition property="sf2.username" value="vchereddy@nike.com.sfdx"> <not> <isset property="sf.username"/> </not> </condition>
+    <condition property="sf2.password" value="Qentelli@1233DKZ6WaFwCAnnm8ugewbKWDM2"> <not> <isset property="sf.password"/> </not> </condition> 
   <!--  <condition property="sf.sessionId" value=""> <not> <isset property="sf.sessionId"/> </not> </condition> -->
   
   
@@ -85,7 +85,7 @@
   
 	<!-- Deployment to SFTEST --> 
   	<target name="deploySFTEST">
-      <sf:deploy username="${sf3.username}" password="${sf3.password}" serverurl="${sf.serverurl}" maxPoll="${sf.maxPoll}" deployRoot="retrieve"  rollbackOnError="true">
+      <sf:deploy username="${sf2.username}" password="${sf2.password}" serverurl="${sf.serverurl}" maxPoll="${sf.maxPoll}" deployRoot="force-app"  rollbackOnError="true">
       </sf:deploy>
     </target>
   
