@@ -3,7 +3,7 @@
 ## Dev, Build and Test
 
 
-## Resources For Salesforce
+## Resources
 
 
 ## Description of Files and Directories
