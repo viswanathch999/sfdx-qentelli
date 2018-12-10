@@ -16,6 +16,8 @@ sfdx force:mdapi:retrieve -s -r ./mdapipkg -u $1 -p "$2" # Retrieve Metadata API
 
 unzip -o -qq ./mdapipkg/unpackaged.zip -d ./mdapipkg # Unzip the file
 
+rm -rf ./mdapipkg/unpackaged.zip # Zip folder will remove from mdapipkg
+
 
 
 

@@ -2,8 +2,14 @@
 <Package xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>test</fullName>
     <types>
+        <members>salesforce</members>
         <members>simple</members>
         <name>ApexClass</name>
+    </types>
+    <types>
+        <members>CompanyDashboards/AdoptionDashboard</members>
+        <members>CompanyDashboards/CompanyPerformanceDashboard</members>
+        <name>Dashboard</name>
     </types>
     <version>44.0</version>
 </Package>
