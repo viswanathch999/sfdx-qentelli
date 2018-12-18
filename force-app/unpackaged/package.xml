@@ -3,26 +3,13 @@
     <types>
         <members>Salesforcedemo</members>
         <members>Sampledemo</members>
+        <members>salesforce</members>
+        <members>simple1</members>
         <name>ApexClass</name>
-    </types>
-    <types>
-        <members>AppSwitcher</members>
-        <members>Salesforce1</members>
-        <name>AppMenu</name>
-    </types>
-    <types>
-        <members>Case</members>
-        <members>Lead</members>
-        <name>AssignmentRules</name>
     </types>
     <types>
         <members>GettingStarted</members>
         <name>AuraDefinitionBundle</name>
-    </types>
-    <types>
-        <members>Case</members>
-        <members>Lead</members>
-        <name>AutoResponseRules</name>
     </types>
     <types>
         <members>DataCloudCompanyMatch</members>
@@ -40,91 +27,12 @@
     </types>
     <types>
         <members>Dev_Hub_Lightning</members>
-        <members>standard__AllTabSet</members>
-        <members>standard__AppLauncher</members>
-        <members>standard__Chatter</members>
-        <members>standard__Community</members>
-        <members>standard__Content</members>
-        <members>standard__LightningBolt</members>
-        <members>standard__LightningInstrumentation</members>
-        <members>standard__LightningSales</members>
-        <members>standard__Marketing</members>
-        <members>standard__Platform</members>
-        <members>standard__Sales</members>
-        <members>standard__Service</members>
         <name>CustomApplication</name>
     </types>
     <types>
-        <members>CustomLabels</members>
-        <name>CustomLabels</name>
-    </types>
-    <types>
-        <members>Account</members>
-        <members>AccountContactRole</members>
-        <members>ActiveScratchOrg</members>
-        <members>Activity</members>
-        <members>Asset</members>
-        <members>AssetRelationship</members>
-        <members>AssistantProgress</members>
-        <members>Case</members>
-        <members>CaseContactRole</members>
-        <members>ChatterActivity</members>
-        <members>CollaborationGroup</members>
-        <members>CollaborationGroupMember</members>
-        <members>Contact</members>
-        <members>ContentVersion</members>
-        <members>Contract</members>
-        <members>ContractContactRole</members>
-        <members>DuplicateRecordItem</members>
-        <members>DuplicateRecordSet</members>
-        <members>EmailMessage</members>
-        <members>Event</members>
-        <members>ExchangeUserMapping</members>
-        <members>FeedItem</members>
-        <members>ForecastingCategoryMapping</members>
-        <members>Idea</members>
-        <members>Lead</members>
-        <members>NamespaceRegistry</members>
-        <members>Opportunity</members>
-        <members>OpportunityCompetitor</members>
-        <members>OpportunityContactRole</members>
-        <members>OpportunityLineItem</members>
-        <members>Order</members>
-        <members>OrderItem</members>
-        <members>PartnerRole</members>
-        <members>Pricebook2</members>
-        <members>PricebookEntry</members>
-        <members>Product2</members>
-        <members>ProfileSkill</members>
-        <members>ProfileSkillEndorsement</members>
-        <members>ProfileSkillUser</members>
-        <members>QuickText</members>
-        <members>RecordAction</members>
-        <members>Scorecard</members>
-        <members>ScorecardAssociation</members>
-        <members>ScorecardMetric</members>
-        <members>ScratchOrgInfo</members>
-        <members>Site</members>
-        <members>SocialPersona</members>
-        <members>SocialPost</members>
-        <members>Solution</members>
-        <members>StreamingChannel</members>
-        <members>Task</members>
-        <members>Topic</members>
-        <members>TopicAssignment</members>
-        <members>User</members>
-        <members>UserProvisioningRequest</members>
-        <members>WorkBadge</members>
-        <members>WorkBadgeDefinition</members>
-        <members>WorkOrder</members>
-        <members>WorkOrderLineItem</members>
-        <members>WorkThanks</members>
+        <members>salesforce__c</members>
         <members>sfdx_test__mdt</members>
         <name>CustomObject</name>
-    </types>
-    <types>
-        <members>sfdx_test__mdt-en_US</members>
-        <name>CustomObjectTranslation</name>
     </types>
     <types>
         <members>Getting_Started</members>
@@ -147,7 +55,6 @@
         <name>DuplicateRule</name>
     </types>
     <types>
-        <members>unfiled$public</members>
         <members>unfiled$public/ContactFollowUpSAMPLE</members>
         <members>unfiled$public/LeadsNewassignmentnotificationSAMPLE</members>
         <members>unfiled$public/LeadsWebtoLeademailresponseSAMPLE</members>
@@ -161,10 +68,6 @@
         <name>EmailTemplate</name>
     </types>
     <types>
-        <members>Case</members>
-        <name>EscalationRules</name>
-    </types>
-    <types>
         <members>Dev_Hub_UtilityBar</members>
         <members>Getting_Started</members>
         <name>FlexiPage</name>
@@ -172,26 +75,6 @@
     <types>
         <members>Dashboard Home Page Default</members>
         <name>HomePageLayout</name>
-    </types>
-    <types>
-        <members>sf_com_apps</members>
-        <members>sf_com_apps</members>
-        <members>sf_com_apps</members>
-        <members>sf_com_apps</members>
-        <members>sf_com_apps</members>
-        <members>sf_com_apps</members>
-        <members>sf_com_apps</members>
-        <members>sf_com_apps</members>
-        <members>sf_com_apps</members>
-        <members>sf_com_apps</members>
-        <members>sf_com_apps</members>
-        <members>sf_com_apps</members>
-        <members>sf_com_apps</members>
-        <members>sf_com_apps</members>
-        <members>sf_com_apps</members>
-        <members>sf_com_apps</members>
-        <members>sf_com_apps</members>
-        <name>InstalledPackage</name>
     </types>
     <types>
         <members>Account-Account Layout</members>
@@ -236,6 +119,7 @@
         <members>WorkBadgeDefinition-Badge Layout</members>
         <members>WorkOrder-Work Order Layout</members>
         <members>WorkOrderLineItem-Work Order Line Item Layout</members>
+        <members>salesforce__c-salesforce Layout</members>
         <members>sfdx_test__mdt-sfdx-test Layout</members>
         <name>Layout</name>
     </types>
@@ -310,12 +194,6 @@
         <name>MatchingRule</name>
     </types>
     <types>
-        <members>Account</members>
-        <members>Contact</members>
-        <members>Lead</members>
-        <name>MatchingRules</name>
-    </types>
-    <types>
         <members>Salesforce_DX</members>
         <name>PermissionSet</name>
     </types>
@@ -383,7 +261,6 @@
         <name>QuickAction</name>
     </types>
     <types>
-        <members>unfiled$public</members>
         <members>unfiled$public/SampleReportActiveUsers</members>
         <members>unfiled$public/SampleReportCasesStatusbyRep</members>
         <members>unfiled$public/SampleReportClosedSales</members>
@@ -418,17 +295,7 @@
         <name>Report</name>
     </types>
     <types>
-        <members>Account</members>
-        <members>Asset</members>
-        <members>Case</members>
-        <members>Contact</members>
-        <members>FlowInterview</members>
-        <members>Lead</members>
-        <members>ListEmail</members>
-        <members>Opportunity</members>
-        <members>Order</members>
-        <members>User</members>
-        <members>WorkOrder</members>
+        <members>salesforce__c</members>
         <name>SharingRules</name>
     </types>
     <types>
@@ -446,6 +313,7 @@
         <members>Task</members>
         <members>WorkOrder</members>
         <members>WorkOrderLineItem</members>
+        <members>salesforce__c</members>
         <name>TopicsForObjects</name>
     </types>
     <types>
@@ -470,30 +338,6 @@
         <members>Lead.SendGmail</members>
         <members>Lead.YahooMaps</members>
         <name>WebLink</name>
-    </types>
-    <types>
-        <members>Account</members>
-        <members>Activities</members>
-        <members>Address</members>
-        <members>BusinessHours</members>
-        <members>Case</members>
-        <members>Company</members>
-        <members>Contract</members>
-        <members>FileUploadAndDownloadSecurity</members>
-        <members>Forecasting</members>
-        <members>Ideas</members>
-        <members>Mobile</members>
-        <members>Name</members>
-        <members>Opportunity</members>
-        <members>Order</members>
-        <members>OrgPreference</members>
-        <members>PathAssistant</members>
-        <members>Product</members>
-        <members>Quote</members>
-        <members>Search</members>
-        <members>Security</members>
-        <members>SocialCustomerService</members>
-        <name>Settings</name>
     </types>
     <version>43.0</version>
 </Package>

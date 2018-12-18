@@ -87,7 +87,7 @@
   
 	<!-- Deployment to SFTEST --> 
   	<target name="deploySFTEST">
-      <sf:deploy username="${sf2.username}" password="${sf2.password}" serverurl="${sf.serverurl}" maxPoll="${sf.maxPoll}" deployRoot="mdapipkg"  rollbackOnError="true">
+      <sf:deploy username="${sf1.username}" password="${sf1.password}" serverurl="${sf.serverurl}" maxPoll="${sf.maxPoll}" deployRoot="manifest/unpackaged"  rollbackOnError="true">
       </sf:deploy>
     </target>
   
