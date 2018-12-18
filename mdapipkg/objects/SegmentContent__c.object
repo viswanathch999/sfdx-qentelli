@@ -1,0 +1,152 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomObject xmlns="http://soap.sforce.com/2006/04/metadata">
+    <customSettingsType>List</customSettingsType>
+    <description>Captures links to Images for the Top and Bottom to Segments as well as their associated text and hyperlink locations for each Segment to be displayed in the Slash Page Segment Content Section.</description>
+    <enableFeeds>false</enableFeeds>
+    <fields>
+        <fullName>BottomSpot1ImageName__c</fullName>
+        <description>Name of the Image in the Static Resource Zip to be used as by the Bottom Spot1 Image</description>
+        <externalId>false</externalId>
+        <inlineHelpText>Name of the Image in the Static Resource Zip to be used as by the Bottom Spot1 Image</inlineHelpText>
+        <label>BottomSpot1ImageName</label>
+        <length>250</length>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>BottomSpot1Text__c</fullName>
+        <description>Title text for the bottom spot 1 image in the segment content</description>
+        <externalId>false</externalId>
+        <inlineHelpText>Title text for the bottom spot 1 image in the segment content</inlineHelpText>
+        <label>BottomSpot1Text</label>
+        <length>250</length>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>BottomSpot1UrlText__c</fullName>
+        <description>Text to be displayed on the bottom spot 1 image for hyperlink redirect</description>
+        <externalId>false</externalId>
+        <inlineHelpText>Text to be displayed on the bottom spot 1 image for hyperlink redirect</inlineHelpText>
+        <label>BottomSpot1UrlText</label>
+        <length>250</length>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>BottomSpot1Url__c</fullName>
+        <description>Hyperlink the Bottom Spot 1 Image should redirect to once clicked</description>
+        <externalId>false</externalId>
+        <inlineHelpText>Hyperlink the Bottom Spot 1 Image should redirect to once clicked</inlineHelpText>
+        <label>BottomSpot1Url</label>
+        <length>250</length>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>BottomSpot2ImageName__c</fullName>
+        <description>Name of the Image in the Static Resource Zip to be used as by the Bottom Spot2 Image</description>
+        <externalId>false</externalId>
+        <inlineHelpText>Name of the Image in the Static Resource Zip to be used as by the Bottom Spot2 Image</inlineHelpText>
+        <label>BottomSpot2ImageName</label>
+        <length>250</length>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>BottomSpot2Text__c</fullName>
+        <description>Title text for the bottom spot 2 image in the segment content</description>
+        <externalId>false</externalId>
+        <inlineHelpText>Title text for the bottom spot 2 image in the segment content</inlineHelpText>
+        <label>BottomSpot2Text</label>
+        <length>250</length>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>BottomSpot2UrlText__c</fullName>
+        <description>Text to be displayed on the bottom spot 2 image for hyperlink redirect</description>
+        <externalId>false</externalId>
+        <inlineHelpText>Text to be displayed on the bottom spot 2 image for hyperlink redirect</inlineHelpText>
+        <label>BottomSpot2UrlText</label>
+        <length>250</length>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>BottomSpot2Url__c</fullName>
+        <description>Hyperlink the Bottom Spot 2 Image should redirect to once clicked</description>
+        <externalId>false</externalId>
+        <inlineHelpText>Hyperlink the Bottom Spot 2 Image should redirect to once clicked</inlineHelpText>
+        <label>BottomSpot2Url</label>
+        <length>250</length>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>TopSpotImageName__c</fullName>
+        <description>Name of the Image in the Static Resource Zip to be used as the Top Image Banner</description>
+        <externalId>false</externalId>
+        <inlineHelpText>Name of the Image in the Static Static Resource Zip to be used as the Top Image Banner</inlineHelpText>
+        <label>TopSpotImageName</label>
+        <length>250</length>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>TopSpotUrlText__c</fullName>
+        <description>Text to be displayed on the top image for hyperlink redirect</description>
+        <externalId>false</externalId>
+        <inlineHelpText>Text to be displayed on the top image for hyperlink redirect</inlineHelpText>
+        <label>TopSpotUrlText</label>
+        <length>250</length>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>TopSpotUrl__c</fullName>
+        <description>Hyperlink the Top Image Banner should redirect to once clicked</description>
+        <externalId>false</externalId>
+        <inlineHelpText>Hyperlink the Top Image Banner should redirect to once clicked</inlineHelpText>
+        <label>TopSpotUrl</label>
+        <length>250</length>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>TopTitleText__c</fullName>
+        <description>Title text for the top Image Banner in Segment Content</description>
+        <externalId>false</externalId>
+        <inlineHelpText>Title text for the top Image Banner in Segment Content</inlineHelpText>
+        <label>TopSpotText</label>
+        <length>250</length>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <label>Splash Page Segment Content</label>
+    <visibility>Public</visibility>
+</CustomObject>

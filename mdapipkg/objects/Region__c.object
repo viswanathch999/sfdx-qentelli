@@ -1,0 +1,391 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomObject xmlns="http://soap.sforce.com/2006/04/metadata">
+    <actionOverrides>
+        <actionName>Accept</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>CancelEdit</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Clone</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Delete</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Edit</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>List</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>New</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>SaveEdit</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Tab</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>View</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <allowInChatterGroups>false</allowInChatterGroups>
+    <compactLayoutAssignment>SYSTEM</compactLayoutAssignment>
+    <deploymentStatus>Deployed</deploymentStatus>
+    <enableActivities>true</enableActivities>
+    <enableBulkApi>true</enableBulkApi>
+    <enableChangeDataCapture>false</enableChangeDataCapture>
+    <enableFeeds>false</enableFeeds>
+    <enableHistory>true</enableHistory>
+    <enableReports>true</enableReports>
+    <enableSearch>true</enableSearch>
+    <enableSharing>true</enableSharing>
+    <enableStreamingApi>true</enableStreamingApi>
+    <externalSharingModel>ReadWrite</externalSharingModel>
+    <fields>
+        <fullName>Education_Director__c</fullName>
+        <deleteConstraint>SetNull</deleteConstraint>
+        <externalId>false</externalId>
+        <label>Regional Education Director</label>
+        <referenceTo>User</referenceTo>
+        <relationshipName>Regions1</relationshipName>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Lookup</type>
+    </fields>
+    <fields>
+        <fullName>Executive_Director__c</fullName>
+        <deleteConstraint>SetNull</deleteConstraint>
+        <externalId>false</externalId>
+        <label>Executive Director</label>
+        <referenceTo>User</referenceTo>
+        <relationshipName>Regions4</relationshipName>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Lookup</type>
+    </fields>
+    <fields>
+        <fullName>Governance_Limit_Green__c</fullName>
+        <defaultValue>70</defaultValue>
+        <description>Governance Limit # of GLC Officer Positions filled</description>
+        <externalId>false</externalId>
+        <inlineHelpText># of GLC Officer Positions filled</inlineHelpText>
+        <label>Governance Limit Green</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Governance_Limit_Red__c</fullName>
+        <defaultValue>40</defaultValue>
+        <description>Governance Limit # of GLC Officer Positions filled</description>
+        <externalId>false</externalId>
+        <inlineHelpText># of GLC Officer Positions filled</inlineHelpText>
+        <label>Governance Limit Red</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Governance_Limit_Yellow__c</fullName>
+        <defaultValue>40</defaultValue>
+        <description>Governance Limit # of GLC Officer Positions filled</description>
+        <externalId>false</externalId>
+        <inlineHelpText># of GLC Officer Positions filled</inlineHelpText>
+        <label>Governance Limit Yellow</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Membership_Limit_Red__c</fullName>
+        <defaultValue>50</defaultValue>
+        <description>Membership Limit Red Total Number of Members</description>
+        <externalId>false</externalId>
+        <inlineHelpText>Total Number of Members</inlineHelpText>
+        <label>Membership Limit Red</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Membership_Limit_Yellow__c</fullName>
+        <defaultValue>50</defaultValue>
+        <description>Membership Limit Total Number of Members</description>
+        <externalId>false</externalId>
+        <inlineHelpText>Total Number of Members</inlineHelpText>
+        <label>Membership Limit Yellow</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Membership_Limit__c</fullName>
+        <defaultValue>65</defaultValue>
+        <description>Membership Total Number of Members</description>
+        <externalId>false</externalId>
+        <inlineHelpText>Total Number of Members</inlineHelpText>
+        <label>Membership Limit Green</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>RBM_Participation_Limit_Red__c</fullName>
+        <defaultValue>0</defaultValue>
+        <description>Regional Board meeting Attendance</description>
+        <externalId>false</externalId>
+        <inlineHelpText>Regional Board meeting Attendance</inlineHelpText>
+        <label>RBM Participation Limit Red</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>RBM_Participation_Limit_Yellow__c</fullName>
+        <defaultValue>1</defaultValue>
+        <description>Regional Board meeting Attendance</description>
+        <externalId>false</externalId>
+        <inlineHelpText>Regional Board meeting Attendance</inlineHelpText>
+        <label>RBM Participation Limit Yellow</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>RBM_Participation_Limit__c</fullName>
+        <defaultValue>2</defaultValue>
+        <description>Regional Board meeting Attendance</description>
+        <externalId>false</externalId>
+        <inlineHelpText>Regional Board meeting Attendance</inlineHelpText>
+        <label>RBM Participation Limit Green</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Regional_Director__c</fullName>
+        <deleteConstraint>SetNull</deleteConstraint>
+        <externalId>false</externalId>
+        <label>Regional Director</label>
+        <referenceTo>User</referenceTo>
+        <relationshipName>Regions6</relationshipName>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Lookup</type>
+    </fields>
+    <fields>
+        <fullName>Regional_Family_Director__c</fullName>
+        <deleteConstraint>SetNull</deleteConstraint>
+        <externalId>false</externalId>
+        <label>Regional Family Director</label>
+        <referenceTo>User</referenceTo>
+        <relationshipName>Regions2</relationshipName>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Lookup</type>
+    </fields>
+    <fields>
+        <fullName>Regional_Forum_Director__c</fullName>
+        <deleteConstraint>SetNull</deleteConstraint>
+        <externalId>false</externalId>
+        <label>Regional Forum Director</label>
+        <referenceTo>User</referenceTo>
+        <relationshipName>Regions5</relationshipName>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Lookup</type>
+    </fields>
+    <fields>
+        <fullName>Regional_Manager_2__c</fullName>
+        <deleteConstraint>SetNull</deleteConstraint>
+        <externalId>false</externalId>
+        <label>Regional Manager #2</label>
+        <referenceTo>Contact</referenceTo>
+        <relationshipLabel>Regions</relationshipLabel>
+        <relationshipName>Regions</relationshipName>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Lookup</type>
+    </fields>
+    <fields>
+        <fullName>Regional_Manager__c</fullName>
+        <deleteConstraint>SetNull</deleteConstraint>
+        <externalId>false</externalId>
+        <label>Regional Manager #1</label>
+        <referenceTo>User</referenceTo>
+        <relationshipName>Regions</relationshipName>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Lookup</type>
+    </fields>
+    <fields>
+        <fullName>Regional_Membership_Director__c</fullName>
+        <deleteConstraint>SetNull</deleteConstraint>
+        <externalId>false</externalId>
+        <label>Regional Membership Director</label>
+        <referenceTo>User</referenceTo>
+        <relationshipName>Regions3</relationshipName>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Lookup</type>
+    </fields>
+    <fields>
+        <fullName>Size__c</fullName>
+        <externalId>false</externalId>
+        <label>Size</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Picklist</type>
+        <valueSet>
+            <valueSetDefinition>
+                <sorted>false</sorted>
+                <value>
+                    <fullName>sMall</fullName>
+                    <default>false</default>
+                    <label>sMall</label>
+                </value>
+                <value>
+                    <fullName>Med</fullName>
+                    <default>false</default>
+                    <label>Med</label>
+                </value>
+                <value>
+                    <fullName>larg</fullName>
+                    <default>false</default>
+                    <label>larg</label>
+                </value>
+                <value>
+                    <fullName>HUGGE</fullName>
+                    <default>false</default>
+                    <label>HUGGE</label>
+                </value>
+            </valueSetDefinition>
+        </valueSet>
+    </fields>
+    <fields>
+        <fullName>Super_Region__c</fullName>
+        <externalId>false</externalId>
+        <label>Super Region</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Picklist</type>
+        <valueSet>
+            <valueSetDefinition>
+                <sorted>false</sorted>
+                <value>
+                    <fullName>Asia Pacific</fullName>
+                    <default>false</default>
+                    <label>Asia Pacific</label>
+                </value>
+                <value>
+                    <fullName>EMEA</fullName>
+                    <default>false</default>
+                    <label>EMEA</label>
+                </value>
+                <value>
+                    <fullName>Americas</fullName>
+                    <default>false</default>
+                    <label>Americas</label>
+                </value>
+                <value>
+                    <fullName>International</fullName>
+                    <default>false</default>
+                    <label>International</label>
+                </value>
+            </valueSetDefinition>
+        </valueSet>
+    </fields>
+    <fields>
+        <fullName>Unique_Region_Name__c</fullName>
+        <caseSensitive>false</caseSensitive>
+        <externalId>true</externalId>
+        <label>Unique Region Name</label>
+        <length>150</length>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>true</unique>
+    </fields>
+    <label>Region</label>
+    <nameField>
+        <label>Region Name</label>
+        <trackHistory>false</trackHistory>
+        <type>Text</type>
+    </nameField>
+    <pluralLabel>Regions</pluralLabel>
+    <searchLayouts>
+        <customTabListAdditionalFields>Super_Region__c</customTabListAdditionalFields>
+        <customTabListAdditionalFields>LAST_UPDATE</customTabListAdditionalFields>
+        <customTabListAdditionalFields>LAST_ACTIVITY</customTabListAdditionalFields>
+        <customTabListAdditionalFields>OWNER.ALIAS</customTabListAdditionalFields>
+        <searchResultsAdditionalFields>Super_Region__c</searchResultsAdditionalFields>
+        <searchResultsAdditionalFields>Executive_Director__c</searchResultsAdditionalFields>
+        <searchResultsAdditionalFields>Regional_Director__c</searchResultsAdditionalFields>
+        <searchResultsAdditionalFields>Education_Director__c</searchResultsAdditionalFields>
+        <searchResultsAdditionalFields>Regional_Family_Director__c</searchResultsAdditionalFields>
+        <searchResultsAdditionalFields>Regional_Forum_Director__c</searchResultsAdditionalFields>
+        <searchResultsAdditionalFields>Regional_Manager__c</searchResultsAdditionalFields>
+        <searchResultsAdditionalFields>Regional_Membership_Director__c</searchResultsAdditionalFields>
+    </searchLayouts>
+    <sharingModel>ReadWrite</sharingModel>
+    <visibility>Public</visibility>
+</CustomObject>

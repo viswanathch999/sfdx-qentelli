@@ -1,0 +1,637 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomObject xmlns="http://soap.sforce.com/2006/04/metadata">
+    <actionOverrides>
+        <actionName>Accept</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>CancelEdit</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Clone</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Delete</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Edit</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>List</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>New</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>SaveEdit</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Tab</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>View</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <allowInChatterGroups>true</allowInChatterGroups>
+    <compactLayoutAssignment>SYSTEM</compactLayoutAssignment>
+    <deploymentStatus>Deployed</deploymentStatus>
+    <description>This object contains names of items (Companies, Organizations, etc) to be used to connect Contacts</description>
+    <enableActivities>true</enableActivities>
+    <enableBulkApi>true</enableBulkApi>
+    <enableChangeDataCapture>false</enableChangeDataCapture>
+    <enableFeeds>false</enableFeeds>
+    <enableHistory>true</enableHistory>
+    <enableReports>true</enableReports>
+    <enableSearch>true</enableSearch>
+    <enableSharing>true</enableSharing>
+    <enableStreamingApi>true</enableStreamingApi>
+    <externalSharingModel>ReadWrite</externalSharingModel>
+    <fields>
+        <fullName>Description__c</fullName>
+        <externalId>false</externalId>
+        <label>Description</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>TextArea</type>
+    </fields>
+    <fields>
+        <fullName>Is_Active__c</fullName>
+        <defaultValue>true</defaultValue>
+        <externalId>false</externalId>
+        <label>Is Active</label>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>Record_Type__c</fullName>
+        <externalId>false</externalId>
+        <label>Record Type</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Picklist</type>
+        <valueSet>
+            <restricted>true</restricted>
+            <valueSetName>External_Connection_Type</valueSetName>
+        </valueSet>
+    </fields>
+    <label>External Connection</label>
+    <listViews>
+        <fullName>All</fullName>
+        <filterScope>Everything</filterScope>
+        <label>All</label>
+    </listViews>
+    <nameField>
+        <label>External Connection Name</label>
+        <trackHistory>false</trackHistory>
+        <type>Text</type>
+    </nameField>
+    <pluralLabel>External Connections</pluralLabel>
+    <recordTypeTrackHistory>false</recordTypeTrackHistory>
+    <recordTypes>
+        <fullName>Certification</fullName>
+        <active>true</active>
+        <label>Certification</label>
+        <picklistValues>
+            <picklist>Record_Type__c</picklist>
+            <values>
+                <fullName>Certification</fullName>
+                <default>true</default>
+            </values>
+            <values>
+                <fullName>Public Service</fullName>
+                <default>false</default>
+            </values>
+        </picklistValues>
+    </recordTypes>
+    <recordTypes>
+        <fullName>Company_Investment</fullName>
+        <active>true</active>
+        <label>Company Investment</label>
+        <picklistValues>
+            <picklist>Record_Type__c</picklist>
+            <values>
+                <fullName>Certification</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Company Investment</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Course</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>External Board Position</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>External Honor%2FAward</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Patent</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Public Service</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Publication</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Speaking Event</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Video</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Volunteer</fullName>
+                <default>false</default>
+            </values>
+        </picklistValues>
+    </recordTypes>
+    <recordTypes>
+        <fullName>Course</fullName>
+        <active>true</active>
+        <label>Course</label>
+        <picklistValues>
+            <picklist>Record_Type__c</picklist>
+            <values>
+                <fullName>Course</fullName>
+                <default>true</default>
+            </values>
+            <values>
+                <fullName>Public Service</fullName>
+                <default>false</default>
+            </values>
+        </picklistValues>
+    </recordTypes>
+    <recordTypes>
+        <fullName>External_Board_Position</fullName>
+        <active>true</active>
+        <label>External Board Position</label>
+        <picklistValues>
+            <picklist>Record_Type__c</picklist>
+            <values>
+                <fullName>Certification</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Company Investment</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Course</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>External Board Position</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>External Honor%2FAward</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Patent</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Public Service</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Publication</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Speaking Event</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Video</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Volunteer</fullName>
+                <default>false</default>
+            </values>
+        </picklistValues>
+    </recordTypes>
+    <recordTypes>
+        <fullName>External_Connection</fullName>
+        <active>false</active>
+        <label>External Connection</label>
+        <picklistValues>
+            <picklist>Record_Type__c</picklist>
+            <values>
+                <fullName>Certification</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Company Investment</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Course</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>External Board Position</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>External Honor%2FAward</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Patent</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Public Service</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Publication</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Speaking Event</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Video</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Volunteer</fullName>
+                <default>false</default>
+            </values>
+        </picklistValues>
+    </recordTypes>
+    <recordTypes>
+        <fullName>External_Honor_Award</fullName>
+        <active>true</active>
+        <label>External Honor/Award</label>
+        <picklistValues>
+            <picklist>Record_Type__c</picklist>
+            <values>
+                <fullName>External Honor%2FAward</fullName>
+                <default>true</default>
+            </values>
+            <values>
+                <fullName>Public Service</fullName>
+                <default>false</default>
+            </values>
+        </picklistValues>
+    </recordTypes>
+    <recordTypes>
+        <fullName>Patent</fullName>
+        <active>true</active>
+        <label>Patent</label>
+        <picklistValues>
+            <picklist>Record_Type__c</picklist>
+            <values>
+                <fullName>Patent</fullName>
+                <default>true</default>
+            </values>
+            <values>
+                <fullName>Public Service</fullName>
+                <default>false</default>
+            </values>
+        </picklistValues>
+    </recordTypes>
+    <recordTypes>
+        <fullName>Political_Position</fullName>
+        <active>false</active>
+        <label>Political Position</label>
+        <picklistValues>
+            <picklist>Record_Type__c</picklist>
+            <values>
+                <fullName>Certification</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Company Investment</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Course</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>External Board Position</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>External Honor%2FAward</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Patent</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Public Service</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Publication</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Speaking Event</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Video</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Volunteer</fullName>
+                <default>false</default>
+            </values>
+        </picklistValues>
+    </recordTypes>
+    <recordTypes>
+        <fullName>Public_Service</fullName>
+        <active>true</active>
+        <label>Public Service</label>
+        <picklistValues>
+            <picklist>Record_Type__c</picklist>
+            <values>
+                <fullName>Certification</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Company Investment</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Course</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>External Board Position</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>External Honor%2FAward</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Patent</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Public Service</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Publication</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Speaking Event</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Video</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Volunteer</fullName>
+                <default>false</default>
+            </values>
+        </picklistValues>
+    </recordTypes>
+    <recordTypes>
+        <fullName>Publication</fullName>
+        <active>true</active>
+        <label>Publication</label>
+        <picklistValues>
+            <picklist>Record_Type__c</picklist>
+            <values>
+                <fullName>Certification</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Company Investment</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Course</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>External Board Position</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>External Honor%2FAward</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Patent</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Public Service</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Publication</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Speaking Event</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Video</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Volunteer</fullName>
+                <default>false</default>
+            </values>
+        </picklistValues>
+    </recordTypes>
+    <recordTypes>
+        <fullName>Speaking_Event</fullName>
+        <active>true</active>
+        <label>Speaking Event</label>
+        <picklistValues>
+            <picklist>Record_Type__c</picklist>
+            <values>
+                <fullName>Certification</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Company Investment</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Course</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>External Board Position</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>External Honor%2FAward</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Patent</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Public Service</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Publication</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Speaking Event</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Video</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Volunteer</fullName>
+                <default>false</default>
+            </values>
+        </picklistValues>
+    </recordTypes>
+    <recordTypes>
+        <fullName>Video</fullName>
+        <active>true</active>
+        <label>Video</label>
+        <picklistValues>
+            <picklist>Record_Type__c</picklist>
+            <values>
+                <fullName>Certification</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Company Investment</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Course</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>External Board Position</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>External Honor%2FAward</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Patent</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Public Service</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Publication</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Speaking Event</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Video</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Volunteer</fullName>
+                <default>false</default>
+            </values>
+        </picklistValues>
+    </recordTypes>
+    <recordTypes>
+        <fullName>Volunteer</fullName>
+        <active>true</active>
+        <label>Volunteer</label>
+        <picklistValues>
+            <picklist>Record_Type__c</picklist>
+            <values>
+                <fullName>Certification</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Company Investment</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Course</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>External Board Position</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>External Honor%2FAward</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Patent</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Public Service</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Publication</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Speaking Event</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Video</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Volunteer</fullName>
+                <default>false</default>
+            </values>
+        </picklistValues>
+    </recordTypes>
+    <searchLayouts/>
+    <sharingModel>ReadWrite</sharingModel>
+    <startsWith>Vowel</startsWith>
+    <visibility>Public</visibility>
+</CustomObject>

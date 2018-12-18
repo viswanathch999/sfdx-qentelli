@@ -1,0 +1,3214 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomObject xmlns="http://soap.sforce.com/2006/04/metadata">
+    <actionOverrides>
+        <actionName>Accept</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>CancelEdit</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Clone</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Delete</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Edit</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>List</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>New</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>SaveEdit</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Tab</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>View</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <allowInChatterGroups>false</allowInChatterGroups>
+    <compactLayoutAssignment>SYSTEM</compactLayoutAssignment>
+    <deploymentStatus>Deployed</deploymentStatus>
+    <enableActivities>false</enableActivities>
+    <enableBulkApi>true</enableBulkApi>
+    <enableChangeDataCapture>false</enableChangeDataCapture>
+    <enableFeeds>false</enableFeeds>
+    <enableHistory>true</enableHistory>
+    <enableReports>false</enableReports>
+    <enableSearch>false</enableSearch>
+    <enableSharing>true</enableSharing>
+    <enableStreamingApi>true</enableStreamingApi>
+    <externalSharingModel>ReadWrite</externalSharingModel>
+    <fields>
+        <fullName>Category__c</fullName>
+        <externalId>false</externalId>
+        <label>Category</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Picklist</type>
+        <valueSet>
+            <valueSetDefinition>
+                <sorted>false</sorted>
+                <value>
+                    <fullName>Arts and Entertainment</fullName>
+                    <default>false</default>
+                    <label>Arts and Entertainment</label>
+                </value>
+                <value>
+                    <fullName>Business</fullName>
+                    <default>false</default>
+                    <label>Business</label>
+                </value>
+                <value>
+                    <fullName>Business Travel Frequency</fullName>
+                    <default>false</default>
+                    <label>Business Travel Frequency</label>
+                </value>
+                <value>
+                    <fullName>Communications Preferences</fullName>
+                    <default>false</default>
+                    <label>Communications Preferences</label>
+                </value>
+                <value>
+                    <fullName>Community Service</fullName>
+                    <default>false</default>
+                    <label>Community Service</label>
+                </value>
+                <value>
+                    <fullName>Family</fullName>
+                    <default>false</default>
+                    <label>Family</label>
+                </value>
+                <value>
+                    <fullName>Family/Leisure Travel Frequency</fullName>
+                    <default>false</default>
+                    <label>Family/Leisure Travel Frequency</label>
+                </value>
+                <value>
+                    <fullName>General</fullName>
+                    <default>false</default>
+                    <label>General</label>
+                </value>
+                <value>
+                    <fullName>Health</fullName>
+                    <default>false</default>
+                    <label>Health</label>
+                </value>
+                <value>
+                    <fullName>Leadership</fullName>
+                    <default>false</default>
+                    <label>Leadership</label>
+                </value>
+                <value>
+                    <fullName>Learning More</fullName>
+                    <default>false</default>
+                    <label>Learning More</label>
+                </value>
+                <value>
+                    <fullName>Lifestyle</fullName>
+                    <default>false</default>
+                    <label>Lifestyle</label>
+                </value>
+                <value>
+                    <fullName>Management Team</fullName>
+                    <default>false</default>
+                    <label>Management Team</label>
+                </value>
+                <value>
+                    <fullName>Other Languages</fullName>
+                    <default>false</default>
+                    <label>Other Languages</label>
+                </value>
+                <value>
+                    <fullName>Outdoor</fullName>
+                    <default>false</default>
+                    <label>Outdoor</label>
+                </value>
+                <value>
+                    <fullName>Regional Contacts</fullName>
+                    <default>false</default>
+                    <label>Regional Contacts</label>
+                </value>
+                <value>
+                    <fullName>Sports</fullName>
+                    <default>false</default>
+                    <label>Sports</label>
+                </value>
+                <value>
+                    <fullName>Team Sports</fullName>
+                    <default>false</default>
+                    <label>Team Sports</label>
+                </value>
+                <value>
+                    <fullName>Travel</fullName>
+                    <default>false</default>
+                    <label>Travel</label>
+                </value>
+                <value>
+                    <fullName>YPO</fullName>
+                    <default>false</default>
+                    <label>YPO</label>
+                </value>
+                <value>
+                    <fullName>YPO Internal</fullName>
+                    <default>false</default>
+                    <label>YPO Internal</label>
+                </value>
+            </valueSetDefinition>
+        </valueSet>
+    </fields>
+    <fields>
+        <fullName>Interest__c</fullName>
+        <externalId>false</externalId>
+        <label>Interest</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>MultiselectPicklist</type>
+        <valueSet>
+            <controllingField>Category__c</controllingField>
+            <valueSetDefinition>
+                <sorted>false</sorted>
+                <value>
+                    <fullName>Antiques</fullName>
+                    <default>false</default>
+                    <label>Antiques</label>
+                </value>
+                <value>
+                    <fullName>Art Collecting</fullName>
+                    <default>false</default>
+                    <label>Art Collecting</label>
+                </value>
+                <value>
+                    <fullName>Dance</fullName>
+                    <default>false</default>
+                    <label>Dance</label>
+                </value>
+                <value>
+                    <fullName>Film</fullName>
+                    <default>false</default>
+                    <label>Film</label>
+                </value>
+                <value>
+                    <fullName>Music</fullName>
+                    <default>false</default>
+                    <label>Music</label>
+                </value>
+                <value>
+                    <fullName>Opera</fullName>
+                    <default>false</default>
+                    <label>Opera</label>
+                </value>
+                <value>
+                    <fullName>Painting</fullName>
+                    <default>false</default>
+                    <label>Painting</label>
+                </value>
+                <value>
+                    <fullName>Theatre</fullName>
+                    <default>false</default>
+                    <label>Theatre</label>
+                </value>
+                <value>
+                    <fullName>Buying Other Businesses</fullName>
+                    <default>false</default>
+                    <label>Buying Other Businesses</label>
+                </value>
+                <value>
+                    <fullName>Career Transitions</fullName>
+                    <default>false</default>
+                    <label>Career Transitions</label>
+                </value>
+                <value>
+                    <fullName>CHLDFAMBUS</fullName>
+                    <default>false</default>
+                    <label>CHLDFAMBUS</label>
+                </value>
+                <value>
+                    <fullName>Developing My Board</fullName>
+                    <default>false</default>
+                    <label>Developing My Board</label>
+                </value>
+                <value>
+                    <fullName>Doing Business in Africa</fullName>
+                    <default>false</default>
+                    <label>Doing Business in Africa</label>
+                </value>
+                <value>
+                    <fullName>Doing Business in Asia</fullName>
+                    <default>false</default>
+                    <label>Doing Business in Asia</label>
+                </value>
+                <value>
+                    <fullName>Doing Business in Australia/NZ</fullName>
+                    <default>false</default>
+                    <label>Doing Business in Australia/NZ</label>
+                </value>
+                <value>
+                    <fullName>Doing Business in Canada</fullName>
+                    <default>false</default>
+                    <label>Doing Business in Canada</label>
+                </value>
+                <value>
+                    <fullName>Doing Business in China</fullName>
+                    <default>false</default>
+                    <label>Doing Business in China</label>
+                </value>
+                <value>
+                    <fullName>Doing Business in Europe</fullName>
+                    <default>false</default>
+                    <label>Doing Business in Europe</label>
+                </value>
+                <value>
+                    <fullName>Doing Business in India</fullName>
+                    <default>false</default>
+                    <label>Doing Business in India</label>
+                </value>
+                <value>
+                    <fullName>Doing Business in Latin America</fullName>
+                    <default>false</default>
+                    <label>Doing Business in Latin America</label>
+                </value>
+                <value>
+                    <fullName>Doing Business in Middle East</fullName>
+                    <default>false</default>
+                    <label>Doing Business in Middle East</label>
+                </value>
+                <value>
+                    <fullName>Doing Business in United States</fullName>
+                    <default>false</default>
+                    <label>Doing Business in United States</label>
+                </value>
+                <value>
+                    <fullName>Examining Corporate Strategy</fullName>
+                    <default>false</default>
+                    <label>Examining Corporate Strategy</label>
+                </value>
+                <value>
+                    <fullName>Exiting Family Business</fullName>
+                    <default>false</default>
+                    <label>Exiting Family Business</label>
+                </value>
+                <value>
+                    <fullName>Family Business (General Issues)</fullName>
+                    <default>false</default>
+                    <label>Family Business (General Issues)</label>
+                </value>
+                <value>
+                    <fullName>Going Global</fullName>
+                    <default>false</default>
+                    <label>Going Global</label>
+                </value>
+                <value>
+                    <fullName>Hiring &amp; Retaining Execs</fullName>
+                    <default>false</default>
+                    <label>Hiring &amp; Retaining Execs</label>
+                </value>
+                <value>
+                    <fullName>Mergers/Acquisitions</fullName>
+                    <default>false</default>
+                    <label>Mergers/Acquisitions</label>
+                </value>
+                <value>
+                    <fullName>New Sources of Capital</fullName>
+                    <default>false</default>
+                    <label>New Sources of Capital</label>
+                </value>
+                <value>
+                    <fullName>Selling My Business</fullName>
+                    <default>false</default>
+                    <label>Selling My Business</label>
+                </value>
+                <value>
+                    <fullName>Starting a Business</fullName>
+                    <default>false</default>
+                    <label>Starting a Business</label>
+                </value>
+                <value>
+                    <fullName>Succession</fullName>
+                    <default>false</default>
+                    <label>Succession</label>
+                </value>
+                <value>
+                    <fullName>Travel Extensively (15+)</fullName>
+                    <default>false</default>
+                    <label>Travel Extensively (15+)</label>
+                </value>
+                <value>
+                    <fullName>Travel Moderately (6-14)</fullName>
+                    <default>false</default>
+                    <label>Travel Moderately (6-14)</label>
+                </value>
+                <value>
+                    <fullName>Travel Rarely (0-5)</fullName>
+                    <default>false</default>
+                    <label>Travel Rarely (0-5)</label>
+                </value>
+                <value>
+                    <fullName>Arts &amp; Culture</fullName>
+                    <default>false</default>
+                    <label>Arts &amp; Culture</label>
+                </value>
+                <value>
+                    <fullName>Benefit</fullName>
+                    <default>false</default>
+                    <label>Benefit</label>
+                </value>
+                <value>
+                    <fullName>Crime Prevention</fullName>
+                    <default>false</default>
+                    <label>Crime Prevention</label>
+                </value>
+                <value>
+                    <fullName>Education</fullName>
+                    <default>false</default>
+                    <label>Education</label>
+                </value>
+                <value>
+                    <fullName>Environment</fullName>
+                    <default>false</default>
+                    <label>Environment</label>
+                </value>
+                <value>
+                    <fullName>Health</fullName>
+                    <default>false</default>
+                    <label>Health</label>
+                </value>
+                <value>
+                    <fullName>Hospital</fullName>
+                    <default>false</default>
+                    <label>Hospital</label>
+                </value>
+                <value>
+                    <fullName>Humanitarian Activities</fullName>
+                    <default>false</default>
+                    <label>Humanitarian Activities</label>
+                </value>
+                <value>
+                    <fullName>Inner City or Community</fullName>
+                    <default>false</default>
+                    <label>Inner City or Community</label>
+                </value>
+                <value>
+                    <fullName>Museum</fullName>
+                    <default>false</default>
+                    <label>Museum</label>
+                </value>
+                <value>
+                    <fullName>Religion and Spirituality</fullName>
+                    <default>false</default>
+                    <label>Religion and Spirituality</label>
+                </value>
+                <value>
+                    <fullName>Senior Services</fullName>
+                    <default>false</default>
+                    <label>Senior Services</label>
+                </value>
+                <value>
+                    <fullName>Veterans</fullName>
+                    <default>false</default>
+                    <label>Veterans</label>
+                </value>
+                <value>
+                    <fullName>Youth Services</fullName>
+                    <default>false</default>
+                    <label>Youth Services</label>
+                </value>
+                <value>
+                    <fullName>Adopted Children</fullName>
+                    <default>false</default>
+                    <label>Adopted Children</label>
+                </value>
+                <value>
+                    <fullName>Balancing Work And Family</fullName>
+                    <default>false</default>
+                    <label>Balancing Work And Family</label>
+                </value>
+                <value>
+                    <fullName>Blended Families</fullName>
+                    <default>false</default>
+                    <label>Blended Families</label>
+                </value>
+                <value>
+                    <fullName>Family Finances</fullName>
+                    <default>false</default>
+                    <label>Family Finances</label>
+                </value>
+                <value>
+                    <fullName>Father/Daughter Relationships</fullName>
+                    <default>false</default>
+                    <label>Father/Daughter Relationships</label>
+                </value>
+                <value>
+                    <fullName>Father/Son Relationships</fullName>
+                    <default>false</default>
+                    <label>Father/Son Relationships</label>
+                </value>
+                <value>
+                    <fullName>Generational Transitions</fullName>
+                    <default>false</default>
+                    <label>Generational Transitions</label>
+                </value>
+                <value>
+                    <fullName>Learning Challenges</fullName>
+                    <default>false</default>
+                    <label>Learning Challenges</label>
+                </value>
+                <value>
+                    <fullName>Marriage/Couple Relationships</fullName>
+                    <default>false</default>
+                    <label>Marriage/Couple Relationships</label>
+                </value>
+                <value>
+                    <fullName>Mother/Daughter Relationships</fullName>
+                    <default>false</default>
+                    <label>Mother/Daughter Relationships</label>
+                </value>
+                <value>
+                    <fullName>Mother/Son Relationships</fullName>
+                    <default>false</default>
+                    <label>Mother/Son Relationships</label>
+                </value>
+                <value>
+                    <fullName>Needs of Aging Parents</fullName>
+                    <default>false</default>
+                    <label>Needs of Aging Parents</label>
+                </value>
+                <value>
+                    <fullName>Relating to Pre-adolescents (6-12)</fullName>
+                    <default>false</default>
+                    <label>Relating to Pre-adolescents (6-12)</label>
+                </value>
+                <value>
+                    <fullName>Relating to Teenagers (13-18)</fullName>
+                    <default>false</default>
+                    <label>Relating to Teenagers (13-18)</label>
+                </value>
+                <value>
+                    <fullName>Relating to Toddlers (2-5)</fullName>
+                    <default>false</default>
+                    <label>Relating to Toddlers (2-5)</label>
+                </value>
+                <value>
+                    <fullName>Relating to Young Adults (18)</fullName>
+                    <default>false</default>
+                    <label>Relating to Young Adults (18)</label>
+                </value>
+                <value>
+                    <fullName>School Selection</fullName>
+                    <default>false</default>
+                    <label>School Selection</label>
+                </value>
+                <value>
+                    <fullName>General</fullName>
+                    <default>false</default>
+                    <label>General</label>
+                </value>
+                <value>
+                    <fullName>Cigars</fullName>
+                    <default>false</default>
+                    <label>Cigars</label>
+                </value>
+                <value>
+                    <fullName>Collecting Wines</fullName>
+                    <default>false</default>
+                    <label>Collecting Wines</label>
+                </value>
+                <value>
+                    <fullName>Cooking</fullName>
+                    <default>false</default>
+                    <label>Cooking</label>
+                </value>
+                <value>
+                    <fullName>Fine Dining</fullName>
+                    <default>false</default>
+                    <label>Fine Dining</label>
+                </value>
+                <value>
+                    <fullName>History</fullName>
+                    <default>false</default>
+                    <label>History</label>
+                </value>
+                <value>
+                    <fullName>Investing</fullName>
+                    <default>false</default>
+                    <label>Investing</label>
+                </value>
+                <value>
+                    <fullName>Photography</fullName>
+                    <default>false</default>
+                    <label>Photography</label>
+                </value>
+                <value>
+                    <fullName>Pilot</fullName>
+                    <default>false</default>
+                    <label>Pilot</label>
+                </value>
+                <value>
+                    <fullName>Politics</fullName>
+                    <default>false</default>
+                    <label>Politics</label>
+                </value>
+                <value>
+                    <fullName>Writing/Authorship</fullName>
+                    <default>false</default>
+                    <label>Writing/Authorship</label>
+                </value>
+                <value>
+                    <fullName>Yachting</fullName>
+                    <default>false</default>
+                    <label>Yachting</label>
+                </value>
+                <value>
+                    <fullName>Fitness</fullName>
+                    <default>false</default>
+                    <label>Fitness</label>
+                </value>
+                <value>
+                    <fullName>Preventive Medicine</fullName>
+                    <default>false</default>
+                    <label>Preventive Medicine</label>
+                </value>
+                <value>
+                    <fullName>Stress Management</fullName>
+                    <default>false</default>
+                    <label>Stress Management</label>
+                </value>
+                <value>
+                    <fullName>Community Leadership</fullName>
+                    <default>false</default>
+                    <label>Community Leadership</label>
+                </value>
+                <value>
+                    <fullName>Executive</fullName>
+                    <default>false</default>
+                    <label>Executive</label>
+                </value>
+                <value>
+                    <fullName>Executive Leadership</fullName>
+                    <default>false</default>
+                    <label>Executive Leadership</label>
+                </value>
+                <value>
+                    <fullName>Family Leadership</fullName>
+                    <default>false</default>
+                    <label>Family Leadership</label>
+                </value>
+                <value>
+                    <fullName>Going into Public Service</fullName>
+                    <default>false</default>
+                    <label>Going into Public Service</label>
+                </value>
+                <value>
+                    <fullName>Health &amp; Exercise</fullName>
+                    <default>false</default>
+                    <label>Health &amp; Exercise</label>
+                </value>
+                <value>
+                    <fullName>Issues in Family Business</fullName>
+                    <default>false</default>
+                    <label>Issues in Family Business</label>
+                </value>
+                <value>
+                    <fullName>Leadership</fullName>
+                    <default>false</default>
+                    <label>Leadership</label>
+                </value>
+                <value>
+                    <fullName>Options for Your Next Career Move</fullName>
+                    <default>false</default>
+                    <label>Options for Your Next Career Move</label>
+                </value>
+                <value>
+                    <fullName>Organizing for Community Change</fullName>
+                    <default>false</default>
+                    <label>Organizing for Community Change</label>
+                </value>
+                <value>
+                    <fullName>Personal Investing</fullName>
+                    <default>false</default>
+                    <label>Personal Investing</label>
+                </value>
+                <value>
+                    <fullName>Serving on Corp. Board</fullName>
+                    <default>false</default>
+                    <label>Serving on Corp. Board</label>
+                </value>
+                <value>
+                    <fullName>Charities/Philanthropy</fullName>
+                    <default>false</default>
+                    <label>Charities/Philanthropy</label>
+                </value>
+                <value>
+                    <fullName>Community/Public Service</fullName>
+                    <default>false</default>
+                    <label>Community/Public Service</label>
+                </value>
+                <value>
+                    <fullName>Environmental Preservation</fullName>
+                    <default>false</default>
+                    <label>Environmental Preservation</label>
+                </value>
+                <value>
+                    <fullName>Sustainable Development</fullName>
+                    <default>false</default>
+                    <label>Sustainable Development</label>
+                </value>
+                <value>
+                    <fullName>Wildlife &amp; Habitat Preservation</fullName>
+                    <default>false</default>
+                    <label>Wildlife &amp; Habitat Preservation</label>
+                </value>
+                <value>
+                    <fullName>Chapter Health</fullName>
+                    <default>false</default>
+                    <label>Chapter Health</label>
+                </value>
+                <value>
+                    <fullName>Education &amp; Insights</fullName>
+                    <default>false</default>
+                    <label>Education &amp; Insights</label>
+                </value>
+                <value>
+                    <fullName>Events Management</fullName>
+                    <default>false</default>
+                    <label>Events Management</label>
+                </value>
+                <value>
+                    <fullName>Exchange</fullName>
+                    <default>false</default>
+                    <label>Exchange</label>
+                </value>
+                <value>
+                    <fullName>Facilities</fullName>
+                    <default>false</default>
+                    <label>Facilities</label>
+                </value>
+                <value>
+                    <fullName>Family</fullName>
+                    <default>false</default>
+                    <label>Family</label>
+                </value>
+                <value>
+                    <fullName>Finance</fullName>
+                    <default>false</default>
+                    <label>Finance</label>
+                </value>
+                <value>
+                    <fullName>For deletion</fullName>
+                    <default>false</default>
+                    <label>For deletion</label>
+                </value>
+                <value>
+                    <fullName>Forum</fullName>
+                    <default>false</default>
+                    <label>Forum</label>
+                </value>
+                <value>
+                    <fullName>Forum Management</fullName>
+                    <default>false</default>
+                    <label>Forum Management</label>
+                </value>
+                <value>
+                    <fullName>GLC Team</fullName>
+                    <default>false</default>
+                    <label>GLC Team</label>
+                </value>
+                <value>
+                    <fullName>Global Operations</fullName>
+                    <default>false</default>
+                    <label>Global Operations</label>
+                </value>
+                <value>
+                    <fullName>Governance</fullName>
+                    <default>false</default>
+                    <label>Governance</label>
+                </value>
+                <value>
+                    <fullName>Human Resources</fullName>
+                    <default>false</default>
+                    <label>Human Resources</label>
+                </value>
+                <value>
+                    <fullName>Information Services</fullName>
+                    <default>false</default>
+                    <label>Information Services</label>
+                </value>
+                <value>
+                    <fullName>Marketing &amp; Communications</fullName>
+                    <default>false</default>
+                    <label>Marketing &amp; Communications</label>
+                </value>
+                <value>
+                    <fullName>Member Benefits Alliances &amp; Sponsorships</fullName>
+                    <default>false</default>
+                    <label>Member Benefits Alliances &amp; Sponsorships</label>
+                </value>
+                <value>
+                    <fullName>Member Services</fullName>
+                    <default>false</default>
+                    <label>Member Services</label>
+                </value>
+                <value>
+                    <fullName>Membership Development</fullName>
+                    <default>false</default>
+                    <label>Membership Development</label>
+                </value>
+                <value>
+                    <fullName>Networks</fullName>
+                    <default>false</default>
+                    <label>Networks</label>
+                </value>
+                <value>
+                    <fullName>On Demand</fullName>
+                    <default>false</default>
+                    <label>On Demand</label>
+                </value>
+                <value>
+                    <fullName>RCC</fullName>
+                    <default>false</default>
+                    <label>RCC</label>
+                </value>
+                <value>
+                    <fullName>Regional Management</fullName>
+                    <default>false</default>
+                    <label>Regional Management</label>
+                </value>
+                <value>
+                    <fullName>Camping</fullName>
+                    <default>false</default>
+                    <label>Camping</label>
+                </value>
+                <value>
+                    <fullName>Climbing</fullName>
+                    <default>false</default>
+                    <label>Climbing</label>
+                </value>
+                <value>
+                    <fullName>Fishing</fullName>
+                    <default>false</default>
+                    <label>Fishing</label>
+                </value>
+                <value>
+                    <fullName>Hiking</fullName>
+                    <default>false</default>
+                    <label>Hiking</label>
+                </value>
+                <value>
+                    <fullName>Horses/Equestrian</fullName>
+                    <default>false</default>
+                    <label>Horses/Equestrian</label>
+                </value>
+                <value>
+                    <fullName>Hunting</fullName>
+                    <default>false</default>
+                    <label>Hunting</label>
+                </value>
+                <value>
+                    <fullName>Kayaking</fullName>
+                    <default>false</default>
+                    <label>Kayaking</label>
+                </value>
+                <value>
+                    <fullName>Motorcycles</fullName>
+                    <default>false</default>
+                    <label>Motorcycles</label>
+                </value>
+                <value>
+                    <fullName>Sailing</fullName>
+                    <default>false</default>
+                    <label>Sailing</label>
+                </value>
+                <value>
+                    <fullName>Scuba</fullName>
+                    <default>false</default>
+                    <label>Scuba</label>
+                </value>
+                <value>
+                    <fullName>Skiing</fullName>
+                    <default>false</default>
+                    <label>Skiing</label>
+                </value>
+                <value>
+                    <fullName>Triathlon</fullName>
+                    <default>false</default>
+                    <label>Triathlon</label>
+                </value>
+                <value>
+                    <fullName>Africa Regional Contacts</fullName>
+                    <default>false</default>
+                    <label>Africa Regional Contacts</label>
+                </value>
+                <value>
+                    <fullName>Australia/New Zealand Regional Contacts</fullName>
+                    <default>false</default>
+                    <label>Australia/New Zealand Regional Contacts</label>
+                </value>
+                <value>
+                    <fullName>Canada Regional Contacts</fullName>
+                    <default>false</default>
+                    <label>Canada Regional Contacts</label>
+                </value>
+                <value>
+                    <fullName>Central US Regional Contacts</fullName>
+                    <default>false</default>
+                    <label>Central US Regional Contacts</label>
+                </value>
+                <value>
+                    <fullName>East Central US Regional Contacts</fullName>
+                    <default>false</default>
+                    <label>East Central US Regional Contacts</label>
+                </value>
+                <value>
+                    <fullName>Europe Regional Contacts</fullName>
+                    <default>false</default>
+                    <label>Europe Regional Contacts</label>
+                </value>
+                <value>
+                    <fullName>International Regional Contacts</fullName>
+                    <default>false</default>
+                    <label>International Regional Contacts</label>
+                </value>
+                <value>
+                    <fullName>Lat. America/Caribbean Regional Contacts</fullName>
+                    <default>false</default>
+                    <label>Lat. America/Caribbean Regional Contacts</label>
+                </value>
+                <value>
+                    <fullName>Mid. East/North Africa Regional Contacts</fullName>
+                    <default>false</default>
+                    <label>Mid. East/North Africa Regional Contacts</label>
+                </value>
+                <value>
+                    <fullName>North Asia Regional Contacts</fullName>
+                    <default>false</default>
+                    <label>North Asia Regional Contacts</label>
+                </value>
+                <value>
+                    <fullName>Northeastern US Regional Contacts</fullName>
+                    <default>false</default>
+                    <label>Northeastern US Regional Contacts</label>
+                </value>
+                <value>
+                    <fullName>Pacific US Regional Contacts</fullName>
+                    <default>false</default>
+                    <label>Pacific US Regional Contacts</label>
+                </value>
+                <value>
+                    <fullName>South Asia Regional Contacts</fullName>
+                    <default>false</default>
+                    <label>South Asia Regional Contacts</label>
+                </value>
+                <value>
+                    <fullName>Southeast Asia Regional Contacts</fullName>
+                    <default>false</default>
+                    <label>Southeast Asia Regional Contacts</label>
+                </value>
+                <value>
+                    <fullName>Southern US Regional Contacts</fullName>
+                    <default>false</default>
+                    <label>Southern US Regional Contacts</label>
+                </value>
+                <value>
+                    <fullName>Western US Regional Contacts</fullName>
+                    <default>false</default>
+                    <label>Western US Regional Contacts</label>
+                </value>
+                <value>
+                    <fullName>Bicycling</fullName>
+                    <default>false</default>
+                    <label>Bicycling</label>
+                </value>
+                <value>
+                    <fullName>Golf</fullName>
+                    <default>false</default>
+                    <label>Golf</label>
+                </value>
+                <value>
+                    <fullName>Ice Hockey</fullName>
+                    <default>false</default>
+                    <label>Ice Hockey</label>
+                </value>
+                <value>
+                    <fullName>Running</fullName>
+                    <default>false</default>
+                    <label>Running</label>
+                </value>
+                <value>
+                    <fullName>Surfing</fullName>
+                    <default>false</default>
+                    <label>Surfing</label>
+                </value>
+                <value>
+                    <fullName>Swimming</fullName>
+                    <default>false</default>
+                    <label>Swimming</label>
+                </value>
+                <value>
+                    <fullName>Tennis</fullName>
+                    <default>false</default>
+                    <label>Tennis</label>
+                </value>
+                <value>
+                    <fullName>Water Skiing</fullName>
+                    <default>false</default>
+                    <label>Water Skiing</label>
+                </value>
+                <value>
+                    <fullName>Windsurfing</fullName>
+                    <default>false</default>
+                    <label>Windsurfing</label>
+                </value>
+                <value>
+                    <fullName>American Football</fullName>
+                    <default>false</default>
+                    <label>American Football</label>
+                </value>
+                <value>
+                    <fullName>Football</fullName>
+                    <default>false</default>
+                    <label>Football</label>
+                </value>
+                <value>
+                    <fullName>Adventure Travel</fullName>
+                    <default>false</default>
+                    <label>Adventure Travel</label>
+                </value>
+                <value>
+                    <fullName>Archeological/Historical</fullName>
+                    <default>false</default>
+                    <label>Archeological/Historical</label>
+                </value>
+                <value>
+                    <fullName>Cruise</fullName>
+                    <default>false</default>
+                    <label>Cruise</label>
+                </value>
+                <value>
+                    <fullName>Epicurean</fullName>
+                    <default>false</default>
+                    <label>Epicurean</label>
+                </value>
+                <value>
+                    <fullName>Extreme Travel</fullName>
+                    <default>false</default>
+                    <label>Extreme Travel</label>
+                </value>
+                <value>
+                    <fullName>Family Travel</fullName>
+                    <default>false</default>
+                    <label>Family Travel</label>
+                </value>
+                <value>
+                    <fullName>Champion a Seminar</fullName>
+                    <default>false</default>
+                    <label>Champion a Seminar</label>
+                </value>
+                <value>
+                    <fullName>Champion a Youth/Family Program</fullName>
+                    <default>false</default>
+                    <label>Champion a Youth/Family Program</label>
+                </value>
+                <value>
+                    <fullName>Champion an Experience</fullName>
+                    <default>false</default>
+                    <label>Champion an Experience</label>
+                </value>
+                <value>
+                    <fullName>Champion an Industry Roundtable</fullName>
+                    <default>false</default>
+                    <label>Champion an Industry Roundtable</label>
+                </value>
+                <value>
+                    <fullName>Event or Committee Chair</fullName>
+                    <default>false</default>
+                    <label>Event or Committee Chair</label>
+                </value>
+                <value>
+                    <fullName>Serve as a Resource</fullName>
+                    <default>false</default>
+                    <label>Serve as a Resource</label>
+                </value>
+                <value>
+                    <fullName>Non-Compliant</fullName>
+                    <default>false</default>
+                    <label>Non-Compliant</label>
+                </value>
+                <value>
+                    <fullName>Abkhazian</fullName>
+                    <default>false</default>
+                    <label>Abkhazian</label>
+                </value>
+                <value>
+                    <fullName>Afar</fullName>
+                    <default>false</default>
+                    <label>Afar</label>
+                </value>
+                <value>
+                    <fullName>Afrikaans</fullName>
+                    <default>false</default>
+                    <label>Afrikaans</label>
+                </value>
+                <value>
+                    <fullName>Albanian</fullName>
+                    <default>false</default>
+                    <label>Albanian</label>
+                </value>
+                <value>
+                    <fullName>Amharic</fullName>
+                    <default>false</default>
+                    <label>Amharic</label>
+                </value>
+                <value>
+                    <fullName>Arabic</fullName>
+                    <default>false</default>
+                    <label>Arabic</label>
+                </value>
+                <value>
+                    <fullName>Armenian</fullName>
+                    <default>false</default>
+                    <label>Armenian</label>
+                </value>
+                <value>
+                    <fullName>Assamese</fullName>
+                    <default>false</default>
+                    <label>Assamese</label>
+                </value>
+                <value>
+                    <fullName>Aymara</fullName>
+                    <default>false</default>
+                    <label>Aymara</label>
+                </value>
+                <value>
+                    <fullName>Azerbaijani</fullName>
+                    <default>false</default>
+                    <label>Azerbaijani</label>
+                </value>
+                <value>
+                    <fullName>Bashkir</fullName>
+                    <default>false</default>
+                    <label>Bashkir</label>
+                </value>
+                <value>
+                    <fullName>Basque</fullName>
+                    <default>false</default>
+                    <label>Basque</label>
+                </value>
+                <value>
+                    <fullName>Bengali, Bangla</fullName>
+                    <default>false</default>
+                    <label>Bengali, Bangla</label>
+                </value>
+                <value>
+                    <fullName>Bhutani</fullName>
+                    <default>false</default>
+                    <label>Bhutani</label>
+                </value>
+                <value>
+                    <fullName>Bihari</fullName>
+                    <default>false</default>
+                    <label>Bihari</label>
+                </value>
+                <value>
+                    <fullName>Bislama</fullName>
+                    <default>false</default>
+                    <label>Bislama</label>
+                </value>
+                <value>
+                    <fullName>Breton</fullName>
+                    <default>false</default>
+                    <label>Breton</label>
+                </value>
+                <value>
+                    <fullName>Bulgarian</fullName>
+                    <default>false</default>
+                    <label>Bulgarian</label>
+                </value>
+                <value>
+                    <fullName>Burmese</fullName>
+                    <default>false</default>
+                    <label>Burmese</label>
+                </value>
+                <value>
+                    <fullName>Byelorussian</fullName>
+                    <default>false</default>
+                    <label>Byelorussian</label>
+                </value>
+                <value>
+                    <fullName>Cambodian</fullName>
+                    <default>false</default>
+                    <label>Cambodian</label>
+                </value>
+                <value>
+                    <fullName>Catalan</fullName>
+                    <default>false</default>
+                    <label>Catalan</label>
+                </value>
+                <value>
+                    <fullName>Chinese</fullName>
+                    <default>false</default>
+                    <label>Chinese</label>
+                </value>
+                <value>
+                    <fullName>Corsican</fullName>
+                    <default>false</default>
+                    <label>Corsican</label>
+                </value>
+                <value>
+                    <fullName>Croatian</fullName>
+                    <default>false</default>
+                    <label>Croatian</label>
+                </value>
+                <value>
+                    <fullName>Czech</fullName>
+                    <default>false</default>
+                    <label>Czech</label>
+                </value>
+                <value>
+                    <fullName>Danish</fullName>
+                    <default>false</default>
+                    <label>Danish</label>
+                </value>
+                <value>
+                    <fullName>Dutch</fullName>
+                    <default>false</default>
+                    <label>Dutch</label>
+                </value>
+                <value>
+                    <fullName>English, American</fullName>
+                    <default>false</default>
+                    <label>English, American</label>
+                </value>
+                <value>
+                    <fullName>Esperanto</fullName>
+                    <default>false</default>
+                    <label>Esperanto</label>
+                </value>
+                <value>
+                    <fullName>Estonian</fullName>
+                    <default>false</default>
+                    <label>Estonian</label>
+                </value>
+                <value>
+                    <fullName>Faeroese</fullName>
+                    <default>false</default>
+                    <label>Faeroese</label>
+                </value>
+                <value>
+                    <fullName>Fiji</fullName>
+                    <default>false</default>
+                    <label>Fiji</label>
+                </value>
+                <value>
+                    <fullName>Finnish</fullName>
+                    <default>false</default>
+                    <label>Finnish</label>
+                </value>
+                <value>
+                    <fullName>French</fullName>
+                    <default>false</default>
+                    <label>French</label>
+                </value>
+                <value>
+                    <fullName>Frisian</fullName>
+                    <default>false</default>
+                    <label>Frisian</label>
+                </value>
+                <value>
+                    <fullName>Gaelic (&quot;Scots Gaelic&quot;)</fullName>
+                    <default>false</default>
+                    <label>Gaelic (&quot;Scots Gaelic&quot;)</label>
+                </value>
+                <value>
+                    <fullName>Galician</fullName>
+                    <default>false</default>
+                    <label>Galician</label>
+                </value>
+                <value>
+                    <fullName>Georgian</fullName>
+                    <default>false</default>
+                    <label>Georgian</label>
+                </value>
+                <value>
+                    <fullName>German</fullName>
+                    <default>false</default>
+                    <label>German</label>
+                </value>
+                <value>
+                    <fullName>Greek</fullName>
+                    <default>false</default>
+                    <label>Greek</label>
+                </value>
+                <value>
+                    <fullName>Greenlandic</fullName>
+                    <default>false</default>
+                    <label>Greenlandic</label>
+                </value>
+                <value>
+                    <fullName>Guarani</fullName>
+                    <default>false</default>
+                    <label>Guarani</label>
+                </value>
+                <value>
+                    <fullName>Gujarati</fullName>
+                    <default>false</default>
+                    <label>Gujarati</label>
+                </value>
+                <value>
+                    <fullName>Hausa</fullName>
+                    <default>false</default>
+                    <label>Hausa</label>
+                </value>
+                <value>
+                    <fullName>Hebrew</fullName>
+                    <default>false</default>
+                    <label>Hebrew</label>
+                </value>
+                <value>
+                    <fullName>Hindi</fullName>
+                    <default>false</default>
+                    <label>Hindi</label>
+                </value>
+                <value>
+                    <fullName>Hungarian</fullName>
+                    <default>false</default>
+                    <label>Hungarian</label>
+                </value>
+                <value>
+                    <fullName>Icelandic</fullName>
+                    <default>false</default>
+                    <label>Icelandic</label>
+                </value>
+                <value>
+                    <fullName>Indonesian</fullName>
+                    <default>false</default>
+                    <label>Indonesian</label>
+                </value>
+                <value>
+                    <fullName>Interlingua</fullName>
+                    <default>false</default>
+                    <label>Interlingua</label>
+                </value>
+                <value>
+                    <fullName>Interlingue</fullName>
+                    <default>false</default>
+                    <label>Interlingue</label>
+                </value>
+                <value>
+                    <fullName>Inupiak</fullName>
+                    <default>false</default>
+                    <label>Inupiak</label>
+                </value>
+                <value>
+                    <fullName>Irish</fullName>
+                    <default>false</default>
+                    <label>Irish</label>
+                </value>
+                <value>
+                    <fullName>Italian</fullName>
+                    <default>false</default>
+                    <label>Italian</label>
+                </value>
+                <value>
+                    <fullName>Japanese</fullName>
+                    <default>false</default>
+                    <label>Japanese</label>
+                </value>
+                <value>
+                    <fullName>Javanese</fullName>
+                    <default>false</default>
+                    <label>Javanese</label>
+                </value>
+                <value>
+                    <fullName>Kannada</fullName>
+                    <default>false</default>
+                    <label>Kannada</label>
+                </value>
+                <value>
+                    <fullName>Kashmiri</fullName>
+                    <default>false</default>
+                    <label>Kashmiri</label>
+                </value>
+                <value>
+                    <fullName>Kazakh</fullName>
+                    <default>false</default>
+                    <label>Kazakh</label>
+                </value>
+                <value>
+                    <fullName>Kinyarwanda</fullName>
+                    <default>false</default>
+                    <label>Kinyarwanda</label>
+                </value>
+                <value>
+                    <fullName>Kirghiz</fullName>
+                    <default>false</default>
+                    <label>Kirghiz</label>
+                </value>
+                <value>
+                    <fullName>Kirundi</fullName>
+                    <default>false</default>
+                    <label>Kirundi</label>
+                </value>
+                <value>
+                    <fullName>Korean</fullName>
+                    <default>false</default>
+                    <label>Korean</label>
+                </value>
+                <value>
+                    <fullName>Kurdish</fullName>
+                    <default>false</default>
+                    <label>Kurdish</label>
+                </value>
+                <value>
+                    <fullName>Laothian</fullName>
+                    <default>false</default>
+                    <label>Laothian</label>
+                </value>
+                <value>
+                    <fullName>Latin</fullName>
+                    <default>false</default>
+                    <label>Latin</label>
+                </value>
+                <value>
+                    <fullName>Latvian, Lettish</fullName>
+                    <default>false</default>
+                    <label>Latvian, Lettish</label>
+                </value>
+                <value>
+                    <fullName>Lingala</fullName>
+                    <default>false</default>
+                    <label>Lingala</label>
+                </value>
+                <value>
+                    <fullName>Lithuanian</fullName>
+                    <default>false</default>
+                    <label>Lithuanian</label>
+                </value>
+                <value>
+                    <fullName>Macedonian</fullName>
+                    <default>false</default>
+                    <label>Macedonian</label>
+                </value>
+                <value>
+                    <fullName>Malagasy</fullName>
+                    <default>false</default>
+                    <label>Malagasy</label>
+                </value>
+                <value>
+                    <fullName>Malay</fullName>
+                    <default>false</default>
+                    <label>Malay</label>
+                </value>
+                <value>
+                    <fullName>Malayalam</fullName>
+                    <default>false</default>
+                    <label>Malayalam</label>
+                </value>
+                <value>
+                    <fullName>Maltese</fullName>
+                    <default>false</default>
+                    <label>Maltese</label>
+                </value>
+                <value>
+                    <fullName>Maori</fullName>
+                    <default>false</default>
+                    <label>Maori</label>
+                </value>
+                <value>
+                    <fullName>Marathi</fullName>
+                    <default>false</default>
+                    <label>Marathi</label>
+                </value>
+                <value>
+                    <fullName>Moldavian</fullName>
+                    <default>false</default>
+                    <label>Moldavian</label>
+                </value>
+                <value>
+                    <fullName>Mongolian</fullName>
+                    <default>false</default>
+                    <label>Mongolian</label>
+                </value>
+                <value>
+                    <fullName>Nauru</fullName>
+                    <default>false</default>
+                    <label>Nauru</label>
+                </value>
+                <value>
+                    <fullName>Nepali</fullName>
+                    <default>false</default>
+                    <label>Nepali</label>
+                </value>
+                <value>
+                    <fullName>Norwegian</fullName>
+                    <default>false</default>
+                    <label>Norwegian</label>
+                </value>
+                <value>
+                    <fullName>Occitan</fullName>
+                    <default>false</default>
+                    <label>Occitan</label>
+                </value>
+                <value>
+                    <fullName>Oriya</fullName>
+                    <default>false</default>
+                    <label>Oriya</label>
+                </value>
+                <value>
+                    <fullName>Oromo, Afan</fullName>
+                    <default>false</default>
+                    <label>Oromo, Afan</label>
+                </value>
+                <value>
+                    <fullName>Pashto, Pushto</fullName>
+                    <default>false</default>
+                    <label>Pashto, Pushto</label>
+                </value>
+                <value>
+                    <fullName>Persian</fullName>
+                    <default>false</default>
+                    <label>Persian</label>
+                </value>
+                <value>
+                    <fullName>Polish</fullName>
+                    <default>false</default>
+                    <label>Polish</label>
+                </value>
+                <value>
+                    <fullName>Portuguese</fullName>
+                    <default>false</default>
+                    <label>Portuguese</label>
+                </value>
+                <value>
+                    <fullName>Punjabi</fullName>
+                    <default>false</default>
+                    <label>Punjabi</label>
+                </value>
+                <value>
+                    <fullName>Quechua</fullName>
+                    <default>false</default>
+                    <label>Quechua</label>
+                </value>
+                <value>
+                    <fullName>Rhaeto-Romance</fullName>
+                    <default>false</default>
+                    <label>Rhaeto-Romance</label>
+                </value>
+                <value>
+                    <fullName>Romanian</fullName>
+                    <default>false</default>
+                    <label>Romanian</label>
+                </value>
+                <value>
+                    <fullName>Russian</fullName>
+                    <default>false</default>
+                    <label>Russian</label>
+                </value>
+                <value>
+                    <fullName>Samoan</fullName>
+                    <default>false</default>
+                    <label>Samoan</label>
+                </value>
+                <value>
+                    <fullName>Sangro</fullName>
+                    <default>false</default>
+                    <label>Sangro</label>
+                </value>
+                <value>
+                    <fullName>Sanskrit</fullName>
+                    <default>false</default>
+                    <label>Sanskrit</label>
+                </value>
+                <value>
+                    <fullName>Serbian</fullName>
+                    <default>false</default>
+                    <label>Serbian</label>
+                </value>
+                <value>
+                    <fullName>Serbo-Croatian</fullName>
+                    <default>false</default>
+                    <label>Serbo-Croatian</label>
+                </value>
+                <value>
+                    <fullName>Sesotho</fullName>
+                    <default>false</default>
+                    <label>Sesotho</label>
+                </value>
+                <value>
+                    <fullName>Setswana</fullName>
+                    <default>false</default>
+                    <label>Setswana</label>
+                </value>
+                <value>
+                    <fullName>Shona</fullName>
+                    <default>false</default>
+                    <label>Shona</label>
+                </value>
+                <value>
+                    <fullName>Sindhi</fullName>
+                    <default>false</default>
+                    <label>Sindhi</label>
+                </value>
+                <value>
+                    <fullName>Singhalese</fullName>
+                    <default>false</default>
+                    <label>Singhalese</label>
+                </value>
+                <value>
+                    <fullName>Siswati</fullName>
+                    <default>false</default>
+                    <label>Siswati</label>
+                </value>
+                <value>
+                    <fullName>Slovak</fullName>
+                    <default>false</default>
+                    <label>Slovak</label>
+                </value>
+                <value>
+                    <fullName>Slovenian</fullName>
+                    <default>false</default>
+                    <label>Slovenian</label>
+                </value>
+                <value>
+                    <fullName>Somali</fullName>
+                    <default>false</default>
+                    <label>Somali</label>
+                </value>
+                <value>
+                    <fullName>Spanish</fullName>
+                    <default>false</default>
+                    <label>Spanish</label>
+                </value>
+                <value>
+                    <fullName>Sudanese</fullName>
+                    <default>false</default>
+                    <label>Sudanese</label>
+                </value>
+                <value>
+                    <fullName>Swahili</fullName>
+                    <default>false</default>
+                    <label>Swahili</label>
+                </value>
+                <value>
+                    <fullName>Swedish</fullName>
+                    <default>false</default>
+                    <label>Swedish</label>
+                </value>
+                <value>
+                    <fullName>Tagalog</fullName>
+                    <default>false</default>
+                    <label>Tagalog</label>
+                </value>
+                <value>
+                    <fullName>Tajik</fullName>
+                    <default>false</default>
+                    <label>Tajik</label>
+                </value>
+                <value>
+                    <fullName>Tamil</fullName>
+                    <default>false</default>
+                    <label>Tamil</label>
+                </value>
+                <value>
+                    <fullName>Tatar</fullName>
+                    <default>false</default>
+                    <label>Tatar</label>
+                </value>
+                <value>
+                    <fullName>Tegulu</fullName>
+                    <default>false</default>
+                    <label>Tegulu</label>
+                </value>
+                <value>
+                    <fullName>Thai</fullName>
+                    <default>false</default>
+                    <label>Thai</label>
+                </value>
+                <value>
+                    <fullName>Tibetan</fullName>
+                    <default>false</default>
+                    <label>Tibetan</label>
+                </value>
+                <value>
+                    <fullName>Tigrinya</fullName>
+                    <default>false</default>
+                    <label>Tigrinya</label>
+                </value>
+                <value>
+                    <fullName>Tonga</fullName>
+                    <default>false</default>
+                    <label>Tonga</label>
+                </value>
+                <value>
+                    <fullName>Tsonga</fullName>
+                    <default>false</default>
+                    <label>Tsonga</label>
+                </value>
+                <value>
+                    <fullName>Turkish</fullName>
+                    <default>false</default>
+                    <label>Turkish</label>
+                </value>
+                <value>
+                    <fullName>Turkmen</fullName>
+                    <default>false</default>
+                    <label>Turkmen</label>
+                </value>
+                <value>
+                    <fullName>Twi</fullName>
+                    <default>false</default>
+                    <label>Twi</label>
+                </value>
+                <value>
+                    <fullName>Ukrainian</fullName>
+                    <default>false</default>
+                    <label>Ukrainian</label>
+                </value>
+                <value>
+                    <fullName>Urdu</fullName>
+                    <default>false</default>
+                    <label>Urdu</label>
+                </value>
+                <value>
+                    <fullName>Uzbek</fullName>
+                    <default>false</default>
+                    <label>Uzbek</label>
+                </value>
+                <value>
+                    <fullName>Vietnamese</fullName>
+                    <default>false</default>
+                    <label>Vietnamese</label>
+                </value>
+                <value>
+                    <fullName>Volapuk</fullName>
+                    <default>false</default>
+                    <label>Volapuk</label>
+                </value>
+                <value>
+                    <fullName>Welsh</fullName>
+                    <default>false</default>
+                    <label>Welsh</label>
+                </value>
+                <value>
+                    <fullName>Wolof</fullName>
+                    <default>false</default>
+                    <label>Wolof</label>
+                </value>
+                <value>
+                    <fullName>Xhosa</fullName>
+                    <default>false</default>
+                    <label>Xhosa</label>
+                </value>
+                <value>
+                    <fullName>Yiddish</fullName>
+                    <default>false</default>
+                    <label>Yiddish</label>
+                </value>
+                <value>
+                    <fullName>Yoruba</fullName>
+                    <default>false</default>
+                    <label>Yoruba</label>
+                </value>
+                <value>
+                    <fullName>Zulu</fullName>
+                    <default>false</default>
+                    <label>Zulu</label>
+                </value>
+                <value>
+                    <fullName>Business-related events</fullName>
+                    <default>false</default>
+                    <label>Business-related events</label>
+                </value>
+                <value>
+                    <fullName>Chairman’s Report</fullName>
+                    <default>false</default>
+                    <label>Chairman’s Report</label>
+                </value>
+                <value>
+                    <fullName>Communications-Forum</fullName>
+                    <default>false</default>
+                    <label>Communications-Forum</label>
+                </value>
+                <value>
+                    <fullName>Communications-Networks</fullName>
+                    <default>false</default>
+                    <label>Communications-Networks</label>
+                </value>
+                <value>
+                    <fullName>Event Opportunities (bimonthly)</fullName>
+                    <default>false</default>
+                    <label>Event Opportunities (bimonthly)</label>
+                </value>
+                <value>
+                    <fullName>Events/Opportunities (interest related)</fullName>
+                    <default>false</default>
+                    <label>Events/Opportunities (interest related)</label>
+                </value>
+                <value>
+                    <fullName>Events in my region</fullName>
+                    <default>false</default>
+                    <label>Events in my region</label>
+                </value>
+                <value>
+                    <fullName>Family events</fullName>
+                    <default>false</default>
+                    <label>Family events</label>
+                </value>
+                <value>
+                    <fullName>GLC and Global EDGE marketing</fullName>
+                    <default>false</default>
+                    <label>GLC and Global EDGE marketing</label>
+                </value>
+                <value>
+                    <fullName>Global conference call notices</fullName>
+                    <default>false</default>
+                    <label>Global conference call notices</label>
+                </value>
+                <value>
+                    <fullName>Ignite e-newsletter</fullName>
+                    <default>false</default>
+                    <label>Ignite e-newsletter</label>
+                </value>
+                <value>
+                    <fullName>International events (Univ. Experiences)</fullName>
+                    <default>false</default>
+                    <label>International events (Univ. Experiences)</label>
+                </value>
+                <value>
+                    <fullName>Marketplace Minute (monthly)</fullName>
+                    <default>false</default>
+                    <label>Marketplace Minute (monthly)</label>
+                </value>
+                <value>
+                    <fullName>Member benefits or sponsorship offers</fullName>
+                    <default>false</default>
+                    <label>Member benefits or sponsorship offers</label>
+                </value>
+                <value>
+                    <fullName>Network events</fullName>
+                    <default>false</default>
+                    <label>Network events</label>
+                </value>
+                <value>
+                    <fullName>Personal development events</fullName>
+                    <default>false</default>
+                    <label>Personal development events</label>
+                </value>
+                <value>
+                    <fullName>Regional news</fullName>
+                    <default>false</default>
+                    <label>Regional news</label>
+                </value>
+                <value>
+                    <fullName>Young Adult eNews (monthly-age 17-39)</fullName>
+                    <default>false</default>
+                    <label>Young Adult eNews (monthly-age 17-39)</label>
+                </value>
+                <value>
+                    <fullName>Young Adult Prg Info (monthly-age 17-39)</fullName>
+                    <default>false</default>
+                    <label>Young Adult Prg Info (monthly-age 17-39)</label>
+                </value>
+                <value>
+                    <fullName>Youth/Parent-Child Events (monthly)</fullName>
+                    <default>false</default>
+                    <label>Youth/Parent-Child Events (monthly)</label>
+                </value>
+                <value>
+                    <fullName>YPO Global Pulse (quarterly)</fullName>
+                    <default>false</default>
+                    <label>YPO Global Pulse (quarterly)</label>
+                </value>
+                <value>
+                    <fullName>YPO Gold</fullName>
+                    <default>false</default>
+                    <label>YPO Gold</label>
+                </value>
+                <value>
+                    <fullName>Serve YPO Gold Event Chair</fullName>
+                    <default>false</default>
+                    <label>Serve YPO Gold Event Chair</label>
+                </value>
+                <value>
+                    <fullName>YPO-YPO Gold Digest</fullName>
+                    <default>false</default>
+                    <label>YPO-YPO Gold Digest</label>
+                </value>
+            </valueSetDefinition>
+            <valueSettings>
+                <controllingFieldValue>Learning More</controllingFieldValue>
+                <controllingFieldValue>Business</controllingFieldValue>
+                <valueName>Doing Business in China</valueName>
+            </valueSettings>
+            <valueSettings>
+                <controllingFieldValue>Learning More</controllingFieldValue>
+                <valueName>Going into Public Service</valueName>
+            </valueSettings>
+            <valueSettings>
+                <controllingFieldValue>Learning More</controllingFieldValue>
+                <valueName>Health &amp; Exercise</valueName>
+            </valueSettings>
+            <valueSettings>
+                <controllingFieldValue>Learning More</controllingFieldValue>
+                <valueName>Issues in Family Business</valueName>
+            </valueSettings>
+            <valueSettings>
+                <controllingFieldValue>Learning More</controllingFieldValue>
+                <valueName>Leadership</valueName>
+            </valueSettings>
+            <valueSettings>
+                <controllingFieldValue>Learning More</controllingFieldValue>
+                <valueName>Options for Your Next Career Move</valueName>
+            </valueSettings>
+            <valueSettings>
+                <controllingFieldValue>Learning More</controllingFieldValue>
+                <valueName>Organizing for Community Change</valueName>
+            </valueSettings>
+            <valueSettings>
+                <controllingFieldValue>Learning More</controllingFieldValue>
+                <valueName>Personal Investing</valueName>
+            </valueSettings>
+            <valueSettings>
+                <controllingFieldValue>Learning More</controllingFieldValue>
+                <valueName>Serving on Corp. Board</valueName>
+            </valueSettings>
+            <valueSettings>
+                <controllingFieldValue>Lifestyle</controllingFieldValue>
+                <valueName>Charities/Philanthropy</valueName>
+            </valueSettings>
+            <valueSettings>
+                <controllingFieldValue>Lifestyle</controllingFieldValue>
+                <valueName>Community/Public Service</valueName>
+            </valueSettings>
+            <valueSettings>
+                <controllingFieldValue>Lifestyle</controllingFieldValue>
+                <valueName>Environmental Preservation</valueName>
+            </valueSettings>
+            <valueSettings>
+                <controllingFieldValue>Lifestyle</controllingFieldValue>
+                <valueName>Sustainable Development</valueName>
+            </valueSettings>
+            <valueSettings>
+                <controllingFieldValue>Lifestyle</controllingFieldValue>
+                <valueName>Wildlife &amp; Habitat Preservation</valueName>
+            </valueSettings>
+            <valueSettings>
+                <controllingFieldValue>Management Team</controllingFieldValue>
+                <valueName>Chapter Health</valueName>
+            </valueSettings>
+            <valueSettings>
+                <controllingFieldValue>Management Team</controllingFieldValue>
+                <valueName>Education &amp; Insights</valueName>
+            </valueSettings>
+            <valueSettings>
+                <controllingFieldValue>Management Team</controllingFieldValue>
+                <valueName>Events Management</valueName>
+            </valueSettings>
+            <valueSettings>
+                <controllingFieldValue>Management Team</controllingFieldValue>
+                <valueName>Exchange</valueName>
+            </valueSettings>
+            <valueSettings>
+                <controllingFieldValue>Management Team</controllingFieldValue>
+                <valueName>Facilities</valueName>
+            </valueSettings>
+            <valueSettings>
+                <controllingFieldValue>Management Team</controllingFieldValue>
+                <valueName>Family</valueName>
+            </valueSettings>
+            <valueSettings>
+                <controllingFieldValue>Management Team</controllingFieldValue>
+                <valueName>Finance</valueName>
+            </valueSettings>
+            <valueSettings>
+                <controllingFieldValue>Management Team</controllingFieldValue>
+                <valueName>For deletion</valueName>
+            </valueSettings>
+            <valueSettings>
+                <controllingFieldValue>Management Team</controllingFieldValue>
+                <valueName>Forum</valueName>
+            </valueSettings>
+            <valueSettings>
+                <controllingFieldValue>Management Team</controllingFieldValue>
+                <valueName>Forum Management</valueName>
+            </valueSettings>
+            <valueSettings>
+                <controllingFieldValue>Management Team</controllingFieldValue>
+                <valueName>GLC Team</valueName>
+            </valueSettings>
+            <valueSettings>
+                <controllingFieldValue>Management Team</controllingFieldValue>
+                <valueName>Global Operations</valueName>
+            </valueSettings>
+            <valueSettings>
+                <controllingFieldValue>Management Team</controllingFieldValue>
+                <valueName>Governance</valueName>
+            </valueSettings>
+            <valueSettings>
+                <controllingFieldValue>Management Team</controllingFieldValue>
+                <valueName>Human Resources</valueName>
+            </valueSettings>
+            <valueSettings>
+                <controllingFieldValue>Management Team</controllingFieldValue>
+                <valueName>Information Services</valueName>
+            </valueSettings>
+            <valueSettings>
+                <controllingFieldValue>Management Team</controllingFieldValue>
+                <valueName>Marketing &amp; Communications</valueName>
+            </valueSettings>
+            <valueSettings>
+                <controllingFieldValue>Management Team</controllingFieldValue>
+                <valueName>Member Benefits Alliances &amp; Sponsorships</valueName>
+            </valueSettings>
+            <valueSettings>
+                <controllingFieldValue>Management Team</controllingFieldValue>
+                <valueName>Member Services</valueName>
+            </valueSettings>
+            <valueSettings>
+                <controllingFieldValue>Management Team</controllingFieldValue>
+                <valueName>Membership Development</valueName>
+            </valueSettings>
+            <valueSettings>
+                <controllingFieldValue>Management Team</controllingFieldValue>
+                <valueName>Networks</valueName>
+            </valueSettings>
+            <valueSettings>
+                <controllingFieldValue>Management Team</controllingFieldValue>
+                <valueName>On Demand</valueName>
+            </valueSettings>
+            <valueSettings>
+                <controllingFieldValue>Management Team</controllingFieldValue>
+                <valueName>RCC</valueName>
+            </valueSettings>
+            <valueSettings>
+                <controllingFieldValue>Management Team</controllingFieldValue>
+                <valueName>Regional Management</valueName>
+            </valueSettings>
+            <valueSettings>
+                <controllingFieldValue>Management Team</controllingFieldValue>
+                <valueName>YPO Gold</valueName>
+            </valueSettings>
+            <valueSettings>
+                <controllingFieldValue>Other Languages</controllingFieldValue>
+                <valueName>Abkhazian</valueName>
+            </valueSettings>
+            <valueSettings>
+                <controllingFieldValue>Other Languages</controllingFieldValue>
+                <valueName>Afar</valueName>
+            </valueSettings>
+            <valueSettings>
+                <controllingFieldValue>Other Languages</controllingFieldValue>
+                <valueName>Afrikaans</valueName>
+            </valueSettings>
+            <valueSettings>
+                <controllingFieldValue>Other Languages</controllingFieldValue>
+                <valueName>Albanian</valueName>
+            </valueSettings>
+            <valueSettings>
+                <controllingFieldValue>Other Languages</controllingFieldValue>
+                <valueName>Amharic</valueName>
+            </valueSettings>
+            <valueSettings>
+                <controllingFieldValue>Other Languages</controllingFieldValue>
+                <valueName>Arabic</valueName>
+            </valueSettings>
+            <valueSettings>
+                <controllingFieldValue>Other Languages</controllingFieldValue>
+                <valueName>Armenian</valueName>
+            </valueSettings>
+            <valueSettings>
+                <controllingFieldValue>Other Languages</controllingFieldValue>
+                <valueName>Assamese</valueName>
+            </valueSettings>
+            <valueSettings>
+                <controllingFieldValue>Other Languages</controllingFieldValue>
+                <valueName>Aymara</valueName>
+            </valueSettings>
+            <valueSettings>
+                <controllingFieldValue>Other Languages</controllingFieldValue>
+                <valueName>Azerbaijani</valueName>
+            </valueSettings>
+            <valueSettings>
+                <controllingFieldValue>Other Languages</controllingFieldValue>
+                <valueName>Bashkir</valueName>
+            </valueSettings>
+            <valueSettings>
+                <controllingFieldValue>Other Languages</controllingFieldValue>
+                <valueName>Basque</valueName>
+            </valueSettings>
+            <valueSettings>
+                <controllingFieldValue>Other Languages</controllingFieldValue>
+                <valueName>Bengali, Bangla</valueName>
+            </valueSettings>
+            <valueSettings>
+                <controllingFieldValue>Other Languages</controllingFieldValue>
+                <valueName>Bhutani</valueName>
+            </valueSettings>
+            <valueSettings>
+                <controllingFieldValue>Other Languages</controllingFieldValue>
+                <valueName>Bihari</valueName>
+            </valueSettings>
+            <valueSettings>
+                <controllingFieldValue>Other Languages</controllingFieldValue>
+                <valueName>Bislama</valueName>
+            </valueSettings>
+            <valueSettings>
+                <controllingFieldValue>Other Languages</controllingFieldValue>
+                <valueName>Breton</valueName>
+            </valueSettings>
+            <valueSettings>
+                <controllingFieldValue>Other Languages</controllingFieldValue>
+                <valueName>Bulgarian</valueName>
+            </valueSettings>
+            <valueSettings>
+                <controllingFieldValue>Other Languages</controllingFieldValue>
+                <valueName>Burmese</valueName>
+            </valueSettings>
+            <valueSettings>
+                <controllingFieldValue>Other Languages</controllingFieldValue>
+                <valueName>Byelorussian</valueName>
+            </valueSettings>
+            <valueSettings>
+                <controllingFieldValue>Other Languages</controllingFieldValue>
+                <valueName>Cambodian</valueName>
+            </valueSettings>
+            <valueSettings>
+                <controllingFieldValue>Other Languages</controllingFieldValue>
+                <valueName>Catalan</valueName>
+            </valueSettings>
+            <valueSettings>
+                <controllingFieldValue>Other Languages</controllingFieldValue>
+                <valueName>Chinese</valueName>
+            </valueSettings>
+            <valueSettings>
+                <controllingFieldValue>Other Languages</controllingFieldValue>
+                <valueName>Corsican</valueName>
+            </valueSettings>
+            <valueSettings>
+                <controllingFieldValue>Other Languages</controllingFieldValue>
+                <valueName>Croatian</valueName>
+            </valueSettings>
+            <valueSettings>
+                <controllingFieldValue>Other Languages</controllingFieldValue>
+                <valueName>Czech</valueName>
+            </valueSettings>
+            <valueSettings>
+                <controllingFieldValue>Other Languages</controllingFieldValue>
+                <valueName>Danish</valueName>
+            </valueSettings>
+            <valueSettings>
+                <controllingFieldValue>Other Languages</controllingFieldValue>
+                <valueName>Dutch</valueName>
+            </valueSettings>
+            <valueSettings>
+                <controllingFieldValue>Other Languages</controllingFieldValue>
+                <valueName>English, American</valueName>
+            </valueSettings>
+            <valueSettings>
+                <controllingFieldValue>Other Languages</controllingFieldValue>
+                <valueName>Esperanto</valueName>
+            </valueSettings>
+            <valueSettings>
+                <controllingFieldValue>Other Languages</controllingFieldValue>
+                <valueName>Estonian</valueName>
+            </valueSettings>
+            <valueSettings>
+                <controllingFieldValue>Other Languages</controllingFieldValue>
+                <valueName>Faeroese</valueName>
+            </valueSettings>
+            <valueSettings>
+                <controllingFieldValue>Other Languages</controllingFieldValue>
+                <valueName>Fiji</valueName>
+            </valueSettings>
+            <valueSettings>
+                <controllingFieldValue>Other Languages</controllingFieldValue>
+                <valueName>Finnish</valueName>
+            </valueSettings>
+            <valueSettings>
+                <controllingFieldValue>Other Languages</controllingFieldValue>
+                <valueName>French</valueName>
+            </valueSettings>
+            <valueSettings>
+                <controllingFieldValue>Other Languages</controllingFieldValue>
+                <valueName>Frisian</valueName>
+            </valueSettings>
+            <valueSettings>
+                <controllingFieldValue>Other Languages</controllingFieldValue>
+                <valueName>Gaelic (&quot;Scots Gaelic&quot;)</valueName>
+            </valueSettings>
+            <valueSettings>
+                <controllingFieldValue>Other Languages</controllingFieldValue>
+                <valueName>Galician</valueName>
+            </valueSettings>
+            <valueSettings>
+                <controllingFieldValue>Other Languages</controllingFieldValue>
+                <valueName>Georgian</valueName>
+            </valueSettings>
+            <valueSettings>
+                <controllingFieldValue>Other Languages</controllingFieldValue>
+                <valueName>German</valueName>
+            </valueSettings>
+            <valueSettings>
+                <controllingFieldValue>Other Languages</controllingFieldValue>
+                <valueName>Greek</valueName>
+            </valueSettings>
+            <valueSettings>
+                <controllingFieldValue>Other Languages</controllingFieldValue>
+                <valueName>Greenlandic</valueName>
+            </valueSettings>
+            <valueSettings>
+                <controllingFieldValue>Other Languages</controllingFieldValue>
+                <valueName>Guarani</valueName>
+            </valueSettings>
+            <valueSettings>
+                <controllingFieldValue>Other Languages</controllingFieldValue>
+                <valueName>Gujarati</valueName>
+            </valueSettings>
+            <valueSettings>
+                <controllingFieldValue>Other Languages</controllingFieldValue>
+                <valueName>Hausa</valueName>
+            </valueSettings>
+            <valueSettings>
+                <controllingFieldValue>Other Languages</controllingFieldValue>
+                <valueName>Hebrew</valueName>
+            </valueSettings>
+            <valueSettings>
+                <controllingFieldValue>Other Languages</controllingFieldValue>
+                <valueName>Hindi</valueName>
+            </valueSettings>
+            <valueSettings>
+                <controllingFieldValue>Other Languages</controllingFieldValue>
+                <valueName>Hungarian</valueName>
+            </valueSettings>
+            <valueSettings>
+                <controllingFieldValue>Other Languages</controllingFieldValue>
+                <valueName>Icelandic</valueName>
+            </valueSettings>
+            <valueSettings>
+                <controllingFieldValue>Other Languages</controllingFieldValue>
+                <valueName>Indonesian</valueName>
+            </valueSettings>
+            <valueSettings>
+                <controllingFieldValue>Other Languages</controllingFieldValue>
+                <valueName>Interlingua</valueName>
+            </valueSettings>
+            <valueSettings>
+                <controllingFieldValue>Other Languages</controllingFieldValue>
+                <valueName>Interlingue</valueName>
+            </valueSettings>
+            <valueSettings>
+                <controllingFieldValue>Other Languages</controllingFieldValue>
+                <valueName>Inupiak</valueName>
+            </valueSettings>
+            <valueSettings>
+                <controllingFieldValue>Other Languages</controllingFieldValue>
+                <valueName>Irish</valueName>
+            </valueSettings>
+            <valueSettings>
+                <controllingFieldValue>Other Languages</controllingFieldValue>
+                <valueName>Italian</valueName>
+            </valueSettings>
+            <valueSettings>
+                <controllingFieldValue>Other Languages</controllingFieldValue>
+                <valueName>Japanese</valueName>
+            </valueSettings>
+            <valueSettings>
+                <controllingFieldValue>Other Languages</controllingFieldValue>
+                <valueName>Javanese</valueName>
+            </valueSettings>
+            <valueSettings>
+                <controllingFieldValue>Other Languages</controllingFieldValue>
+                <valueName>Kannada</valueName>
+            </valueSettings>
+            <valueSettings>
+                <controllingFieldValue>Other Languages</controllingFieldValue>
+                <valueName>Kashmiri</valueName>
+            </valueSettings>
+            <valueSettings>
+                <controllingFieldValue>Other Languages</controllingFieldValue>
+                <valueName>Kazakh</valueName>
+            </valueSettings>
+            <valueSettings>
+                <controllingFieldValue>Other Languages</controllingFieldValue>
+                <valueName>Kinyarwanda</valueName>
+            </valueSettings>
+            <valueSettings>
+                <controllingFieldValue>Other Languages</controllingFieldValue>
+                <valueName>Kirghiz</valueName>
+            </valueSettings>
+            <valueSettings>
+                <controllingFieldValue>Other Languages</controllingFieldValue>
+                <valueName>Kirundi</valueName>
+            </valueSettings>
+            <valueSettings>
+                <controllingFieldValue>Other Languages</controllingFieldValue>
+                <valueName>Korean</valueName>
+            </valueSettings>
+            <valueSettings>
+                <controllingFieldValue>Other Languages</controllingFieldValue>
+                <valueName>Kurdish</valueName>
+            </valueSettings>
+            <valueSettings>
+                <controllingFieldValue>Other Languages</controllingFieldValue>
+                <valueName>Laothian</valueName>
+            </valueSettings>
+            <valueSettings>
+                <controllingFieldValue>Other Languages</controllingFieldValue>
+                <valueName>Latin</valueName>
+            </valueSettings>
+            <valueSettings>
+                <controllingFieldValue>Other Languages</controllingFieldValue>
+                <valueName>Latvian, Lettish</valueName>
+            </valueSettings>
+            <valueSettings>
+                <controllingFieldValue>Other Languages</controllingFieldValue>
+                <valueName>Lingala</valueName>
+            </valueSettings>
+            <valueSettings>
+                <controllingFieldValue>Other Languages</controllingFieldValue>
+                <valueName>Lithuanian</valueName>
+            </valueSettings>
+            <valueSettings>
+                <controllingFieldValue>Other Languages</controllingFieldValue>
+                <valueName>Macedonian</valueName>
+            </valueSettings>
+            <valueSettings>
+                <controllingFieldValue>Other Languages</controllingFieldValue>
+                <valueName>Malagasy</valueName>
+            </valueSettings>
+            <valueSettings>
+                <controllingFieldValue>Other Languages</controllingFieldValue>
+                <valueName>Malay</valueName>
+            </valueSettings>
+            <valueSettings>
+                <controllingFieldValue>Other Languages</controllingFieldValue>
+                <valueName>Malayalam</valueName>
+            </valueSettings>
+            <valueSettings>
+                <controllingFieldValue>Other Languages</controllingFieldValue>
+                <valueName>Maltese</valueName>
+            </valueSettings>
+            <valueSettings>
+                <controllingFieldValue>Other Languages</controllingFieldValue>
+                <valueName>Maori</valueName>
+            </valueSettings>
+            <valueSettings>
+                <controllingFieldValue>Other Languages</controllingFieldValue>
+                <valueName>Marathi</valueName>
+            </valueSettings>
+            <valueSettings>
+                <controllingFieldValue>Other Languages</controllingFieldValue>
+                <valueName>Moldavian</valueName>
+            </valueSettings>
+            <valueSettings>
+                <controllingFieldValue>Other Languages</controllingFieldValue>
+                <valueName>Mongolian</valueName>
+            </valueSettings>
+            <valueSettings>
+                <controllingFieldValue>Other Languages</controllingFieldValue>
+                <valueName>Nauru</valueName>
+            </valueSettings>
+            <valueSettings>
+                <controllingFieldValue>Other Languages</controllingFieldValue>
+                <valueName>Nepali</valueName>
+            </valueSettings>
+            <valueSettings>
+                <controllingFieldValue>Other Languages</controllingFieldValue>
+                <valueName>Norwegian</valueName>
+            </valueSettings>
+            <valueSettings>
+                <controllingFieldValue>Other Languages</controllingFieldValue>
+                <valueName>Occitan</valueName>
+            </valueSettings>
+            <valueSettings>
+                <controllingFieldValue>Other Languages</controllingFieldValue>
+                <valueName>Oriya</valueName>
+            </valueSettings>
+            <valueSettings>
+                <controllingFieldValue>Other Languages</controllingFieldValue>
+                <valueName>Oromo, Afan</valueName>
+            </valueSettings>
+            <valueSettings>
+                <controllingFieldValue>Other Languages</controllingFieldValue>
+                <valueName>Pashto, Pushto</valueName>
+            </valueSettings>
+            <valueSettings>
+                <controllingFieldValue>Other Languages</controllingFieldValue>
+                <valueName>Persian</valueName>
+            </valueSettings>
+            <valueSettings>
+                <controllingFieldValue>Other Languages</controllingFieldValue>
+                <valueName>Polish</valueName>
+            </valueSettings>
+            <valueSettings>
+                <controllingFieldValue>Other Languages</controllingFieldValue>
+                <valueName>Portuguese</valueName>
+            </valueSettings>
+            <valueSettings>
+                <controllingFieldValue>Other Languages</controllingFieldValue>
+                <valueName>Punjabi</valueName>
+            </valueSettings>
+            <valueSettings>
+                <controllingFieldValue>Other Languages</controllingFieldValue>
+                <valueName>Quechua</valueName>
+            </valueSettings>
+            <valueSettings>
+                <controllingFieldValue>Other Languages</controllingFieldValue>
+                <valueName>Rhaeto-Romance</valueName>
+            </valueSettings>
+            <valueSettings>
+                <controllingFieldValue>Other Languages</controllingFieldValue>
+                <valueName>Romanian</valueName>
+            </valueSettings>
+            <valueSettings>
+                <controllingFieldValue>Other Languages</controllingFieldValue>
+                <valueName>Russian</valueName>
+            </valueSettings>
+            <valueSettings>
+                <controllingFieldValue>Other Languages</controllingFieldValue>
+                <valueName>Samoan</valueName>
+            </valueSettings>
+            <valueSettings>
+                <controllingFieldValue>Other Languages</controllingFieldValue>
+                <valueName>Sangro</valueName>
+            </valueSettings>
+            <valueSettings>
+                <controllingFieldValue>Other Languages</controllingFieldValue>
+                <valueName>Sanskrit</valueName>
+            </valueSettings>
+            <valueSettings>
+                <controllingFieldValue>Other Languages</controllingFieldValue>
+                <valueName>Serbian</valueName>
+            </valueSettings>
+            <valueSettings>
+                <controllingFieldValue>Other Languages</controllingFieldValue>
+                <valueName>Serbo-Croatian</valueName>
+            </valueSettings>
+            <valueSettings>
+                <controllingFieldValue>Other Languages</controllingFieldValue>
+                <valueName>Sesotho</valueName>
+            </valueSettings>
+            <valueSettings>
+                <controllingFieldValue>Other Languages</controllingFieldValue>
+                <valueName>Setswana</valueName>
+            </valueSettings>
+            <valueSettings>
+                <controllingFieldValue>Other Languages</controllingFieldValue>
+                <valueName>Shona</valueName>
+            </valueSettings>
+            <valueSettings>
+                <controllingFieldValue>Other Languages</controllingFieldValue>
+                <valueName>Sindhi</valueName>
+            </valueSettings>
+            <valueSettings>
+                <controllingFieldValue>Other Languages</controllingFieldValue>
+                <valueName>Singhalese</valueName>
+            </valueSettings>
+            <valueSettings>
+                <controllingFieldValue>Other Languages</controllingFieldValue>
+                <valueName>Siswati</valueName>
+            </valueSettings>
+            <valueSettings>
+                <controllingFieldValue>Other Languages</controllingFieldValue>
+                <valueName>Slovak</valueName>
+            </valueSettings>
+            <valueSettings>
+                <controllingFieldValue>Other Languages</controllingFieldValue>
+                <valueName>Slovenian</valueName>
+            </valueSettings>
+            <valueSettings>
+                <controllingFieldValue>Other Languages</controllingFieldValue>
+                <valueName>Somali</valueName>
+            </valueSettings>
+            <valueSettings>
+                <controllingFieldValue>Other Languages</controllingFieldValue>
+                <valueName>Spanish</valueName>
+            </valueSettings>
+            <valueSettings>
+                <controllingFieldValue>Other Languages</controllingFieldValue>
+                <valueName>Sudanese</valueName>
+            </valueSettings>
+            <valueSettings>
+                <controllingFieldValue>Other Languages</controllingFieldValue>
+                <valueName>Swahili</valueName>
+            </valueSettings>
+            <valueSettings>
+                <controllingFieldValue>Other Languages</controllingFieldValue>
+                <valueName>Swedish</valueName>
+            </valueSettings>
+            <valueSettings>
+                <controllingFieldValue>Other Languages</controllingFieldValue>
+                <valueName>Tagalog</valueName>
+            </valueSettings>
+            <valueSettings>
+                <controllingFieldValue>Other Languages</controllingFieldValue>
+                <valueName>Tajik</valueName>
+            </valueSettings>
+            <valueSettings>
+                <controllingFieldValue>Other Languages</controllingFieldValue>
+                <valueName>Tamil</valueName>
+            </valueSettings>
+            <valueSettings>
+                <controllingFieldValue>Other Languages</controllingFieldValue>
+                <valueName>Tatar</valueName>
+            </valueSettings>
+            <valueSettings>
+                <controllingFieldValue>Other Languages</controllingFieldValue>
+                <valueName>Tegulu</valueName>
+            </valueSettings>
+            <valueSettings>
+                <controllingFieldValue>Other Languages</controllingFieldValue>
+                <valueName>Thai</valueName>
+            </valueSettings>
+            <valueSettings>
+                <controllingFieldValue>Other Languages</controllingFieldValue>
+                <valueName>Tibetan</valueName>
+            </valueSettings>
+            <valueSettings>
+                <controllingFieldValue>Other Languages</controllingFieldValue>
+                <valueName>Tigrinya</valueName>
+            </valueSettings>
+            <valueSettings>
+                <controllingFieldValue>Other Languages</controllingFieldValue>
+                <valueName>Tonga</valueName>
+            </valueSettings>
+            <valueSettings>
+                <controllingFieldValue>Other Languages</controllingFieldValue>
+                <valueName>Tsonga</valueName>
+            </valueSettings>
+            <valueSettings>
+                <controllingFieldValue>Other Languages</controllingFieldValue>
+                <valueName>Turkish</valueName>
+            </valueSettings>
+            <valueSettings>
+                <controllingFieldValue>Other Languages</controllingFieldValue>
+                <valueName>Turkmen</valueName>
+            </valueSettings>
+            <valueSettings>
+                <controllingFieldValue>Other Languages</controllingFieldValue>
+                <valueName>Twi</valueName>
+            </valueSettings>
+            <valueSettings>
+                <controllingFieldValue>Other Languages</controllingFieldValue>
+                <valueName>Ukrainian</valueName>
+            </valueSettings>
+            <valueSettings>
+                <controllingFieldValue>Other Languages</controllingFieldValue>
+                <valueName>Urdu</valueName>
+            </valueSettings>
+            <valueSettings>
+                <controllingFieldValue>Other Languages</controllingFieldValue>
+                <valueName>Uzbek</valueName>
+            </valueSettings>
+            <valueSettings>
+                <controllingFieldValue>Other Languages</controllingFieldValue>
+                <valueName>Vietnamese</valueName>
+            </valueSettings>
+            <valueSettings>
+                <controllingFieldValue>Other Languages</controllingFieldValue>
+                <valueName>Volapuk</valueName>
+            </valueSettings>
+            <valueSettings>
+                <controllingFieldValue>Other Languages</controllingFieldValue>
+                <valueName>Welsh</valueName>
+            </valueSettings>
+            <valueSettings>
+                <controllingFieldValue>Other Languages</controllingFieldValue>
+                <valueName>Wolof</valueName>
+            </valueSettings>
+            <valueSettings>
+                <controllingFieldValue>Other Languages</controllingFieldValue>
+                <valueName>Xhosa</valueName>
+            </valueSettings>
+            <valueSettings>
+                <controllingFieldValue>Other Languages</controllingFieldValue>
+                <valueName>Yiddish</valueName>
+            </valueSettings>
+            <valueSettings>
+                <controllingFieldValue>Other Languages</controllingFieldValue>
+                <valueName>Yoruba</valueName>
+            </valueSettings>
+            <valueSettings>
+                <controllingFieldValue>Other Languages</controllingFieldValue>
+                <valueName>Zulu</valueName>
+            </valueSettings>
+            <valueSettings>
+                <controllingFieldValue>Outdoor</controllingFieldValue>
+                <valueName>Camping</valueName>
+            </valueSettings>
+            <valueSettings>
+                <controllingFieldValue>Outdoor</controllingFieldValue>
+                <valueName>Climbing</valueName>
+            </valueSettings>
+            <valueSettings>
+                <controllingFieldValue>Outdoor</controllingFieldValue>
+                <valueName>Fishing</valueName>
+            </valueSettings>
+            <valueSettings>
+                <controllingFieldValue>Outdoor</controllingFieldValue>
+                <valueName>Hiking</valueName>
+            </valueSettings>
+            <valueSettings>
+                <controllingFieldValue>Outdoor</controllingFieldValue>
+                <valueName>Horses/Equestrian</valueName>
+            </valueSettings>
+            <valueSettings>
+                <controllingFieldValue>Outdoor</controllingFieldValue>
+                <valueName>Hunting</valueName>
+            </valueSettings>
+            <valueSettings>
+                <controllingFieldValue>Outdoor</controllingFieldValue>
+                <valueName>Kayaking</valueName>
+            </valueSettings>
+            <valueSettings>
+                <controllingFieldValue>Outdoor</controllingFieldValue>
+                <valueName>Motorcycles</valueName>
+            </valueSettings>
+            <valueSettings>
+                <controllingFieldValue>Outdoor</controllingFieldValue>
+                <valueName>Sailing</valueName>
+            </valueSettings>
+            <valueSettings>
+                <controllingFieldValue>Outdoor</controllingFieldValue>
+                <valueName>Scuba</valueName>
+            </valueSettings>
+            <valueSettings>
+                <controllingFieldValue>Outdoor</controllingFieldValue>
+                <valueName>Skiing</valueName>
+            </valueSettings>
+            <valueSettings>
+                <controllingFieldValue>Outdoor</controllingFieldValue>
+                <valueName>Triathlon</valueName>
+            </valueSettings>
+            <valueSettings>
+                <controllingFieldValue>Regional Contacts</controllingFieldValue>
+                <valueName>Africa Regional Contacts</valueName>
+            </valueSettings>
+            <valueSettings>
+                <controllingFieldValue>Regional Contacts</controllingFieldValue>
+                <valueName>Australia/New Zealand Regional Contacts</valueName>
+            </valueSettings>
+            <valueSettings>
+                <controllingFieldValue>Regional Contacts</controllingFieldValue>
+                <valueName>Canada Regional Contacts</valueName>
+            </valueSettings>
+            <valueSettings>
+                <controllingFieldValue>Regional Contacts</controllingFieldValue>
+                <valueName>Central US Regional Contacts</valueName>
+            </valueSettings>
+            <valueSettings>
+                <controllingFieldValue>Regional Contacts</controllingFieldValue>
+                <valueName>East Central US Regional Contacts</valueName>
+            </valueSettings>
+            <valueSettings>
+                <controllingFieldValue>Regional Contacts</controllingFieldValue>
+                <valueName>Europe Regional Contacts</valueName>
+            </valueSettings>
+            <valueSettings>
+                <controllingFieldValue>Regional Contacts</controllingFieldValue>
+                <valueName>International Regional Contacts</valueName>
+            </valueSettings>
+            <valueSettings>
+                <controllingFieldValue>Regional Contacts</controllingFieldValue>
+                <valueName>Lat. America/Caribbean Regional Contacts</valueName>
+            </valueSettings>
+            <valueSettings>
+                <controllingFieldValue>Regional Contacts</controllingFieldValue>
+                <valueName>Mid. East/North Africa Regional Contacts</valueName>
+            </valueSettings>
+            <valueSettings>
+                <controllingFieldValue>Regional Contacts</controllingFieldValue>
+                <valueName>North Asia Regional Contacts</valueName>
+            </valueSettings>
+            <valueSettings>
+                <controllingFieldValue>Regional Contacts</controllingFieldValue>
+                <valueName>Northeastern US Regional Contacts</valueName>
+            </valueSettings>
+            <valueSettings>
+                <controllingFieldValue>Regional Contacts</controllingFieldValue>
+                <valueName>Pacific US Regional Contacts</valueName>
+            </valueSettings>
+            <valueSettings>
+                <controllingFieldValue>Regional Contacts</controllingFieldValue>
+                <valueName>South Asia Regional Contacts</valueName>
+            </valueSettings>
+            <valueSettings>
+                <controllingFieldValue>Regional Contacts</controllingFieldValue>
+                <valueName>Southeast Asia Regional Contacts</valueName>
+            </valueSettings>
+            <valueSettings>
+                <controllingFieldValue>Regional Contacts</controllingFieldValue>
+                <valueName>Southern US Regional Contacts</valueName>
+            </valueSettings>
+            <valueSettings>
+                <controllingFieldValue>Regional Contacts</controllingFieldValue>
+                <valueName>Western US Regional Contacts</valueName>
+            </valueSettings>
+            <valueSettings>
+                <controllingFieldValue>Sports</controllingFieldValue>
+                <valueName>Bicycling</valueName>
+            </valueSettings>
+            <valueSettings>
+                <controllingFieldValue>Sports</controllingFieldValue>
+                <valueName>Golf</valueName>
+            </valueSettings>
+            <valueSettings>
+                <controllingFieldValue>Sports</controllingFieldValue>
+                <valueName>Ice Hockey</valueName>
+            </valueSettings>
+            <valueSettings>
+                <controllingFieldValue>Sports</controllingFieldValue>
+                <valueName>Running</valueName>
+            </valueSettings>
+            <valueSettings>
+                <controllingFieldValue>Sports</controllingFieldValue>
+                <valueName>Surfing</valueName>
+            </valueSettings>
+            <valueSettings>
+                <controllingFieldValue>Sports</controllingFieldValue>
+                <valueName>Swimming</valueName>
+            </valueSettings>
+            <valueSettings>
+                <controllingFieldValue>Sports</controllingFieldValue>
+                <valueName>Tennis</valueName>
+            </valueSettings>
+            <valueSettings>
+                <controllingFieldValue>Sports</controllingFieldValue>
+                <valueName>Water Skiing</valueName>
+            </valueSettings>
+            <valueSettings>
+                <controllingFieldValue>Sports</controllingFieldValue>
+                <valueName>Windsurfing</valueName>
+            </valueSettings>
+            <valueSettings>
+                <controllingFieldValue>Team Sports</controllingFieldValue>
+                <valueName>American Football</valueName>
+            </valueSettings>
+            <valueSettings>
+                <controllingFieldValue>Team Sports</controllingFieldValue>
+                <valueName>Football</valueName>
+            </valueSettings>
+            <valueSettings>
+                <controllingFieldValue>Travel</controllingFieldValue>
+                <valueName>Adventure Travel</valueName>
+            </valueSettings>
+            <valueSettings>
+                <controllingFieldValue>Travel</controllingFieldValue>
+                <valueName>Archeological/Historical</valueName>
+            </valueSettings>
+            <valueSettings>
+                <controllingFieldValue>Travel</controllingFieldValue>
+                <valueName>Cruise</valueName>
+            </valueSettings>
+            <valueSettings>
+                <controllingFieldValue>Travel</controllingFieldValue>
+                <valueName>Epicurean</valueName>
+            </valueSettings>
+            <valueSettings>
+                <controllingFieldValue>Travel</controllingFieldValue>
+                <valueName>Extreme Travel</valueName>
+            </valueSettings>
+            <valueSettings>
+                <controllingFieldValue>Travel</controllingFieldValue>
+                <valueName>Family Travel</valueName>
+            </valueSettings>
+            <valueSettings>
+                <controllingFieldValue>Arts and Entertainment</controllingFieldValue>
+                <valueName>Antiques</valueName>
+            </valueSettings>
+            <valueSettings>
+                <controllingFieldValue>Arts and Entertainment</controllingFieldValue>
+                <valueName>Art Collecting</valueName>
+            </valueSettings>
+            <valueSettings>
+                <controllingFieldValue>Arts and Entertainment</controllingFieldValue>
+                <valueName>Dance</valueName>
+            </valueSettings>
+            <valueSettings>
+                <controllingFieldValue>Arts and Entertainment</controllingFieldValue>
+                <controllingFieldValue>General</controllingFieldValue>
+                <valueName>Film</valueName>
+            </valueSettings>
+            <valueSettings>
+                <controllingFieldValue>Arts and Entertainment</controllingFieldValue>
+                <valueName>Music</valueName>
+            </valueSettings>
+            <valueSettings>
+                <controllingFieldValue>Arts and Entertainment</controllingFieldValue>
+                <valueName>Opera</valueName>
+            </valueSettings>
+            <valueSettings>
+                <controllingFieldValue>Arts and Entertainment</controllingFieldValue>
+                <valueName>Painting</valueName>
+            </valueSettings>
+            <valueSettings>
+                <controllingFieldValue>Arts and Entertainment</controllingFieldValue>
+                <valueName>Theatre</valueName>
+            </valueSettings>
+            <valueSettings>
+                <controllingFieldValue>Business</controllingFieldValue>
+                <valueName>Buying Other Businesses</valueName>
+            </valueSettings>
+            <valueSettings>
+                <controllingFieldValue>Business</controllingFieldValue>
+                <valueName>Career Transitions</valueName>
+            </valueSettings>
+            <valueSettings>
+                <controllingFieldValue>Business</controllingFieldValue>
+                <valueName>CHLDFAMBUS</valueName>
+            </valueSettings>
+            <valueSettings>
+                <controllingFieldValue>Business</controllingFieldValue>
+                <valueName>Developing My Board</valueName>
+            </valueSettings>
+            <valueSettings>
+                <controllingFieldValue>Business</controllingFieldValue>
+                <valueName>Doing Business in Africa</valueName>
+            </valueSettings>
+            <valueSettings>
+                <controllingFieldValue>Business</controllingFieldValue>
+                <valueName>Doing Business in Asia</valueName>
+            </valueSettings>
+            <valueSettings>
+                <controllingFieldValue>Business</controllingFieldValue>
+                <valueName>Doing Business in Australia/NZ</valueName>
+            </valueSettings>
+            <valueSettings>
+                <controllingFieldValue>Business</controllingFieldValue>
+                <valueName>Doing Business in Canada</valueName>
+            </valueSettings>
+            <valueSettings>
+                <controllingFieldValue>Business</controllingFieldValue>
+                <valueName>Doing Business in Europe</valueName>
+            </valueSettings>
+            <valueSettings>
+                <controllingFieldValue>Business</controllingFieldValue>
+                <valueName>Doing Business in India</valueName>
+            </valueSettings>
+            <valueSettings>
+                <controllingFieldValue>Business</controllingFieldValue>
+                <valueName>Doing Business in Latin America</valueName>
+            </valueSettings>
+            <valueSettings>
+                <controllingFieldValue>Business</controllingFieldValue>
+                <valueName>Doing Business in Middle East</valueName>
+            </valueSettings>
+            <valueSettings>
+                <controllingFieldValue>Business</controllingFieldValue>
+                <valueName>Doing Business in United States</valueName>
+            </valueSettings>
+            <valueSettings>
+                <controllingFieldValue>Business</controllingFieldValue>
+                <valueName>Examining Corporate Strategy</valueName>
+            </valueSettings>
+            <valueSettings>
+                <controllingFieldValue>Business</controllingFieldValue>
+                <valueName>Exiting Family Business</valueName>
+            </valueSettings>
+            <valueSettings>
+                <controllingFieldValue>Business</controllingFieldValue>
+                <valueName>Family Business (General Issues)</valueName>
+            </valueSettings>
+            <valueSettings>
+                <controllingFieldValue>Business</controllingFieldValue>
+                <valueName>Going Global</valueName>
+            </valueSettings>
+            <valueSettings>
+                <controllingFieldValue>Business</controllingFieldValue>
+                <valueName>Hiring &amp; Retaining Execs</valueName>
+            </valueSettings>
+            <valueSettings>
+                <controllingFieldValue>Business</controllingFieldValue>
+                <valueName>Mergers/Acquisitions</valueName>
+            </valueSettings>
+            <valueSettings>
+                <controllingFieldValue>Business</controllingFieldValue>
+                <valueName>New Sources of Capital</valueName>
+            </valueSettings>
+            <valueSettings>
+                <controllingFieldValue>Business</controllingFieldValue>
+                <valueName>Selling My Business</valueName>
+            </valueSettings>
+            <valueSettings>
+                <controllingFieldValue>Business</controllingFieldValue>
+                <valueName>Starting a Business</valueName>
+            </valueSettings>
+            <valueSettings>
+                <controllingFieldValue>Business</controllingFieldValue>
+                <valueName>Succession</valueName>
+            </valueSettings>
+            <valueSettings>
+                <controllingFieldValue>Business Travel Frequency</controllingFieldValue>
+                <controllingFieldValue>Family/Leisure Travel Frequency</controllingFieldValue>
+                <valueName>Travel Extensively (15+)</valueName>
+            </valueSettings>
+            <valueSettings>
+                <controllingFieldValue>Business Travel Frequency</controllingFieldValue>
+                <controllingFieldValue>Family/Leisure Travel Frequency</controllingFieldValue>
+                <valueName>Travel Moderately (6-14)</valueName>
+            </valueSettings>
+            <valueSettings>
+                <controllingFieldValue>Business Travel Frequency</controllingFieldValue>
+                <controllingFieldValue>Family/Leisure Travel Frequency</controllingFieldValue>
+                <valueName>Travel Rarely (0-5)</valueName>
+            </valueSettings>
+            <valueSettings>
+                <controllingFieldValue>Communications Preferences</controllingFieldValue>
+                <valueName>Business-related events</valueName>
+            </valueSettings>
+            <valueSettings>
+                <controllingFieldValue>Communications Preferences</controllingFieldValue>
+                <valueName>Chairman’s Report</valueName>
+            </valueSettings>
+            <valueSettings>
+                <controllingFieldValue>Communications Preferences</controllingFieldValue>
+                <valueName>Communications-Forum</valueName>
+            </valueSettings>
+            <valueSettings>
+                <controllingFieldValue>Communications Preferences</controllingFieldValue>
+                <valueName>Communications-Networks</valueName>
+            </valueSettings>
+            <valueSettings>
+                <controllingFieldValue>Communications Preferences</controllingFieldValue>
+                <valueName>Event Opportunities (bimonthly)</valueName>
+            </valueSettings>
+            <valueSettings>
+                <controllingFieldValue>Communications Preferences</controllingFieldValue>
+                <valueName>Events/Opportunities (interest related)</valueName>
+            </valueSettings>
+            <valueSettings>
+                <controllingFieldValue>Communications Preferences</controllingFieldValue>
+                <valueName>Events in my region</valueName>
+            </valueSettings>
+            <valueSettings>
+                <controllingFieldValue>Communications Preferences</controllingFieldValue>
+                <valueName>Family events</valueName>
+            </valueSettings>
+            <valueSettings>
+                <controllingFieldValue>Communications Preferences</controllingFieldValue>
+                <valueName>GLC and Global EDGE marketing</valueName>
+            </valueSettings>
+            <valueSettings>
+                <controllingFieldValue>Communications Preferences</controllingFieldValue>
+                <valueName>Global conference call notices</valueName>
+            </valueSettings>
+            <valueSettings>
+                <controllingFieldValue>Communications Preferences</controllingFieldValue>
+                <valueName>Ignite e-newsletter</valueName>
+            </valueSettings>
+            <valueSettings>
+                <controllingFieldValue>Communications Preferences</controllingFieldValue>
+                <valueName>International events (Univ. Experiences)</valueName>
+            </valueSettings>
+            <valueSettings>
+                <controllingFieldValue>Communications Preferences</controllingFieldValue>
+                <valueName>Marketplace Minute (monthly)</valueName>
+            </valueSettings>
+            <valueSettings>
+                <controllingFieldValue>Communications Preferences</controllingFieldValue>
+                <valueName>Member benefits or sponsorship offers</valueName>
+            </valueSettings>
+            <valueSettings>
+                <controllingFieldValue>Communications Preferences</controllingFieldValue>
+                <valueName>Network events</valueName>
+            </valueSettings>
+            <valueSettings>
+                <controllingFieldValue>Communications Preferences</controllingFieldValue>
+                <valueName>Personal development events</valueName>
+            </valueSettings>
+            <valueSettings>
+                <controllingFieldValue>Communications Preferences</controllingFieldValue>
+                <valueName>Regional news</valueName>
+            </valueSettings>
+            <valueSettings>
+                <controllingFieldValue>Communications Preferences</controllingFieldValue>
+                <valueName>Young Adult eNews (monthly-age 17-39)</valueName>
+            </valueSettings>
+            <valueSettings>
+                <controllingFieldValue>Communications Preferences</controllingFieldValue>
+                <valueName>Young Adult Prg Info (monthly-age 17-39)</valueName>
+            </valueSettings>
+            <valueSettings>
+                <controllingFieldValue>Communications Preferences</controllingFieldValue>
+                <valueName>Youth/Parent-Child Events (monthly)</valueName>
+            </valueSettings>
+            <valueSettings>
+                <controllingFieldValue>Communications Preferences</controllingFieldValue>
+                <valueName>YPO Global Pulse (quarterly)</valueName>
+            </valueSettings>
+            <valueSettings>
+                <controllingFieldValue>Communications Preferences</controllingFieldValue>
+                <valueName>YPO-YPO Gold Digest</valueName>
+            </valueSettings>
+            <valueSettings>
+                <controllingFieldValue>Community Service</controllingFieldValue>
+                <valueName>Arts &amp; Culture</valueName>
+            </valueSettings>
+            <valueSettings>
+                <controllingFieldValue>Community Service</controllingFieldValue>
+                <valueName>Benefit</valueName>
+            </valueSettings>
+            <valueSettings>
+                <controllingFieldValue>Community Service</controllingFieldValue>
+                <valueName>Crime Prevention</valueName>
+            </valueSettings>
+            <valueSettings>
+                <controllingFieldValue>Community Service</controllingFieldValue>
+                <valueName>Education</valueName>
+            </valueSettings>
+            <valueSettings>
+                <controllingFieldValue>Community Service</controllingFieldValue>
+                <valueName>Environment</valueName>
+            </valueSettings>
+            <valueSettings>
+                <controllingFieldValue>Community Service</controllingFieldValue>
+                <valueName>Health</valueName>
+            </valueSettings>
+            <valueSettings>
+                <controllingFieldValue>Community Service</controllingFieldValue>
+                <valueName>Hospital</valueName>
+            </valueSettings>
+            <valueSettings>
+                <controllingFieldValue>Community Service</controllingFieldValue>
+                <valueName>Humanitarian Activities</valueName>
+            </valueSettings>
+            <valueSettings>
+                <controllingFieldValue>Community Service</controllingFieldValue>
+                <valueName>Inner City or Community</valueName>
+            </valueSettings>
+            <valueSettings>
+                <controllingFieldValue>Community Service</controllingFieldValue>
+                <valueName>Museum</valueName>
+            </valueSettings>
+            <valueSettings>
+                <controllingFieldValue>Community Service</controllingFieldValue>
+                <valueName>Religion and Spirituality</valueName>
+            </valueSettings>
+            <valueSettings>
+                <controllingFieldValue>Community Service</controllingFieldValue>
+                <valueName>Senior Services</valueName>
+            </valueSettings>
+            <valueSettings>
+                <controllingFieldValue>Community Service</controllingFieldValue>
+                <valueName>Veterans</valueName>
+            </valueSettings>
+            <valueSettings>
+                <controllingFieldValue>Community Service</controllingFieldValue>
+                <valueName>Youth Services</valueName>
+            </valueSettings>
+            <valueSettings>
+                <controllingFieldValue>Family</controllingFieldValue>
+                <valueName>Adopted Children</valueName>
+            </valueSettings>
+            <valueSettings>
+                <controllingFieldValue>Family</controllingFieldValue>
+                <valueName>Balancing Work And Family</valueName>
+            </valueSettings>
+            <valueSettings>
+                <controllingFieldValue>Family</controllingFieldValue>
+                <valueName>Blended Families</valueName>
+            </valueSettings>
+            <valueSettings>
+                <controllingFieldValue>Family</controllingFieldValue>
+                <valueName>Family Finances</valueName>
+            </valueSettings>
+            <valueSettings>
+                <controllingFieldValue>Family</controllingFieldValue>
+                <valueName>Father/Daughter Relationships</valueName>
+            </valueSettings>
+            <valueSettings>
+                <controllingFieldValue>Family</controllingFieldValue>
+                <valueName>Father/Son Relationships</valueName>
+            </valueSettings>
+            <valueSettings>
+                <controllingFieldValue>Family</controllingFieldValue>
+                <valueName>Generational Transitions</valueName>
+            </valueSettings>
+            <valueSettings>
+                <controllingFieldValue>Family</controllingFieldValue>
+                <valueName>Learning Challenges</valueName>
+            </valueSettings>
+            <valueSettings>
+                <controllingFieldValue>Family</controllingFieldValue>
+                <valueName>Marriage/Couple Relationships</valueName>
+            </valueSettings>
+            <valueSettings>
+                <controllingFieldValue>Family</controllingFieldValue>
+                <valueName>Mother/Daughter Relationships</valueName>
+            </valueSettings>
+            <valueSettings>
+                <controllingFieldValue>Family</controllingFieldValue>
+                <valueName>Mother/Son Relationships</valueName>
+            </valueSettings>
+            <valueSettings>
+                <controllingFieldValue>Family</controllingFieldValue>
+                <valueName>Needs of Aging Parents</valueName>
+            </valueSettings>
+            <valueSettings>
+                <controllingFieldValue>Family</controllingFieldValue>
+                <valueName>Relating to Pre-adolescents (6-12)</valueName>
+            </valueSettings>
+            <valueSettings>
+                <controllingFieldValue>Family</controllingFieldValue>
+                <valueName>Relating to Teenagers (13-18)</valueName>
+            </valueSettings>
+            <valueSettings>
+                <controllingFieldValue>Family</controllingFieldValue>
+                <valueName>Relating to Toddlers (2-5)</valueName>
+            </valueSettings>
+            <valueSettings>
+                <controllingFieldValue>Family</controllingFieldValue>
+                <valueName>Relating to Young Adults (18)</valueName>
+            </valueSettings>
+            <valueSettings>
+                <controllingFieldValue>Family</controllingFieldValue>
+                <valueName>School Selection</valueName>
+            </valueSettings>
+            <valueSettings>
+                <controllingFieldValue>General</controllingFieldValue>
+                <valueName>General</valueName>
+            </valueSettings>
+            <valueSettings>
+                <controllingFieldValue>General</controllingFieldValue>
+                <valueName>Cigars</valueName>
+            </valueSettings>
+            <valueSettings>
+                <controllingFieldValue>General</controllingFieldValue>
+                <valueName>Collecting Wines</valueName>
+            </valueSettings>
+            <valueSettings>
+                <controllingFieldValue>General</controllingFieldValue>
+                <valueName>Cooking</valueName>
+            </valueSettings>
+            <valueSettings>
+                <controllingFieldValue>General</controllingFieldValue>
+                <valueName>Fine Dining</valueName>
+            </valueSettings>
+            <valueSettings>
+                <controllingFieldValue>General</controllingFieldValue>
+                <valueName>History</valueName>
+            </valueSettings>
+            <valueSettings>
+                <controllingFieldValue>General</controllingFieldValue>
+                <valueName>Investing</valueName>
+            </valueSettings>
+            <valueSettings>
+                <controllingFieldValue>General</controllingFieldValue>
+                <valueName>Photography</valueName>
+            </valueSettings>
+            <valueSettings>
+                <controllingFieldValue>General</controllingFieldValue>
+                <valueName>Pilot</valueName>
+            </valueSettings>
+            <valueSettings>
+                <controllingFieldValue>General</controllingFieldValue>
+                <valueName>Politics</valueName>
+            </valueSettings>
+            <valueSettings>
+                <controllingFieldValue>General</controllingFieldValue>
+                <valueName>Writing/Authorship</valueName>
+            </valueSettings>
+            <valueSettings>
+                <controllingFieldValue>General</controllingFieldValue>
+                <valueName>Yachting</valueName>
+            </valueSettings>
+            <valueSettings>
+                <controllingFieldValue>Health</controllingFieldValue>
+                <valueName>Fitness</valueName>
+            </valueSettings>
+            <valueSettings>
+                <controllingFieldValue>Health</controllingFieldValue>
+                <valueName>Preventive Medicine</valueName>
+            </valueSettings>
+            <valueSettings>
+                <controllingFieldValue>Health</controllingFieldValue>
+                <valueName>Stress Management</valueName>
+            </valueSettings>
+            <valueSettings>
+                <controllingFieldValue>YPO</controllingFieldValue>
+                <valueName>Champion a Seminar</valueName>
+            </valueSettings>
+            <valueSettings>
+                <controllingFieldValue>YPO</controllingFieldValue>
+                <valueName>Champion a Youth/Family Program</valueName>
+            </valueSettings>
+            <valueSettings>
+                <controllingFieldValue>YPO</controllingFieldValue>
+                <valueName>Champion an Experience</valueName>
+            </valueSettings>
+            <valueSettings>
+                <controllingFieldValue>YPO</controllingFieldValue>
+                <valueName>Champion an Industry Roundtable</valueName>
+            </valueSettings>
+            <valueSettings>
+                <controllingFieldValue>YPO</controllingFieldValue>
+                <valueName>Event or Committee Chair</valueName>
+            </valueSettings>
+            <valueSettings>
+                <controllingFieldValue>YPO</controllingFieldValue>
+                <valueName>Serve as a Resource</valueName>
+            </valueSettings>
+            <valueSettings>
+                <controllingFieldValue>YPO</controllingFieldValue>
+                <valueName>Serve YPO Gold Event Chair</valueName>
+            </valueSettings>
+            <valueSettings>
+                <controllingFieldValue>Leadership</controllingFieldValue>
+                <valueName>Community Leadership</valueName>
+            </valueSettings>
+            <valueSettings>
+                <controllingFieldValue>Leadership</controllingFieldValue>
+                <valueName>Executive</valueName>
+            </valueSettings>
+            <valueSettings>
+                <controllingFieldValue>Leadership</controllingFieldValue>
+                <valueName>Executive Leadership</valueName>
+            </valueSettings>
+            <valueSettings>
+                <controllingFieldValue>Leadership</controllingFieldValue>
+                <valueName>Family Leadership</valueName>
+            </valueSettings>
+            <valueSettings>
+                <controllingFieldValue>YPO Internal</controllingFieldValue>
+                <valueName>Non-Compliant</valueName>
+            </valueSettings>
+        </valueSet>
+        <visibleLines>4</visibleLines>
+    </fields>
+    <fields>
+        <fullName>Validation_Check__c</fullName>
+        <defaultValue>false</defaultValue>
+        <externalId>false</externalId>
+        <label>Validation Check</label>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Checkbox</type>
+    </fields>
+    <label>Interest Template</label>
+    <nameField>
+        <displayFormat>ITT-{0000}</displayFormat>
+        <label>Interest Template Name</label>
+        <trackHistory>false</trackHistory>
+        <type>AutoNumber</type>
+    </nameField>
+    <pluralLabel>Interest Template</pluralLabel>
+    <searchLayouts/>
+    <sharingModel>ReadWrite</sharingModel>
+    <startsWith>Vowel</startsWith>
+    <visibility>Public</visibility>
+</CustomObject>

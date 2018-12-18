@@ -1,0 +1,320 @@
+<apex:page standardcontroller="Contact" extensions="WelcomePageController_YPO" sidebar="false" showheader="false" standardstylesheets="false" title="{!$Label.Welcome}">
+    <link rel="stylesheet" type="text/css" href="{!URLFOR($Resource.YPORenew, 'ypo-renewals/assets/css/bootstrap.min.css')}" />
+    <link rel="stylesheet" type="text/css" href="{!URLFOR($Resource.YPORenew, 'ypo-renewals/assets/css/styles.css')}" />
+
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" />
+        <title>YPO Renewals</title>
+
+        <style>
+            /* ---------- HERO BOX ---------*/
+            .welcome-message {
+                padding-right: 50px;
+            }
+
+            @media (max-width: 768px) {
+                .welcome-message {
+                    padding-right: 0;
+                }
+            }
+            /* ---------- WELCOME STEPS ---------*/
+            .welcome-steps h3 {
+                font-weight: bold;
+            }
+            /* ---------- QUOTE BOX ---------*/
+            .quote-who {
+                font-weight: bold;
+            }
+            /* ---------- FOOTER ---------*/
+
+            @media (max-width: 991px) {
+                footer {
+                    padding: 10px 5px;
+                    text-align: center;
+                    line-height: 1.8em;
+                }
+
+                    footer .logo {
+                        margin-bottom: 20px;
+                    }
+            }
+        </style>
+    </head>
+
+    <body>
+        <!-- Global site tag (gtag.js) - Google Analytics -->
+        <script async="true" src="https://www.googletagmanager.com/gtag/js?id={!$Label.Google_Analytics_ID}"></script>
+        <script>
+            window.dataLayer = window.dataLayer || [];
+            function gtag(){dataLayer.push(arguments);}
+            gtag('js', new Date());
+            gtag('config', '{!$Label.Google_Analytics_ID}');
+        </script>
+        <!-- End Google Analytics code -->
+
+
+        <nav class="navbar navbar-default navbar-fixed-top">
+            <div class="container">
+                <img class="logo" src="{!URLFOR($Resource.YPORenew, 'ypo-renewals/assets/img/ypo.svg')}" />
+            </div>
+        </nav>
+        <apex:outputpanel >
+            <div class="welcome-screen">
+                <div class="content-title welcome" >
+                    <div class="container">
+                        <div style="color:White"> <apex:pagemessages id="messagesStart" /> </div>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="welcome-message">
+                                    <h1><apex:outputText value="{!IF(isMember, $Label.Welcome_Header_Member, $Label.Welcome_Header_Prospect)}" escape="false"/></h1>
+                                    <h4><apex:outputText value="{!IF(isMember, $Label.Welcome_Message_Member, $Label.Welcome_Message_Prospect)}" escape="false"/></h4>
+                                    <a href="{! URLFOR($Page.UpdateProfileInfo_YPO, null, ['id'=contactId])}" class="btn btn-primary">START HERE</a>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Site Content -->
+                <div class="container">
+                    <div class="content welcome-steps">
+                        <h2 class="text-center">On the next few screens, you can:</h2>
+                        <div class="row">
+                            <div class="col-md-4 text-center">
+                                <img src="{!URLFOR($Resource.YPORenew, 'ypo-renewals/assets/img/contact-card.svg')}" />
+                                <h3><apex:outputText value="{!IF(isMember, $Label.Welcome_Tile_1_Heading_Member, $Label.Welcome_Tile_1_Heading_Prospect)}" escape="false"/></h3>
+                                <p>
+                                    <strong><apex:outputText value="{!IF(isMember, $Label.Welcome_Tile_1_Sub_Heading_Member, $Label.Welcome_Tile_1_Sub_Heading_Prospect)}" escape="false"/></strong><br />
+                                    <apex:outputText value="{!IF(isMember, $Label.Welcome_Tile_1_Detail_Member, $Label.Welcome_Tile_1_Detail_Prospect)}" escape="false"/>
+                                </p>
+                            </div>
+                            <div class="col-md-4 text-center">
+                                <img src="{!URLFOR($Resource.YPORenew, 'ypo-renewals/assets/img/Update-icon.png')}" />
+                                <h3><apex:outputText value="{!IF(isMember, $Label.Welcome_Tile_2_Heading_Member, $Label.Welcome_Tile_2_Heading_Prospect)}" escape="false"/></h3>
+                                <p>
+                                    <strong><apex:outputText value="{!IF(isMember, $Label.Welcome_Tile_2_Sub_Heading_Member, $Label.Welcome_Tile_2_Sub_Heading_Prospect)}" escape="false"/></strong><br />
+                                    <apex:outputText value="{!IF(isMember, $Label.Welcome_Tile_2_Detail_Member, $Label.Welcome_Tile_2_Detail_Prospect)}" escape="false"/>
+                                </p>
+                            </div>
+                            <div class="col-md-4 text-center">
+                                <img src="{!URLFOR($Resource.YPORenew, 'ypo-renewals/assets/img/WelcomeScreen_newicon_cart.svg')}" />
+                                <h3><apex:outputText value="{!IF(isMember, $Label.Welcome_Tile_3_Heading_Member, $Label.Welcome_Tile_3_Heading_Prospect)}" escape="false"/></h3>
+                                <p>
+                                    <strong><apex:outputText value="{!IF(isMember, $Label.Welcome_Tile_3_Sub_Heading_Member, $Label.Welcome_Tile_3_Sub_Heading_Prospect)}" escape="false"/></strong><br />
+                                    <apex:outputText value="{!IF(isMember, $Label.Welcome_Tile_3_Detail_Member, $Label.Welcome_Tile_3_Detail_Prospect)}" escape="false"/>
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="alt-bg">
+                    <div class="container">
+                        <div class="content more-padding">
+                            <div class="row">
+                                <div class="col-sm-4 profile-wrapper">
+                                    <img class="profile img-circle" src="{!URLFOR($Resource.YPORenew, 'ypo-renewals/assets/img/Randy_Waterfield.png')}" />
+                                </div>
+                                <div class="quote-container col-sm-8 text-left">
+                                    <div class="quote">
+                                        <apex:outputText value="{!$Label.Welcome_Page_Quote_Text}" escape="false"/>
+                                    </div>
+                                    <div class="quote-who">
+                                        <apex:outputText value="{!$Label.Welcome_Page_Quote_Who}" escape="false"/>
+                                    </div>
+                                    <p>
+                                        <apex:outputText value="{!$Label.Welcome_Page_Quote_Info}" escape="false"/>
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!--    </apex:pageBlock>-->
+        </apex:outputpanel>
+        <!--<span Style="color:White"> <apex:pageMessages id="messagesStart" /> </span>-->
+        <footer>
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-4 col-sm-12"><img class="logo" style="margin-top: 10px;" src="{!URLFOR($Resource.YPORenew, 'ypo-renewals/assets/img/ypo-white.svg')}" /></div>
+                    <div class="col-md-4 text-center hidden-sm hidden-xs"><a href="https://media.ypowpo.org/libraries/publicLegal/exchange/TOU.pdf" target="_blank" style="color: #fdfeff;">{!$Label.Copyright_TOU}</a></div>
+                    <div class="col-md-4 text-right hidden-sm hidden-xs">&copy; {!$Label.Copyright_YPO}</div>
+                    <div class="col-sm-12 text-center vissible-sm vissible-xs hidden-md hidden-lg hidden-xl">
+                        <a href="https://media.ypowpo.org/libraries/publicLegal/exchange/TOU.pdf" target="_blank" style="color: #fdfeff; display: inline-block;">{!$Label.Copyright_TOU}</a>, <span style="display: inline-block">&copy; {!$Label.Copyright_YPO}</span>
+                    </div>
+                </div>
+            </div>
+        </footer>
+        <script src="{!URLFOR($Resource.YPORenew, 'ypo-renewals/assets/js/jquery-3.2.1.min.js')}"></script>
+        <script src="{!URLFOR($Resource.YPORenew, 'ypo-renewals/assets/js/bootstrap.min.js')}"></script>
+        <!--<script>
+
+                 $(".print").click(function() {
+                if({!isThirdPartyCertify}){
+                window.open('{!$Resource.ThirdPartyCertification_Form}');
+                }
+                else{
+                window.open('{!$Resource.SelfCertification_Form}');
+                }
+                });
+
+        </script>-->
+        <!--
+           <apex:pageMessages id="messagesStart"></apex:pageMessages>
+
+                    <apex:outputPanel id="opanelIsNotMember" rendered="{!NOT(isMember)}">
+                    <div class="row">
+                       <div class="col-md-10 col-md-offset-1 col-lg-8 col-lg-offset-2">
+
+                         <section class="welcomesection">
+                             <div class="contentBlock">
+                              <!--  <figure class="imgBlock">
+                                   <apex:image id="theImage" value="{!$Resource.WelcomeToYPO}" width="125"/>
+                                </figure>
+                                <p>{!$Label.Welcome_Thankyou}</p>
+                                <ul class="">
+                                   <apex:outputText value="{!$Label.Welcome_Confirmandupdate_MorePoints}" escape="false" />
+                                </ul>
+                             </div>
+                             <p class=""><apex:outputText value="{!$Label.Welcome_Ifyouneedassistance}" escape="false" /></p>
+                             <p class=""><apex:outputText value="{!$Label.Welcome_YPOtransformes}" escape="false" /></p>
+                             <p class="yoursSec">
+                                <apex:outputText value="{!$Label.Welcome_Sincerly}" escape="false" />
+                             </p>
+                             <div class="btns-div" style="text-align:left">
+
+                                <a href="{! URLFOR($Page.UpdateProfileInfo_YPO, null, ['id'=contactId])}"  class="btn btn-blue">
+                                {!$Label.Continue}
+                                </a>
+                             </div>
+                          </section>
+                       </div>
+                    </div>
+                    </apex:outputPanel>
+                    <apex:outputPanel >
+
+
+                       <apex:pageBlock rendered="{!isMember}" id="pb12">
+
+
+
+                        <section class="welcomesec">
+                       <div class="row sec1"  style="background-image:url('{!URLFOR($Resource.WelcomeNewDesignYPO, 'images/SplashBannerWeb.JPG')}');color:#FFF;
+                            background-size:cover;width:100%;height:165px;">
+                            <div class="section1" style="margin-left: 4%;margin-top:3%;">
+                                <div class="row">
+                                    <div class="col-xs-8">
+                                        <div class="ItsTime"></div>
+                                        <div class="RenewYourMem">It's Time to RENEW or UPDATE your Membership</div>
+                                        <div class="continueToEnrich">Continue to enrich your personal journey with all the leadership, learning and lifelong benefits YPO offers.<br /> There is no better time to be a member of YPO.</div>
+                                    </div>
+                                    <div class="col-xs-4">
+                                        <a href="{! URLFOR($Page.UpdateProfileInfo_YPO, null, ['id'=contactId])}" class="startHereButton">START HERE1</a>
+                                    </div>
+                                </div>
+                            </div>
+                       </div>
+
+                       <div class="row sec1Mobile"  style="background-image:url('{!URLFOR($Resource.WelcomeNewDesignYPO, 'images/SplashBanner2Mobile.JPG')}');color:#FFF;
+                            background-size:cover;width:100%;height:350px;">
+                            <div class="section1">
+                            <div class="ItsTime"></div>
+                            <h1 class="RenewYourMem">It's Time to RENEW or UPDATE your Membership</h1>
+                            <div class="continueToEnrich">Continue to enrich your personal journey with all the leadership, learning and lifelong benefits YPO offers.<br /> There is no better time to be a member of YPO.</div>
+                             <a href="{! URLFOR($Page.UpdateProfileInfo_YPO, null, ['id'=contactId])}" class="startHereButton">START HERE2</a>
+                            </div>
+                       </div>
+
+                       <div class="row sec2">
+                            <div class="section2">
+                                <div class="thankYouDiv">THANK YOU</div>
+                                <div class="thankyouForContinuing">Thank you for continuing your membership in the premier leadership organization for chief executives in the world. As you know, YPO is a uniquely personal experience and there is no single way to experience it. The YPO platform caters to your development as a whole person, providing a life-enriching, holistic and balanced approach to professional and personal growth and happiness.</div>
+                                <div class="Pic1">
+
+                                <apex:image value="{!URLFOR($Resource.WelcomeNewDesignYPO, 'images/Pic1.JPG')}" width="200" height="200px"/>
+                                </div>
+                                <div class="behalfOf">On behalf of the YPO Board of Directors, we thank you for your continued commitment to our organization.</div>
+                                <apex:image value="{!URLFOR($Resource.WelcomeNewDesignYPO, 'images/SignatureIcon.JPG')}" width="145px" height="60"/>
+                                <div class="signAndName"><span style="font-weight:bold;">MCKEEL HAGERTY </span><br/>
+                                (YPO WEST MICHIGAN)  <br/>
+                                2016-2017 YPO CHAIRMAN</div>
+                            </div>
+                            <div class="rule "></div>
+                            <div class="section3">
+                                <div class="threeStepsToRenewal">
+                                Continue your YPO journey. Steps to complete your membership renewal or update:
+                                </div>
+                                <div class="steps">
+                                    <span class="step1 hidden-xs  visible-sm visible-md visible-lg">
+                                     <apex:image value="{!URLFOR($Resource.WelcomeNewDesignYPO, 'images/Number1Icon.JPG')}" width="35" height="30px"/>
+                                      <apex:image value="{!URLFOR($Resource.WelcomeNewDesignYPO, 'images/UpdateProfileIcon.JPG')}" width="85" height="30px" style="margin-top: -10px;"/>
+                                      <h2 style="color:#D69D23;font-weight:bold;">UPDATE PROFILE</h2><br/>
+                                      <h3 style="font-weight: bold;">All members</h3>
+                                      <p style="">Confirm and update your contact, family, business information.</p>
+                                    </span>
+                                    <span class="step1 hidden-lg hidden-sm hidden-md visible-xs">
+                                     <apex:image value="{!URLFOR($Resource.WelcomeNewDesignYPO, 'images/Number1Icon.JPG')}" width="35" height="30px" style="margin-left:-18%;"/>
+                                      <apex:image value="{!URLFOR($Resource.WelcomeNewDesignYPO, 'images/UpdateProfileIcon.JPG')}" width="85" height="30px"/>
+                                      <h2 style="color:#D69D23;font-weight:bold; margin-left: -12%;">UPDATE PROFILE</h2><br/>
+                                      <h3 style="font-weight: bold; margin-bottom: -8px; margin-left: -12%;">All members</h3>
+                                      <p style="margin-top:8px;margin-left: 20%;">Confirm and update your contact, family, business information.</p>
+                                    </span>
+                                    <span class="step2">
+                                     <apex:image value="{!URLFOR($Resource.WelcomeNewDesignYPO, 'images/Number2Icon.JPG')}" width="35" height="30px"/>
+                                    <apex:image value="{!URLFOR($Resource.WelcomeNewDesignYPO, 'images/CertificationIcon.JPG')}" width="85" height="30px" style="margin-top: -10px;"/>
+                                     <h2 style="color:#D69D23;font-weight:bold;">CERTIFICATION</h2><br/>
+                                     <h3 style="font-weight: bold;">Identified members</h3>
+                                     <p style="margin-top:0px;">Certification as required by the YPO Policies and Procedures manual.</p>
+                                    </span>
+                                    <span class="step3">
+                                     <apex:image value="{!URLFOR($Resource.WelcomeNewDesignYPO, 'images/Number3Icon.JPG')}" width="35" height="30px"  />
+                                     <apex:image value="{!URLFOR($Resource.WelcomeNewDesignYPO, 'images/MemberDuesIcon.JPG')}" width="85" height="30px" style="margin-top: -10px;"/>
+                                      <h2 style="color:#D69D23;font-weight:bold;">BENEFITS/DUES</h2><br/>
+                                      <h3 style="font-weight: bold;">All members</h3>
+                                      <p style="">Select and purchase optional exclusive benefits; pay member and/or chapter dues.</p>
+                                    </span>
+                                </div>
+
+                                <apex:image value="{!URLFOR($Resource.WelcomeNewDesignYPO, 'images/PrintIcon.JPG')}" width="30" height="30px"/> <span> Print your membership renewal forms and complete online.</span> </a> </div>
+
+                            <div class="section2Mobile">
+                                <div class="thankYouDiv">THANK YOU</div>
+                                <div class="thankyouForContinuing">Thank you for continuing your membership in the premier leadership organization for chief executives in the world. As you know, YPO is a uniquely personal experience and there is no single way to experience it. The YPO platform caters to your development as a whole person, providing a life-enriching, holistic and balanced approach to professional and personal growth and happiness.</div>
+                                <div class="Pic1">
+
+                                <apex:image value="{!URLFOR($Resource.WelcomeNewDesignYPO, 'images/Pic1.JPG')}" width="200" height="200px"/>
+                                </div>
+                                <div class="behalfOf">On behalf of the YPO Board of Directors, we thank you for your continued commitment to our organization.</div>
+                                <apex:image value="{!URLFOR($Resource.WelcomeNewDesignYPO, 'images/SignatureIcon.JPG')}" width="145px" height="60"/>
+                                <div class="signAndName"><span style="font-weight:bold;" >MCKEEL HAGERTY</span> <br/>
+                                (YPO WEST MICHIGAN)  <br/>
+                                2016-2017 YPO CHAIRMAN</div>
+                            </div>
+                            <div class="needAsorAns">Need assistance or answers? We're here for you.</div>
+                            <div class="assistanceOrAnswer">
+
+                                 <ul>
+
+                                <apex:image value="{!URLFOR($Resource.WelcomeNewDesignYPO, 'images/PhoneIcon.JPG')}" width="30" height="30px"/>   &nbsp;
+                                     <a class="sec2" href="tel:+1 800 773 7976">+1 800 773 7976</a>
+                                      &nbsp; |
+                                     <a class="sec2" href="tel:+1 972 587 1618">+1 972 587 1618</a>
+                                     <br/>
+                                <apex:image value="{!URLFOR($Resource.WelcomeNewDesignYPO, 'images/MessageIcon.JPG')}" width="30" height="30px"/>  &nbsp; <a class="sec2" href="mailto:membership@ypo.org">membership@ypo.org</a>
+                                </ul>
+                            </div>
+
+                            </div>
+                    </div>
+                        </section>
+                                <div class="row">
+                                </div>
+
+
+                       </apex:pageBlock>
+                    </apex:outputPanel> -->
+    </body>
+</apex:page>

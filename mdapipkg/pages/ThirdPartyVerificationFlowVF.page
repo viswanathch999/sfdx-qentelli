@@ -1,0 +1,7 @@
+<apex:page showHeader="false" sidebar="false">
+    <flow:interview name="X3rdPartyVerify" finishLocation="{!URLFOR($Action.Lead.View,$CurrentPage.parameters.varLeadId)}" rendered="{!$CurrentPage.parameters.varLeadId != null}">
+        <apex:param name="varLeadId" value="{!$CurrentPage.parameters.varLeadId}"/>
+    </flow:interview>
+    <apex:outputText value="Missing Correct parameters" rendered="{!$CurrentPage.parameters.varLeadId == null}"/>
+    <WM4SF3:WalkMeSnippet ></WM4SF3:WalkMeSnippet>
+</apex:page>

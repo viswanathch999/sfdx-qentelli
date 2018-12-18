@@ -1,0 +1,53 @@
+<apex:page standardController="Contact" 
+    extensions="RenewalContactContExt" 
+    sidebar="false" 
+    id="WPOTransition"
+    showHeader="false"
+    standardStylesheets="false" 
+    title="WPO Transition Option"
+    action="{!init}">
+    
+    <link rel="stylesheet" type="text/css" href="https://mte-www.ypowpo.org/stylesheets/app.css"/>
+    
+    <apex:form id="memberinfo">
+        
+        <apex:pageMessages id="messagesStart"></apex:pageMessages>
+        <apex:outputPanel id="opanelIsNotMember" rendered="{!NOT(isMember)}">You are currently not a member and cannot proceed with Renewals</apex:outputPanel>
+     
+        <apex:outputPanel id="opanel">
+            <apex:pageBlock rendered="{!isYPO && isMember}" id="pb1">
+                <main role="main">
+                    <div class="row">
+                        <div class="small-24 medium-16 large-18 columns">
+                            <div class="tile">
+                                <div class="tile-header">    WPO Transition Option   </div>
+                                <div class="tile-body">
+                                    <p>
+                                        The graduation age for all YPO members is 50. In some cases, YPO members who are at 
+                                        least 45 years old and do not meet the company qualifying criteria or do not have grace,
+                                        transitioning to WPO may be an option. The YPO member also must have been with the organization
+                                        for at least three years, excluding any grace period. If you are interested in learning more about 
+                                        transitioning to WPO, please select the "Interested in transitioning to WPO" button below to 
+                                        contact Member Services.                    
+                                    </p>
+                                    <p>
+                                        If you have any questions, please contact Member Services via any of the numbers lister under
+                                        "Need Assistance" on the left side of the page.
+                                    </p>
+                                </div>    
+                            </div>    
+                        </div>
+                    </div>
+                </main>
+                <div class="row">
+                    <apex:pageMessages id="messagesRel"/>
+                    <apex:commandButton value="Not Interested in transitioning to WPO" title="{!$Label.Back}" styleclass="button_raised" action="{!toMemberBio}" rendered="{!NOT(isOverdueForTransition)}" status="status2"/>
+                    <apex:commandButton value="Interested in transitioning to WPO" title="{!$Label.Save}" styleclass="button_raised" action="{!toDesiredWPOChapter}" status="status2"/>
+                    <apex:commandButton value="{!$Label.Exit}" title="{!$Label.Exit}" styleClass="button_raised" action="{!toContactMemberServices}" rendered="{!isOverdueForTransition}"/>
+                    <apex:actionStatus layout="inline" startText="{!$Label.Processing}" stopText="" id="status2" startStyleClass="statusStyle"/>
+                </div>
+            </apex:pageBlock>
+        </apex:outputPanel>    
+    </apex:form>
+ 
+</apex:page>

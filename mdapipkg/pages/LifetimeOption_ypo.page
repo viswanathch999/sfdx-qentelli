@@ -1,0 +1,187 @@
+<apex:page standardcontroller="Contact" extensions="RecertificationExtension" action="{!init}" sidebar="false" showheader="false" standardstylesheets="false" applyhtmltag="false" doctype="html-5.0">
+    <head>
+        
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" />
+        <title>YPO Renewals</title>
+        
+        <link rel="stylesheet" type="text/css" href="{!URLFOR($Resource.YPORenew, 'ypo-renewals/assets/css/bootstrap.min.css')}" />
+        <link rel="stylesheet" type="text/css" href="{!URLFOR($Resource.YPORenew, 'ypo-renewals/assets/css/styles.css')}" />
+        
+        <!--
+            <apex:stylesheet value="{!URLFOR($Resource.Styles)}"/>
+            <apex:composition template="V_Template_ProspectFlow_YPO">
+                <apex:define name="title">
+                    <title>
+                        Lifetime Option | {! $Organization.Name}
+                    </title>
+                </apex:define>
+                <apex:define name="nav_links" >
+                    <li>
+                        <apex:outputPanel id="kgrencartcompId">
+                            <KGRenewal:CartComponent mode="link" includeBootstrapModalResources="false"  />
+                        </apex:outputPanel>
+                    </li>
+                </apex:define>
+                <apex:define name="content"> -->
+            
+    </head>
+
+    <body>
+        
+        <!-- Global site tag (gtag.js) - Google Analytics -->
+        <script async="true" src="https://www.googletagmanager.com/gtag/js?id={!$Label.Google_Analytics_ID}"></script>
+        <script>
+            window.dataLayer = window.dataLayer || [];
+            function gtag(){dataLayer.push(arguments);}
+            gtag('js', new Date());
+            gtag('config', '{!$Label.Google_Analytics_ID}');
+        </script>
+        <!-- End Google Analytics code -->
+        
+        <nav class="navbar navbar-default navbar-fixed-top">
+            <div class="container">
+                <img class="logo" src="{!URLFOR($Resource.YPORenew, 'ypo-renewals/assets/img/ypo.svg')}" />
+            </div>
+        </nav>
+    
+        <div class="content-title">
+            <div class="container">
+                <h1 class="v-center">{!$Label.LifetimeOption_YPO_LifetimeOption}</h1>
+            </div>
+        </div>
+        <apex:form >
+            <!-- Site Content -->
+            <div class="container">
+                <div style="color:black"> <apex:pagemessages id="messagesStart" /> <br /></div>
+                <div class="content">
+                    <p class="desc">{!$Label.LifetimeOption_YPO_YouHaveTheOption}</p>
+                    <div class="row">
+                        <div class="col-md-9">
+                            <div class="panel info">
+                                <div class="panel-header">
+                                    <h3 class="pull-left">{!$Label.LifetimeOption_YPO_WhatisDifference}</h3>
+                                </div>
+                                <h3>Lifetime Membership</h3>
+                                <apex:outputtext value="{!$Label.LifetimeOption_YPO_TheEarlierYouElect}" escape="false" />
+                                <br />
+                                <!--<button class="btn btn-primary">EMAIL ME ABOUT LIFETIME MEMBERSHIP</button>-->
+                                <apex:commandbutton styleclass="btn btn-primary" value="{!$Label.LifetimeOption_YPO_ContactMe}" action="{!toConfirmation}" />
+                                <hr class="padded" />
+                                <h3>Annual Membership</h3>
+                                <apex:outputtext value="{!$Label.LifetimeOption_YPO_AnnualMembershipOffers}" escape="false" />
+                                <!--            <button class="btn btn-primary">CONTINUE MEMBERSHIP RENEWAL</button>-->
+                                <apex:commandbutton styleclass="btn btn-primary" value="{!$Label.LifetimeOption_YPO_RenewAsAnnual}" action="{!toVCatalog}" />
+                            </div>
+                        </div>
+                        <div class="col-md-3">
+                            <div class="panel help visible-md visible-lg">
+                                <div class="panel-header text-center">
+                                    <img class="panel-header-img" src="{!URLFOR($Resource.YPORenew, 'ypo-renewals/assets/img/help.svg')}" />
+                                    <h3 class="help">{!$Label.Help_NeedHelp}</h3>
+                                </div>
+                                <p>{!$Label.Help_ifYouNeed} </p>
+                                <p class="clearfix need-help-phone">
+                                    <!--<img class="pull-left need-help-phone" src="{!URLFOR($Resource.YPORenew, 'ypo-renewals/assets/img/phone.png')}"/> -->
+                                    <i class="icon-phone"></i>
+                                    <span class="pull-left">{!$Label.Help_Phone1}<br />{!$Label.Help_Phone2} </span>
+                                </p>
+                                <p class="clearfix need-help-email">
+                                    <!--<img class="pull-left" src="{!URLFOR($Resource.YPORenew, 'ypo-renewals/assets/img/email.png')}"/>-->
+                                    <i class="icon-email"></i>
+                                    <span class="pull-left need-help-email">{!$Label.Help_Email} </span>
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+    
+            
+    
+            <div class="visible-md visible-lg">
+                <footer>
+                    <div class="container">
+                        <div class="row">
+                            <div class="col-md-4"><img class="logo" src="{!URLFOR($Resource.YPORenew, 'ypo-renewals/assets/img/ypo-white.png')}" /></div>
+                            <div class="col-md-4 text-center"><a href="https://media.ypowpo.org/libraries/publicLegal/exchange/TOU.pdf" target="_blank" style="color: #fdfeff;">{!$Label.Copyright_TOU}</a></div>
+                            <div class="col-md-4 text-right">&copy; {!$Label.Copyright_YPO}</div>
+                        </div>
+                    </div>
+                </footer>
+            </div>
+        </apex:form>
+    
+        <apex:form >
+            <div class="row">
+                <div class="col-md-10 col-md-offset-1 col-lg-8 col-lg-offset-2">
+                    <!--    <h1 class="title">{!$Label.LifetimeOption_YPO_LifetimeOption}</h1>
+                        <p>
+    
+                             {!$Label.LifetimeOption_YPO_YouHaveTheOption}
+                            <!-- <elm class="qmarkIcon">?</elm>
+                        </p>-->
+                    <section class="lifetimeOptionsBlock">
+                        <!--     <ul>
+                             <p style="font-weight:bold;"> Lifetime Membership</p>
+                             <br/>
+                                     The earlier you elect to become a lifetime member, the greater your savings over time.
+                             <br/> <br/>
+    
+                                     <li>YPO Gold lifetime members don't have  to third party certify.</li>
+                                     <li>Lifetime membership can be paid in one easy payment or in three or five installments, based on your age and years of tenure in YPO.</li>
+                                     <li>Want to learn more about lifetime membership? Select "Contact Me" below and someone from the YPO Member Services team will contact you. </li>
+                                     <br/><br/>
+                           <p style="font-weight:bold;"> Annual Membership</p>
+                                     <br/>
+                                     <li>Annual membership offers an annual dues amount set by the YPO Board of Directors each year. </li>
+                                     <li>Want to renew as an annual member? Select "Renew as Annual" below and you'll be directed through the online renewal process. </li>
+    
+    
+                                 <!-- <apex:outputText value="{!$Label.LifeTime_YPO_Lifetimemembership}" escape="false"></apex:outputText>
+                                                             </ul> -->
+                        <!--         <div class="memberServices">
+                                     <h2>{!$Label.ThirdPartyCertification_YPO_ContactMemberServices}</h2>
+                                     <p><apex:outputText value="{!$Label.ThirdPartyCertification_YPO_ThankYourMembership}" escape="false"></apex:outputText></p>
+                                     <!-- <span>{!$Label.ThirdPartyCertification_YPO_IfYouBelieve}</span>
+                                 </div>-->
+                        <div class="btm-btns whiteBox">
+                            <!--   <div class="text-center hidden-xs">
+                                   <apex:commandButton styleClass="btn btn-gray" value="{!$Label.UpdateProfileInfo_YPO_Back}" action="{!backLifetime}"/>
+                                   <apex:commandButton styleClass="btn btn-blue" value="{!$Label.LifetimeOption_YPO_RenewAsAnnual}" action="{!toVCatalog}"/>
+                                   <apex:commandButton styleClass="btn btn-blue" value="{!$Label.LifetimeOption_YPO_ContactMe}" action="{!toConfirmation}"/>
+                               </div>-->
+                            <div class="hidden  hidden-xl hidden-lg hidden-md hidden-sm hidden-xs">
+                                <div class="row">
+                                    <div class="col-xs-12">
+                                        <apex:commandbutton styleclass="btn btn-gray" value="{!$Label.UpdateProfileInfo_YPO_Back}" action="Lifetime_Grace_Check()" />
+                                    </div>
+                                    <div class="col-xs-12" style="padding-top: 1%; padding-bottom: 1%">
+                                        <apex:commandbutton styleclass="btn btn-blue" value="{!$Label.LifetimeOption_YPO_RenewAsAnnual}" action="{!toVCatalog}" />
+                                    </div>
+                                    <div class="col-xs-12">
+                                        <apex:commandbutton styleclass="btn btn-blue" value="{!$Label.LifetimeOption_YPO_ContactMe}" action="{!toConfirmation}" />
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </section>
+                </div>
+            </div>
+            <apex:actionfunction name="LifetimeBackAction" action="{!backLifetime}" immediate="true" />
+        </apex:form>
+    </body>
+    
+    <!--</apex:define>
+    </apex:composition>-->
+    <apex:includescript value="https://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js" />
+    <script>
+        function Lifetime_Grace_Check() {
+            if ({!oOpp.Grace_Status__c != 'No Grace Needed'}) {
+               alert('You have requested or been approved for Grace.  Please make your lifetime selection.  If you do not which to request Lifetime Membership, then please contact Member Services .');
+            } else {
+                LifetimeBackAction();
+            }
+        }
+    </script>
+</apex:page>

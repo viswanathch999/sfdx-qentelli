@@ -1,0 +1,62 @@
+<apex:page standardController="Contact" 
+    extensions="RenewalContactContExt" 
+    sidebar="false" 
+    id="thirdpartycertificationupload"
+    showHeader="false"
+    standardStylesheets="false" 
+    title="{!$Label.Third_Party_Certification}"
+    action="{!init}">
+    
+    <link rel="stylesheet" type="text/css" href="https://mte-www.ypowpo.org/stylesheets/app.css"/>
+    
+    <apex:form id="contactMemberServicesInfo" enctype="multipart/form-data">
+        
+        <!-- <apex:pageMessages id="messagesStart"></apex:pageMessages> -->
+        <apex:outputPanel id="opanelIsNotMember" rendered="{!NOT(isMember)}">You are currently not a member and cannot proceed with Renewals</apex:outputPanel>
+        <apex:outputPanel id="opanel">
+            <apex:pageBlock rendered="{!isYPO && isMember}" id="pb1">
+                <main role="main">
+                    
+                    <div class="row">
+                        
+                        <div class="small-24 medium-16 large-18 columns">
+                            <div class="tile">
+                                <div class="tile-header">    Your Third Party Information   </div>
+                                <div class="tile-body">
+                                    Certain documentation is acceptable as third party verification in lieu of a third party auditor
+                                    <ul class="tile-body">
+                                        <li>an annual report</li>
+                                        <li>a 10k filing</li>
+                                        <li>a letter signed by your company's treasurer, financial officer or accounting officer on 
+                                            your company letterhead verifying that you do not employ a third party auditor. This employees's
+                                            signature must also be included on your recertification form to verify its accuracy.
+                                        </li>
+                                    </ul>
+                                    Select the type of documentation you wish to provide, and upload by selecting the option below. 
+                                    You may upload both your company letter and signed recertification form here.
+
+                                    <span class="input is-not-empty">
+                                        <apex:inputFile value="{!attachmentOne.body}" filename="{!attachmentOne.name}" id="fileOne"/>
+                                        <label class="input-label" for="fileOne">    File    </label>
+                                    </span>
+                                    <span class="input is-not-empty">
+                                        <apex:inputFile value="{!attachmentTwo.body}" filename="{!attachmentTwo.name}" id="fileTwo"/>
+                                        <label class="input-label" for="fileTwo">    File    </label>
+                                    </span>
+                                </div>    
+                            </div>    
+                        </div>
+                    </div>
+                </main>
+                <div class="row">
+                    <apex:pageMessages id="messagesRel"/>
+                    <apex:commandButton value="{!$Label.Back}" title="{!$Label.Back}" styleclass="button_raised" action="{!toThirdPartyCertification}" status="status2"/>
+                    <apex:commandButton value="{!$Label.Save_And_Continue}" title="{!$Label.Save_And_Continue}" styleclass="button_raised" action="{!uploadThirdPartyCertificationDocuments}" status="status2" />
+                    <apex:actionStatus layout="inline" startText="{!$Label.Processing}" stopText="" id="status2" startStyleClass="statusStyle"/>
+                </div>
+            </apex:pageBlock>
+        </apex:outputPanel>   
+        
+    </apex:form>
+ 
+</apex:page>

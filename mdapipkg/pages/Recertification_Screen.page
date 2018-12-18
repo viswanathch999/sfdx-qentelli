@@ -1,0 +1,2342 @@
+<apex:page standardcontroller="Contact" extensions="RecertificationExtension" action="{!init}" sidebar="false" showheader="false" standardstylesheets="false" applyhtmltag="false" doctype="html-5.0">
+    <head>
+        
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" />
+        <title>YPO Renewals</title>
+
+        <apex:includescript value="{!URLFOR($Resource.knockout)}" />
+        <apex:includescript value="{!URLFOR($Resource.knockoutvalidation)}" />
+
+        <link rel="stylesheet" type="text/css" href="{!URLFOR($Resource.YPORenew, 'ypo-renewals/assets/css/bootstrap.min.css')}" />
+        <link rel="stylesheet" type="text/css" href="{!URLFOR($Resource.YPORenew, 'ypo-renewals/assets/css/styles.css')}" />
+
+        <!--    <apex:stylesheet value="{!URLFOR($Resource.Styles)}"/>
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jquery-confirm/3.1.1/jquery-confirm.min.css" /> -->
+
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-confirm/3.1.1/jquery-confirm.min.js"></script>
+
+        <style>
+            .border-right-or:after {
+                top: 12px;
+                right: -12px;
+            }
+        
+            .border-right-and-or {
+                border-right: 1px solid #D8D8D8;
+            }
+        
+            @media screen and (max-width: 991px) {
+                .border-right-and-or{
+                    border: none;
+                }
+                
+                .border-right-and-or:after {
+                    display: none;
+                }
+                
+                .and-or {
+                    margin: 15px;
+                    border-bottom: 1px solid #D8D8D8;
+                }
+                
+                .and-or:after {
+                    font-family: "Gentona Book";
+                    font-size: 22px;
+                    font-weight: 700;
+                    content: "and/or";
+                    position: absolute;
+                    text-align: center;
+                    left: 50%;
+                    width: 90px;
+                    height: 35px;
+                    background: #f3f4f4;
+                    transform: translate(-50%, -50%);
+                }
+                
+            }
+        
+            .border-right-and-or:after {
+                font-family: "Gentona Book";
+                font-size: 22px;
+                font-weight: 700;
+                content: "and/or";
+                position: absolute;
+                text-align: center;
+                right: -35px;
+                width: 70px;
+                height: 35px;
+                background: #f3f4f4;
+                background-color: #f3f4f4;
+                top: 12px;
+                transform: translate(0%, -50%);
+            }
+        
+            .form-group.has-errors label {
+                color: #B71F36;
+            }
+
+            .form-group.has-errors input {
+                border-color: #B71F36;
+            }
+
+            .form-group.has-errors select {
+                border-color: #B71F36;
+            }
+
+            .form-group.has-errors-gold label {
+                color: #D69D23;
+            }
+
+            .form-group.has-errors-gold input {
+                border-color: #D69D23;
+            }
+
+            .form-group.has-errors-gold select {
+                border-color: #D69D23;
+            }
+
+            .alert-gold {
+                border-color: #D69D23;
+                color: #D69D23;
+                background-color: rgba(214,157,35,0.1);
+                font-family: "Gentona Book";
+                font-weight: 700;
+            }
+
+            .gold-text {
+                margin-left: 40px;
+            }
+
+            .alert-gold i {
+                float: left;
+                margin-right: 20px;
+                margin-top: 5px;
+            }
+            .form-control[disabled], fieldset[disabled] .form-control {
+                background: none;
+                color: #bbbbbb;
+            }
+            .disabled {
+                color: #bbbbbb;
+            }
+        </style>
+        <!--    <style>
+                .cartIicon{
+                    display: none;
+                }
+                .companyRecrtification .glyphicon.glyphicon-triangle-bottom {
+                    float: right;top: 26px;
+                }
+                label .previousYearSpan {
+                    color: #717171;
+                    font-style: normal;
+                    font-weight: 600;
+                    text-transform: capitalize;
+                    important!;
+                }
+                .businessAddressField {
+                    margin-bottom: 14px;
+                }
+
+                .recertificationBlock .inner-content .input select.input-field {
+                    margin-bottom: -6px;
+                }
+            </style> -->
+
+    </head>
+
+    <body>
+    
+        <!-- Global site tag (gtag.js) - Google Analytics -->
+        <script async="true" src="https://www.googletagmanager.com/gtag/js?id={!$Label.Google_Analytics_ID}"></script>
+        <script>
+            window.dataLayer = window.dataLayer || [];
+            function gtag(){dataLayer.push(arguments);}
+            gtag('js', new Date());
+            gtag('config', '{!$Label.Google_Analytics_ID}');
+        </script>
+        <!-- End Google Analytics code -->
+        
+    <!--
+    <apex:composition template="V_Template_ProspectFlow_YPO">
+        <apex:define name="title">
+            <title>  Recertification | {!$Organization.Name} </title>
+        </apex:define>
+        <apex:define name="nav_links" >
+         <li>
+            <apex:outputPanel id="kgrencartcompId">
+               <KGRenewal:CartComponent mode="link" includeBootstrapModalResources="false"  />
+            </apex:outputPanel>
+         </li>
+      </apex:define>
+        <apex:define name="content">-->
+
+    <nav class="navbar navbar-default navbar-fixed-top">
+        <div class="container">
+            <img class="logo" src="{!URLFOR($Resource.YPORenew, 'ypo-renewals/assets/img/ypo.svg')}" />
+        </div>
+    </nav>
+
+    <apex:form html-formnovalidate="formnovalidate" id="recertification-form">
+        <div class="content-title">
+            <div class="container">
+                <h1 class="v-center">
+                    <apex:outputtext value="{!$Label.Recertification_YPO_Recertification}" rendered="{!!isTransition}" />
+                    <apex:outputtext value="{!$Label.Recertification_YPO_YPOGold}" rendered="{!isTransition}" />
+                </h1>
+            </div>
+        </div>
+
+        <!-- Site Content -->
+        <div class="container">
+            <div class="content">
+                <div style="color:black"> <apex:pagemessages id="messagesStart" /> <br /> </div>
+                <div id="form-error-alert" class="alert alert-danger help-block with-errors hide" role="alert">
+                    <i class="icon-caution"></i> All of the required fields have not been completed.
+                </div>
+                <apex:outputpanel id="opanelIsNotMember" rendered="{!NOT(isMember)}">
+                    <div class="row">
+                        <div class="col-md-9">
+                            <br />
+                            <p>You are currently not a member and cannot proceed with Renewals</p>
+                        </div>
+                    </div>
+                </apex:outputpanel>
+                <apex:outputtext rendered="{!isTransition}">
+                    <p class="desc"><apex:outputtext value="{!$Label.Recertification_YPO_Gold}" escape="false" /></p>
+                </apex:outputtext>
+                <apex:outputtext rendered="{!!isTransition}">
+                    <p class="desc">Your member credentials must be certified this year as outlined in the YPO “Policies and Procedures Manual”. If you do not qualify, please see Grace or YPO Gold options below if eligible, or contact YPO Member Services.</p>
+                </apex:outputtext>
+
+                <apex:outputpanel rendered="{!isMember}">
+                    <div class="row">
+                        <div class="col-md-9">
+                            <apex:outputpanel rendered="{!!isTransition}">
+                                <!-- ******************* Recertification Block START ******************* -->
+                                <div class="panel">
+                                    <div class="panel-header">
+                                        <h3>Qualifying Company</h3>
+                                        <div class="required-field"><span class="required"></span> &nbsp;Indicates required field</div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-md-6">
+                                            <div class="form-group" >
+                                                <div style="overflow: auto;">
+                                                    <label id="qualifycompInputLabelId" class="required" for="qualifycompInputTextId">Qualifying Company</label>
+                                                    <a href="javascript:void(0)" class="pull-right" onclick="clearForm()">Change</a>
+                                                </div>
+                                                <input id="qualifycompInputTextId" class="form-control" required="required" value="{!Opp_QualifyingCompany}" onchange="validateForm()" onkeyup="validateForm()" data-bind="validationElement0: requiredTextInputQualifyComp, css: {'is-not-empty': requiredTextInputQualifyComp}"/>
+
+                                                <div class="checkbox">
+                                                    <label for="SubsidaryInputId">
+                                                        <input type="checkbox" id="SubsidaryInputId" name="SubsidaryInputName" />
+                                                        My qualifying company is a subsidiary company.
+                                                    </label>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6">
+
+                                            <!-- Removing Business Phone, not supported by controller -->
+                                            <!--<div class="form-group"><label>Business Phone</label>
+                                                <div class="row condensed">
+                                                    <div class="col-xs-3"><input class="form-control" value="{!Contact.Country_Code__c}"/></div>
+                                                    <div class="col-xs-6"><input class="form-control" value="{!Contact.Phone}"/></div>
+                                                    <div class="col-xs-3"><input class="form-control" value="{!Contact.Business_Phone_Ext__c}" placeholder="Ext"/></div>
+                                                </div>
+                                            </div>-->
+
+                                        </div>
+                                    </div>
+                                    <hr class="visible-xs" />
+
+                                    <div class="panel-header">
+                                        <h3>Company Address</h3>
+                                    </div>
+
+                                    <div class="row">
+                                        <div class="col-md-6">
+                                            <div class="form-group">
+                                                <label class="required" for="countryInputTextId">Country</label>
+                                                <apex:inputfield id="countryInputTextId" value="{!opportunityStateCountry.MailingCountryCode}" styleclass="form-control" required="true" html-data-bind="textInput: requiredTextInputCountry" onchange="validateCountry()" onmouseout="validateCountry()" />
+
+                                                <!-- <span class="validationMessage" data-bind="validationMessage: requiredTextInputCountry"></span>-->
+                                                <!-- <script> var countryInputTextIdVar = document.getElementById("{!$Component.countryInputTextId}"); </script>    -->
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-md-6">
+                                            <div class="form-group">
+                                                <label class="required" for="streetInputTextId">Line 1</label>
+                                                <input class="form-control" id="streetInputTextId" data-bind="textInput: requiredTextInputStreet" onkeyup="validateForm()" required="true" />
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <div class="form-group">
+                                                <label for="streetInputTextId2">Line 2</label>
+                                                <input class="form-control" id="streetInputTextId2" data-bind="textInput: requiredTextInputStreet2" />
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <div class="form-group">
+                                                <label class="required" for="cityInputTextId">City</label>
+                                                <input class="form-control" id="cityInputTextId" data-bind="textInput: requiredTextInputCity" onkeyup="validateForm()" required="true" />
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <div class="form-group">
+                                                <label id="stateLabelreqId" for="stateInputTextId">State / Province / Region</label>
+                                                <apex:inputfield id="stateInputTextId" value="{!opportunityStateCountry.MailingStateCode}" styleclass="form-control" html-data-bind="textInput: requiredTextInputState" onchange="validateStateKJS(this)" />
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <div class="form-group">
+                                                <label class="required" for="postalInputTextId">Zip Code</label>
+                                                <input class="form-control" id="postalInputTextId" data-bind="textInput: requiredTextInputPostal" onkeyup="validateForm()" required="true" />
+                                            </div>
+                                        </div>
+                                        <!-- The below code is used for either the qualification Company is either edit or not isQualifyingCompanyEditable  -->
+                                        <apex:inputhidden value="{!isQualifyingCompanyEditable}" id="isQualifyingCompanyEditableId" />
+                                    </div>
+                                    <hr class="visible-xs" />
+
+                                    <!-- Company Information -->
+                                    <div class="panel-header">
+                                        <h3>Company Information</h3>
+                                    </div>
+
+                                    <div class="row">
+                                        <div class="col-md-6">
+                                            <div class="form-group">
+                                                <label class="required" for="TitleHeldInputTextId">Title Held</label>
+                                                <apex:selectlist value="{!Opp_Title}" size="1" id="TitleHeldInputTextId" styleclass="form-control" html-data-bind="textInput: requiredTextInputTitleHeld" onchange="validateForm()">
+                                                    <apex:selectoption itemvalue="" itemlabel="Select Option" html-selected="selected" />
+                                                    <apex:selectoptions value="{!Title}" />
+                                                </apex:selectlist>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <div class="form-group">
+                                                <label for="othertitleInputTextId">Title Other</label>
+                                                <input type="text" id="othertitleInputTextId" class="form-control" data-bind="textInput: requiredTextInputOtherTitle" onkeyup="validateForm()" />
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <div class="form-group">
+                                                <label class="required" for="PresidentTypeInputTextId">President Type</label>
+                                                <apex:selectlist value="{!Opp_PresidentType}" size="1" id="PresidentTypeInputTextId" styleclass="form-control" html-data-bind="textInput: requiredTextInputPresidentType" onchange="validateForm()">
+                                                    <apex:selectoption itemvalue="" itemlabel="Select Option" html-selected="selected" />
+                                                    <apex:selectoptions value="{!PresidentType}" />
+                                                </apex:selectlist>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <div class="form-group">
+                                                <label class="required" for="FirmTypeInputTextId">Corporation Type</label>
+                                                <apex:selectlist value="{!Opp_FirmType}" size="1" id="FirmTypeInputTextId" styleclass="form-control" html-data-bind="textInput: requiredTextInputFirmType" onchange="validateForm()">
+                                                    <apex:selectoption itemvalue="" itemlabel="Select Option" html-selected="selected" />
+                                                    <apex:selectoptions value="{!FirmType}" />
+                                                </apex:selectlist>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <div class="form-group">
+                                                <label class="required" for="BusinessScopeInputTextId">Business Scope</label>
+                                                <apex:selectlist value="{!Opp_BusinessScope}" size="1" id="BusinessScopeInputTextId" styleclass="form-control" html-data-bind="textInput: requiredTextInputBusinessScope" onchange="validateForm()">
+                                                    <apex:selectoption itemvalue="" itemlabel="Select Option" html-selected="selected" />
+                                                    <apex:selectoptions value="{!BusinessScope}" />
+                                                </apex:selectlist>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <!-- End Company Information -->
+
+                                    <hr class="visible-xs" />
+
+                                    <div class="panel-header">
+                                        <h3>Company Requirements</h3>
+                                    </div>
+
+                                    <p class="margin-bottom"><strong>At least one option from each requirement must be met.</strong></p>
+
+                                    <div id="min-error-alert" class="alert alert-gold help-block with-errors hide" role="alert" style="overflow: auto;">
+                                        <i class="icon-caution"></i> <div class="gold-text">Minimum requirements have not been met. Please see minimum noted below. If you do not qualify, please see Grace or YPO Gold options below if eligible, or contact YPO Member Services.</div>
+                                    </div>
+
+                                    <!-- Company Size -->
+                                    <div class="panel-alt" style="">
+                                        <h3 class="required">Requirement A: Company Size</h3>
+                                        <p><span id="CompanyATextID"></span></p>
+
+                                        <input id="JoinDateID" value="{!contact.Join_Date__c+1}" style="display:none" />
+                                        <!--<br/>-->
+                                        <div class="row more-between">
+                                            <div class="col-md-6 border-right-and-or">
+                                                <div class="form-group">
+                                                    <h4 style="text-align: center">Option 1</h4>
+                                                    <label id="NumberOfEmpLabelId" for="NumberofEmpInputTextId">Number of Employees</label>
+                                                    <input class="form-control currencyInput" maxlength="8" data-bind="textInput: requiredTextInputNumberOfEmp" onblur="toFinalNumberFormat(this);" id="NumberofEmpInputTextId" onkeyup="validateForm()" />
+                                                    <p>
+                                                        Previous year: <span id="previousYearSizeOfCompSpanId"></span><br />
+                                                        Minimum: <span id="NumberOfEmpTextID"></span> <!--50-->
+                                                    </p>
+                                                </div>
+                                            </div>
+
+                                            <!--div class="v-separator"></div-->
+                                            <div class="and-or"></div>
+
+                                            <div class="col-md-6">
+                                                <div class="form-group">
+                                                    <h4 style="text-align: center">Option 2</h4>
+                                                    <label id="CompensationLabelId" for="CompensationInputTextId">Total Employee Compensation (in USD)</label>
+                                                    <input class="form-control currencyInput" placeholder="USD" maxlength="18" data-bind="textInput: requiredTextInputCompensation" id="CompensationInputTextId" onblur="toFinalNumberFormat(this);" onkeyup="validateForm()" />
+                                                    <p>
+                                                        Previous year: <span id="previousyearEmpCompnSpanId"> </span> <br />
+                                                        Minimum: <span id="TotalEmpCompTextID"></span> <!--USD1,100,000-->
+                                                    </p>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <!-- End Company Size -->
+                                    <!-- Company Value -->
+                                    <div class="panel-alt" style="">
+
+                                        <h3 class="required">Requirement B: Company Value</h3>
+                                        <!--<br/>-->
+                                        <div class="row more-between">
+                                            <div class="col-md-6 border-right-or">
+                                                <div class="form-group">
+                                                    <h4 style="text-align: center">Option 1</h4>
+                                                    <label id="CorpTypeLabelId" for="CorpTypeInputTextId">Corporation Type</label>
+                                                    <apex:selectlist value="{!Opp_CorporationType}" size="1" id="CorpTypeInputTextId" styleclass="form-control" html-data-bind="textInput: requiredTextInputCorpType" onchange="CorporateType(this);" required="required">
+                                                        <apex:selectoption itemvalue="" itemlabel="Select Option" html-selected="selected" />
+                                                        <apex:selectoptions value="{!CorporationType}" />
+                                                    </apex:selectlist>
+                                                    <p>Previous year: <span id="previousyearCorpTypeSpanId"> </span></p>
+                                                </div>
+                                                <div class="form-group">
+                                                    <label id="AnnualRevLabelId" for="AnnualRevInputTextId">Dollar Value (in USD)</label>
+                                                    <input class="form-control currencyInput" placeholder="USD" maxlength="18" style="margin:0 0 0;" data-bind="textInput: requiredTextInputAnnualRev" id="AnnualRevInputTextId" onblur="toFinalNumberFormat(this);" onkeyup="validateForm()" value="" />
+                                                    <p>
+                                                        Previous year: <span id="previousyearDollarVolspanId"> </span><br />
+                                                        Minimum: <span id="DollarValueTextID"> </span> <!--USD260,000,000-->
+                                                    </p>
+                                                </div>
+                                            </div>
+
+                                            <div class="or"></div>
+
+                                            <div class="col-md-6">
+                                                <div class="form-group">
+                                                    <h4 style="text-align: center">Option 2</h4>
+                                                    <label id="EnterpriseTypeLabelId" for="EnterpriseTypeInputTextId">Enterprise Type</label>
+                                                    <apex:selectlist value="{!Opp_EnterpriseType}" size="1" id="EnterpriseTypeInputTextId" styleclass="form-control" html-data-bind="textInput: requiredTextInputEnterpriseType " onchange="validateForm()" required="required">
+                                                        <apex:selectoption itemvalue="" itemlabel="Select Option" html-selected="selected" />
+                                                        <apex:selectoptions value="{!EnterpriseType}" />
+                                                    </apex:selectlist>
+                                                    <p>Previous year: <span id="previousyearEnterpriseTypeSpanId"> </span></p>
+                                                </div>
+                                                <div class="form-group">
+                                                    <label id="EnterpriseLabelId" for="EnterpriseInputTextId">Enterprise Value (in USD)</label>
+                                                    <input class="form-control currencyInput" placeholder="USD" maxlength="18" data-bind="textInput: requiredTextInputEnterprise" id="EnterpriseInputTextId" onkeyup="validateForm()" onblur="toFinalNumberFormat(this);" value="" />
+                                                    <p>
+                                                        Previous year: <span id="previousyearEnterpriseValSpanId"> </span><br />
+                                                        Minimum: <span id="EntValueTextID"> </span>
+                                                    </p>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <!-- End Category Value -->
+
+                                </div>
+                                <!--  ---------------------------------START! Block1 for setting of Grace box showing along -------------------------------- -->
+                                <div id="block1" style="display:none">
+                                    <div class="row">
+
+                                        <!-- ***************** Display Dissmiss Block START *************** -->
+                                        <apex:outputpanel rendered="{!isGraceAvailable}">
+                                            <div class="col-md-12">
+                                                <div class="panel info">
+                                                    <div class="panel-header">
+                                                        <img class="pull-left" src="{!URLFOR($Resource.YPORenew, 'ypo-renewals/assets/img/grace.svg')}" />
+                                                        <h3 class="pull-left">Grace</h3>
+                                                    </div>
+                                                    <p class="recert-min-height">{!$Label.Recertification_YPO_Yourcompany}</p>
+                                                    <!-- <a href="#" class="btn btn-primary">Request Grace</a>-->
+                                                    <apex:commandbutton value="{!$Label.Request_Grace}" title="{!$Label.Request_Grace}" styleclass="btn btn-primary" action="{!requestGrace}" />
+                                                </div>
+                                            </div>
+                                        </apex:outputpanel>
+
+
+
+                                        <!--    <div class="col-md-6">
+                                                <apex:outputPanel rendered="{!!isTransitionAvailable}">
+                                                    <div class="panel info">
+                                                        <div class="panel-header">
+                                                            <img class="pull-left" src="{!URLFOR($Resource.YPORenew, 'ypo-renewals/assets/img/ypo-icon.svg')}"/>
+                                                            <h3 class="pull-left">YPO Gold</h3>
+                                                        </div>
+                                                        <p class="recert-min-height">{!$Label.Recertification_YPO_Pleasesubmit}</p>
+
+                                                        <apex:commandButton value="Learn More" title="{!$Label.ThirdPartyCertification_YPO_IamInterested}" styleclass="btn btn-primary" action="{!requestTransition}"   />
+                                                    </div>
+                                                </apex:outputpanel>
+                                            </div> -->
+                                    </div>
+                                </div>
+                                <!--  ---------------------------------END! Block1 for setting of Grace box showing alone -------------------------------- -->
+                                <!--  ---------------------------------START! Block2 for setting of showing Grace box and transition box -------------------------------- -->
+                                <div id="block2" style="display:none">
+                                    <div class="row">
+
+                                        <!-- ***************** Display Dissmiss Block START *************** -->
+                                        <apex:outputpanel rendered="{!isGraceAvailable}">
+                                            <div class="col-md-6">
+                                                <div class="panel info">
+                                                    <div class="panel-header">
+                                                        <img class="pull-left" src="{!URLFOR($Resource.YPORenew, 'ypo-renewals/assets/img/grace.svg')}" />
+                                                        <h3 class="pull-left">Grace</h3>
+                                                    </div>
+                                                    <p class="recert-min-height">{!$Label.Recertification_YPO_Yourcompany}</p>
+                                                    <!-- <a href="#" class="btn btn-primary">Request Grace</a>-->
+                                                    <apex:commandbutton value="{!$Label.Request_Grace}" title="{!$Label.Request_Grace}" styleclass="btn btn-primary" action="{!requestGrace}" />
+                                                </div>
+                                            </div>
+                                        </apex:outputpanel>
+
+
+
+                                        <div class="col-md-6">
+                                            <apex:outputpanel rendered="{!isTransitionAvailable}">
+                                                <div class="panel info">
+                                                    <div class="panel-header">
+                                                        <img class="pull-left" src="{!URLFOR($Resource.YPORenew, 'ypo-renewals/assets/img/ypo-icon.svg')}" />
+                                                        <h3 class="pull-left">YPO Gold</h3>
+                                                    </div>
+                                                    <p class="recert-min-height">{!$Label.Recertification_YPO_Pleasesubmit}</p>
+                                                    <!-- <a href="#" class="btn btn-primary">Learn More</a>-->
+                                                    <apex:commandbutton value="Learn More" title="{!$Label.ThirdPartyCertification_YPO_IamInterested}" styleclass="btn btn-primary" action="{!requestTransition}" />
+                                                </div>
+                                            </apex:outputpanel>
+                                        </div>
+                                    </div>
+                                </div>
+                                <!--  ---------------------------------END! Block2 for setting of showing Grace box and transition box -------------------------------- -->
+                                <!--  ---------------------------------START! Block3 for setting of showing transition box -------------------------------- -->
+                                <div id="block3" style="display:none">
+                                    <div class="row">
+
+                                        <!-- ***************** Display Dissmiss Block START *************** -->
+                                        <!--     <apex:outputpanel rendered="{!isGraceAvailable}" >
+                                             <div class="col-md-6">
+                                                 <div class="panel info">
+                                                     <div class="panel-header">
+                                                         <img class="pull-left" src="{!URLFOR($Resource.YPORenew, 'ypo-renewals/assets/img/grace.svg')}"/>
+                                                         <h3 class="pull-left">Grace</h3>
+                                                     </div>
+                                                     <p class="recert-min-height">{!$Label.Recertification_YPO_Yourcompany}</p>
+
+                                                     <apex:commandButton value="{!$Label.Request_Grace}" title="{!$Label.Request_Grace}" styleclass="btn btn-primary" action="{!requestGrace}" onClick="return requestGrace();"  />
+                                                 </div>
+                                             </div>
+                                             </apex:outputpanel> -->
+
+
+
+                                        <div class="col-md-12">
+                                            <apex:outputpanel rendered="{!isTransitionAvailable}">
+                                                <div class="panel info">
+                                                    <div class="panel-header">
+                                                        <img class="pull-left" src="{!URLFOR($Resource.YPORenew, 'ypo-renewals/assets/img/ypo-icon.svg')}" />
+                                                        <h3 class="pull-left">YPO Gold</h3>
+                                                    </div>
+                                                    <p class="recert-min-height">{!$Label.Recertification_YPO_Pleasesubmit}</p>
+                                                    <!-- <a href="#" class="btn btn-primary">Learn More</a>-->
+                                                    <apex:commandbutton value="Learn More" title="{!$Label.ThirdPartyCertification_YPO_IamInterested}" styleclass="btn btn-primary" action="{!requestTransition}" />
+                                                </div>
+                                            </apex:outputpanel>
+                                        </div>
+                                    </div>
+                                </div>
+                                <!--  ---------------------------------END! Block3 for setting of showing transition box -------------------------------- -->
+
+                                <div class="action-panel">
+                                    <div class="row">
+                                        <div class="col-xs-6">
+                                            <input type="button" class="btn btn-default action-button" onclick="gobacktoUpdateProfile()" value="Back" />
+                                        </div>
+                                        <div class="col-xs-6">
+                                            <input type="button" class="btn btn-primary action-button" title="" value="Continue" id="submitButtonId" onclick="validate()" />
+                                        </div>
+                                    </div>
+                                </div>
+                            </apex:outputpanel>
+                            <!-- ***** recertificationBlock END ***** -->
+                            <!-- *************** YPO gold membership Criteria START ****************** --->
+                            <apex:outputpanel rendered="{!isTransition}">
+                                <div class="panel">
+                                    <div class="panel-header">
+                                        <h3>{!$Label.Recertification_YPO_YPOGold}</h3>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-md-6">
+                                            <div class="form-group">
+                                                <label for="PresidentTypeInputTextId"> {!$ObjectType.Opportunity.Fields.President_Type__c.Label} </label>
+                                                <apex:selectlist value="{!Opp_PresidentType}" size="1" id="PresidentTypeisYPOMembInputTextId" styleclass="form-control" html-data-bind="textInput: ypoGoldPresrequiredTextInput">
+                                                    <apex:selectoption itemvalue="" itemlabel="Select Option" html-selected="selected" />
+                                                    <apex:selectoptions value="{!PresidentType}" />
+                                                </apex:selectlist>
+                                                <span class="validationMessage" data-bind="validationMessage: ypoGoldPresrequiredTextInput"></span>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <div class="form-group">
+                                                <label for="CorpTypeisYPOMembInputTextId"> Corporation Type </label>
+                                                <apex:selectlist value="{!Opp_CorporationType}" size="1" id="CorpTypeisYPOMembInputTextId" styleclass="form-control" html-data-bind="textInput: ypoGoldCorprequiredTextInput">
+                                                    <apex:selectoption itemvalue="" itemlabel="Select Option" html-selected="selected" />
+                                                    <apex:selectoptions value="{!CorporationType}" />
+                                                </apex:selectlist>
+                                                <span class="validationMessage" data-bind="validationMessage: ypoGoldCorprequiredTextInput"></span>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <div class="form-group">
+                                                <label for="BusinessScopeisYPOMembInputTextId"> {!$ObjectType.Opportunity.Fields.Business_Scope__c.Label} </label>
+                                                <apex:selectlist value="{!Opp_BusinessScope}" size="1" id="BusinessScopeisYPOMembInputTextId" styleclass="form-control" html-data-bind="textInput: ypoGoldBusirequiredTextInput">
+                                                    <apex:selectoption itemvalue="" itemlabel="Select Option" html-selected="selected" />
+                                                    <apex:selectoptions value="{!BusinessScope}" />
+                                                </apex:selectlist>
+                                                <span class="validationMessage" data-bind="validationMessage: ypoGoldBusirequiredTextInput"></span>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <div class="form-group">
+                                                <label for="AnnualRevisYPOMembInputTextId">Dollar Business Volume (in USD)</label>
+                                                <apex:inputtext styleclass="form-control currencyInput" html-placeholder="USD" id="AnnualRevisYPOMembInputTextId" />
+                                               <!-- <span class="validationMessage" data-bind="validationMessage: ypoGoldAnnualrequiredTextInput"></span>  -->
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="action-panel">
+                                    <div class="row">
+                                        <div class="col-xs-6">
+                                            <button class="btn btn-default pull-left action-button" type="button" onclick="YPOGold_Back()">Back</button>
+                                        </div>
+                                        <div class="col-xs-6">
+                                            <button class="btn btn-primary pull-right action-button" type="button" id="ypoGoldSubmitButtonId" onclick="mapAndUpdateYPOGoldMembership()">Continue</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </apex:outputpanel>
+
+                            <!-- *************** YPO gold membership Criteria END  ****************** --->
+                        </div>
+                        <div class="col-md-3">
+                            <div class="panel help visible-md visible-lg">
+                                <div class="panel-header text-center">
+                                    <img class="panel-header-img" src="{!URLFOR($Resource.YPORenew, 'ypo-renewals/assets/img/help.svg')}" />
+                                    <h3 class="help">{!$Label.Help_NeedHelp}</h3>
+                                </div>
+                                <p>{!$Label.Help_ifYouNeed} </p>
+                                <p class="clearfix need-help-phone">
+                                    <!--<img class="pull-left need-help-phone" src="assets/img/phone.png">-->
+                                    <i class="icon-phone"></i>
+                                    <span class="pull-left">{!$Label.Help_Phone1}<br />{!$Label.Help_Phone2} </span>
+                                </p>
+                                <p class="clearfix need-help-email">
+                                    <!--<img class="pull-left" src="assets/img/email.png">-->
+                                    <i class="icon-email"></i>
+                                    <span class="pull-left need-help-email">{!$Label.Help_Email} </span>
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                    <apex:actionfunction name="callActionFuncFOrSubmit" action="{!saveOnRecertification}" immediate="true" />
+                    <apex:actionfunction name="callActionFuncFOrBack" action="{!backGold}" immediate="true" />
+                </apex:outputpanel>
+            </div>
+        </div>
+
+        <!-- <div style="color:black"> <apex:pagemessages id="messagesStart" /> <br /> </div> -->
+
+        <div class="visible-md visible-lg">
+            <footer>
+                <div class="container">
+                    <div class="row">
+                        <div class="col-md-4"><img class="logo" src="{!URLFOR($Resource.YPORenew, 'ypo-renewals/assets/img/ypo-white.png')}" /></div>
+                        <div class="col-md-4 text-center"><a href="https://media.ypowpo.org/libraries/publicLegal/exchange/TOU.pdf" target="_blank" style="color: #fdfeff;">{!$Label.Copyright_TOU}</a></div>
+                        <div class="col-md-4 text-right">&copy; {!$Label.Copyright_YPO}</div>
+                    </div>
+                </div>
+            </footer>
+        </div>
+
+
+        <!-- ------------------------   old code  ----------------------    -->
+        <!--   <apex:outputPanel id="opanelIsNotMember" rendered="{!NOT(isMember)}">
+               <div class="row">
+                   <div class="col-md-10 col-md-offset-1 col-lg-8 col-lg-offset-2">
+                       <br/>
+                       <p>You are currently not a member and cannot proceed with Renewals</p>
+                   </div>
+               </div>
+           </apex:outputPanel>                -->
+        <!--                <apex:outputPanel rendered="{!isMember}" >
+                            <div class="row">
+                                <div class="col-md-10 col-md-offset-1 col-lg-8 col-lg-offset-2">
+                                    <h2 class="title">
+                                        <apex:outputText value="{!$Label.Recertification_YPO_Recertification}" rendered="{!!isYPO_GoldMember && !isTransition}" />
+                                        <apex:outputText value="{!$Label.Recertification_YPO_YPOGold}" rendered="{!(isYPO_GoldMember || isTransition)}" />
+                                    </h2> -->
+        <!-- ramneek 4/25/2017 Carol requested to remove required on screen for YPO gold page-->
+        <!--   <apex:outputText rendered="{!!isTransition}" >
+               <div class="requiredStar">
+                   <span>*</span>
+               Required
+               </div>
+           <p> {!$Label.Recertification_YPO_Yourmember} </p>
+           </apex:outputText>
+           <apex:outputText rendered="{!isTransition}" >
+           <p> {!$Label.Recertification_YPO_Gold} </p>
+           </apex:outputText> -->
+        <!-- <span class="subTit">{!$Label.Recertification_YPO_Pleasesubmit}</span>  -->
+        <!--         <apex:outputPanel rendered="{!!isYPO_GoldMember && !isTransition}" >
+                     <!-- ******************* Recertification Block START ******************* -->
+        <!--         <div class="recertiModified">
+
+                 <section class="checkoutBlock recertificationBlock">-->
+        <!-- ***************** Display Dissmiss Block START *************** -->
+        <!--  <apex:outputpanel rendered="{!isGraceAvailable}" >
+              <div id="yourcompanydivId" class="panel headTxt requestDiv" >
+                  <p class="yourare">{!$Label.Recertification_YPO_Yourcompany}</p>
+                  <div class="pull-right">
+                      <a class="dismis request" href="javascript:void(0)">
+                          <svg id="icon-x" viewBox="0 0 32 32" style="width:12px; height:13px; margin:-2px 5px 0 0;">
+                              <path class="path1" d="M28.8 25.8l-10-9.8 9.8-10-2.6-2.6-10 9.8-9.8-10-2.8 2.8 9.8 10-9.8 10 2.6 2.6 10-9.8 10 9.8z" fill="#346da5"></path>
+                          </svg>
+                          {!$Label.Recertification_YPO_Dismiss}
+                      </a>
+                      <apex:commandButton value="{!$Label.Request_Grace}" title="{!$Label.Request_Grace}" styleclass="btn btn-blue" action="{!requestGrace}"  />
+
+                  </div>
+              </div>
+          </apex:outputpanel>
+          <apex:outputPanel rendered="{!isTransitionAvailable}">
+              <div id="yourareeligibleId" class="panel headTxt iamDiv" >
+                  <!-- <p> {!$Label.Recertification_YPO_Yourareeligible} </p>
+                  <p class="yourare"> {!$Label.Recertification_YPO_Pleasesubmit} </p>
+                  <div class="pull-right">
+                      <a class="dismis Iam" href="javascript:void(0)">
+                          <svg id="icon-x" viewBox="0 0 32 32" style="width:12px; height:13px; margin:-2px 5px 0 0;">
+                              <path class="path1" d="M28.8 25.8l-10-9.8 9.8-10-2.6-2.6-10 9.8-9.8-10-2.8 2.8 9.8 10-9.8 10 2.6 2.6 10-9.8 10 9.8z" fill="#346da5"></path>
+                          </svg> {!$Label.Recertification_YPO_Dismiss}
+                      </a>
+                      <apex:commandButton value="{!$Label.ThirdPartyCertification_YPO_IamInterested}" title="{!$Label.ThirdPartyCertification_YPO_IamInterested}" styleclass="btn btn-blue" action="{!requestTransition}" onClick="return requestGrace()"  />
+                  </div>
+              </div>
+          </apex:outputPanel>-->
+        <!-- ***************** Display Dissmiss Block END *************** -->
+        <!--       <div class="recertiModifiedCenter">
+               <section class="contactInfo">-->
+        <!-- ***************** QUALIFYING COMPANY Edit Section START ************* -->
+        <!--                                        <div class="changeDiv recertificatinScreen" >
+
+                                                    <div class="inner-content">-->
+        <!--     <div class="nameCompany">
+                    <div class="nameInnerLeft">
+                        <h1>qualifying company information</h1>
+                        <label>qualifying company</label>
+                        <span id="qualifyCompanyNameSpanId"></span>
+                        <a href="javascript:void(0)" class="changeCompanyName" id="editCompanyNameBoxId"><span class="glyphicon glyphicon-pencil"></span>Change Qualifying Company</a>
+                    </div>
+                </div>
+
+                <!-- The below Company Name will be editabled only when click on change company name above
+                <div class="enablecompname" style="display:none">
+                    <div class="input" data-bind="validationElement0: requiredTextInputQualifyComp, css: {'is-not-empty': requiredTextInputQualifyComp}">
+                        <!-- Ramneek Added onkey up validation 4/21/2017
+                        <apex:input id="qualifycompInputTextId" value="{!Opp_QualifyingCompany}" styleClass="input-field" html-data-bind="textInput: requiredTextInputQualifyComp"  onchange="validateForm()" onkeyup="validateForm()"  />
+                        <label class="input-label is-required" for="qualifycompInputTextId"> COMPANY </label>
+                        <span class="validationMessage" data-bind="validationMessage: requiredTextInputQualifyComp"></span>
+                    </div>
+                </div>
+
+                <div class="terms">
+                    <input id="SubsidaryInputId" name="SubsidaryInputName" class="recertiEdit" type="checkbox"  />
+                    <label for="SubsidaryInputId" name="SubsidaryInputName">Subsidiary </label>
+                </div>
+
+                <!-- This is for the Parent Accoutn , it displays only when Subsidary checked
+                <div class="companyInput" id="parentAccountdivId" Style="display:none">
+                    <div class="input" data-bind="validationElement6: requiredTextInputParentAccount, css: {'is-not-empty': requiredTextInputParentAccount}">
+                        <input id="parentAccountInputTextId" Class="input-field"  data-bind="textInput: requiredTextInputParentAccount" onkeyup="validateForm()" />
+                        <label class="input-label is-required" for="parentAccountInputTextId">PARENT ACCOUNT</label>
+                        <span class="validationMessage" data-bind="validationMessage: requiredTextInputParentAccount"></span>
+                    </div>
+                </div>
+
+
+                <div class="companyRequirements"><h1>Business Address</h1></div>
+                <div class="businessAddressField">
+                    <span class="input-select">
+                        <div class="input selectArw" data-bind="validationElement4: requiredTextInputCountry, css: {'is-not-empty': requiredTextInputCountry}" >
+                            <apex:inputField id="countryInputTextId" value="{!opportunityStateCountry.MailingCountryCode}" styleClass="input-field" html-data-bind="textInput: requiredTextInputCountry" onchange="validateCountry()" onmouseout="validateCountry()"  />
+                            <label class="input-label is-required" for="countryInputTextId">  {!$ObjectType.Account.Fields.BillingCountry.Label} </label>
+                            <span class="validationMessage" data-bind="validationMessage: requiredTextInputCountry"></span>
+                            <script> var countryInputTextIdVar = document.getElementById("{!$Component.countryInputTextId}"); </script>
+                        </div>
+                    </span>
+                </div>
+
+                <div class="businessAddressField">
+                    <div class="input" data-bind="validationElement1: requiredTextInputStreet, css: {'is-not-empty': requiredTextInputStreet}">
+                        <input id="streetInputTextId"  Class="input-field" data-bind="textInput: requiredTextInputStreet" onkeyup="validateForm()"/>
+                        <label class="input-label is-required" for="streetInputTextId"> {!$ObjectType.Account.Fields.BillingStreet.Label} </label>
+                        <span class="validationMessage" data-bind="validationMessage: requiredTextInputStreet"></span>
+                    </div>
+                </div>
+                <div class="businessAddressField">
+                    <div class="input" data-bind="validationElement2: requiredTextInputCity, css: {'is-not-empty': requiredTextInputCity}">
+                        <input id="cityInputTextId" Class="input-field" data-bind="textInput: requiredTextInputCity" onkeyup="validateForm()" />
+                        <label class="input-label is-required" for="cityInputTextId"> {!$ObjectType.Account.Fields.BillingCity.Label} </label>
+                        <span class="validationMessage" data-bind="validationMessage: requiredTextInputCity"></span>
+                    </div>
+                </div>
+                <div class="businessAddressField">
+                    <span class="input-select">
+                        <div class="input selectArw " data-bind="validationElement3: requiredTextInputState, css: {'is-not-empty': requiredTextInputState}">
+                            <apex:inputField id="stateInputTextId" value="{!opportunityStateCountry.MailingStateCode}" styleClass="input-field" html-data-bind="textInput: requiredTextInputState" onchange="validateStateKJS(this)" />
+                            <label class="input-label is-required" id="stateLabelreqId" for="stateInputTextId">State/Province/Region</label>
+                            <span class="validationMessage" id="stateMessageSpanId" data-bind="validationMessage: requiredTextInputState"></span>
+                        </div>
+                    </span>
+                </div>
+
+                <div class="businessAddressField">
+                    <div class="input" data-bind="validationElement4: requiredTextInputPostal, css: {'is-not-empty': requiredTextInputPostal}">
+                        <input id="postalInputTextId"  Class="input-field" data-bind="textInput: requiredTextInputPostal"  onkeyup="validateForm()"/>
+                        <label class="input-label is-required" for="postalInputTextId">ZIP/POSTAL CODE</label>
+                        <span class="validationMessage" data-bind="validationMessage: requiredTextInputPostal"></span>
+                    </div>
+                </div>
+
+                <!-- The below code is used for either the qualification Company is either edit or not isQualifyingCompanyEditable
+                <apex:inputHidden value="{!isQualifyingCompanyEditable}" id="isQualifyingCompanyEditableId" />
+
+            </div>
+        </div> -->
+        <!-- ***************** QUALIFYING COMPANY Edit Section END ************* -->
+        <!-- ********************* Main Membership Creteria  Edit Section START ********************* -->
+        <!--    <div class="memberCriteriaShowHideDiv" >
+
+                <div class="panel reEnterNum" id="ContactDetailDivPanelId">
+
+
+                    <div class="reCertiInputs">
+                    <!-- Ramneek 4/24/2017 Added header here as per request from carol
+                        <div class="companyRequirements"><h1>Company Requirements</h1>
+                         </div>
+                        <span class="input-select">
+                            <div class="input selectArw" data-bind="validationElement6: requiredTextInputTitleHeld, css: {'is-not-empty': requiredTextInputTitleHeld}"  >
+                                <apex:selectList value="{!Opp_Title}" size="1" id="TitleHeldInputTextId" styleClass="input-field" html-data-bind="textInput: requiredTextInputTitleHeld" onchange="validateForm()" >
+                                    <apex:selectOption itemValue="" itemLabel="Select one" html-selected="selected" />
+                                    <apex:selectOptions value="{!Title}"  />
+                                </apex:selectList>
+                                <label class="input-label is-required" for="TitleHeldInputTextId">  {!$ObjectType.Opportunity.Fields.Title__c.Label} HELD </label>
+                                <span class="validationMessage" data-bind="validationMessage: requiredTextInputTitleHeld"></span>
+                            </div>
+                        </span>
+                    </div>
+
+                    <!-- This is for the Other Title Additional field based on other title
+                    <div id="othertitledivId" style="display:none" class="reCertiInputs">
+                        <div class="input" data-bind="validationElement1: requiredTextInputOtherTitle, css: {'is-not-empty': requiredTextInputOtherTitle}"  >
+                            <input type="text" id="othertitleInputTextId" Class="input-field" data-bind="textInput: requiredTextInputOtherTitle" onkeyup="validateForm()" />
+                            <label class="input-label is-required" for="othertitleInputTextId"> Title Other</label>
+                            <span class="validationMessage" data-bind="validationMessage: requiredTextInputOtherTitle"></span>
+                        </div>
+                    </div>
+
+
+
+
+
+                    <div class="reCertiInputs">
+                        <span class="input-select">
+                            <div class="input selectArw" data-bind="validationElement5: requiredTextInputPresidentType, css: {'is-not-empty': requiredTextInputPresidentType}"  >
+                                <apex:selectList value="{!Opp_PresidentType}" size="1" id="PresidentTypeInputTextId" styleClass="input-field" html-data-bind="textInput: requiredTextInputPresidentType" onchange="validateForm()" >
+                                    <apex:selectOption itemValue="" itemLabel="Select one" html-selected="selected" />
+                                    <apex:selectOptions value="{!PresidentType}"  />
+                                </apex:selectList>
+                                <label class="input-label is-required" for="PresidentTypeInputTextId"> {!$ObjectType.Opportunity.Fields.President_Type__c.Label} </label>
+                                <span class="validationMessage" data-bind="validationMessage: requiredTextInputPresidentType"></span>
+                            </div>
+                        </span>
+                    </div>
+
+
+                    <div class="reCertiInputs">
+                        <span class="input-select">
+                            <div class="input selectArw" data-bind="validationElement4: requiredTextInputBusinessScope, css: {'is-not-empty': requiredTextInputBusinessScope}"  >
+                                <apex:selectList value="{!Opp_BusinessScope}" size="1" id="BusinessScopeInputTextId" styleClass="input-field" html-data-bind="textInput: requiredTextInputBusinessScope"  onchange="validateForm()">
+                                    <apex:selectOption itemValue="" itemLabel="Select one" html-selected="selected" />
+                                    <apex:selectOptions value="{!BusinessScope}"  />
+                                </apex:selectList>
+                                <label class="input-label is-required" for="BusinessScopeInputTextId"> {!$ObjectType.Opportunity.Fields.Business_Scope__c.Label} </label>
+                                <span class="validationMessage" data-bind="validationMessage: requiredTextInputBusinessScope"></span>
+                            </div>
+                        </span>
+                    </div>
+
+
+                    <div class="reCertiInputs">
+                            <span class="input-select">
+                                <div class="input selectArw" data-bind="validationElement3: requiredTextInputFirmType, css: {'is-not-empty': requiredTextInputFirmType}"  >
+                                    <apex:selectList value="{!Opp_FirmType}" size="1" id="FirmTypeInputTextId" styleClass="input-field" html-data-bind="textInput: requiredTextInputFirmType" onchange="validateForm()" >
+                                        <apex:selectOption itemValue="" itemLabel="Select one" html-selected="selected" />
+                                        <apex:selectOptions value="{!FirmType}"  />
+                                    </apex:selectList>
+                                    <label class="input-label is-required" for="FirmTypeInputTextId"> {!$ObjectType.Opportunity.Fields.Firm_Type__c.Label} </label>
+                                    <span class="validationMessage" data-bind="validationMessage: requiredTextInputFirmType"></span>
+                                </div>
+                            </span>
+                    </div>
+
+
+                </div>
+            </div> -->
+        <!-- ********************* Main Membership Creteria Edit Section END ********************* -->
+        <!-- ********************* Size of Company Edit Section START ********************* -->
+        <!--<div class="sizeMainHideDiv" >
+            <div class="penel size numEmp">
+                <!-- Ramneek 4/24/2017 Removed Company Requirements
+                <div class="companyRequirements"><h1></h1>
+                    <p>Please enter all currency amounts in U.S. dollar only, including all zeros (ex. USD 10000000 = 10 million U.S. dollars)</P>
+
+                <h4>Requirement A: <span>Company Size</span><span>*</span></h4>
+                </div>
+
+                    <div class="input" data-bind="validationElement0: requiredTextInputNumberOfEmp, css: {'is-not-empty': requiredTextInputNumberOfEmp}">
+                        <input class="input-field" maxlength="8" data-bind="textInput: requiredTextInputNumberOfEmp" id="NumberofEmpInputTextId" onkeyup="validateForm()" />
+                        <label class="input-label is-required" id="NumberOfEmpLabelId" for="NumberofEmpInputTextId">
+                            Number of Regular Employees:
+                            <!-- <elm class="qmarkIcon">?</elm>
+                            <span style="text-transform: none !important; font-weight: 100;">Previous year: </span> <span id="previousYearSizeOfCompSpanId"></span> <span>Employees</span>
+                        </label>
+                        <span class="validationMessage" id="NumberOfEmpSpanId" data-bind="validationMessage: requiredTextInputNumberOfEmp"></span>
+                    </div>
+
+
+                <div class="andor"><h3>AND/OR</h3></div>
+                <div class="input" data-bind="validationElement1: requiredTextInputCompensation, css: {'is-not-empty': requiredTextInputCompensation}">
+                    <input class="input-field" maxlength="18" data-bind="textInput: requiredTextInputCompensation" id="CompensationInputTextId" onkeyup="validateForm()" />
+                    <label class="input-label is-required" id="CompensationLabelId" for="CompensationInputTextId">
+                        Employees' Compensation <em>(do not include member): </em>
+                        <span style="text-transform: none !important; font-weight: 100;">Previous year: </span> <span style="color:#3d7099;text-transform: capitalize;" > {!CurrencyCode} <span id="previousyearEmpCompnSpanId"> </span> </span>
+                    </label>
+                    <span class="validationMessage" id="CompensationSpanlId" data-bind="validationMessage: requiredTextInputCompensation"></span>
+                </div>
+                <div class="companyRequirements">
+                    <h4>Requirement B: <span>Company value (Choose option 1 or option 2 )</span><span>*</span></h4>
+                    <p> OPTION 1 - Dollar volume requirement based on the type of corporation (select one and indicate amount)</P>
+
+                </div>
+            </div>
+
+        </div>-->
+        <!-- ********************* Size of Company Edit Section END ********************* -->
+        <!-- ********************* Value of Company Edit Section START ********************* -->
+        <!--                                        <div class="valueMainHideDiv" >
+                                                    <div class="penel size num">
+                                                        <!-- ramneek 4/24/2017 Carol requested change -->
+        <!--div class="valueTopTxt"> <!--apex:outputText value="{!$Label.Recertification_Ypo_RequirementB_Onlyonecompanytype}" escape="false" /-->      <!--span>*</span-->
+        <!--/div
+
+                <span class="input-select typeSelect">
+                    <div class="input selectArw" data-bind="validationElement2: requiredTextInputCorpType, css: {'is-not-empty': requiredTextInputCorpType}" >
+                        <apex:selectList value="{!Opp_CorporationType}" size="1"  id="CorpTypeInputTextId" styleClass="input-field" html-data-bind="textInput: requiredTextInputCorpType" onchange="validateForm()" >
+                            <apex:selectOption itemValue="" itemLabel="Select one" html-selected="selected" />
+                            <apex:selectOptions value="{!CorporationType}"  />
+                        </apex:selectList>
+                        <label class="input-label is-required" id="CorpTypeLabelId" for="CorpTypeInputTextId">
+                            Corporation Type:
+                            <em style="text-transform: none; font-weight: 100;">Previous year: </em> <span id="previousyearCorpTypeSpanId"> </span>
+                        </label>
+                        <span id="corpTypeValidMsgId" class="validationMessage" data-bind="validationMessage: requiredTextInputCorpType"></span>
+                    </div>
+                </span>
+
+                <div class="input" data-bind="validationElement1: requiredTextInputAnnualRev, css: {'is-not-empty': requiredTextInputAnnualRev}">
+                    <input class="input-field" maxlength="18" style="margin:0 0 0;" data-bind="textInput: requiredTextInputAnnualRev" id="AnnualRevInputTextId" onkeyup="validateForm()" value=""/>
+                    <label class="input-label is-required" id="AnnualRevLabelId" for="AnnualRevInputTextId">
+                        Dollar Volume:
+                        <span style="text-transform: none; font-weight: 100;">Previous year: </span> <span style="color:#3d7099;text-transform: capitalize;" > {!CurrencyCode} <span id="previousyearDollarVolspanId"> </span></span>  </label>
+                    <span class="validationMessage" id="AnnualRevValidMsgId" data-bind="validationMessage: requiredTextInputAnnualRev" ></span>
+                </div>
+
+                <div class="andor"><h3>OR</h3></div>
+                <p> OPTION 2 - Enterprise value as defined by one of the following (select one and indicate amount)</p>
+
+                <div class="enter">
+                    <div class="input" data-bind="validationElement1: requiredTextInputEnterprise, css: {'is-not-empty': requiredTextInputEnterprise}">
+                        <input class="input-field" maxlength="18" data-bind="textInput: requiredTextInputEnterprise" id="EnterpriseInputTextId" onkeyup="validateForm()" value=""/>
+                        <label class="input-label is-required" id="EnterpriseLabelId" for="EnterpriseInputTextId">
+                            Enterprise Value:
+                            <span style="text-transform: none; font-weight: 100;">Previous year: </span> <span style="color:#3d7099;text-transform: capitalize;" > {!CurrencyCode} <span id="previousyearEnterpriseValSpanId"> </span></span>
+                        </label>
+                        <span class="validationMessage" id="EnterpriseValidMsgId" data-bind="validationMessage: requiredTextInputEnterprise" ></span>
+                    </div>
+                </div>
+
+                <span class="input-select typeSelect">
+                    <div class="input selectArw" data-bind="validationElement5: requiredTextInputEnterpriseType, css: {'is-not-empty': requiredTextInputEnterpriseType}"  >
+                        <apex:selectList value="{!Opp_EnterpriseType}" size="1" id="EnterpriseTypeInputTextId" styleClass="input-field" html-data-bind="textInput: requiredTextInputEnterpriseType " onchange="validateForm()" >
+                            <apex:selectOption itemValue="" itemLabel="Select One" html-selected="selected" />
+                            <apex:selectOptions value="{!EnterpriseType}"  />
+                        </apex:selectList>
+                        <label class="input-label is-required" id="EnterpriseTypeLabelId" for="EnterpriseTypeInputTextId">
+                            {!$ObjectType.Opportunity.Fields.Enterprise_Type__c.Label}:
+                            <em style="text-transform: none; font-weight: 100;">Previous year: </em> <span id="previousyearEnterpriseTypeSpanId"> </span>
+                        </label>
+                        <span class="validationMessage" id="EnterpriseTypeValidMsgId" data-bind="validationMessage: requiredTextInputEnterpriseType"></span>
+                    </div>
+                </span>
+
+            </div>
+        </div> -->
+        <!-- ********************* Value of Company Edit Section END *********************
+
+        </section>-->
+        <!-- ***** Qualifying block END ***** -->
+        <!--  <div class="btm-btns btm-btns whiteBox">
+                    <input type="button"  class="btn btn-gray" onclick="gobacktoUpdateProfile()" value="Back">
+                    <input type="button"  class="btn btn-blue" title="" value = "Save and Continue" id="submitButtonId" onclick="callActionFuncFOrSubmit_RemoteAction()" >
+                </div>
+          </div>
+            </section>
+            </div>
+        </apex:outputPanel>-->
+        <!-- ***** recertificationBlock END ***** -->
+        <!-- *************** YPO gold membership Criteria START ****************** -->
+        <!--                    <apex:outputPanel rendered="{!isTransition}" >
+                                <section class="reCertiCondition companyRecrtification">
+
+                                    <div class="fieldset">
+
+                                        <span class="input-select">
+                                            <div class="input" data-bind="validationElement0: ypoGoldPresrequiredTextInput, css: {'is-tiked': ypoGoldPresrequiredTextInput}" >
+                                                <apex:selectList value="{!Opp_PresidentType}" size="1" id="PresidentTypeisYPOMembInputTextId" styleClass="input-field" html-data-bind="textInput: ypoGoldPresrequiredTextInput"  >
+                                                    <apex:selectOption itemValue="" itemLabel="Select one" html-selected="selected" />
+                                                    <apex:selectOptions value="{!PresidentType}"  />
+                                                </apex:selectList>
+                                                <label class="input-label" for="PresidentTypeisYPOMembInputTextId"> President Type  <elm class="glyphicon glyphicon-triangle-bottom"></elm>  </label>
+                                                <span class="validationMessage" data-bind="validationMessage: ypoGoldPresrequiredTextInput"></span>
+                                            </div>
+                                        </span>
+
+                                        <span class="input-select">
+                                            <div class="input" data-bind="validationElement0: ypoGoldCorprequiredTextInput, css: {'is-tiked': ypoGoldCorprequiredTextInput}" >
+                                                <apex:selectList value="{!Opp_CorporationType}" size="1"  id="CorpTypeisYPOMembInputTextId" styleClass="input-field" html-data-bind="textInput: ypoGoldCorprequiredTextInput"  >
+                                                    <apex:selectOption itemValue="" itemLabel="Select one" html-selected="selected" />
+                                                    <apex:selectOptions value="{!CorporationType}"  />
+                                                </apex:selectList>
+                                                <label class="input-label" for="CorpTypeisYPOMembInputTextId">Corporation Type<elm class="glyphicon glyphicon-triangle-bottom"></elm>          </label>
+                                                <span class="validationMessage" data-bind="validationMessage: ypoGoldCorprequiredTextInput"></span>
+                                            </div>
+                                        </span>
+
+                                        <div class="input input-select" data-bind="validationElement0: ypoGoldBusirequiredTextInput, css: {'is-tiked': ypoGoldBusirequiredTextInput}" >
+                                            <apex:selectList value="{!Opp_BusinessScope}" size="1" id="BusinessScopeisYPOMembInputTextId" styleClass="input-field" html-data-bind="textInput: ypoGoldBusirequiredTextInput"  >
+                                                <apex:selectOption itemValue="" itemLabel="Select one" html-selected="selected" />
+                                                <apex:selectOptions value="{!BusinessScope}"  />
+                                            </apex:selectList>
+                                            <label class="input-label" for="BusinessScopeisYPOMembInputTextId"> Business scope  <elm class="glyphicon glyphicon-triangle-bottom"></elm> </label>
+                                            <span class="validationMessage" data-bind="validationMessage: ypoGoldBusirequiredTextInput"></span>
+                                        </div>
+                                        <div class="recertiInputs">
+                                            <div class="input" data-bind="validationElement0: ypoGoldAnnualrequiredTextInput, css: {'is-tiked': ypoGoldAnnualrequiredTextInput}" >
+                                                <apex:inputText value="{!AnnualRevenue}" styleClass="input-field" id="AnnualRevisYPOMembInputTextId" html-data-bind="textInput: ypoGoldAnnualrequiredTextInput"  />
+                                                <label class="input-label" for="AnnualRevisYPOMembInputTextId"> Dollar business volume </label>
+                                                <span class="validationMessage" data-bind="validationMessage: ypoGoldAnnualrequiredTextInput"></span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </section>
+
+                                <div class="btm-btns btm-btns whiteBox">
+                                    <input class="btn btn-gray" value="Back" type="button" onclick="callActionFuncFOrBack()"/>
+
+                                    <input type="button"  class="btn btn-blue" value = "Submit" id="ypoGoldSubmitButtonId" onclick="mapAndUpdateYPOGoldMembership()" />
+                                </div>
+                            </apex:outputPanel>
+                            -->
+        <!-- *************** YPO gold membership Criteria END  ******************
+
+
+            </div>
+        </div>-->
+        <!--   <apex:actionFunction name="callActionFuncFOrSubmit" action="{!saveOnRecertification}" immediate="true"/>
+            <apex:actionFunction name="callActionFuncFOrBack" action="{!backGold}" immediate="true"/>-->
+        <!--
+
+        </apex:outputPanel>-->
+    </apex:form>
+    </body>
+
+
+    <!--</apex:define>
+    </apex:composition>-->
+    <apex:includescript value="https://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js" />
+    <script src="{!URLFOR($Resource.YPORenew, 'ypo-renewals/assets/js/jquery-3.2.1.min.js')}"></script>
+    <script src="{!URLFOR($Resource.YPORenew, 'ypo-renewals/assets/js/bootstrap.min.js')}"></script>
+    <script src="{!URLFOR($Resource.YPORenew, 'ypo-renewals/assets/js/autoNumeric.js')}"></script>
+    <script src="{!URLFOR($Resource.YPORenew, 'ypo-renewals/assets/js/validator.min.js')}"></script>
+
+
+    <apex:includescript value="https://cdn.jsdelivr.net/npm/autonumeric@4.0.1" />
+    <script>
+        /**
+         * CURRENCY FORMATTING
+         * Have to fomrat 3 inputs:
+         *      #CompensationInputTextId
+         *      #AnnualRevInputTextId
+         *      #EnterpriseInputTextId
+         *      all three share the calss '.currencyInput'
+         **/
+        $(document).ready(function(){
+            var options = {aSign: '', formatOnPageLoad: true, unformatOnSubmit: true, mDec: 0, wEmpty: 'null'};
+            $('.currencyInput').autoNumeric('init', options);
+        });
+    </script>
+
+    <script>
+        function clearForm() {
+
+            allSectionsReqSatfirstLoad = 'Yes';
+            $('[id*=isQualifyingCompanyEditableId]').val(true);
+            ChangeQualifyClicked = 'Yes';
+            resetQualifyCompanyFieldsToNull();
+            resetMainMembershipyFieldsToNull();
+            resetSizeOfCompFieldsToNull();
+            resetValueOfCompFieldsToNull();
+            document.getElementById("qualifycompInputTextId").disabled = false;
+            $("#qualifycompInputLabelId").removeClass("disabled");
+
+            //diablesEnablesaveContinueBt(false);
+            //$("#recertification-form")[0].reset();
+
+
+        }
+    </script>
+
+    <script>
+        var opportunityResult;
+        var previousOpprtyResult;
+        var OppId;
+        var ChangeQualifyClicked = 'No';
+        var qualifyCompanyEdited = 'No';
+        var mainMembershipEdited = 'No';
+        var sizeOfCompany = 'No';
+        var valueOfCompany = 'No';
+        var isOneSecUpdtChngQulfyComp = 'No';
+        var joindate = new Date('{!oContact.Join_Date__c}'); //var joindate = new Date('2013-08-01');
+        var numberFormatRegExp = /(\d)(?=(\d\d\d)+(?!\d))/g;
+        console.log(joindate.toUTCString());
+        var dtJuly012000 = new Date('2000','06','01');
+        dtJuly012000.setUTCHours(0);
+        dtJuly012000.setUTCMinutes(0);
+        dtJuly012000.setUTCSeconds(0);
+        console.log(dtJuly012000.toUTCString());
+        var dtJuly012013 = new Date('2013','06','01');
+        dtJuly012013.setUTCHours(0);
+        dtJuly012013.setUTCMinutes(0);
+        dtJuly012013.setUTCSeconds(0);
+        console.log(dtJuly012013.toUTCString());
+        var ContactNumberOfEmp = '{!oContact.Number_of_Employees__c}';
+        var allSectionsReqSatfirstLoad = 'No';
+
+        var NumberofEmpReqMsg;
+        var CompensationReqMsg = false;
+        var showReqMessages =false;
+
+        getAnOpportunity();
+
+
+
+        $(document).ready(function(){
+            $('input[type="submit"][value="Request Grace"]').on('click',
+                function() {
+                    $('input').filter('[required]:visible').prop('required', false);
+                    $('select').filter('[required]:visible').prop('required', false);
+                    return true;
+                }
+            );
+            $('input[type="submit"][value="Learn More"]').on('click',
+                function() {
+                    $('input').filter('[required]:visible').prop('required', false);
+                    $('select').filter('[required]:visible').prop('required', false);
+                    return true;
+                }
+            );
+            //Ramneek 4/24/carol requested change to display "Field required under field message"
+            //validateForm();
+            // This is for the Request Grace Dismiss button
+            //alert("Grace="+{!isGraceAvailable}+"   Transition="+{!isTransitionAvailable});
+            var GraceCheck = {!isGraceAvailable};
+            var TransitionCheck = {!isTransitionAvailable};
+            var TransAnnualRevenue = {!AnnualRevenue};
+            TransAnnualRevenue = TransAnnualRevenue.toString().replace(/(\d)(?=(\d\d\d)+(?!\d))/g, "$1,");
+            console.log(TransAnnualRevenue);
+            $("[id*=AnnualRevisYPOMembInputTextId]").val(TransAnnualRevenue);
+
+
+            if (GraceCheck==true && TransitionCheck==false)
+            {
+                $("#block1").show();
+            }
+
+            if (GraceCheck==true && TransitionCheck==true)
+            {
+                $("#block2").show();
+            }
+
+            if (GraceCheck==false && TransitionCheck==true)
+            {
+                $("#block3").show();
+            }
+
+
+            if(document.getElementById("qualifycompInputTextId") !== null && document.getElementById("qualifycompInputTextId") !== undefined) {
+                document.getElementById("qualifycompInputTextId").disabled = true;
+            }
+            $("#qualifycompInputLabelId").addClass("disabled");
+
+            $(".request").click(function(){
+                $(".requestDiv").slideUp();
+            });
+            // This is for the I'm Interested Dismiss button
+            $(".Iam").click(function(){
+                $(".iamDiv").slideUp();
+            });
+
+            // This is for the editable Company Name box
+            $("#editCompanyNameBoxId").click(function(){
+                allSectionsReqSatfirstLoad = 'Yes';
+                // This is to be set if QualifyingCompanyEditable when you click on pencil icon or change Qualifying text.
+
+                // This is for the Confirm Message before youu change company info.
+                $.confirm( {
+                    title: 'Warning',
+                    content: 'By selecting to continue, all information for your current company will be deleted. <br/><br/>  Are you sure you want to continue?',
+                    buttons: {
+                        Yes:function(){
+                            $(".nameCompany").slideUp();
+                            $(".enablecompname").slideDown();
+                            $('[id*=isQualifyingCompanyEditableId]').val(true);
+                            ChangeQualifyClicked = 'Yes';
+                            resetQualifyCompanyFieldsToNull();
+                            resetMainMembershipyFieldsToNull();
+                            resetSizeOfCompFieldsToNull();
+                            resetValueOfCompFieldsToNull();
+                            diablesEnablesaveContinueBt(false);
+                        },
+                        No: function () {},
+                    }
+                });
+            });
+
+            // Don't submit the form on enter press
+            $('input').keydown(function(event) {
+                if(event.which == 13) {
+                    event.preventDefault();
+                }
+            });
+
+            // Subsidary Checkbox selected
+            $("#SubsidaryInputId").click(function(){
+                // alert('--Clicked Subsidary---');
+                if($('#SubsidaryInputId').is(':checked') == true){
+                    $("#parentAccountdivId").show();
+                }else{ $("#parentAccountdivId").hide();}
+                validateForm();
+            });
+
+            // Initialize KO Form Validation
+            $('#stateDIV').bind("DOMSubtreeModified DOMNodeInserted DOMNodeRemoved",function(){
+                //$('[id*="stateDIV"]').find("span").addClass("input-select");
+            });
+            // This will be called Knockout validations:
+            ko.applyBindings(new textInputModel());
+            var isYPOGold = '{!isTransition}';
+            if(isYPOGold== 'false' || isYPOGold==false ){
+                CategoryAtext();
+            }
+
+            addPreviousYearValue("#TotalEmpCompTextID", "{!Contact.Total_Employee_Compensation__c}", "{!CurrencyCode}", numberFormatRegExp);
+            addPreviousYearValue("#EntValueTextID", "{!Contact.Enterprise_Value__c}", "{!CurrencyCode}", numberFormatRegExp);
+            //$('#TotalEmpCompTextID').text('{!Contact.Total_Employee_Compensation__c}'.toString().replace(/(\d)(?=(\d\d\d)+(?!\d))/g, "$1,"));
+            //$('#EntValueTextID').text('{!Contact.Enterprise_Value__c}'.toString().replace(/(\d)(?=(\d\d\d)+(?!\d))/g, "$1,"));
+
+            addPreviousYearValueBasedOnCorporationType('{!Opp_CorporationType}');
+
+            validateForm();
+        });
+
+        function addPreviousYearValueBasedOnCorporationType(corporationType) {
+            if(corporationType === 'Sales' || corporationType === 'Service' || corporationType === 'Manufacturing') {
+                addPreviousYearValue("#DollarValueTextID", "{!Contact.Annual_Revenue__c}", "{!CurrencyCode}", numberFormatRegExp);
+            } else if(corporationType === 'Agency-type') {
+                addPreviousYearValue("#DollarValueTextID", "{!Contact.Annual_Fees__c}", "{!CurrencyCode}", numberFormatRegExp);
+            } else if(corporationType === 'Financial Institution') {
+                addPreviousYearValue("#DollarValueTextID", "{!Contact.Annual_Assets__c}", "{!CurrencyCode}", numberFormatRegExp);
+            }
+        }
+
+        function CorporateType(currentVal)
+        {
+            if(currentVal.value == 'Sales' || currentVal.value == 'Service' || currentVal.value == 'Manufacturing')
+            {
+                addPreviousYearValue("#DollarValueTextID", "{!Contact.Annual_Revenue__c}", "{!CurrencyCode}", numberFormatRegExp);
+                //$('#DollarValueTextID').text('{!Contact.Annual_Revenue__c}'.toString().replace(/(\d)(?=(\d\d\d)+(?!\d))/g, "$1,"));
+            }
+
+            if(currentVal.value == 'Agency-type') {
+                addPreviousYearValue("#DollarValueTextID", "{!Contact.Annual_Fees__c}", "{!CurrencyCode}", numberFormatRegExp);
+                //$('#DollarValueTextID').text('{!Contact.Annual_Fees__c}'.toString().replace(/(\d)(?=(\d\d\d)+(?!\d))/g, "$1,"));
+            }
+
+            if(currentVal.value == 'Financial Institution') {
+                addPreviousYearValue("#DollarValueTextID", "{!Contact.Annual_Assets__c}", "{!CurrencyCode}", numberFormatRegExp);
+                //$('#DollarValueTextID').text('{!Contact.Annual_Assets__c}'.toString().replace(/(\d)(?=(\d\d\d)+(?!\d))/g, "$1,"));
+            }
+        }
+
+        function gobacktoUpdateProfile(){
+
+            window.location.href='{! URLFOR($Page.UpdateProfileInfo_YPO,null,[id=$CurrentPage.parameters.Id])}';
+
+        }
+
+        function YPOGold_Back() {
+            if({!isTransition}) {
+                alert('You have already Transitioned.  Please contact Member Services if you which to undo this request.');
+            } else {
+                callActionFuncFOrBack();
+            }
+        }
+
+
+        /**************** VISUALFORCE REMOTE ACTION STARTS ********************/
+        // ------------- GET A PREVIOUS OPPORTUNITY FROM REMOTE ACTION  START -----------------------
+        function getAPreviousOpportunity(){
+            var JId = '{!oContact.Id}';
+            var jsonContact = '{ "Id" : \"'+ JId + '\" }';
+            Visualforce.remoting.Manager.invokeAction(
+                '{!$RemoteAction.RecertificationExtension.getPreviousOpportunity}',
+                jsonContact,
+                function(result, event){
+                    if (event.status) {
+                        //ramneek changed order of execution 4/21/2017 seteditAccountAddess moved after if(result != null)
+                        if(result != null ){
+                            previousOpprtyResult = result;
+                        }
+                        var isYPOGold = '{!isTransition}';
+                        if(isYPOGold== 'false' || isYPOGold==false ){
+                            setEditAccountAddress(opportunityResult);
+                        }
+                    }else{
+                        window.console.log('Error in getting a previous Opportunity record');
+                    }
+                },
+                {escape: false}
+            );
+        }
+        // ------------- GET A PREVIOUS OPPORTUNITY FROM REMOTE ACTION  START -----------------------
+
+        // ------------- GET A CURRENT OPPORTUNITY FROM REMOTE ACTION  START -----------------------
+        function getAnOpportunity(){
+            var JId = '{!oContact.Id}';
+            var jsonContact = '{ "Id" : \"'+ JId + '\" }';
+            Visualforce.remoting.Manager.invokeAction(
+                '{!$RemoteAction.RecertificationExtension.getAnOpportunity}',
+                jsonContact,
+                function(result, event){
+                    if (event.status) {
+                        if(result != null ){
+                            opportunityResult = result;
+                            var isYPOGold = '{!isTransition}';
+                            if(isYPOGold== 'false' || isYPOGold==false ){
+                                setEditAccountAddress(result);
+                            }
+                            //setEditAccountAddress(result);
+                            //displayMainmembershipinEditSec(result);
+                            //SizeOfCompanyInfoinEditSec(result);
+                            //valueOfCompanyInfoinEditSec(result);
+                            getAPreviousOpportunity();
+                        }
+                    }else{
+                        window.console.log('Error in getting An  Opportunity record');
+                    }
+                },
+                {escape: false}
+            );
+        }
+        // ------------- GET A CURRENT OPPORTUNITY FROM REMOTE ACTION  END -----------------------
+        // This will be update opportunity by each section wise.
+        function updateOpportunityByEachSection(updateOppJsonStr , sectionName){
+            Visualforce.remoting.Manager.invokeAction(
+                '{!$RemoteAction.RecertificationExtension.updateOpportunityEachSec}',
+                updateOppJsonStr,
+                function(result, event){
+                    if (event.status) {
+                        if(result != null ){
+                            callActionFuncFOrSubmit();
+                        }
+                    }else{
+                        window.console.log('Error in get An  Account record');
+                    }
+                },
+                {escape: false}
+            );
+        }
+
+        function resetQualifyCompanyFieldsToNull(){
+            // Reset Qualify Company fields to null in Edit Section
+            //self.requiredTextInputQualifyComp('Dummy Text');
+            //self.requiredTextInputQualifyComp('');
+            document.getElementById("qualifycompInputTextId").value = "";
+            self.requiredTextInputStreet('');
+            self.requiredTextInputStreet2('');
+            self.requiredTextInputCity('');
+            self.requiredTextInputState('');
+            self.requiredTextInputCountry('');
+            self.requiredTextInputPostal('');
+            self.requiredTextInputParentAccount('');
+            $("#parentAccountInputTextId").val('');
+            $("[id*=stateInputTextId]").val('');
+            $('#SubsidaryInputId').prop( "checked", false );
+            $("#parentAccountdivId").hide();
+        }
+        function resetMainMembershipyFieldsToNull(){
+            // Reset the Mainmembership values to null in Edit Sections
+            self.requiredTextInputFirmType(undefined);
+            self.requiredTextInputBusinessScope(undefined);
+            self.requiredTextInputPresidentType(undefined);
+            self.requiredTextInputTitleHeld(undefined);
+            self.requiredTextInputOtherTitle(undefined);
+            $('#othertitledivId').hide();
+        }
+        function resetSizeOfCompFieldsToNull(){
+            self.requiredTextInputNumberOfEmp(undefined);
+            self.requiredTextInputCompensation(undefined);
+        }
+        function resetValueOfCompFieldsToNull(){
+            self.requiredTextInputAnnualRev(undefined);
+            self.requiredTextInputEnterprise(undefined);
+            self.requiredTextInputEnterpriseType(undefined);
+            self.requiredTextInputCorpType(undefined);
+        }
+        function restoreAllFormFieldsBackOnQualifyComp(){
+
+            if(opportunityResult !=null){
+                if(opportunityResult.Organization_Type__c != undefined)
+                    self.requiredTextInputCorpType(opportunityResult.Organization_Type__c);
+
+                if(opportunityResult.Firm_Type__c != undefined)
+                    self.requiredTextInputFirmType(opportunityResult.Firm_Type__c);
+
+                if(opportunityResult.Business_Scope__c != undefined)
+                    self.requiredTextInputBusinessScope(opportunityResult.Business_Scope__c);
+
+                if(opportunityResult.President_Type__c != undefined)
+                    self.requiredTextInputPresidentType(opportunityResult.President_Type__c);
+
+                self.requiredTextInputTitleHeld(opportunityResult.Title__c);
+                if(opportunityResult.Title__c == 'Other'){
+                    self.requiredTextInputOtherTitle(opportunityResult.Title_Other__c);
+                }
+            }
+            //SizeOfCompanyInfoinEditSec(opportunityResult);
+            //valueOfCompanyInfoinEditSec(opportunityResult);
+        }
+
+        // <<<<<<<<<<<<<<<<<<<<<<<******************* DISPLAY DATA IN EDIT SECTIONS START **************>>>>>>>>>>>>>>>>>>>>
+
+        // Displays the  QUALIFYING COMPANY Info in Edit Section from the Opportunty through Remote Action:
+        function setEditAccountAddress(resultAcc){
+
+            window.console.log(resultAcc);
+            if(resultAcc != null){
+
+                $('#qualifyCompanyNameSpanId').text(resultAcc.Qualifying_Company__c);
+
+                if(resultAcc.Subsidiary__c == true){
+                    $('#SubsidaryInputId').prop( "checked", true );
+                    self.requiredTextInputParentAccount(resultAcc.Parent_Company__c);
+                    $("#parentAccountdivId").show();
+                }else{
+                    $('#SubsidaryInputId').prop( "checked", false );
+                    $("#parentAccountdivId").hide();
+                    if(self.requiredTextInputParentAccount !== undefined && self !== null) {
+                        self.requiredTextInputParentAccount(undefined);
+                    }
+                }
+                $("[id*=countryInputTextId]").val(resultAcc.QC_CountryCode__c);
+
+                if(resultAcc.QC_CountryCode__c == undefined || resultAcc.QC_CountryCode__c =='' ){
+                    self.requiredTextInputCountry('--None--');
+                    self.requiredTextInputCountry('');
+                }
+                else self.requiredTextInputCountry(resultAcc.QC_CountryCode__c);
+
+                console.log(resultAcc.QC_StateCode__c);
+
+                $("[id*=stateInputTextId]").val(resultAcc.QC_StateCode__c);
+                self.requiredTextInputState(resultAcc.QC_StateCode__c);
+
+                if(resultAcc.QC_StreetAddress1__c == undefined)
+                    self.requiredTextInputStreet('');
+                else self.requiredTextInputStreet(resultAcc.QC_StreetAddress1__c);
+
+                if(resultAcc.QC_StreetAddress2__c == undefined)
+                    self.requiredTextInputStreet2('');
+                else self.requiredTextInputStreet2(resultAcc.QC_StreetAddress2__c);
+
+
+                if(resultAcc.QC_City__c == undefined)
+                    self.requiredTextInputCity('');
+                else self.requiredTextInputCity(resultAcc.QC_City__c);
+
+                if(resultAcc.QC_PostalCode__c == undefined)
+                    self.requiredTextInputPostal('');
+                else self.requiredTextInputPostal(resultAcc.QC_PostalCode__c);
+            }
+
+
+            // Displays Main Membership Creteria details in Edit
+            resultMainMembership = resultAcc;
+            if(resultMainMembership != undefined && resultMainMembership != null && resultMainMembership != ''){
+                self.requiredTextInputFirmType(resultMainMembership.Firm_Type__c);
+                self.requiredTextInputBusinessScope(resultMainMembership.Business_Scope__c);
+                self.requiredTextInputPresidentType(resultMainMembership.President_Type__c);
+                self.requiredTextInputTitleHeld(resultMainMembership.Title__c);
+                if(resultMainMembership.Title__c == 'Other'){
+                    self.requiredTextInputOtherTitle(resultMainMembership.Title_Other__c);
+                }
+            }
+
+
+            // Displays SIZE OF COMPANY Info in Edit
+            resultSizeOfComp = resultAcc;
+            if(resultSizeOfComp != undefined && resultSizeOfComp != null && resultSizeOfComp != ''){
+                if(resultSizeOfComp.NumberOfEmployees__c != null )
+                //self.requiredTextInputNumberOfEmp(resultSizeOfComp.NumberOfEmployees__c);
+                    self.requiredTextInputNumberOfEmp(resultSizeOfComp.NumberOfEmployees__c.toString().replace(/(\d)(?=(\d\d\d)+(?!\d))/g, "$1,"));
+
+                if(resultSizeOfComp.Total_Employee_Compensation__c != null )
+                //self.requiredTextInputCompensation(resultSizeOfComp.Total_Employee_Compensation__c);
+                    self.requiredTextInputCompensation(resultSizeOfComp.Total_Employee_Compensation__c.toString().replace(/(\d)(?=(\d\d\d)+(?!\d))/g, "$1,"));
+            }
+
+            if (previousOpprtyResult != undefined && previousOpprtyResult != null && previousOpprtyResult != '') {
+                addPreviousYearValue("#previousYearSizeOfCompSpanId", previousOpprtyResult.NumberOfEmployees__c);
+                addPreviousYearValue("#previousyearEmpCompnSpanId", previousOpprtyResult.Total_Employee_Compensation__c, "{!CurrencyCode}", numberFormatRegExp);
+            }
+
+
+            // Displays VALUE OF COMPANY Info in Edit
+            resultValueOfComp = resultAcc;
+            //alert(resultValueOfComp.Enterprise_Value__c);
+            if(resultValueOfComp != undefined && resultValueOfComp != null && resultValueOfComp != ''){
+                self.requiredTextInputCorpType(resultValueOfComp.Organization_Type__c);
+
+                if(resultValueOfComp.AnnualRevenue__c != null){
+                    //self.requiredTextInputAnnualRev(resultValueOfComp.AnnualRevenue__c);
+                    self.requiredTextInputAnnualRev(resultValueOfComp.AnnualRevenue__c.toString().replace(/(\d)(?=(\d\d\d)+(?!\d))/g, "$1,"));
+
+                }
+                if(resultValueOfComp.Enterprise_Value__c != null){
+                    //self.requiredTextInputEnterprise(resultValueOfComp.Enterprise_Value__c);
+                    self.requiredTextInputEnterprise(resultValueOfComp.Enterprise_Value__c.toString().replace(/(\d)(?=(\d\d\d)+(?!\d))/g, "$1,"));
+                }
+                //alert(resultValueOfComp.Enterprise_Type__c)
+                self.requiredTextInputEnterpriseType(resultValueOfComp.Enterprise_Type__c);
+                $('#corpTypeValidMsgId').text('');
+            }
+
+            if (previousOpprtyResult != undefined && previousOpprtyResult != null && previousOpprtyResult != '') {
+                addPreviousYearValue("#previousyearDollarVolspanId", previousOpprtyResult.AnnualRevenue__c, "{!CurrencyCode}", numberFormatRegExp);
+                addPreviousYearValue("#previousyearEnterpriseValSpanId", previousOpprtyResult.Enterprise_Value__c, "{!CurrencyCode}", numberFormatRegExp);
+                addPreviousYearValue("#previousyearEnterpriseTypeSpanId", previousOpprtyResult.Enterprise_Type__c);
+                addPreviousYearValue("#previousyearCorpTypeSpanId", previousOpprtyResult.Organization_Type__c);
+
+                if('{!Contact.Corporation_Type_Contact__c}' === undefined || '{!Contact.Corporation_Type_Contact__c}' === null || '{!Contact.Corporation_Type_Contact__c}'.trim() === "") {
+                    var corporationType = previousOpprtyResult.Organization_Type__c.trim();
+
+                    $('[id$="CorpTypeInputTextId"]')[0].selectedIndex = 0;
+                    addPreviousYearValueBasedOnCorporationType(corporationType);
+                }
+            }
+
+            if($('[id*="stateInputTextId"]').val().length>0 ){
+                if(!$('#stateLabelreqId').hasClass('required') ){
+                    $("#stateLabelreqId").addClass("required");
+                }
+            }else{
+                $("#stateLabelreqId").removeClass("required");
+            }
+
+        }
+
+        function hasValue(someValue) {
+            var result = false;
+
+            if (someValue !== undefined && someValue !== null) {
+                if (typeof someValue === "string") {
+                    if (someValue.trim().length > 0) {
+                        result = true;
+                    }
+                }
+
+                if (typeof someValue === "number") {
+                    if (someValue > 0) {
+                        result = true;
+                    }
+                }
+            }
+
+            return result;
+        }
+
+        function addPreviousYearValue(selector, someValue, previousYearPrefix, formatRegExp) {
+            if (hasValue(someValue)) {
+                if (previousYearPrefix !== undefined && previousYearPrefix !== null) {
+                    if ($(selector)[0] !== undefined && $(selector)[0] !== null) {
+                        if ($(selector)[0].previousSibling.nodeValue.trim() !== previousYearPrefix) {
+                            $(selector).before(previousYearPrefix + "&nbsp;");
+                        }
+                    }
+                    $(selector).text(someValue.toString().replace(formatRegExp, "$1,"));
+                } else {
+                    $(selector).text(someValue);
+                }
+            }
+        }
+
+        // <<<<<<<<<<<<<<<<<<<<<<<******************* DISPLAY DATA IN EDIT SECTIONS START **************>>>>>>>>>>>>>>>>>>>>
+
+        // <<<<<<<<<<<<<<<<<<<<<<<******************* MAPPPING OPPORTUNITY JSON OBJECT START **************>>>>>>>>>>>>>>>>>>>>
+        // update QUALIFYING COMPANY Info in Opportunity When you click on Save button on this section.
+        function callActionFuncFOrSubmit_RemoteAction(){
+            OppId = '{!loadOpportunityId}';
+            var JQualifyCompany = $("[id*=qualifycompInputTextId]").val();
+            var JStreet =  $('#streetInputTextId').val();
+            var JStreet2 =  $('#streetInputTextId2').val();
+            var JCity = $('#cityInputTextId').val();
+            var JCountryCode =$("[id*=countryInputTextId]").val();
+            var JStateCode = $("[id*=stateInputTextId]").val();
+            var JPostal = $('#postalInputTextId').val();
+            var JState = $("[id*=stateInputTextId]").find("option:selected").text();
+            var JCountry =  $("[id*=countryInputTextId]").find("option:selected").text();
+            if(JState == '--None--'){
+                JState = '';
+                JStateCode = '';
+            }
+            if(JCountry == '--None--'){
+                JCountry = '';
+                JCountryCode = '';
+            }
+            var JParentAccount ='';
+            var JSubsidiry;
+            if($('#SubsidaryInputId').is(':checked') == true){
+                JSubsidiry = true;
+                JParentAccount = $("[id*=parentAccountInputTextId]").val();
+            }else{
+                JSubsidiry = false;
+                JParentAccount = '';
+            }
+
+            // Main Membership Criteria Info
+            var JOppFirmType =$("[id*=FirmTypeInputTextId]").val();
+            var JOppBusinessScope =$("[id*=BusinessScopeInputTextId]").val();
+            var JOppPresidentType =$("[id*=PresidentTypeInputTextId]").val();
+            var JOppTitle =$("[id*=TitleHeldInputTextId]").val();
+            var JOppOtherTitle ='';
+            if(JOppTitle == 'Other'){
+                JOppOtherTitle =$("[id*=othertitleInputTextId]").val();
+            }
+            //  SIZE OF COMPANY Info
+            var JOppNumberOfEmployees =$('#NumberofEmpInputTextId').val();
+            JOppNumberOfEmployees = JOppNumberOfEmployees.replace(/,/g, "");
+            var JOppTotalEmployeeCompensation =$('#CompensationInputTextId').val();
+            JOppTotalEmployeeCompensation = JOppTotalEmployeeCompensation.replace(/,/g, "");
+
+            // Value Of Company
+            var JAnnualRevenue = $('#AnnualRevInputTextId').val();
+            JAnnualRevenue = JAnnualRevenue.replace(/,/g, "");
+            var JEnterpriseValue = $('#EnterpriseInputTextId').val();
+            JEnterpriseValue = JEnterpriseValue.replace(/,/g, "");
+            var JEnterpriseType = $("[id*=EnterpriseTypeInputTextId]").val();
+            var JOppCorporationType =$("[id*=CorpTypeInputTextId]").val();
+
+            // mapping Opportunity JSON Object:
+
+            var opportunityJSONObj = '{ "Id" : \"'+ OppId;
+
+            if(ChangeQualifyClicked =='Yes'){
+                opportunityJSONObj = opportunityJSONObj + '\" , "Qualifying_Company__c"   : \"'+ JQualifyCompany.replace(/"/g, '\\"');
+            }
+            opportunityJSONObj = opportunityJSONObj + '\" , "QC_StreetAddress1__c"   : \"'+ JStreet.replace(/\\/g, '\\\\')
+                + '\" , "QC_StreetAddress2__c"   : \"'+ JStreet2.replace(/\\/g, '\\\\')
+                + '\" , "QC_City__c"            : \"'+ JCity.replace(/\\/g, '\\\\')
+                + '\" , "QC_Country__c" : \"'+ JCountry
+                + '\" , "QC_State__c"       : \"'+JState
+                + '\" , "QC_PostalCode__c"  : \"'+JPostal
+                + '\" , "QC_StateCode__c"       : \"'+JStateCode
+                + '\" , "QC_CountryCode__c"     : \"'+JCountryCode
+                + '\" , "Subsidiary__c"     : \"'+JSubsidiry
+                + '\" , "Parent_Company__c"     : \"'+JParentAccount
+
+                + '\" , "Firm_Type__c"              : \"'+ JOppFirmType
+                + '\" , "Business_Scope__c" : \"'+ JOppBusinessScope
+                + '\" , "President_Type__c"         : \"'+JOppPresidentType
+                + '\" , "Title__c"  : \"'+JOppTitle
+                + '\" , "Title_Other__c"  : \"'+JOppOtherTitle
+
+                + '\" , "NumberOfEmployees__c"      : \"'+JOppNumberOfEmployees
+                + '\" , "Total_Employee_Compensation__c"    : \"'+JOppTotalEmployeeCompensation
+
+                + '\" , "AnnualRevenue__c"          : \"'+ JAnnualRevenue
+                + '\" , "Enterprise_Value__c"               : \"'+ JEnterpriseValue
+                + '\" , "Enterprise_Type__c"    : \"'+ JEnterpriseType
+                + '\" , "Organization_Type__c"          : \"'+ JOppCorporationType
+
+                + '\" }';
+
+            //alert(opportunityJSONObj);
+            updateOpportunityByEachSection(opportunityJSONObj , 'QualifyCompany');
+        }
+
+        // <<<<<<<<<<<<<<<<<<<<<<<******************* MAPPPING OPPORTUNITY JSON OBJECT END **************>>>>>>>>>>>>>>>>>>>>
+
+        // update the YPO GOLD MEMBERSHIP CRITERIA Info in opportunity when you click Submit/Continue Button on this section - verified here.
+        function mapAndUpdateYPOGoldMembership(){
+            OppId = '{!loadOpportunityId}';
+            var JOppCorporationType =$("[id*=CorpTypeisYPOMembInputTextId]").val();
+            var JOppPresidentType =$("[id*=PresidentTypeisYPOMembInputTextId]").val();
+            var JOppBusinessScope =$("[id*=BusinessScopeisYPOMembInputTextId]").val();
+            var JAnnualRevenue =$("[id*=AnnualRevisYPOMembInputTextId]").val();
+            JAnnualRevenue = JAnnualRevenue.replace(/,/g, "");
+
+            // Do the correct mapping for the Main membership Criteria Inf fields :- YPO Team to be Update:
+            var oppJsonypogoldMembership = '{ "Id" : \"'+ OppId
+                //  Do the correct mapping for the below field :- YPO Team to be Update:
+                + '\" , "Organization_Type__c"          : \"'+ JOppCorporationType
+                + '\" , "President_Type__c"         : \"'+JOppPresidentType
+                + '\" , "Business_Scope__c" : \"'+ JOppBusinessScope
+                + '\" , "AnnualRevenue__c"  : \"'+JAnnualRevenue
+                + '\" }';
+
+            updateOpportunityByEachSection(oppJsonypogoldMembership, 'YPOGollMembership');
+        }
+
+        // Verified - here - This is for all the sections validations, Save button enable/disble
+        function validateForm(){
+            var toEnable=true;
+            if( $('.validationMessage').text() == 'invalid data.'){
+                toEnable=false;
+            }
+            //Ramneek 4/21/2017 Added required check for continue button
+            if($('[id*="qualifycompInputTextId"]').val().length ==0 && ChangeQualifyClicked == 'Yes' ){
+                //toEnable=false;
+            }
+            // QUALIFYING COMPANY save button enable/disable  ---- START----
+            if( $('#SubsidaryInputId').is(':checked') == true && $('[id*=parentAccountInputTextId]').val().length == 0 ) {
+                //toEnable=false;
+            }
+            if($('#streetInputTextId').val() == undefined || $('#streetInputTextId').val() == '' || $('#streetInputTextId').val() == null){
+                //toEnable=false;
+            }
+            if($('#cityInputTextId').val() == undefined || $('#cityInputTextId').val() == '' || $('#cityInputTextId').val() == null){
+                //toEnable=false;
+            }
+            if($('#postalInputTextId').val() == undefined || $('#postalInputTextId').val() == '' || $('#postalInputTextId').val() == null ){
+                //toEnable=false;
+            }
+            if($('[id*="countryInputTextId"]').val() == undefined || $('[id*="countryInputTextId"]').val() == '' || $('[id*="countryInputTextId"]').val() == null){
+                //toEnable=false;
+            }
+
+            var optionslen = $('[id*="stateInputTextId"] option').length;
+            if(optionslen > 1){
+                //toEnable=false;
+                if(!$('#stateLabelreqId').hasClass('required') ){
+                    self.requiredTextInputState('--None--');
+                    $("#stateLabelreqId").addClass("required");
+                }
+            }else{
+                $("#stateMessageSpanId").text('');
+                $("#stateLabelreqId").removeClass("required");
+            }
+            // QUALIFYING COMPANY save button enable/disable  ---- END------
+
+            //  REQUIREMENT A: COMPANY SIZE section validations, Save button enable/disble --- START----
+            if(joindate < dtJuly012000){
+                CompensationReqMsg=false;
+                if($('[id*=NumberofEmpInputTextId]').val().length == 0 || $('[id*=NumberofEmpInputTextId]').val() == 0 ){
+                    toEnable=false;
+                    NumberofEmpReqMsg=true;
+                }else{
+                    NumberofEmpReqMsg = false;
+                }
+            }else if(joindate < dtJuly012013){
+                if( ( $('[id*=NumberofEmpInputTextId]').val().length == 0 || $('[id*=NumberofEmpInputTextId]').val() == 0  ) &&
+                    ( $('[id*=CompensationInputTextId]').val().length==0  || $('[id*=CompensationInputTextId]').val() == 0  ) ){
+                    toEnable=false;
+                    NumberofEmpReqMsg=true;
+                    CompensationReqMsg=true;
+                }else{
+                    NumberofEmpReqMsg=false;
+                    CompensationReqMsg=false;
+                }
+            }else{
+                CompensationReqMsg=false;
+                if( $('[id*=NumberofEmpInputTextId]').val().length == 0 || $('[id*=NumberofEmpInputTextId]').val() == 0  ){
+                    toEnable=false;
+                    NumberofEmpReqMsg=true;
+                }else{
+                    NumberofEmpReqMsg=false;
+                }
+
+                if( $('[id*=NumberofEmpInputTextId]').val().length >=1 && Number($('[id*=NumberofEmpInputTextId]').val()) < ContactNumberOfEmp
+                    && ( $('[id*=CompensationInputTextId]').val().length == 0 || $('[id*=CompensationInputTextId]').val() == 0 ) ){
+                    toEnable=false;
+                    CompensationReqMsg=true;
+                }else{
+                    CompensationReqMsg=false;
+                }
+            }
+            //  REQUIREMENT A: COMPANY SIZE section validations, Save button enable/disble --- END----
+
+            // REQUIREMENT A - 'This field is required.' AND *  MARKS DIAPLYS  ----- START------
+            // NumberofEmpInputTextId VALIDATIONS:
+            if(NumberofEmpReqMsg==true){
+                if(!$('#NumberOfEmpLabelId').hasClass('is-required') ){
+                    $("#NumberOfEmpLabelId").addClass("is-required");
+                }
+                self.requiredTextInputNumberOfEmp('');
+                self.requiredTextInputNumberOfEmp(undefined);
+            }else{
+                if($('#NumberOfEmpLabelId').hasClass('is-required') ){
+                    $("#NumberOfEmpLabelId").removeClass("is-required");
+                }
+                if($('[id*=NumberofEmpInputTextId]').val().length == 0 || $('[id*=NumberofEmpInputTextId]').val() == 0 ){
+                    self.requiredTextInputNumberOfEmp('');
+                    self.requiredTextInputNumberOfEmp(undefined);
+                }
+            }
+            // CompensationInputTextId VALIDATION
+            if(CompensationReqMsg==true){
+                if(!$('#CompensationLabelId').hasClass('is-required') ){
+                    $("#CompensationLabelId").addClass("is-required");
+                }
+                self.requiredTextInputCompensation('');
+                self.requiredTextInputCompensation(undefined);
+            }else{
+                if($('#CompensationLabelId').hasClass('is-required') ){
+                    $("#CompensationLabelId").removeClass("is-required");
+                }
+                if( $('[id*=CompensationInputTextId]').val().length == 0 || $('[id*=CompensationInputTextId]').val() == 0  ){
+                    self.requiredTextInputCompensation('');
+                    self.requiredTextInputCompensation(undefined);
+                }
+            }
+            // REQUIREMENT A - 'This field is required.' AND *  MARKS DIAPLYS  ------ END--------
+
+            //  REQUIREMENT B: COMPANY VALUE section validations, Save button enable/disble  ----START-----
+            if( ( $('[id*=CorpTypeInputTextId]').val().length == 0  || $('[id*=AnnualRevInputTextId]').val().length == 0 || $('[id*=AnnualRevInputTextId]').val() == 0 ) &&
+                ( $('[id*=EnterpriseInputTextId]').val().length == 0  || $('[id*=EnterpriseInputTextId]').val() == 0 || $('[id*=EnterpriseTypeInputTextId]').val().length == 0) ){
+                toEnable=false;
+                showReqMessages=true;
+            }else{
+                showReqMessages=false;
+            }
+            //  REQUIREMENT B: COMPANY VALUE section validations, Save button enable/disble  ----END-----
+
+            // REQUIREMENT B - 'This field is required.' AND *  MARKS DIAPLYS  ----- START------
+
+            if(showReqMessages==true){
+
+                RequirementBFieldRequired();
+
+                if(!$('#CorpTypeLabelId').hasClass('is-required') ){
+                    $("#CorpTypeLabelId").addClass("is-required");
+                }
+                if(!$('#AnnualRevLabelId').hasClass('is-required') ){
+                    $("#AnnualRevLabelId").addClass("is-required");
+                }
+                if(!$('#EnterpriseLabelId').hasClass('is-required') ){
+                    $("#EnterpriseLabelId").addClass("is-required");
+                }
+                if(!$('#EnterpriseTypeLabelId').hasClass('is-required') ){
+                    $("#EnterpriseTypeLabelId").addClass("is-required");
+                }
+            }else{
+                RequirementBFieldRequired();
+
+                if($('#CorpTypeLabelId').hasClass('is-required') ){
+                    $("#CorpTypeLabelId").removeClass("is-required");
+                }
+                if($('#AnnualRevLabelId').hasClass('is-required') ){
+                    $("#AnnualRevLabelId").removeClass("is-required");
+                }
+                if($('#EnterpriseLabelId').hasClass('is-required') ){
+                    $("#EnterpriseLabelId").removeClass("is-required");
+                }
+                if($('#EnterpriseTypeLabelId').hasClass('is-required') ){
+                    $("#EnterpriseTypeLabelId").removeClass("is-required");
+                }
+
+            }
+            // REQUIREMENT B - 'This field is required.' AND *  MARKS DIAPLYS  ----- END -------
+
+
+
+            // COMPANY REQUIREMENTS / MAIN MEMBERSHIP CRITERIA section validations, Save button enable/disble   -----START------
+            if( $('[id*=FirmTypeInputTextId]').val().length==0  ) {
+                toEnable=false;
+            }
+            if($('[id*=BusinessScopeInputTextId]').val().length==0 || $('[id*=PresidentTypeInputTextId]').val().length==0 || $('[id*=TitleHeldInputTextId]').val().length==0 ) {
+                toEnable=false;
+            }
+            if($('[id*=TitleHeldInputTextId]').val() == 'Other'){
+                $('#othertitledivId').show();
+                if($('[id*=othertitleInputTextId]').val().length==0){
+                    toEnable=false;
+                }
+            }else{
+                self.requiredTextInputOtherTitle('');
+                $('#othertitledivId').hide();
+            }
+            // COMPANY REQUIREMENTS / MAIN MEMBERSHIP CRITERIA section validations, Save button enable/disble   -----END------
+
+            diablesEnablesaveContinueBt(toEnable);
+        }
+
+        var toEnableReqA;
+        function RequirementA(){
+            toEnableReqA=true;
+        }
+
+        function diablesEnablesaveContinueBt(toEnableBt){
+            //document.getElementById('submitButtonId').disabled=!toEnableBt;
+            //if(document.getElementById('submitButtonId').disabled){
+            //  document.getElementById('submitButtonId').title="Must verify, update and save to proceed";
+            //}else document.getElementById('submitButtonId').title="";
+        }
+
+        function RequirementBFieldRequired(){
+            if($('[id*=CorpTypeInputTextId]').val().length == 0){
+                self.requiredTextInputCorpType('');
+                self.requiredTextInputCorpType(undefined);
+            }
+            if($('[id*=AnnualRevInputTextId]').val().length == 0 || $('[id*=AnnualRevInputTextId]').val() == 0){
+                self.requiredTextInputAnnualRev('');
+                self.requiredTextInputAnnualRev(undefined);
+            }
+            if($('[id*=EnterpriseInputTextId]').val().length == 0  || $('[id*=EnterpriseInputTextId]').val() == 0){
+                self.requiredTextInputEnterprise('');
+                self.requiredTextInputEnterprise(undefined);
+            }
+            if($('[id*=EnterpriseTypeInputTextId]').val().length == 0){
+                self.requiredTextInputEnterpriseType('');
+                self.requiredTextInputEnterpriseType(undefined);
+            }
+        }
+
+        // Verified - here - This is for the YPO GOLD MEMBERSHIP CRITERIA section validations, Save button enable/disble
+        function validateYPOGoldMemberForm(){
+            var toEnable=true;
+            if($('.validationMessage').text() != '' ){
+                toEnable=false;
+            }
+            if( $('[id*=CorpTypeisYPOMembInputTextId]').val().length==0 || $('[id*=PresidentTypeisYPOMembInputTextId]').val().length==0 ) {
+                toEnable=false;
+            }
+            if($('[id*=BusinessScopeisYPOMembInputTextId]').val().length==0 || $('[id*=AnnualRevisYPOMembInputTextId]').val().length==0 ) {
+                toEnable=false;
+            }
+            //document.getElementById('ypoGoldSubmitButtonId').disabled=!toEnable;
+        }
+        function validateStateKJS(kstate){
+            self.requiredTextInputState(kstate.value);
+            validateForm();
+        }
+        function validateCountry(){
+            validateForm();
+        }
+
+
+
+
+        var self;
+        var textInputModel = function() {
+            self = this;
+            self.requiredTextInputCountry = ko.observable('{!opportunityStateCountry.MailingCountryCode}').extend({required:true})
+            //Ramneek added Required for QalifyCompany 4/21
+            self.requiredTextInputQualifyComp = ko.observable('{!JSENCODE(Opp_QualifyingCompany)}').extend({required:true})
+            self.requiredTextInputStreet = ko.observable().extend({required: { params: true, message: "This field is required.  Please click on grey line above."} })
+            self.requiredTextInputStreet2 = ko.observable().extend({required: { params: true, message: "This field is required.  Please click on grey line above."} })
+            self.requiredTextInputCity = ko.observable().extend({required: { params: true, message: "This field is required.  Please click on grey line above."} })
+            self.requiredTextInputState = ko.observable('{!opportunityStateCountry.MailingStateCode}').extend({required: { params: true, message: "This field is required.  Please click on grey line above."} })
+            self.requiredTextInputPostal = ko.observable().extend({required: { params: true, message: "This field is required.  Please click on grey line above."} })
+            self.requiredTextInputParentAccount = ko.observable().extend({ required: {
+                    onlyIf: function() {return $('#SubsidaryInputId').is(':checked') === true ;}
+                }  })
+            self.requiredTextInputFirmType = ko.observable('{!Opp_FirmType}').extend({ required: true })
+            self.requiredTextInputBusinessScope = ko.observable('{!Opp_BusinessScope}').extend({ required: true })
+            self.requiredTextInputPresidentType = ko.observable('{!Opp_PresidentType}').extend({ required: true })
+            self.requiredTextInputTitleHeld = ko.observable('{!Opp_Title}').extend({ required: true })
+            self.requiredTextInputOtherTitle = ko.observable('').extend({ required: { onlyIf: function() {return self.requiredTextInputTitleHeld() === 'Other';}   } })
+
+            self.requiredTextInputNumberOfEmp = ko.observable().extend({  required: { onlyIf: function() {return NumberofEmpReqMsg;}, message: "This field is required.  Please click on grey line above. Enter digits only; i.e. no punctuation" },  pattern:{ params : /^[0-9]+\.?[0-9]*$/, message:"invalid data."}  })
+            self.requiredTextInputCompensation = ko.observable().extend({ required: { onlyIf: function() {return CompensationReqMsg;}, message: "This field is required.  Please click on grey line above. Enter digits only; i.e. no punctuation" }, AmountVal0: true, pattern:{ params : /^[0-9,]*$/, message:"invalid data."}  })
+
+            self.requiredTextInputCorpType = ko.observable('{!Opp_CorporationType}').extend({ required: { onlyIf: function() {return showReqMessages;}, message: "This field is required.  Please click on grey line above." } })
+            self.requiredTextInputAnnualRev = ko.observable().extend({ required: { onlyIf: function() {return showReqMessages;}, message: "This field is required.  Please click on grey line above. Enter digits only; i.e. no punctuation" }, AmountVal: true,  pattern:{ params : /^[0-9,]*$/, message:"invalid data."}  })
+
+            self.requiredTextInputEnterprise = ko.observable().extend({ required: { onlyIf: function() {return showReqMessages;}, message: "This field is required.  Please click on grey line above. Enter digits only; i.e. no punctuation" }, pattern:{ params : /^[0-9,]*$/, message:"invalid data."}  })
+            self.requiredTextInputEnterpriseType = ko.observable().extend({ required: { onlyIf: function() {return showReqMessages;}, message: "This field is required.  Please click on grey line above." } })
+
+            self.ypoGoldCorprequiredTextInput = ko.observable('{!Opp_CorporationType}').extend({  })
+            self.ypoGoldPresrequiredTextInput = ko.observable('{!Opp_PresidentType}').extend({  })
+            self.ypoGoldBusirequiredTextInput = ko.observable('{!Opp_BusinessScope}').extend({  })
+            self.ypoGoldAnnualrequiredTextInput = ko.observable('{!AnnualRevenue}').extend({ digit:true })
+        }
+
+        ko.validation.registerExtenders();
+
+        ko.validation.rules['AmountVal'] = {
+            validator: function (val, validate) {
+                var numbers = /^(?:[0-9]+(?:\.[0-9]{0,2})?)?$/;
+                if(val.match(numbers) && val>0) { return true; }else{return false;}
+            },
+            message: 'invalid data.'
+        };
+
+        ko.validation.rules['AmountVal0'] = {
+            validator: function (val, validate1) {
+                //alert('-- This is in requiredTextInputCompensation --\n'+val);
+                //alert(validate1);
+                var numbers = /^(?:[0-9]+(?:\.[0-9]{0,2})?)?$/;
+                if(val>0 && val.match(numbers) ) { return true; }else{return false;}
+            },
+            message: 'invalid data.'
+        };
+        ko.validation.init({
+                registerExtenders: false,
+                messagesOnModified: true,
+                insertMessages: false,
+                parseInputAttributes: true,
+                messageTemplate: null,
+                decorateInputElement: false,
+                grouping: {
+                    deep: true, observable: false
+                }
+            },
+            true);
+
+        $(function () {
+            $('.dollar-format').autoNumeric('init', {aSep: ',', aDec: '.', aSign: '$'});
+        });
+        function CategoryAtext()
+        {
+            var JoinDate = new Date(document.getElementById('JoinDateID').value);
+
+
+            //JoinDate1 = normalizeDate(JoinDate);
+            //var Date2000 = normalizeDate('Sat Jul 01 00:00:00 GMT 2000');
+            //var Date2013 = normalizeDate('Mon Jul 01 00:00:00 GMT 2013');
+
+            var Date2000 = new Date('Sat Jul 02 00:00:00 GMT 2000');
+            var Date2013 = new Date('Mon Jul 02 00:00:00 GMT 2013');
+
+            //alert("JoinDate = "+JoinDate);
+            //alert("Date2000 = "+Date2000);
+            //alert("Date2013 = "+Date2013);
+
+            if (JoinDate<Date2000)
+            {
+                //alert("2000");
+                $('#CompanyATextID').text("Number of employees is required.");
+                $('#NumberOfEmpTextID').text("{!Contact.Number_of_Employees__c}");
+
+            }
+            else if(JoinDate>=Date2000 && JoinDate<Date2013)
+            {
+                //alert("2013");
+                $('#CompanyATextID').text("Number of employees or total employee compensation is required.");
+                $('#NumberOfEmpTextID').text("{!Contact.Number_of_Employees__c}");
+            }
+            else
+            {
+                // alert("last");
+                $('#CompanyATextID').text("If number of employees is fewer than 50, total employee compensation is also required.");
+                $('#NumberOfEmpTextID').text("{!Contact.Number_of_Employees_opt_2__c}");
+            }
+        }
+
+        function toFinalNumberFormat(controlToCheck)
+        {
+            /*if(controlToCheck.value !== undefined || controlToCheck.value.length > 0) {
+             var enteredNumber = '' + controlToCheck.value;
+             enteredNumber = enteredNumber.replace(/[^0-9\.]+/g, ''); // remove any non-numeric, non-period character
+
+             // ******** Rounded Decimal Range ********
+             var outNumber = (Number(enteredNumber) ).toLocaleString('en-US', { style: 'decimal', maximumFractionDigits : 0, minimumFractionDigits : 0 });
+             controlToCheck.value = outNumber;
+             console.log('1', controlToCheck.value);
+             } else {
+             controlToCheck.value = '';
+             console.log('', controlToCheck.value);
+             }*/
+
+        }
+
+
+        function normalizeDate(dateVal){
+            mydate = new Date(dateVal);
+            data = new Date(mydate -  mydate.getTimezoneOffset() * 60000);
+            var d = mydate.getDate()+1;
+            var m = mydate.getMonth()+1;
+            var y = mydate.getFullYear();
+            return (d<=9?'0'+d:d)+'/' + (m<=9?'0'+m:m) +'/' +  y;
+        }
+
+        function validateSectionA() {
+            var hasErrors = false;
+            var validateNumEmpInput = false;
+            var validateCompensationInput = false;
+            var opt;
+            var opt1 = ('{!oContact.Number_of_Employees__c}'.length > 0) ? parseInt('{!oContact.Number_of_Employees__c}') : 0;
+            var opt2 = ('{!oContact.Number_of_Employees_opt_2__c}'.length > 0) ? parseInt('{!oContact.Number_of_Employees_opt_2__c}') : 0;
+            /*            if('{!oContact.Number_of_Employees__c}'.trim().length > 0) {
+                opt1 = "{!oContact.Number_of_Employees__c}";
+            }
+            */
+
+            var totalEmployeeCompensation = ('{!Contact.Total_Employee_Compensation__c}'.length > 0) ? parseInt('{!Contact.Total_Employee_Compensation__c}') : 0;
+
+            // Turn everything off
+            $('#min-error-alert').hide();
+            $('[id*=NumberofEmpInputTextId]').parent().removeClass('has-errors-gold');
+            $('[id*=CompensationInputTextId]').parent().removeClass('has-errors-gold');
+
+            // Check on the fields based off of the join year.
+            if(joindate < dtJuly012000){
+                validateNumEmpInput = ($('[id*=NumberofEmpInputTextId]').val().length > 0 && $('[id*=NumberofEmpInputTextId]').val().replace(/,/g , "") >= opt1);
+
+                if(!validateNumEmpInput) {
+                    $('#min-error-alert').removeClass('hide').addClass('show');
+                    $('[id*=NumberofEmpInputTextId]').parent().addClass('has-errors-gold');
+                    hasErrors = true;
+                }
+
+            } else if(joindate < dtJuly012013) {
+                validateNumEmpInput = ($('[id*=NumberofEmpInputTextId]').val().length > 0 && $('[id*=NumberofEmpInputTextId]').val().replace(/,/g , "") >= opt1);
+                validateCompensationInput = ($('[id*=CompensationInputTextId]').val().length > 0 && $('[id*=CompensationInputTextId]').val().replace(/,/g , "") >= totalEmployeeCompensation);
+
+                if(!(validateNumEmpInput || validateCompensationInput)) {
+                    if(!validateNumEmpInput && $('[id*=NumberofEmpInputTextId]').val().length > 0 ) {
+                        $('#min-error-alert').removeClass('hide').addClass('show');
+                        $('[id*=NumberofEmpInputTextId]').parent().addClass('has-errors-gold');
+                        hasErrors = true;
+                    }
+                    if(!validateCompensationInput && $('[id*=CompensationInputTextId]').val().length > 0 ) {
+                        $('#min-error-alert').removeClass('hide').addClass('show');
+                        $('[id*=CompensationInputTextId]').parent().addClass('has-errors-gold');
+                        hasErrors = true;
+                    }
+                }
+
+            } else {
+                validateNumEmpInput = ($('[id*=NumberofEmpInputTextId]').val().length > 0 && $('[id*=NumberofEmpInputTextId]').val().replace(/,/g , "") >= opt1);
+                validateNumEmpInputOpt2 = ($('[id*=NumberofEmpInputTextId]').val().length > 0 && $('[id*=NumberofEmpInputTextId]').val().replace(/,/g , "") >= opt2);
+                validateCompensationInput = ($('[id*=CompensationInputTextId]').val().length > 0 && $('[id*=CompensationInputTextId]').val().replace(/,/g , "") >= totalEmployeeCompensation);
+
+                if(!validateNumEmpInput) {
+                    if(!(validateNumEmpInputOpt2 && validateCompensationInput)) {
+                        if(!validateNumEmpInputOpt2) {
+                            $('#min-error-alert').removeClass('hide').addClass('show');
+                            $('[id*=NumberofEmpInputTextId]').parent().addClass('has-errors-gold');
+                            hasErrors = true;
+                        }
+                        if(!validateCompensationInput) {
+                            $('#min-error-alert').removeClass('hide').addClass('show');
+                            $('[id*=CompensationInputTextId]').parent().addClass('has-errors-gold');
+                            hasErrors = true;
+                        }
+                    }
+                }
+
+            }
+
+            return hasErrors;
+        }
+
+        function validateSectionB() {
+            var hasErrors = false;
+
+            var corpType = $('[id*=CorpTypeInputTextId]');
+            var dollarVolume = $('[id*=AnnualRevInputTextId]');
+            var enterpriseType = $('[id*=EnterpriseTypeInputTextId]');
+            var enterpriseValue = $('[id*=EnterpriseInputTextId]');
+
+            var contactEnterpriseValue = ('{!Contact.Enterprise_Value__c}'.trim().length > 0) ? parseInt('{!Contact.Enterprise_Value__c}') : 0;
+
+            //Turn everything off
+            dollarVolume.parent().removeClass('has-errors-gold');
+            corpType.parent().removeClass('has-errors-gold');
+            enterpriseValue.parent().removeClass('has-errors-gold');
+            enterpriseType.parent().removeClass('has-errors-gold');
+
+            if(corpType.val().length == 0 && dollarVolume.val().length == 0 && enterpriseValue.val().length == 0 && enterpriseType.val().length == 0) {
+                dollarVolume.parent().addClass('has-errors-gold');
+                corpType.parent().addClass('has-errors-gold');
+                enterpriseValue.parent().addClass('has-errors-gold');
+                enterpriseType.parent().addClass('has-errors-gold');
+                hasErrors = true;
+            } else {
+                var isValid = false;
+                if((corpType.val().length > 0 && dollarVolume.val().length > 0) || (enterpriseType.val().length > 0 && enterpriseValue.val().length > 0)) {
+                    isValid = true;
+                }
+
+                if(!isValid) {
+                    dollarVolume.parent().addClass('has-errors-gold');
+                    corpType.parent().addClass('has-errors-gold');
+                    enterpriseValue.parent().addClass('has-errors-gold');
+                    enterpriseType.parent().addClass('has-errors-gold');
+                    /*if(corpType.val().length > 0 && dollarVolume.val().length == 0) {
+                     dollarVolume.parent().addClass('has-errors-gold');
+                     hasErrors = true;
+                     }
+                     if(corpType.val().length == 0 && dollarVolume.val().length > 0) {
+                     corpType.parent().addClass('has-errors-gold');
+                     hasErrors = true;
+                     }
+                     if(enterpriseType.val().length > 0 && enterpriseValue.val().length == 0) {
+                     enterpriseValue.parent().addClass('has-errors-gold');
+                     hasErrors = true;
+                     }
+                     if(enterpriseType.val().length == 0 && enterpriseValue.val().length > 0) {
+                     enterpriseType.parent().addClass('has-errors-gold');
+                     hasErrors = true;
+                     }*/
+                }
+                hasErrors = !isValid;
+            }
+
+        var mindollar = parseInt($("#DollarValueTextID").text().replace(/,/g , "")),
+            entdollar = parseInt(dollarVolume.val().replace(/,/g , "")),
+            ententerprise = parseInt(enterpriseValue.val().replace(/,/g , "")),
+            minenterprise = contactEnterpriseValue;
+
+            if(corpType.val().length > 0 && dollarVolume.val().length > 0
+                && entdollar < mindollar) {
+                dollarVolume.parent().addClass('has-errors-gold');
+                $('#min-error-alert').removeClass('hide').addClass('show');
+                hasErrors = true;
+            } else {
+                dollarVolume.parent().removeClass('has-errors-gold');
+            }
+
+            if(enterpriseType.val().length > 0 && enterpriseValue.val().length > 0
+                && ententerprise < contactEnterpriseValue) {
+                enterpriseValue.parent().addClass('has-errors-gold');
+                $('#min-error-alert').removeClass('hide').addClass('show');
+                hasErrors = true;
+            } else {
+                enterpriseValue.parent().removeClass('has-errors-gold');
+            }
+
+            return hasErrors;
+        }
+
+        function requestGrace() {
+            console.log($('input,textarea,select').filter('[required]:visible'));
+            return false;
+        }
+
+
+        function validate() {
+            $('#min-error-alert').removeClass('show').addClass('hide');
+
+            var hasErrors = false;
+            if($('[id*="stateInputTextId"] option').length > 1 && $('[id*="stateInputTextId"]').val().length==0 ){
+                $("#stateLabelreqId").parent().addClass("has-errors");
+                hasErrors = true;
+            } else{
+                $("#stateLabelreqId").parent().removeClass("has-errors");
+            }
+            if($('[id*="TitleHeldInputTextId"]').val().length==0 ){
+                $('[id*="TitleHeldInputTextId"]').parent().addClass("has-errors");
+                hasErrors = true;
+            } else{
+                $('[id*="TitleHeldInputTextId"]').parent().removeClass("has-errors");
+            }
+            if($('[id*="PresidentTypeInputTextId"]').val().length==0 ){
+                $('[id*="PresidentTypeInputTextId"]').parent().addClass("has-errors");
+                hasErrors = true;
+            } else{
+                $('[id*="PresidentTypeInputTextId"]').parent().removeClass("has-errors");
+            }
+            if($('[id*="FirmTypeInputTextId"]').val().length==0 ){
+                $('[id*="FirmTypeInputTextId"]').parent().addClass("has-errors");
+                hasErrors = true;
+            } else{
+                $('[id*="FirmTypeInputTextId"]').parent().removeClass("has-errors");
+            }
+            if($('[id*="BusinessScopeInputTextId"]').val().length==0 ){
+                $('[id*="BusinessScopeInputTextId"]').parent().addClass("has-errors");
+                hasErrors = true;
+            } else{
+                $('[id*="BusinessScopeInputTextId"]').parent().removeClass("has-errors");
+            }
+
+            //validator form
+            $('form').validator('validate');
+
+            var aHasErrors = validateSectionA();
+            var bHasErrors = validateSectionB();
+
+            // Show the alert box when there is a error in the form
+            if ($('form').data('bs.validator').validate({ignore:':hidden'}).hasErrors()) {
+                $('#form-error-alert').removeClass('hide').addClass('show');
+                window.setTimeout(function () {
+                    $('html, body').animate({ scrollTop: $('#form-error-alert').offset().top - 90 }, 500);
+                }, 0);
+            } else {
+                if(!hasErrors && !aHasErrors && !bHasErrors) {
+                    $('#form-error-alert').removeClass('show').addClass('hide');
+                    callActionFuncFOrSubmit_RemoteAction();
+                } else {
+                    $('#form-error-alert').removeClass('hide').addClass('show');
+                    window.setTimeout(function () {
+                        $('html, body').animate({ scrollTop: $('#form-error-alert').offset().top - 90 }, 500);
+                    }, 0);
+                    $('input[type="submit"]').removeClass("disabled")
+                }
+            }
+        }
+    </script>
+</apex:page>

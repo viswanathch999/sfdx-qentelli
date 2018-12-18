@@ -1,0 +1,34 @@
+<apex:component layout="none">
+
+  <apex:attribute default="[]" description="The breadcrumb trail to show." name="crumbs" type="String[]"/>
+  <apex:attribute description="The current active category." name="currentCategory" type="String"/>
+  <apex:attribute description="The page size to use for navigation." name="pageSize" type="Integer"/>
+  <apex:attribute description="The sort to use for navigation." name="sortBy" type="String"/>
+  <apex:attribute description="The searchTerm to use for navigation." name="searchTerm" type="String"/>
+  <apex:attribute description="The current product." name="currentProduct" type="KGRenewal.ProductDisplayItem" />
+
+  <ol class="breadcrumb">
+    <li class="{!IF(crumbs.size == 0, 'active', '')}">
+      <a href="{!URLFOR($Page.v_catalog)}">Home</a>
+    </li>
+    <apex:repeat value="{!crumbs}" var="crumb">
+      <apex:outputPanel layout="none" rendered="{!NOT(BEGINS(crumb, 'Search:'))}">
+        <li class="{!IF(AND(crumb == currentCategory, ISBLANK(searchTerm)), 'active', '')}">
+          <a href="{!URLFOR($Page.v_catalog, null, ['category'=crumb, 'page-size'=pageSize, 'sort'=sortBy])}">{!crumb}</a>
+        </li>
+      </apex:outputPanel>
+      <!-- serch term breadcrumb: -->
+      <apex:outputPanel layout="none" rendered="{!BEGINS(crumb, 'Search:')}">
+        <li class="active">
+          {!crumb}&nbsp;
+          <a href="{!URLFOR($Page.v_catalog, null, ['category'=currentCategory, 'page-size'=pageSize, 'sort'=sortBy])}"><!--&times;-->&#x2716;</a>
+        </li>
+      </apex:outputPanel>
+    </apex:repeat>
+    <apex:outputPanel layout="none" rendered="{!NOT(ISNULL(currentProduct))}">
+      <li class="active">
+        {!currentProduct.Name}&nbsp;
+      </li>
+    </apex:outputPanel>
+  </ol>
+</apex:component>

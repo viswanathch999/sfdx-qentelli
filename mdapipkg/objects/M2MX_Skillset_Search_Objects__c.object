@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomObject xmlns="http://soap.sforce.com/2006/04/metadata">
+    <customSettingsType>List</customSettingsType>
+    <description>Captures list of objects to search against using SOSL and for required skillsets</description>
+    <enableFeeds>false</enableFeeds>
+    <fields>
+        <fullName>API_Name__c</fullName>
+        <description>API Name of the object</description>
+        <externalId>false</externalId>
+        <inlineHelpText>API Name of the object</inlineHelpText>
+        <label>API Name</label>
+        <length>100</length>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>MultiselectPicklist_Field_API_Name__c</fullName>
+        <description>Will store comma separated multi select field API names.</description>
+        <externalId>false</externalId>
+        <label>MultiselectPicklist Field API Name</label>
+        <length>255</length>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Text_Field_API_Name__c</fullName>
+        <externalId>false</externalId>
+        <label>Text Field API Name</label>
+        <length>255</length>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <label>M2MX Skillset Search Objects</label>
+    <visibility>Public</visibility>
+</CustomObject>

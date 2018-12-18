@@ -1,0 +1,420 @@
+<!--
+<apex:component access="global">
+  <apex:attribute name="invoice" type="KGRenewal__Invoice__c" description="The invoice record"/>
+-->
+<!-- using the controller so email templates based on Transaction can access Invoice Items and Transactions lists -->
+<apex:component controller="YPO_OpportunityPdfController" access="global">
+  <apex:attribute name="opportunity" description="The Opportunity to render this PDF for."
+                type="Opportunity" assignTo="{! opportunityRecordPDF}" />
+<!-- <apex:variable var="hasDiscount" value="{! NOT(ISNULL(opportunity.Discounted_Items__c)) && opportunity.Discounted_Items__c > 0}" />-->
+<!-- Invoice header -->
+  <table width="100%">
+    <tr>
+      <td width="50%" style="padding: 0px;">
+        <p style="padding: 3px;">
+          <img src="{! $Resource.v_ypo_invoicepdf_logo}" alt="ypo logo"/>
+        </p>
+        <table width="100%">
+          <tr>
+            <td>Phone:</td>
+            <td>+1 972 587 1618 or +1 972 587 1500</td>
+          </tr>
+          <tr>
+            <td>Fax:</td>
+            <td>+1 972 587 1611 or +1 972 587 1612</td>
+          </tr>
+          <tr>
+            <td>Email:</td>
+            <td><a href="mailto:membership@ypo.org">membership@ypo.org</a></td>
+          </tr>
+          <tr>
+            <td>Tax ID:</td>
+            <td>13-1770417 - Exempt</td>
+          </tr>
+        </table>
+      </td>
+      <td>
+        <table width="100%">
+          <tr style="background-color:#0069a6; color:white; font-size:24px;">
+            <th colspan="2">
+              Quote
+            </th>
+          </tr>
+          <tr>
+
+          </tr>
+          <tr>
+            <td>Member Name:</td>
+            <td>{!opportunity.KGRenewal__Contact__r.Name}</td>
+          </tr>
+          <tr>
+            <td>Member ID:</td>
+            <td>{!opportunity.KGRenewal__Contact__r.Contact_Number__c}</td>
+          </tr>
+          <tr>
+            <td>Current Status:  </td>
+            <td>{!opportunity.StageName}</td>
+          </tr>
+          <tr>
+            <td>Start Date: </td>
+            <td><apex:outputText value="{0, date, d MMMM yyyy}">
+               <apex:param value="{!opportunity.KGRenewal__ContractEffectiveDate__c}" />
+            </apex:outputText></td>
+          </tr>
+          <tr>
+            <td>Due Date:  </td>
+            <td><apex:outputText value="{0, date, d MMMM yyyy}">
+               <apex:param value="{!opportunity.KGRenewal__ContractEffectiveDate__c}" />
+            </apex:outputText></td>
+            <td>Due Upon Receipt</td>
+          </tr>
+       </table>
+      </td>
+    </tr>
+    <tr>
+      <td colspan="2">
+      </td>
+    </tr>
+    <tr>
+    <!--  <td>
+        <b>Bill To</b><br />
+        <apex:outputField value="{!invoice.BillingFirstName__c}" />&nbsp;
+        <apex:outputField value="{!invoice.BillingLastName__c}" /><br />
+        <apex:outputPanel rendered="{!NOT(ISBLANK(invoice.BillingOrganization__c))}" layout="none">
+          <apex:outputField value="{!invoice.BillingOrganization__c}" /><br />
+        </apex:outputPanel>
+        <apex:outputPanel rendered="{!NOT(ISBLANK(invoice.VAT__c))}" layout="none">
+          Vat Number:&nbsp;
+          <apex:outputField value="{!invoice.VAT__c}" /><br />
+        </apex:outputPanel> 
+        <apex:outputField value="{!opportunity.BillingStreetAddressLine1__c}" /><br />
+        <apex:outputPanel rendered="{!NOT(ISBLANK(opportunity.BillingStreetAddressLine2__c))}"  layout="none">
+          <apex:outputField value="{!opportunity.BillingStreetAddressLine2__c}" /><br />
+        </apex:outputPanel>
+        <apex:outputField value="{!opportunity.BillingCity__c}" />,&nbsp;
+        <apex:outputField value="{!opportunity.BillingState__c}" />&nbsp;
+        <apex:outputField value="{!opportunity.BillingPostalCode__c}" /><br />
+        <apex:outputPanel rendered="{!NOT(ISBLANK(opportunity.BillingCountry__c))}" layout="none">
+          <apex:outputField value="{!opportunity.BillingCountry__c}" /><br />
+        </apex:outputPanel>
+
+        <b>Bill To</b><br />
+        <apex:outputField value="{!invoice.KGRenewal__Opportunity__r.KGRenewal__BillingFirstName__c}" />&nbsp;
+        <apex:outputField value="{!invoice.KGRenewal__Opportunity__r.KGRenewal__BillingLastName__c}" /><br />
+        <apex:outputPanel rendered="{!NOT(ISBLANK(invoice.KGRenewal__Opportunity__r.KGRenewal__BillingOrganization__c))}" layout="none">
+          <apex:outputField value="{!invoice.KGRenewal__Opportunity__r.KGRenewal__BillingOrganization__c}" /><br />
+        </apex:outputPanel>
+        <apex:outputPanel rendered="{!NOT(ISBLANK(invoice.KGRenewal__Opportunity__r.VAT__c))}" layout="none">
+          Vat Number:&nbsp;
+          <apex:outputField value="{!invoice.KGRenewal__Opportunity__r.VAT__c}" /><br />
+        </apex:outputPanel>
+        <apex:outputField value="{!invoice.KGRenewal__Opportunity__r.KGRenewal__BillingStreetAddressLine1__c}" /><br />
+        <apex:outputPanel rendered="{!NOT(ISBLANK(invoice.KGRenewal__Opportunity__r.KGRenewal__BillingStreetAddressLine2__c))}"  layout="none">
+          <apex:outputField value="{!invoice.KGRenewal__Opportunity__r.KGRenewal__BillingStreetAddressLine2__c}" /><br />
+        </apex:outputPanel>
+        <apex:outputField value="{!invoice.KGRenewal__Opportunity__r.KGRenewal__BillingCity__c}" />,&nbsp;
+        <apex:outputField value="{!invoice.KGRenewal__Opportunity__r.KGRenewal__BillingState__c}" />&nbsp;
+        <apex:outputField value="{!invoice.KGRenewal__Opportunity__r.KGRenewal__BillingPostalCode__c}" /><br />
+        <apex:outputPanel rendered="{!NOT(ISBLANK(invoice.KGRenewal__Opportunity__r.KGRenewal__BillingCountry__c))}" layout="none">
+          <apex:outputField value="{!invoice.KGRenewal__Opportunity__r.KGRenewal__BillingCountry__c}" /><br />
+        </apex:outputPanel>
+
+      </td> -->
+      <td style="vertical-align:top">
+        <!-- <apex:outputPanel rendered="{! NOT(ISNULL(invoice.KGRenewal__Opportunity__c))}" layout="none"> -->
+        <apex:outputPanel rendered="{! NOT(ISNULL(opportunity.KGRenewal__ContractEffectiveDate__c))}" layout="none">
+          <table width="100%">
+            <thead>
+              <tr style="background-color:#EEEEEE;">
+                <th>
+                  Term Start
+                </th>
+                <th>
+                  Term End
+                </th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>
+                  <apex:outputText value="{0, date, d MMMM yyyy}">
+                    <apex:param value="{! opportunity.KGRenewal__ContractEffectiveDate__c}" /> 
+                    <!-- <apex:param value="{! opportunity.ContractEffectiveDate__c}" /> -->
+                  </apex:outputText>
+                </td>
+                <td>
+                  <apex:outputText value="{0, date, d MMMM yyyy}">
+                    <!-- <apex:param value="{! invoice.KGRenewal__Opportunity__r.KGRenewal__ContractEndDate__c}" /> -->
+                    <apex:param value="{! opportunity.KGRenewal__ContractEndDate__c}" />
+                  </apex:outputText>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </apex:outputPanel>
+      </td>
+    </tr>
+  </table>
+  <br />
+<!-- Items -->
+  <!-- <apex:outputPanel rendered="{! allLineItems.size > 0}"> -->
+  <apex:variable var="opportunityItemsString" value="'{! opportunityRecordPDF.OpportunityLineItems}'" />
+  <apex:variable var="emptyopportunityItemsString" value="'[]'" />
+  <apex:outputPanel rendered="{! NOT(ISNULL(opportunityRecordPDF.OpportunityLineItems)) && opportunityItemsString != emptyopportunityItemsString}">
+    <table width="100%">
+      <thead>
+        <tr style="background-color:#0069a6; color:white;">
+          <th colspan="5" style="text-align:center;">
+            Quote Items
+          </th>
+        </tr>
+        <tr style="background-color: #EEEEEE;">
+          <th style="text-align: left;">
+              Item
+          </th>
+          <th style="text-align: left;">
+              Description
+          </th>
+          <apex:outputPanel layout="none">
+            <th style="width: 15%; text-align: right;">
+              
+            </th>
+            <th style="width: 10%; text-align: right;">
+              
+            </th>
+          </apex:outputPanel>
+          <th style="width: 15%; text-align: right;">
+            Amount
+          </th>
+        </tr>
+      </thead>
+      <tbody>
+      <apex:repeat value="{! opportunityRecordPDF.OpportunityLineItems}" var="item">
+        <tr style="vertical-align:top;">
+          <td style="text-align: left;">
+              <apex:outputField value="{! item.KGRenewal__Name__c}" />
+          </td>
+          <td style="text-align: left;">
+              
+          </td>
+           <apex:outputPanel layout="none">
+            <td width="15%" style="text-align:right;">
+                
+            </td>
+            <td style="text-align:right;">
+                
+            </td>
+          </apex:outputPanel>
+          <td style="text-align:right;">
+            <apex:outputField value="{! item.TotalPrice}" />
+          </td>
+        </tr>
+      </apex:repeat>
+      </tbody>
+    </table>
+  </apex:outputPanel>
+<!-- Adjustments -->
+  <apex:outputPanel rendered="{! opportunity.Amount != 0}" layout="none">
+    <br />
+    <table width="100%">
+      <thead>
+        <tr style="background-color:#0069a6; color:white;">
+          <th colspan="2" style="text-align:center;">
+            Adjustments
+          </th>
+        </tr>
+        <tr style="background-color:#EEEEEE;">
+          <th>
+            Description
+          </th>
+          <th width="30%" style="text-align:right;">
+            Amount
+          </th>
+        </tr>
+      </thead>
+     <!-- <tbody>
+        <tr>
+          <td>
+            <apex:outputField value="{! invoice.KGRenewal__AdjustmentDescription__c}" />
+          </td>
+          <td style="text-align:right;">
+            <apex:outputField value="{! invoice.KGRenewal__AdjustmentAmount__c}" />
+          </td>
+        </tr>
+      </tbody>-->
+    </table>
+    <br />
+  </apex:outputPanel>
+<!-- Total Amounts -->
+  <table width="100%">
+    <tr>
+      <th style="text-align:right;">
+        Total Due:
+      </th>
+      <td width="15%" style="text-align:right;">
+      <apex:outputField value="{! opportunity.Amount}" /> 
+      </td>
+    </tr>
+<!--    <apex:outputPanel rendered="{! invoice.KGRenewal__AmountPaid__c != 0}" layout="none">
+      <tr>
+        <th style="text-align:right;">
+          Total Paid:
+        </th>
+        <td width="15%" style="text-align:right;">
+          <apex:outputField value="{! invoice.KGRenewal__AmountPaid__c}" />
+        </td>
+      </tr> 
+      <tr>
+        <th style="text-align:right;">
+          Balance Due:
+        </th>
+        <td width="15%" style="text-align:right;">
+          <apex:outputField value="{! invoice.KGRenewal__AmountDue__c}" />
+        </td>
+      </tr>
+    </apex:outputPanel>-->
+  </table>
+<!-- Previous Payments -->
+  <!-- <apex:outputPanel rendered="{! invoiceRecord.KGRenewal__Transactions__r.size > 0}" layout="none"> -->
+  <!-- <apex:outputPanel rendered="{! invoice.KGRenewal__Transactions__r != '[]'}" layout="none"> -->
+  <!-- <apex:variable var="TransactionsString" value="'{! invoiceRecord.KGRenewal__Transactions__r}'" />
+  <apex:variable var="emptyTransactionsString" value="'[]'" />
+  <apex:outputPanel rendered="{! NOT(ISNULL(invoiceRecord.KGRenewal__Transactions__r)) && TransactionsString != emptyTransactionsString}">
+    <table width="100%">
+      <thead>
+        <tr style="background-color:#0069a6; color:white;">
+          <th colspan="4" style="text-align:center;">
+            Previous Payments
+          </th>
+        </tr>
+        <tr style="background-color:#EEEEEE;">
+          <th>
+            Date
+          </th>
+          <th>
+            Method
+          </th>
+          <th>
+            Identifier
+          </th>
+          <th style="text-align:right;">
+            Amount
+          </th>
+        </tr>
+      </thead>
+      <tbody>
+        <apex:repeat value="{! invoiceRecord.KGRenewal__Transactions__r}" var="transaction">
+          <tr>
+            <td>
+              <apex:outputText value="{0, date, d MMMM yyyy}">
+                 <apex:param value="{! transaction.CreatedDate}" />
+              </apex:outputText>
+            </td>
+            <td>
+              <apex:outputField value="{! transaction.KGRenewal__TransactionMethod__c}" />
+            </td>
+            <td>
+              <apex:outputField value="{! transaction.KGRenewal__TransactionMethodDetails__c}" />
+            </td>
+            <td style="text-align:right;">
+              <apex:outputText value="{! transaction.KGRenewal__Type__c + ' '}" rendered="{! transaction.KGRenewal__Type__c = 'Refund' || transaction.KGRenewal__Type__c = 'Void'}" />
+              <apex:outputField value="{! transaction.KGRenewal__Amount__c}" />
+            </td>
+          </tr>
+        </apex:repeat>
+      </tbody>
+    </table>
+  </apex:outputPanel>-->
+<!--How to pay -->
+  <p>
+    <i>If this invoice does not include a line item for local chapter dues, the local chapter will collect dues separately.</i>
+  </p>
+  <hr />
+  <p>
+    <b>HOW TO PAY</b>: Please print this page for reference and return the portion below with your payment.
+  </p>
+  <ul style="list-style:none; margin-left:0; padding-left:1em; text-indent:-1em;">
+    <li>
+      <span style="font-family:Arial Unicode MS;">&#9744;</span>
+      Pay by credit card.
+
+      <table>
+        <tr>
+          <td>
+            Please select the pay by credit card link provided in the email.
+          </td>
+        </tr>
+        <tr>
+          <td>
+            You may also contact Member Services at <a href="mailto:membership@ypo.org">membership@ypo.org</a> or by phone: +1 972 587 1618 or +1 972 587 1500.
+          </td>
+        </tr>
+        <tr>
+          <td>
+            Please reference invoice number <u>{! opportunity.Name}</u>.
+          </td>
+        </tr>
+      </table>
+      <br/><br/>
+    </li>
+    <li>
+      <span style="font-family:Arial Unicode MS;">&#9744;</span>
+      Pay by check. Please reference invoice number <u>{!opportunity.Name}</u> on check.
+
+      <table width="80%">
+        <tr>
+          <td width="40%">
+            Please make checks payable to YPO.
+          </td>
+          <td></td>
+        </tr>
+        <tr>
+          <td width="40%">Mail checks to:</td>
+          <td>YPO, P.O. Box 202590, Dallas, TX 75320-2590, USA</td>
+        </tr>
+        <tr>
+          <td width="40%">
+            Send courier (overnight) mail to:
+          </td>
+          <td>
+            YPO – 202590, 2975 Regent Blvd., Irving, TX 75063, USA
+          </td>
+        </tr>
+      </table>
+      <br/><br/>
+    </li>
+    <li>
+      <span style="font-family:Arial Unicode MS;">&#9744;</span>
+      Pay by wire transfer. Please reference invoice number <u>{!opportunity.Name}</u> on wire form.
+
+      <table width="80%">
+        <tr>
+          <td width="40%">
+            Please send wire payments to:
+          </td>
+          <td>
+            Wells Fargo Bank N.A., 420 Montgomery Street, San Francisco, CA 94104, USA
+          </td>
+        </tr>
+        <tr>
+          <td width="40%"></td>
+          <td>
+            Swift Code: WFBIUS6S | ABA (Routing) Number: 121000248
+          </td>
+        </tr>
+        <tr>
+          <td width="40%"></td>
+          <td>
+            Beneficiary Name: Young Presidents' Organization
+          </td>
+        </tr>        
+        <tr>
+          <td width="40%"></td>
+          <td>
+            Beneficiary Account: 4121315014
+          </td>
+        </tr>
+      </table>
+    </li>
+  </ul>
+</apex:component>

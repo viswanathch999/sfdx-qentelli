@@ -1,0 +1,111 @@
+<apex:page standardController="Contact" extensions="RecertificationExtension" action="{!init}" sidebar="false" showHeader="false" standardStylesheets="false" applyHtmlTag="false" doctype="html-5.0">
+    <!--<apex:composition template="{! $Site.Template}">-->
+    <apex:composition template="V_Template_ProspectFlow_YPO">
+        <apex:define name="title">
+            <title>
+                Member does not meet | {! $Organization.Name}
+            </title>
+        </apex:define>
+        <apex:define name="nav_links" >
+            <li>
+                <apex:outputPanel id="kgrencartcompId">
+                    <KGRenewal:CartComponent mode="link" includeBootstrapModalResources="false"  />
+                </apex:outputPanel>
+            </li>
+        </apex:define>        
+        <apex:define name="content">
+            <apex:form >
+                <apex:pageBlock id="pb1"> 
+                    <div class="row tPartyCertSec">
+                        <div class="col-md-10 col-md-offset-1 col-lg-8 col-lg-offset-2">
+                            <section class="memberDsntMeet">
+                                <!-- 
+                                <apex:outputPanel rendered="{!NOT(isMember)}">
+                                    <div class="heading">
+                                        You are currently not a member and cannot proceed with Renewals
+                                    </div>
+                                </apex:outputPanel>
+                                -->
+                                
+                                <apex:outputPanel > <!-- rendered="{!isYPO && isMember}" -->                                    
+                                    <div class="heading">{!$Label.ThirdPartyCertification_YPO_weareSorry}</div>
+                                    <apex:outputpanel rendered="{!isGraceAvailable}">
+                                        <div class="panel min-Mem">
+                                            <p>{!$Label.ThirdPartyCertification_YPO_YourCompanyMay} </p>
+                                            <div class="pull-right">
+                                                <a href="javascript:void(0)" class="dismis">{!$Label.ThirdPartyCertification_YPO_Dismis} <elm>x</elm></a>
+                                                <apex:commandButton value="{!$Label.Request_Grace}" title="{!$Label.Request_Grace}" styleclass="btn btn-blue" action="{!requestGrace}"  /> <!-- rendered="{!isGraceAvailable}"  -->
+                                            </div>
+                                        </div>
+                                    </apex:outputpanel>
+                                    <apex:outputPanel rendered="{!isTransitionAvailable}">
+                                        <div class="panel eligible">
+                                            <p>{!$Label.ThirdPartyCertification_YPO_YouAreEligible}</p>
+                                            <div class="pull-right"><a href="javascript:void(0)" class="dismis">{!$Label.ThirdPartyCertification_YPO_Dismis} <elm>x</elm></a>
+                                                <apex:commandButton value="{!$Label.ThirdPartyCertification_YPO_IamInterested}" title="{!$Label.ThirdPartyCertification_YPO_IamInterested}" styleclass="btn btn-blue" action="{!requestTransition}"   /> <!-- rendered="{!isTransitionAvailable}" -->                                    
+                                            </div>
+                                        </div>
+                                    </apex:outputPanel>
+                                    <div class="memberServices">
+                                        <h2>{!$Label.ContactMemberServices_YPO_GraceLabel}</h2>
+                                         <!-- <span>{!$Label.ThirdPartyCertification_YPO_IfYouBelieve}</span> -->
+                                       <!--  <p>{!$Label.ThirdPartyCertification_YPO_ThankYourMembershipContactMembershipServices}</p> -->
+                                       <p>Please select the ‘Back’ option below if you need to adjust your company information. Alternatively, you may select the ‘Request Grace’ option noted above. Grace provides flexibility for membership for a limited amount of time; all grace requests will go through an approval process. 
+                                       <br/><br/>
+                                       If you believe there is an error, please contact YPO Member Services:</p>
+                                        <div class="row">
+                                            <div class="col-sm-12 col-md-12">
+                                                <apex:outputText value="{!$Label.LifetimeOption_YPO_Email}" escape="false"></apex:outputText>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-sm-4 col-md-4">                          
+                                                <div class="mobileInfo">
+                                                    <apex:outputText value="{!$Label.LifetimeOption_YPO_UnitedStates}" escape="false"></apex:outputText>
+                                                </div>
+                                            </div>
+                                            <!-- <div class="col-sm-4 col-md-4">
+                                                <apex:outputText value="{!$Label.LifetimeOption_YPO_China}" escape="false"></apex:outputText>
+                                            </div>
+                                            <div class="col-sm-4 col-md-4">
+                                                <apex:outputText value="{!$Label.LifetimeOption_YPO_SothAmerica}" escape="false"></apex:outputText>
+                                            </div> -->
+                                        </div>
+                                    </div>
+                                    <div class="btm-btns whiteBox">
+                                        <div class="text-center">
+                                            <apex:commandButton value="{!$Label.UpdateProfileInfo_YPO_Back}" action="{!toRecertificationPage}" styleClass="btn btn-gray" />
+                                            <!-- RT (05/04/2017): Close the tab on click of Exit button -->
+                                            <button class="btn btn-gray" onclick="closeTab();" role="button" type="button">{!$Label.ThirdPartyCertification_YPO_Exit}</button>                                     
+                                        </div>
+                                    </div>
+                                </apex:outputPanel>
+                            </section>
+                        </div>
+                    </div>
+                </apex:pageBlock>
+            </apex:form>
+        </apex:define>
+    </apex:composition>
+    <script>
+     $(document).ready(function(){ 
+     
+     
+         $('.min-Mem .dismis').click(function () {
+            $(".min-Mem").slideUp();
+            }); 
+
+          $('.eligible .dismis').click(function () {
+                    $(".eligible").slideUp();
+                    });  
+
+            
+        })
+        
+        // RT (05/04/2017): Close tab when exit button is clicked.
+        function closeTab() {
+            var win = window.open("about:blank", "_self");
+            win.close();
+        }
+        </script>
+</apex:page>

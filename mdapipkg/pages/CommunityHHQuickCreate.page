@@ -1,0 +1,5 @@
+<apex:page standardController="Account" sidebar="False" showHeader="False">
+    <flow:interview name="Household_Member_Quick_Create" finishLocation="/{!Account.Id}"> 
+        <apex:param name="varHouseholdID" value="{!Account.Id}"/>
+    </flow:interview>
+</apex:page>

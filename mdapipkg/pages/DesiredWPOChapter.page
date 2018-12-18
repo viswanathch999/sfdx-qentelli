@@ -1,0 +1,60 @@
+<apex:page standardController="Contact" 
+           extensions="RenewalContactContExt" 
+           sidebar="false" 
+           id="memberbio"
+           showHeader="false"
+           standardStylesheets="false" 
+           title="Desired WPO Chapter"
+           action="{!init}">
+    
+    <link rel="stylesheet" type="text/css" href="https://mte-www.ypowpo.org/stylesheets/app.css"/>
+    
+    <apex:form id="memberinfo">
+        
+        <!-- <apex:pageMessages id="messagesStart"></apex:pageMessages> -->
+        <apex:outputPanel id="opanel">
+            <apex:pageBlock id="pb1">
+                <main role="main">
+                    
+                    <div class="row">
+                        
+                        <div class="small-24 medium-16 large-18 columns">
+                            <div class="tile">
+                                <div class="tile-header">   YPO Gold Transition Option   </div>
+                                <br/>
+                                {!$Label.YPO_Gold_Transition_Option}
+                                <br/>
+                                <div class="tile-body">
+                                    <span class="input input-select">
+                                        <label class="input-label" for="region">Region</label>
+                                        <apex:selectList id="region" styleClass="input-field" value="{!selectedDesiredWPORegion}" size="1">
+                                            <apex:selectOptions value="{!desiredWPORegions}"/>
+                                            <apex:actionSupport event="onchange" action="{!filterRegionChapters}" rerender="filteredChapter, messagesStart" />
+                                        </apex:selectList>
+                                    </span>
+                                </div>
+                                <div class="tile-body">
+                                        <label class="input-label" for="regionchapter">Chapter</label>
+                                    <apex:outputPanel id="filteredChapter" styleClass="input input-select">
+                                        <apex:selectList id="regionchapter" styleClass="input-field" value="{!selectedDesiredWPOChapter}" size="1">
+                                            <apex:selectOptions value="{!desiredWPOChapters}"/>
+                                            
+                                        </apex:selectList>
+                                    </apex:outputPanel>
+                                </div>  
+                            </div>    
+                        </div>
+                    </div>
+                </main>
+                <div class="row">
+                    <apex:pageMessages id="messagesRel"/>
+                    <apex:commandButton value="{!$Label.Back}" title="{!$Label.Back}" styleclass="button_raised" action="{!WPOTransition}" status="status2"/>
+                    <apex:commandButton value="{!$Label.Save_And_Continue}" title="{!$Label.Save_And_Continue}" styleclass="button_raised" action="{!saveDesiredWPOChapter}" status="status2"/>
+                    <!--apex:commandButton value="{!$Label.Continue}" title="{!$Label.Continue}" styleclass="button_raised" action="{!toVenuePage}" status="status2"/-->
+                    <apex:actionStatus layout="inline" startText="{!$Label.Processing}" stopText="" id="status2" startStyleClass="statusStyle"/>
+                </div>
+            </apex:pageBlock>
+        </apex:outputPanel>    
+    </apex:form>
+    
+</apex:page>

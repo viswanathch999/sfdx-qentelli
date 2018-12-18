@@ -1,0 +1,73 @@
+<apex:component layout="none">
+<!-- Component for sortable headings for v_orders and v_invoices -->
+
+<!-- Example usage on v_orders:
+<table class="table">
+  <thead>
+    <apex:variable var="v_url" value="{! URLFOR($Page.v_orders,null,['type'=type])}" />
+    <tr>
+      <th>
+        <c:v_sort_heading label="Order" fieldname="Name" url="{! v_url}" sortField="{! sortField}" sortDirection="{! sortDirection}" />
+      </th>
+      <th>
+        <c:v_sort_heading label="Account" fieldname="Account.Name" url="{! v_url}" sortField="{! sortField}" sortDirection="{! sortDirection}" />
+      </th>
+      <th>
+        <c:v_sort_heading label="Total" fieldname="KGRenewal__BilledAmount__c" url="{! v_url}" sortField="{! sortField}" sortDirection="{! sortDirection}" />
+      </th>
+      <th>
+        <c:v_sort_heading label="Date" fieldname="CloseDate" url="{! v_url}" sortField="{! sortField}" sortDirection="{! sortDirection}" />
+      </th>
+      <th>
+        <c:v_sort_heading label="Status" fieldname="StageName" url="{! v_url}" sortField="{! sortField}" sortDirection="{! sortDirection}" />
+      </th>
+      <th>
+        <c:v_sort_heading label="Tracking number" fieldname="Tracking_Number__c" url="{! v_url}" sortField="{! sortField}" sortDirection="{! sortDirection}" />
+      </th>
+    </tr>
+  </thead>
+  <tbody>
+  </tbody>
+</table>
+-->
+
+<apex:attribute name="label" type="String" required="true" description="Text the user sees"/>
+
+<apex:attribute name="fieldname" type="String" required="true" description="API name of field this header will sort by"/>
+
+<apex:attribute name="url" type="String" required="true" description="URL this component will append sort parameters to"/>
+
+<apex:attribute name="sortField" type="String" required="true" description="Current sort field"/>
+
+<apex:attribute name="sortDirection" type="String" required="true" description="Current sort direction"/>
+
+<apex:attribute name="type" type="String" required="false" description="Optional attribute"/>
+
+<!-- convert attributes to lower case for comparisons and for url -->
+<apex:variable var="fieldname_lower" value="{! LOWER(fieldname)}" />
+<apex:variable var="sortField_lower" value="{! LOWER(sortField)}" />
+<apex:variable var="sortDirection_lower" value="{! LOWER(sortDirection)}" />
+<apex:variable var="type_lower" value="{! LOWER(type)}" />
+
+<!-- start building the url, append sort direction later -->
+<apex:variable var="url_in_progress" value="{! url + IF(CONTAINS(url,'?'),'&','?') + 'sortField=' + fieldname_lower + '&sortDirection='}" />
+
+    <apex:outputPanel rendered="{! sortField_lower != fieldname_lower}" layout="none">
+      <a href="{! url_in_progress + 'asc'}" title="Click to sort by {! label}, ascending">
+          {! label}
+      </a>
+    </apex:outputPanel>
+
+    <apex:outputPanel rendered="{! sortField_lower == fieldname_lower && sortDirection_lower != 'asc'}" layout="none">
+      <a href="{! url_in_progress + 'asc'}" title="Click to sort by {! label}, ascending">
+          {! label} &#9660;
+      </a>
+    </apex:outputPanel>
+
+    <apex:outputPanel rendered="{! sortField_lower == fieldname_lower && sortDirection_lower == 'asc'}" layout="none">
+      <a href="{! url_in_progress + 'desc'}" title="Click to sort by {! label}, descending">
+          {! label} &#9650;
+      </a>
+    </apex:outputPanel>
+
+</apex:component>

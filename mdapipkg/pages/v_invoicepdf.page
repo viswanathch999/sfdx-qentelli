@@ -1,0 +1,24 @@
+<apex:page renderAs="pdf" standardController="KGRenewal__Invoice__c" title="YPO Invoice {! KGRenewal__Invoice__c.Name}" applyHtmlTag="false" applyBodyTag="false" showHeader="false" standardStylesheets="false" sidebar="false" docType="html-5.0">
+<!-- 
+    <apex:stylesheet value="{! URLFOR($Resource.KG_QuoteStyle)}"/>
+    <apex:stylesheet value="{!URLFOR($Resource.KGQuickstart_dist, '/css/invoice.min.css')}" />
+-->
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Invoice {! KGRenewal__Invoice__c.Name}</title>
+    <style>
+        body {font-family: sans-serif; font-size: 12px;} 
+        table {border-spacing: 0; border-collapse: collapse;} 
+        tr {vertical-align: top;} 
+        td, th {padding: 3px;} 
+    </style>
+  </head>
+  <body>
+    <c:v_InvoicePdfComponent invoice="{! KGRenewal__Invoice__c}" />
+  </body>
+</html>
+
+</apex:page>

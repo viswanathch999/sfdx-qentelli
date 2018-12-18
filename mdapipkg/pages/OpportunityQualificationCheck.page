@@ -1,0 +1,43 @@
+<apex:page controller="OpportunityQualificationCheckCtrl" action="{!checkQualifications}" showHeader="false" sidebar="false" applyHtmlTag="false" applyBodyTag="false">
+
+    <head>
+        <title>Opportunity Qualification Check</title>
+
+        <apex:slds />
+        <script src="https://use.fontawesome.com/releases/v5.0.6/js/all.js"></script>
+
+        <style>
+            .pass {
+                color: green;
+            }
+
+            .fail {
+                color: red;
+            }
+        </style>
+
+        <script type="text/javascript">
+            function closeAndRefresh() {
+                window.opener.location.href="/{!$CurrentPage.parameters.id}";
+                window.top.close();
+            }
+        </script>
+
+    </head>
+
+    <body class="slds-scope" style="margin:10px">
+        
+        <apex:pageBlock rendered="{!processComplete}">
+            <apex:repeat value="{!results}" var="r">
+                <p class="{!IF(r.isQualified == true, 'pass', 'fail')}">
+                    <span class="fas {!IF(r.isQualified == true, 'fa-check-circle', 'fa-times-circle')}"></span>
+                    <b>{!r.name}</b>
+                    <span style="margin-left:3px;">{!r.userMessage}</span>
+                </p>
+            </apex:repeat>
+            <button onclick="closeAndRefresh()" style="margin-top:15px">Close</button>
+        </apex:pageBlock>
+
+    </body>
+
+</apex:page>

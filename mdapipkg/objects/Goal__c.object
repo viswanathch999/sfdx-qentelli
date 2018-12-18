@@ -1,0 +1,830 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomObject xmlns="http://soap.sforce.com/2006/04/metadata">
+    <actionOverrides>
+        <actionName>Accept</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>CancelEdit</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Clone</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Delete</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Edit</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>List</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>New</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>SaveEdit</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Tab</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>View</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <allowInChatterGroups>false</allowInChatterGroups>
+    <compactLayoutAssignment>SYSTEM</compactLayoutAssignment>
+    <deploymentStatus>Deployed</deploymentStatus>
+    <enableActivities>true</enableActivities>
+    <enableBulkApi>true</enableBulkApi>
+    <enableChangeDataCapture>false</enableChangeDataCapture>
+    <enableFeeds>false</enableFeeds>
+    <enableHistory>true</enableHistory>
+    <enableReports>true</enableReports>
+    <enableSearch>true</enableSearch>
+    <enableSharing>true</enableSharing>
+    <enableStreamingApi>true</enableStreamingApi>
+    <externalSharingModel>ReadWrite</externalSharingModel>
+    <fields>
+        <fullName>Accounttable__c</fullName>
+        <externalId>false</externalId>
+        <inlineHelpText>First name and last name of Management team member accountable. One person only.</inlineHelpText>
+        <label>Accountable</label>
+        <length>255</length>
+        <required>false</required>
+        <trackHistory>true</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Chapter__c</fullName>
+        <deleteConstraint>SetNull</deleteConstraint>
+        <externalId>false</externalId>
+        <inlineHelpText>Populate this only if this is a Chapter or Region Specific goal. Filling this in means it will show on the chapter or region home page.</inlineHelpText>
+        <label>Chapter/Region</label>
+        <lookupFilter>
+            <active>false</active>
+            <booleanFilter>1 AND 2</booleanFilter>
+            <filterItems>
+                <field>Account.Type</field>
+                <operation>equals</operation>
+                <value>Chapter, Region</value>
+            </filterItems>
+            <filterItems>
+                <field>Account.Status__c</field>
+                <operation>equals</operation>
+                <value>Active</value>
+            </filterItems>
+            <isOptional>false</isOptional>
+        </lookupFilter>
+        <referenceTo>Account</referenceTo>
+        <relationshipLabel>Chapter Goals</relationshipLabel>
+        <relationshipName>ChapterGoals</relationshipName>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Lookup</type>
+    </fields>
+    <fields>
+        <fullName>Consulted__c</fullName>
+        <externalId>false</externalId>
+        <label>Consulted</label>
+        <length>2000</length>
+        <trackHistory>true</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>LongTextArea</type>
+        <visibleLines>4</visibleLines>
+    </fields>
+    <fields>
+        <fullName>Count__c</fullName>
+        <externalId>false</externalId>
+        <formula>1</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>Count</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Financial_Year__c</fullName>
+        <externalId>false</externalId>
+        <label>Financial Year</label>
+        <required>false</required>
+        <trackHistory>true</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Picklist</type>
+        <valueSet>
+            <valueSetDefinition>
+                <sorted>false</sorted>
+                <value>
+                    <fullName>13</fullName>
+                    <default>false</default>
+                    <label>13</label>
+                </value>
+                <value>
+                    <fullName>14</fullName>
+                    <default>false</default>
+                    <label>14</label>
+                </value>
+                <value>
+                    <fullName>15</fullName>
+                    <default>false</default>
+                    <label>15</label>
+                </value>
+                <value>
+                    <fullName>16</fullName>
+                    <default>false</default>
+                    <label>16</label>
+                </value>
+                <value>
+                    <fullName>17</fullName>
+                    <default>false</default>
+                    <label>17</label>
+                </value>
+                <value>
+                    <fullName>18</fullName>
+                    <default>false</default>
+                    <label>18</label>
+                </value>
+                <value>
+                    <fullName>19</fullName>
+                    <default>false</default>
+                    <label>19</label>
+                </value>
+            </valueSetDefinition>
+        </valueSet>
+    </fields>
+    <fields>
+        <fullName>Function_Committee__c</fullName>
+        <externalId>false</externalId>
+        <label>Function/Committee</label>
+        <required>false</required>
+        <trackHistory>true</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Picklist</type>
+        <valueSet>
+            <restricted>true</restricted>
+            <valueSetDefinition>
+                <sorted>false</sorted>
+                <value>
+                    <fullName>Audit Committee</fullName>
+                    <default>false</default>
+                    <label>Audit Committee</label>
+                </value>
+                <value>
+                    <fullName>Champion Development</fullName>
+                    <default>false</default>
+                    <label>Champion Development</label>
+                </value>
+                <value>
+                    <fullName>Chapter Health</fullName>
+                    <default>false</default>
+                    <label>Chapter Health</label>
+                </value>
+                <value>
+                    <fullName>Chapter Health - Strategic Planning</fullName>
+                    <default>false</default>
+                    <label>Chapter Health - Strategic Planning</label>
+                </value>
+                <value>
+                    <fullName>Chapter Health - Succession Planning</fullName>
+                    <default>false</default>
+                    <label>Chapter Health - Succession Planning</label>
+                </value>
+                <value>
+                    <fullName>Chapter Plan</fullName>
+                    <default>false</default>
+                    <label>Chapter Plan</label>
+                </value>
+                <value>
+                    <fullName>Chapter Relations</fullName>
+                    <default>false</default>
+                    <label>Chapter Relations</label>
+                </value>
+                <value>
+                    <fullName>Chief Executive Officer</fullName>
+                    <default>false</default>
+                    <label>Chief Executive Officer</label>
+                </value>
+                <value>
+                    <fullName>Chief Operating Officer</fullName>
+                    <default>false</default>
+                    <label>Chief Operating Officer</label>
+                </value>
+                <value>
+                    <fullName>Collaboration</fullName>
+                    <default>false</default>
+                    <label>Collaboration</label>
+                </value>
+                <value>
+                    <fullName>Communications</fullName>
+                    <default>false</default>
+                    <label>Communications</label>
+                </value>
+                <value>
+                    <fullName>Compensation Committee</fullName>
+                    <default>false</default>
+                    <label>Compensation Committee</label>
+                </value>
+                <value>
+                    <fullName>CRC - Chapters &amp; Regions Committee</fullName>
+                    <default>false</default>
+                    <label>CRC - Chapters &amp; Regions Committee</label>
+                </value>
+                <value>
+                    <fullName>Engagement</fullName>
+                    <default>false</default>
+                    <label>Engagement</label>
+                </value>
+                <value>
+                    <fullName>Events</fullName>
+                    <default>false</default>
+                    <label>Events</label>
+                </value>
+                <value>
+                    <fullName>Events Committee</fullName>
+                    <default>false</default>
+                    <label>Events Committee</label>
+                </value>
+                <value>
+                    <fullName>Exchange</fullName>
+                    <default>false</default>
+                    <label>Exchange</label>
+                </value>
+                <value>
+                    <fullName>Family</fullName>
+                    <default>false</default>
+                    <label>Family</label>
+                </value>
+                <value>
+                    <fullName>Family Committee</fullName>
+                    <default>false</default>
+                    <label>Family Committee</label>
+                </value>
+                <value>
+                    <fullName>FEC - Flagship Events Committee</fullName>
+                    <default>false</default>
+                    <label>FEC - Flagship Events Committee</label>
+                </value>
+                <value>
+                    <fullName>Finance</fullName>
+                    <default>false</default>
+                    <label>Finance</label>
+                </value>
+                <value>
+                    <fullName>Finance Committee</fullName>
+                    <default>false</default>
+                    <label>Finance Committee</label>
+                </value>
+                <value>
+                    <fullName>Finance - Events</fullName>
+                    <default>false</default>
+                    <label>Finance - Events</label>
+                </value>
+                <value>
+                    <fullName>Forum</fullName>
+                    <default>false</default>
+                    <label>Forum</label>
+                </value>
+                <value>
+                    <fullName>Forum Committee</fullName>
+                    <default>false</default>
+                    <label>Forum Committee</label>
+                </value>
+                <value>
+                    <fullName>Governance</fullName>
+                    <default>false</default>
+                    <label>Governance</label>
+                </value>
+                <value>
+                    <fullName>Human Resources</fullName>
+                    <default>false</default>
+                    <label>Human Resources</label>
+                </value>
+                <value>
+                    <fullName>Information Technology</fullName>
+                    <default>false</default>
+                    <label>Information Technology</label>
+                </value>
+                <value>
+                    <fullName>Innovation</fullName>
+                    <default>false</default>
+                    <label>Innovation</label>
+                </value>
+                <value>
+                    <fullName>Integration</fullName>
+                    <default>false</default>
+                    <label>Integration</label>
+                </value>
+                <value>
+                    <fullName>Leadership Committee</fullName>
+                    <default>false</default>
+                    <label>Leadership Committee</label>
+                </value>
+                <value>
+                    <fullName>Learning</fullName>
+                    <default>false</default>
+                    <label>Learning</label>
+                </value>
+                <value>
+                    <fullName>Learning Committee</fullName>
+                    <default>false</default>
+                    <label>Learning Committee</label>
+                </value>
+                <value>
+                    <fullName>Marketing &amp; Communications</fullName>
+                    <default>false</default>
+                    <label>Marketing &amp; Communications</label>
+                </value>
+                <value>
+                    <fullName>Member Engagement</fullName>
+                    <default>false</default>
+                    <label>Member Engagement</label>
+                </value>
+                <value>
+                    <fullName>Member Services</fullName>
+                    <default>false</default>
+                    <label>Member Services</label>
+                </value>
+                <value>
+                    <fullName>Membership</fullName>
+                    <default>false</default>
+                    <label>Membership</label>
+                </value>
+                <value>
+                    <fullName>Membership Committee</fullName>
+                    <default>false</default>
+                    <label>Membership Committee</label>
+                </value>
+                <value>
+                    <fullName>Membership Development</fullName>
+                    <default>false</default>
+                    <label>Membership Development</label>
+                </value>
+                <value>
+                    <fullName>Member Value</fullName>
+                    <default>false</default>
+                    <label>Member Value</label>
+                </value>
+                <value>
+                    <fullName>Mentoring</fullName>
+                    <default>false</default>
+                    <label>Mentoring</label>
+                </value>
+                <value>
+                    <fullName>Network Directors</fullName>
+                    <default>false</default>
+                    <label>Network Directors</label>
+                </value>
+                <value>
+                    <fullName>Networks</fullName>
+                    <default>false</default>
+                    <label>Networks</label>
+                </value>
+                <value>
+                    <fullName>Networks Committee</fullName>
+                    <default>false</default>
+                    <label>Networks Committee</label>
+                </value>
+                <value>
+                    <fullName>Officer Training</fullName>
+                    <default>false</default>
+                    <label>Officer Training</label>
+                </value>
+                <value>
+                    <fullName>Recognition</fullName>
+                    <default>false</default>
+                    <label>Recognition</label>
+                </value>
+                <value>
+                    <fullName>Regional Directors</fullName>
+                    <default>false</default>
+                    <label>Regional Directors</label>
+                </value>
+                <value>
+                    <fullName>Sponsorships &amp; Alliances</fullName>
+                    <default>false</default>
+                    <label>Sponsorships &amp; Alliances</label>
+                </value>
+                <value>
+                    <fullName>Spouse/Partner</fullName>
+                    <default>false</default>
+                    <label>Spouse/Partner</label>
+                </value>
+                <value>
+                    <fullName>Spouse/Partner Forum</fullName>
+                    <default>false</default>
+                    <label>Spouse/Partner Forum</label>
+                </value>
+                <value>
+                    <fullName>Strategic Planning</fullName>
+                    <default>false</default>
+                    <label>Strategic Planning</label>
+                </value>
+                <value>
+                    <fullName>YPO Board of Directors</fullName>
+                    <default>false</default>
+                    <label>YPO Board of Directors</label>
+                </value>
+                <value>
+                    <fullName>YPO Gold Board</fullName>
+                    <default>false</default>
+                    <label>YPO Gold Board</label>
+                </value>
+                <value>
+                    <fullName>Chapter Health - Americas</fullName>
+                    <default>false</default>
+                    <isActive>false</isActive>
+                    <label>Chapter Health - Americas</label>
+                </value>
+                <value>
+                    <fullName>Chapter Health - EMEA &amp; APAC</fullName>
+                    <default>false</default>
+                    <isActive>false</isActive>
+                    <label>Chapter Health - EMEA &amp; APAC</label>
+                </value>
+                <value>
+                    <fullName>Chapter Health - EMEA &amp; Asia Pacific</fullName>
+                    <default>false</default>
+                    <isActive>false</isActive>
+                    <label>Chapter Health - EMEA &amp; Asia Pacific</label>
+                </value>
+                <value>
+                    <fullName>Chapter Health - Strategic Planning Session</fullName>
+                    <default>false</default>
+                    <isActive>false</isActive>
+                    <label>Chapter Health - Strategic Planning Session</label>
+                </value>
+                <value>
+                    <fullName>External Communications</fullName>
+                    <default>false</default>
+                    <isActive>false</isActive>
+                    <label>Communications</label>
+                </value>
+                <value>
+                    <fullName>GLC SC</fullName>
+                    <default>false</default>
+                    <isActive>false</isActive>
+                    <label>GLC SC</label>
+                </value>
+                <value>
+                    <fullName>IT Steering Committee</fullName>
+                    <default>false</default>
+                    <isActive>false</isActive>
+                    <label>IT Steering Committee</label>
+                </value>
+                <value>
+                    <fullName>Education</fullName>
+                    <default>false</default>
+                    <isActive>false</isActive>
+                    <label>Learning</label>
+                </value>
+                <value>
+                    <fullName>Education Committee</fullName>
+                    <default>false</default>
+                    <isActive>false</isActive>
+                    <label>Learning Committee</label>
+                </value>
+                <value>
+                    <fullName>New Member Integration</fullName>
+                    <default>false</default>
+                    <isActive>false</isActive>
+                    <label>New Member Integration</label>
+                </value>
+                <value>
+                    <fullName>Regional</fullName>
+                    <default>false</default>
+                    <isActive>false</isActive>
+                    <label>Regional</label>
+                </value>
+                <value>
+                    <fullName>Regional Chairs&apos; Council</fullName>
+                    <default>false</default>
+                    <isActive>false</isActive>
+                    <label>Regional Chairs&apos; Council</label>
+                </value>
+                <value>
+                    <fullName>WPO</fullName>
+                    <default>false</default>
+                    <isActive>false</isActive>
+                    <label>WPO</label>
+                </value>
+                <value>
+                    <fullName>WPO Board</fullName>
+                    <default>false</default>
+                    <isActive>false</isActive>
+                    <label>WPO Board</label>
+                </value>
+            </valueSetDefinition>
+        </valueSet>
+    </fields>
+    <fields>
+        <fullName>Goal_Type__c</fullName>
+        <externalId>false</externalId>
+        <formula>IF ( ISPICKVAL(  Chapter__r.Type,&quot;Chapter&quot;), &quot;Chapter Goal&quot;, 
+IF ( ISPICKVAL(  Chapter__r.Type,&quot;Region&quot;), &quot;Regional Goal&quot;, 
+&quot;Function/Committee Goal&quot; ))</formula>
+        <label>Goal Type</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Informed__c</fullName>
+        <externalId>false</externalId>
+        <label>Informed</label>
+        <length>32768</length>
+        <trackHistory>true</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>LongTextArea</type>
+        <visibleLines>5</visibleLines>
+    </fields>
+    <fields>
+        <fullName>Metric__c</fullName>
+        <externalId>false</externalId>
+        <label>Metric</label>
+        <length>32768</length>
+        <trackHistory>true</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>LongTextArea</type>
+        <visibleLines>4</visibleLines>
+    </fields>
+    <fields>
+        <fullName>Organization__c</fullName>
+        <externalId>false</externalId>
+        <label>Organization</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Picklist</type>
+        <valueSet>
+            <valueSetDefinition>
+                <sorted>false</sorted>
+                <value>
+                    <fullName>YPO</fullName>
+                    <default>false</default>
+                    <label>YPO</label>
+                </value>
+                <value>
+                    <fullName>YPO Gold</fullName>
+                    <default>false</default>
+                    <label>YPO Gold</label>
+                </value>
+                <value>
+                    <fullName>YPO Gold/YPO</fullName>
+                    <default>false</default>
+                    <label>YPO Gold/YPO</label>
+                </value>
+            </valueSetDefinition>
+        </valueSet>
+    </fields>
+    <fields>
+        <fullName>RD_Region__c</fullName>
+        <externalId>false</externalId>
+        <label>RD Region</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Picklist</type>
+        <valueSet>
+            <valueSetDefinition>
+                <sorted>false</sorted>
+                <value>
+                    <fullName>Africa</fullName>
+                    <default>false</default>
+                    <label>Africa</label>
+                </value>
+                <value>
+                    <fullName>Australia/New Zealand</fullName>
+                    <default>false</default>
+                    <label>Australia/New Zealand</label>
+                </value>
+                <value>
+                    <fullName>Canada</fullName>
+                    <default>false</default>
+                    <label>Canada</label>
+                </value>
+                <value>
+                    <fullName>Central US</fullName>
+                    <default>false</default>
+                    <label>Central US</label>
+                </value>
+                <value>
+                    <fullName>East Central US</fullName>
+                    <default>false</default>
+                    <label>East Central US</label>
+                </value>
+                <value>
+                    <fullName>Europe</fullName>
+                    <default>false</default>
+                    <label>Europe</label>
+                </value>
+                <value>
+                    <fullName>Latin America</fullName>
+                    <default>false</default>
+                    <label>Latin America</label>
+                </value>
+                <value>
+                    <fullName>MENA</fullName>
+                    <default>false</default>
+                    <label>MENA</label>
+                </value>
+                <value>
+                    <fullName>North Asia</fullName>
+                    <default>false</default>
+                    <label>North Asia</label>
+                </value>
+                <value>
+                    <fullName>Northeastern US</fullName>
+                    <default>false</default>
+                    <label>Northeastern US</label>
+                </value>
+                <value>
+                    <fullName>Pacific US</fullName>
+                    <default>false</default>
+                    <label>Pacific US</label>
+                </value>
+                <value>
+                    <fullName>South Asia</fullName>
+                    <default>false</default>
+                    <label>South Asia</label>
+                </value>
+                <value>
+                    <fullName>Southeast Asia</fullName>
+                    <default>false</default>
+                    <label>Southeast Asia</label>
+                </value>
+                <value>
+                    <fullName>Southern US</fullName>
+                    <default>false</default>
+                    <label>Southern US</label>
+                </value>
+                <value>
+                    <fullName>Western US</fullName>
+                    <default>false</default>
+                    <label>Western US</label>
+                </value>
+            </valueSetDefinition>
+        </valueSet>
+    </fields>
+    <fields>
+        <fullName>Region__c</fullName>
+        <deleteConstraint>SetNull</deleteConstraint>
+        <externalId>false</externalId>
+        <inlineHelpText>Populate this field only if this is a regional goal. Filling this in means it will show on the Region home page.</inlineHelpText>
+        <label>Region</label>
+        <referenceTo>Region__c</referenceTo>
+        <relationshipLabel>Regional Goals</relationshipLabel>
+        <relationshipName>Goals</relationshipName>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Lookup</type>
+    </fields>
+    <fields>
+        <fullName>Responsible__c</fullName>
+        <externalId>false</externalId>
+        <inlineHelpText>First name and last name of Management team member responsible. One person only.</inlineHelpText>
+        <label>Responsible</label>
+        <length>100</length>
+        <required>false</required>
+        <trackHistory>true</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Smart_Goal__c</fullName>
+        <externalId>false</externalId>
+        <label>Smart Goal</label>
+        <length>1000</length>
+        <trackHistory>true</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>LongTextArea</type>
+        <visibleLines>4</visibleLines>
+    </fields>
+    <fields>
+        <fullName>Status1__c</fullName>
+        <externalId>false</externalId>
+        <inlineHelpText>Please Enter the Status as a Percentage. Up to 20% is RED, 20%+ is YELLOW, 80%+ is GREEN</inlineHelpText>
+        <label>% Completion</label>
+        <precision>3</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <trackHistory>true</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Percent</type>
+    </fields>
+    <fields>
+        <fullName>Status_Indicatior__c</fullName>
+        <externalId>false</externalId>
+        <formula>IF ( Status1__c &gt; 0.79 , IMAGE(&quot;/img/samples/light_green.gif&quot;, &quot;green&quot;), 
+IF ( Status1__c &gt; 0.2 , IMAGE(&quot;/img/samples/light_yellow.gif&quot;, &quot;yellow&quot;), 
+IMAGE(&quot;/img/samples/light_red.gif&quot;, &quot;red&quot;)))</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>Status Indicatior</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Status__c</fullName>
+        <externalId>false</externalId>
+        <formula>IF ( Status1__c &gt; 0.79 , &quot;Green&quot;, 
+IF ( Status1__c &gt; 0.2 , &quot;Yellow&quot;, 
+&quot;Red&quot;))</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>Status</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Super_Region__c</fullName>
+        <description>If the Chapter/Region field is a Region Account, Super Region field will show that Region&apos;s Parent Account Name. If the Chapter/Region field is a Chapter Account, Super Region field will show that Chapter&apos;s Parent&apos;s Parent Account Name.</description>
+        <externalId>false</externalId>
+        <formula>IF( ISPICKVAL(Chapter__r.Type, &quot;Region&quot;), Chapter__r.Parent.Name,  Chapter__r.Parent.Parent.Name )</formula>
+        <label>Super Region</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Validation_Check__c</fullName>
+        <defaultValue>false</defaultValue>
+        <externalId>false</externalId>
+        <label>Validation Check</label>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Checkbox</type>
+    </fields>
+    <label>Goal</label>
+    <listViews>
+        <fullName>All</fullName>
+        <columns>NAME</columns>
+        <columns>Function_Committee__c</columns>
+        <columns>Smart_Goal__c</columns>
+        <columns>Metric__c</columns>
+        <columns>Chapter__c</columns>
+        <columns>Responsible__c</columns>
+        <columns>Accounttable__c</columns>
+        <columns>Status1__c</columns>
+        <columns>Status_Indicatior__c</columns>
+        <filterScope>Everything</filterScope>
+        <label>All</label>
+    </listViews>
+    <nameField>
+        <displayFormat>{0000000}</displayFormat>
+        <label>Goal Id</label>
+        <trackHistory>true</trackHistory>
+        <type>AutoNumber</type>
+    </nameField>
+    <pluralLabel>Goals</pluralLabel>
+    <searchLayouts>
+        <customTabListAdditionalFields>Function_Committee__c</customTabListAdditionalFields>
+        <customTabListAdditionalFields>Smart_Goal__c</customTabListAdditionalFields>
+        <customTabListAdditionalFields>Metric__c</customTabListAdditionalFields>
+        <customTabListAdditionalFields>Responsible__c</customTabListAdditionalFields>
+        <customTabListAdditionalFields>Accounttable__c</customTabListAdditionalFields>
+        <customTabListAdditionalFields>Status1__c</customTabListAdditionalFields>
+        <customTabListAdditionalFields>Status_Indicatior__c</customTabListAdditionalFields>
+    </searchLayouts>
+    <sharingModel>ReadWrite</sharingModel>
+    <validationRules>
+        <fullName>Cannot_edit_goals_after_one_week</fullName>
+        <active>false</active>
+        <errorConditionFormula>AND ( Today()- DATEVALUE(CreatedDate) &gt; 1, 
+PRIORVALUE( Smart_Goal__c ) &lt;&gt; Smart_Goal__c 
+)</errorConditionFormula>
+        <errorMessage>You cannot edit a smart goal after it is a week old.</errorMessage>
+    </validationRules>
+    <validationRules>
+        <fullName>You_must_choose_a</fullName>
+        <active>false</active>
+        <errorConditionFormula>AND( ISPICKVAL(Function_Committee__c, &quot;Regional Directors&quot;), ISBLANK(TEXT(RD_Region__c)))</errorConditionFormula>
+        <errorDisplayField>RD_Region__c</errorDisplayField>
+        <errorMessage>If you choose Regional Directors as a Function/Committee you must choose a RD Region to save the record.</errorMessage>
+    </validationRules>
+    <visibility>Public</visibility>
+</CustomObject>

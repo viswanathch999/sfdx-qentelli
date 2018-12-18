@@ -1,0 +1,59 @@
+<apex:page standardController="Product2" extensions="NewProductQuickCreateExt">
+    <apex:form >
+        <apex:pageBlock >
+            <apex:pageMessages />
+            <apex:pageBlockButtons >
+                <apex:commandButton action="{!saveCont}" value="Save"/>
+            </apex:pageBlockButtons>
+            <apex:outputPanel rendered="{!IF(Product2.Exclusive__c == 'YNG', true, false)}">                    
+                <apex:pageBlockSection title="{!$Label.YNG_Product_Quick_Create_Page_Header}" columns="2">
+                    <apex:pageBlockSectionItem >                        
+                        <apex:outputLabel value="First Name"></apex:outputLabel>
+                        <apex:inputField value="{!newContact.FirstName}" required="true"/>
+                    </apex:pageBlockSectionItem>
+                    <apex:pageBlockSectionItem >                        
+                        <apex:outputLabel value="Last Name"></apex:outputLabel>
+                        <apex:inputField value="{!newContact.LastName}" required="true"/>
+                    </apex:pageBlockSectionItem>
+                    <apex:repeat value="{!$ObjectType.Contact.FieldSets.YNG_OLI_Quick_Create}" var="f">
+                        <apex:pageBlockSectionItem >
+                            <apex:outputLabel value="{!f.label}"></apex:outputLabel>
+                            <apex:inputField value="{!newContact[f]}" required="{!f.required}"/>
+                        </apex:pageBlockSectionItem>
+                    </apex:repeat>
+                    <apex:pageBlockSectionItem >
+                        <apex:outputLabel value="Relationship to member"></apex:outputLabel>
+                        <apex:selectList size="1" value="{!newRelationShip.Relationship_Type__c}">
+                            <apex:selectOptions value="{!relationshipTypes}"/>
+                        </apex:selectList>
+                    </apex:pageBlockSectionItem>
+                </apex:pageBlockSection>
+            </apex:outputPanel>
+            
+            <apex:outputPanel rendered="{!IF(Product2.Exclusive__c == 'Member', true, false)}">                    
+                <apex:pageBlockSection title="{!$Label.AON_Product_Quick_Create_Page_Header}" columns="2">
+                    <apex:pageBlockSectionItem >                        
+                        <apex:outputLabel value="Recipient First Name"></apex:outputLabel>
+                        <apex:inputField value="{!newContact.FirstName}" required="true"/>
+                    </apex:pageBlockSectionItem>
+                    <apex:pageBlockSectionItem >                        
+                        <apex:outputLabel value="Recipient Last Name"></apex:outputLabel>
+                        <apex:inputField value="{!newContact.LastName}" required="true"/>
+                    </apex:pageBlockSectionItem>
+                    <apex:repeat value="{!$ObjectType.Contact.FieldSets.AON_OLI_Quick_Create}" var="f">
+                        <apex:pageBlockSectionItem >
+                            <apex:outputLabel value="{!f.label}"></apex:outputLabel>
+                            <apex:inputField value="{!newContact[f]}" required="{!f.required}"/>
+                        </apex:pageBlockSectionItem>
+                    </apex:repeat>
+                    <apex:pageBlockSectionItem >
+                        <apex:outputLabel value="Relationship to member"></apex:outputLabel>
+                        <apex:selectList size="1" value="{!newRelationShip.Relationship_Type__c}" required="true">
+                            <apex:selectOptions value="{!relationshipTypes}"/>
+                        </apex:selectList>
+                    </apex:pageBlockSectionItem>
+                </apex:pageBlockSection>
+            </apex:outputPanel>
+        </apex:pageBlock>
+    </apex:form>
+</apex:page>

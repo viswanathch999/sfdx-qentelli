@@ -1,0 +1,1492 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomObject xmlns="http://soap.sforce.com/2006/04/metadata">
+    <actionOverrides>
+        <actionName>CancelEdit</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>ComposeGmail</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>LogCall</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>MailMerge</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>RequestUpdate</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>SaveEdit</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>SendEmail</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>ViewAll</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <enableFeeds>false</enableFeeds>
+    <fields>
+        <fullName>Able_to_Delete_Activities__c</fullName>
+        <externalId>false</externalId>
+        <formula>$User.Able_to_Delete_Activities__c</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>Able to Delete Activities</label>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>Category__c</fullName>
+        <externalId>false</externalId>
+        <label>Category</label>
+        <required>false</required>
+        <type>Picklist</type>
+        <valueSet>
+            <valueSetDefinition>
+                <sorted>false</sorted>
+                <value>
+                    <fullName>C&amp;R Chapter Visit</fullName>
+                    <default>false</default>
+                    <label>C&amp;R Chapter Visit</label>
+                </value>
+                <value>
+                    <fullName>Champion Interests</fullName>
+                    <default>false</default>
+                    <label>Champion Interests</label>
+                </value>
+                <value>
+                    <fullName>CONV</fullName>
+                    <default>false</default>
+                    <label>CONV</label>
+                </value>
+                <value>
+                    <fullName>Corporate Services</fullName>
+                    <default>false</default>
+                    <label>Corporate Services</label>
+                </value>
+                <value>
+                    <fullName>DEM</fullName>
+                    <default>false</default>
+                    <label>DEM</label>
+                </value>
+                <value>
+                    <fullName>Event</fullName>
+                    <default>false</default>
+                    <label>Event</label>
+                </value>
+                <value>
+                    <fullName>Finance</fullName>
+                    <default>false</default>
+                    <label>Finance</label>
+                </value>
+                <value>
+                    <fullName>Govern</fullName>
+                    <default>false</default>
+                    <label>Govern</label>
+                </value>
+                <value>
+                    <fullName>IOS</fullName>
+                    <default>false</default>
+                    <label>IOS</label>
+                </value>
+                <value>
+                    <fullName>Learning</fullName>
+                    <default>false</default>
+                    <label>Learning</label>
+                </value>
+                <value>
+                    <fullName>Marketing</fullName>
+                    <default>false</default>
+                    <label>Marketing</label>
+                </value>
+                <value>
+                    <fullName>Meeting</fullName>
+                    <default>false</default>
+                    <label>Meeting</label>
+                </value>
+                <value>
+                    <fullName>Membership</fullName>
+                    <default>false</default>
+                    <label>Membership</label>
+                </value>
+                <value>
+                    <fullName>MemOut</fullName>
+                    <default>false</default>
+                    <label>MemOut</label>
+                </value>
+                <value>
+                    <fullName>NM Voucher</fullName>
+                    <default>false</default>
+                    <label>NM Voucher</label>
+                </value>
+                <value>
+                    <fullName>North Asia</fullName>
+                    <default>false</default>
+                    <label>North Asia</label>
+                </value>
+                <value>
+                    <fullName>Prospect</fullName>
+                    <default>false</default>
+                    <label>Prospect</label>
+                </value>
+                <value>
+                    <fullName>Recognition</fullName>
+                    <default>false</default>
+                    <label>Recognition</label>
+                </value>
+                <value>
+                    <fullName>Speaker</fullName>
+                    <default>false</default>
+                    <label>Speaker</label>
+                </value>
+                <value>
+                    <fullName>Web</fullName>
+                    <default>false</default>
+                    <label>Web</label>
+                </value>
+            </valueSetDefinition>
+        </valueSet>
+    </fields>
+    <fields>
+        <fullName>Department_Project__c</fullName>
+        <externalId>false</externalId>
+        <label>Department Project</label>
+        <required>false</required>
+        <type>Picklist</type>
+        <valueSet>
+            <valueSetDefinition>
+                <sorted>false</sorted>
+                <value>
+                    <fullName>Member Reinstatement</fullName>
+                    <default>false</default>
+                    <label>Member Reinstatement</label>
+                </value>
+                <value>
+                    <fullName>Member Renewal</fullName>
+                    <default>false</default>
+                    <label>Member Renewal</label>
+                </value>
+                <value>
+                    <fullName>Member Resignation</fullName>
+                    <default>false</default>
+                    <label>Member Resignation</label>
+                </value>
+                <value>
+                    <fullName>Member Transfer/Transition</fullName>
+                    <default>false</default>
+                    <label>Member Transfer/Transition</label>
+                </value>
+                <value>
+                    <fullName>Membership Information Request</fullName>
+                    <default>false</default>
+                    <label>Membership Information Request</label>
+                </value>
+                <value>
+                    <fullName>Membership Issue</fullName>
+                    <default>false</default>
+                    <label>Membership Issue</label>
+                </value>
+                <value>
+                    <fullName>New Member Call</fullName>
+                    <default>false</default>
+                    <label>New Member Call</label>
+                </value>
+            </valueSetDefinition>
+        </valueSet>
+    </fields>
+    <fields>
+        <fullName>Direction__c</fullName>
+        <externalId>false</externalId>
+        <inlineHelpText>This can be used to signify if &apos;outgoing&apos; or &apos;incoming&apos;</inlineHelpText>
+        <label>Direction</label>
+        <required>false</required>
+        <type>Picklist</type>
+        <valueSet>
+            <valueSetDefinition>
+                <sorted>false</sorted>
+                <value>
+                    <fullName>Incoming</fullName>
+                    <default>false</default>
+                    <label>Incoming</label>
+                </value>
+                <value>
+                    <fullName>Outgoing</fullName>
+                    <default>false</default>
+                    <label>Outgoing</label>
+                </value>
+            </valueSetDefinition>
+        </valueSet>
+    </fields>
+    <fields>
+        <fullName>FingerTip__Activity_Progress__c</fullName>
+        <defaultValue>0</defaultValue>
+        <deprecated>false</deprecated>
+        <externalId>false</externalId>
+        <label>Activity Progress</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>2</scale>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>FingerTip__Actual_Hours__c</fullName>
+        <deprecated>false</deprecated>
+        <externalId>false</externalId>
+        <label>Actual Hours</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>2</scale>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>FingerTip__Assigned_To_Name__c</fullName>
+        <deprecated>false</deprecated>
+        <externalId>false</externalId>
+        <formula>Owner:User.FirstName +&quot; &quot;+  Owner:User.LastName</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>Assigned To Name</label>
+        <required>false</required>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>FingerTip__Complexity__c</fullName>
+        <deprecated>false</deprecated>
+        <externalId>false</externalId>
+        <label>Complexity</label>
+        <required>false</required>
+        <type>Picklist</type>
+        <valueSet>
+            <valueSetDefinition>
+                <sorted>false</sorted>
+                <value>
+                    <fullName>1</fullName>
+                    <default>false</default>
+                    <label>1</label>
+                </value>
+                <value>
+                    <fullName>2</fullName>
+                    <default>false</default>
+                    <label>2</label>
+                </value>
+                <value>
+                    <fullName>3</fullName>
+                    <default>false</default>
+                    <label>3</label>
+                </value>
+                <value>
+                    <fullName>5</fullName>
+                    <default>false</default>
+                    <label>5</label>
+                </value>
+                <value>
+                    <fullName>8</fullName>
+                    <default>false</default>
+                    <label>8</label>
+                </value>
+                <value>
+                    <fullName>13</fullName>
+                    <default>false</default>
+                    <label>13</label>
+                </value>
+                <value>
+                    <fullName>20</fullName>
+                    <default>false</default>
+                    <label>20</label>
+                </value>
+                <value>
+                    <fullName>40</fullName>
+                    <default>false</default>
+                    <label>40</label>
+                </value>
+                <value>
+                    <fullName>100</fullName>
+                    <default>false</default>
+                    <label>100</label>
+                </value>
+            </valueSetDefinition>
+        </valueSet>
+    </fields>
+    <fields>
+        <fullName>FingerTip__DecisionId__c</fullName>
+        <deprecated>false</deprecated>
+        <externalId>false</externalId>
+        <label>DecisionId</label>
+        <length>50</length>
+        <required>false</required>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>FingerTip__End_Date_Time__c</fullName>
+        <deprecated>false</deprecated>
+        <externalId>false</externalId>
+        <label>End Date/Time</label>
+        <required>false</required>
+        <type>DateTime</type>
+    </fields>
+    <fields>
+        <fullName>FingerTip__Estimated_Hours__c</fullName>
+        <deprecated>false</deprecated>
+        <externalId>false</externalId>
+        <label>Estimated Hours</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>2</scale>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>FingerTip__Event_Type__c</fullName>
+        <deprecated>false</deprecated>
+        <externalId>false</externalId>
+        <label>Event Type</label>
+        <length>255</length>
+        <required>false</required>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>FingerTip__Last_Modified_Date_Custom__c</fullName>
+        <deprecated>false</deprecated>
+        <externalId>false</externalId>
+        <formula>DATEVALUE( LastModifiedDate )</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>Last Modified Date Custom</label>
+        <required>false</required>
+        <type>Date</type>
+    </fields>
+    <fields>
+        <fullName>FingerTip__Progress__c</fullName>
+        <deprecated>false</deprecated>
+        <externalId>false</externalId>
+        <label>Progress</label>
+        <required>false</required>
+        <type>Picklist</type>
+        <valueSet>
+            <valueSetDefinition>
+                <sorted>false</sorted>
+                <value>
+                    <fullName>Not Given</fullName>
+                    <default>false</default>
+                    <label>Not Given</label>
+                </value>
+                <value>
+                    <fullName>Good</fullName>
+                    <default>false</default>
+                    <label>Good</label>
+                </value>
+                <value>
+                    <fullName>Minor Challenges</fullName>
+                    <default>false</default>
+                    <label>Minor Challenges</label>
+                </value>
+                <value>
+                    <fullName>Critical</fullName>
+                    <default>false</default>
+                    <label>Critical</label>
+                </value>
+                <value>
+                    <fullName>Completed</fullName>
+                    <default>false</default>
+                    <label>Completed</label>
+                </value>
+                <value>
+                    <fullName>Completed with Problems</fullName>
+                    <default>false</default>
+                    <label>Completed with Problems</label>
+                </value>
+            </valueSetDefinition>
+        </valueSet>
+    </fields>
+    <fields>
+        <fullName>FingerTip__Skill_Level__c</fullName>
+        <deprecated>false</deprecated>
+        <externalId>false</externalId>
+        <label>Skill Level</label>
+        <required>false</required>
+        <type>Picklist</type>
+        <valueSet>
+            <valueSetDefinition>
+                <sorted>false</sorted>
+                <value>
+                    <fullName>1</fullName>
+                    <default>true</default>
+                    <label>1</label>
+                </value>
+                <value>
+                    <fullName>2</fullName>
+                    <default>false</default>
+                    <label>2</label>
+                </value>
+                <value>
+                    <fullName>3</fullName>
+                    <default>false</default>
+                    <label>3</label>
+                </value>
+                <value>
+                    <fullName>4</fullName>
+                    <default>false</default>
+                    <label>4</label>
+                </value>
+                <value>
+                    <fullName>5</fullName>
+                    <default>false</default>
+                    <label>5</label>
+                </value>
+            </valueSetDefinition>
+        </valueSet>
+    </fields>
+    <fields>
+        <fullName>FingerTip__Stage_Formula__c</fullName>
+        <deprecated>false</deprecated>
+        <externalId>false</externalId>
+        <formula>IF( ISPICKVAL( Status , &apos;Not Started&apos;) , &apos;Ready&apos;,  IF( OR(ISPICKVAL( Status , &apos;In Progress&apos;),ISPICKVAL( Status , &apos;Waiting on someone else&apos;),ISPICKVAL( Status , &apos;Deferred&apos;)) , &apos;Started&apos;,  IF(  IsClosed  , &apos;Finished&apos;, &apos;&apos;) ) )</formula>
+        <label>Stage (Formula)</label>
+        <required>false</required>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>FingerTip__Stage__c</fullName>
+        <deprecated>false</deprecated>
+        <externalId>false</externalId>
+        <label>Stage</label>
+        <required>false</required>
+        <type>Picklist</type>
+        <valueSet>
+            <valueSetDefinition>
+                <sorted>false</sorted>
+                <value>
+                    <fullName>Ready</fullName>
+                    <default>false</default>
+                    <label>Ready</label>
+                </value>
+                <value>
+                    <fullName>Started</fullName>
+                    <default>false</default>
+                    <label>Started</label>
+                </value>
+                <value>
+                    <fullName>Finished</fullName>
+                    <default>false</default>
+                    <label>Finished</label>
+                </value>
+                <value>
+                    <fullName>Archived</fullName>
+                    <default>false</default>
+                    <label>Archived</label>
+                </value>
+            </valueSetDefinition>
+        </valueSet>
+    </fields>
+    <fields>
+        <fullName>FingerTip__Start_Date_Time__c</fullName>
+        <deprecated>false</deprecated>
+        <externalId>false</externalId>
+        <label>Start Date/Time</label>
+        <required>false</required>
+        <type>DateTime</type>
+    </fields>
+    <fields>
+        <fullName>FingerTip__Task_Closed_Date__c</fullName>
+        <deprecated>false</deprecated>
+        <externalId>false</externalId>
+        <label>Task Closed Date</label>
+        <required>false</required>
+        <type>Date</type>
+    </fields>
+    <fields>
+        <fullName>GUID__c</fullName>
+        <caseSensitive>false</caseSensitive>
+        <externalId>true</externalId>
+        <label>GUID</label>
+        <length>50</length>
+        <required>false</required>
+        <type>Text</type>
+        <unique>true</unique>
+    </fields>
+    <fields>
+        <fullName>KGRenewal__IsGeneratedByEncore__c</fullName>
+        <defaultValue>false</defaultValue>
+        <deprecated>false</deprecated>
+        <description>This field flags Activities that were generated by Encore.</description>
+        <externalId>false</externalId>
+        <label>Is Generated By Encore</label>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>NVMContactWorld__ACD__c</fullName>
+        <deprecated>false</deprecated>
+        <description>The name of the ACD the call was delivered from</description>
+        <externalId>false</externalId>
+        <label>ACD</label>
+        <length>50</length>
+        <required>false</required>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>NVMContactWorld__CW_Call_End_Time__c</fullName>
+        <deprecated>false</deprecated>
+        <description>The time in Contact World that the call ended</description>
+        <externalId>false</externalId>
+        <label>CW Call End Time</label>
+        <required>false</required>
+        <type>DateTime</type>
+    </fields>
+    <fields>
+        <fullName>NVMContactWorld__CW_Call_Start_Time__c</fullName>
+        <deprecated>false</deprecated>
+        <description>The time shown in Contact World when the call first hit your call plan</description>
+        <externalId>false</externalId>
+        <label>CW Call Start Time</label>
+        <required>false</required>
+        <type>DateTime</type>
+    </fields>
+    <fields>
+        <fullName>NVMContactWorld__CallRingTimeInSeconds__c</fullName>
+        <deprecated>false</deprecated>
+        <externalId>false</externalId>
+        <inlineHelpText>For Inbound, this is the time between the agent&apos;s phone ringing and the agent answering the call. For Outbound, this is the time between the customer&apos;s phone ringing and the customer answering the call. This value is rounded to the nearest second.</inlineHelpText>
+        <label>Call Ring Time (s)</label>
+        <precision>8</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>NVMContactWorld__CallTalkTimeInSeconds__c</fullName>
+        <deprecated>false</deprecated>
+        <externalId>false</externalId>
+        <inlineHelpText>For Inbound, this is the time the customer spent connected to an agent. For Outbound, this is the time between the customer answering their phone and the call ending. This value is rounded to the nearest second.</inlineHelpText>
+        <label>Call Talk Time (s)</label>
+        <precision>8</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>NVMContactWorld__ContactWorld_Number__c</fullName>
+        <deprecated>false</deprecated>
+        <description>The contact world number relating to this call.  In the case of an inbound call this would be the number dialled by the caller.  For an outbound call this would be the number presented to the person being called.</description>
+        <externalId>false</externalId>
+        <label>ContactWorld Number</label>
+        <required>false</required>
+        <type>Phone</type>
+    </fields>
+    <fields>
+        <fullName>NVMContactWorld__Customer_Number__c</fullName>
+        <deprecated>false</deprecated>
+        <description>The customer number.  In the case of an inbound call this will be the calling line id.  For an outbound this will be the number that the agnet has called.</description>
+        <externalId>false</externalId>
+        <label>Customer Number</label>
+        <required>false</required>
+        <type>Phone</type>
+    </fields>
+    <fields>
+        <fullName>NVMContactWorld__InteractionQuality__c</fullName>
+        <deprecated>false</deprecated>
+        <externalId>false</externalId>
+        <label>Interaction Quality</label>
+        <precision>2</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>NVMContactWorld__Service_Name__c</fullName>
+        <deprecated>false</deprecated>
+        <description>The service name that the call came from</description>
+        <externalId>false</externalId>
+        <label>Service Name</label>
+        <length>50</length>
+        <required>false</required>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>NVMContactWorld__Was_Call_Recorded__c</fullName>
+        <defaultValue>false</defaultValue>
+        <deprecated>false</deprecated>
+        <externalId>false</externalId>
+        <label>Call Was Recorded</label>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>NVMStatsSF__NVM_Agent__c</fullName>
+        <deprecated>false</deprecated>
+        <externalId>false</externalId>
+        <formula>Owner:User.NVMContactWorld__NVM_Agent_Id__c</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>NVM Agent ID</label>
+        <required>false</required>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>NVM_Date_Time__c</fullName>
+        <defaultValue>NOW() - 55/1440</defaultValue>
+        <description>used to trigger the process builder update for NVM calls</description>
+        <externalId>false</externalId>
+        <label>NVM Date Time</label>
+        <required>false</required>
+        <type>DateTime</type>
+    </fields>
+    <fields>
+        <fullName>Sub_Category__c</fullName>
+        <externalId>false</externalId>
+        <label>Sub-Category</label>
+        <required>false</required>
+        <type>Picklist</type>
+        <valueSet>
+            <controllingField>Category__c</controllingField>
+            <valueSetDefinition>
+                <sorted>false</sorted>
+                <value>
+                    <fullName>Adjustment</fullName>
+                    <default>false</default>
+                    <label>Adjustment</label>
+                </value>
+                <value>
+                    <fullName>Ages2Stages</fullName>
+                    <default>false</default>
+                    <label>Ages2Stages</label>
+                </value>
+                <value>
+                    <fullName>Alliances (Learning Institutes)</fullName>
+                    <default>false</default>
+                    <label>Alliances (Learning Institutes)</label>
+                </value>
+                <value>
+                    <fullName>Alumni</fullName>
+                    <default>false</default>
+                    <label>Alumni</label>
+                </value>
+                <value>
+                    <fullName>Awards / Recognition</fullName>
+                    <default>false</default>
+                    <label>Awards / Recognition</label>
+                </value>
+                <value>
+                    <fullName>Bootcamp / PLE</fullName>
+                    <default>false</default>
+                    <label>Bootcamp / PLE</label>
+                </value>
+                <value>
+                    <fullName>Budget / Funding</fullName>
+                    <default>false</default>
+                    <label>Budget / Funding</label>
+                </value>
+                <value>
+                    <fullName>CA</fullName>
+                    <default>false</default>
+                    <label>CA</label>
+                </value>
+                <value>
+                    <fullName>Calendar / Chapter Events</fullName>
+                    <default>false</default>
+                    <label>Calendar / Chapter Events</label>
+                </value>
+                <value>
+                    <fullName>Champion Journey</fullName>
+                    <default>false</default>
+                    <label>Champion Journey</label>
+                </value>
+                <value>
+                    <fullName>Chapter</fullName>
+                    <default>false</default>
+                    <label>Chapter</label>
+                </value>
+                <value>
+                    <fullName>Chapter Board Meeting</fullName>
+                    <default>false</default>
+                    <label>Chapter Board Meeting</label>
+                </value>
+                <value>
+                    <fullName>Chapter Event</fullName>
+                    <default>false</default>
+                    <label>Chapter Event</label>
+                </value>
+                <value>
+                    <fullName>Chapter Exco Meeting</fullName>
+                    <default>false</default>
+                    <label>Chapter Exco Meeting</label>
+                </value>
+                <value>
+                    <fullName>Chapter Pursue</fullName>
+                    <default>false</default>
+                    <label>Chapter Pursue</label>
+                </value>
+                <value>
+                    <fullName>Chapter Review</fullName>
+                    <default>false</default>
+                    <label>Chapter Review</label>
+                </value>
+                <value>
+                    <fullName>CLW</fullName>
+                    <default>false</default>
+                    <label>CLW</label>
+                </value>
+                <value>
+                    <fullName>Committee Work</fullName>
+                    <default>false</default>
+                    <label>Committee Work</label>
+                </value>
+                <value>
+                    <fullName>Complaint</fullName>
+                    <default>false</default>
+                    <label>Complaint</label>
+                </value>
+                <value>
+                    <fullName>Completed</fullName>
+                    <default>false</default>
+                    <label>Completed</label>
+                </value>
+                <value>
+                    <fullName>Contact</fullName>
+                    <default>false</default>
+                    <label>Contact</label>
+                </value>
+                <value>
+                    <fullName>Contact Info</fullName>
+                    <default>false</default>
+                    <label>Contact Info</label>
+                </value>
+                <value>
+                    <fullName>Day Chair</fullName>
+                    <default>false</default>
+                    <label>Day Chair</label>
+                </value>
+                <value>
+                    <fullName>Declined Chapter</fullName>
+                    <default>false</default>
+                    <label>Declined Chapter</label>
+                </value>
+                <value>
+                    <fullName>Digital Learning / On-Demand</fullName>
+                    <default>false</default>
+                    <label>Digital Learning / On-Demand</label>
+                </value>
+                <value>
+                    <fullName>Dual</fullName>
+                    <default>false</default>
+                    <label>Dual</label>
+                </value>
+                <value>
+                    <fullName>Dues</fullName>
+                    <default>false</default>
+                    <label>Dues</label>
+                </value>
+                <value>
+                    <fullName>Dues/Payment</fullName>
+                    <default>false</default>
+                    <label>Dues/Payment</label>
+                </value>
+                <value>
+                    <fullName>EDGE</fullName>
+                    <default>false</default>
+                    <label>EDGE</label>
+                </value>
+                <value>
+                    <fullName>Escalations</fullName>
+                    <default>false</default>
+                    <label>Escalations</label>
+                </value>
+                <value>
+                    <fullName>Event Information</fullName>
+                    <default>false</default>
+                    <label>Event Information</label>
+                </value>
+                <value>
+                    <fullName>Executive Education</fullName>
+                    <default>false</default>
+                    <label>Executive Education</label>
+                </value>
+                <value>
+                    <fullName>Faculty to Global Leaders</fullName>
+                    <default>false</default>
+                    <label>Faculty to Global Leaders</label>
+                </value>
+                <value>
+                    <fullName>For Presidents by Presidents</fullName>
+                    <default>false</default>
+                    <label>For Presidents by Presidents</label>
+                </value>
+                <value>
+                    <fullName>General Business</fullName>
+                    <default>false</default>
+                    <label>General Business</label>
+                </value>
+                <value>
+                    <fullName>GLC</fullName>
+                    <default>false</default>
+                    <label>GLC</label>
+                </value>
+                <value>
+                    <fullName>Government</fullName>
+                    <default>false</default>
+                    <label>Government</label>
+                </value>
+                <value>
+                    <fullName>Grace</fullName>
+                    <default>false</default>
+                    <label>Grace</label>
+                </value>
+                <value>
+                    <fullName>ID Password</fullName>
+                    <default>false</default>
+                    <label>ID Password</label>
+                </value>
+                <value>
+                    <fullName>Integration</fullName>
+                    <default>false</default>
+                    <label>Integration</label>
+                </value>
+                <value>
+                    <fullName>International</fullName>
+                    <default>false</default>
+                    <label>International</label>
+                </value>
+                <value>
+                    <fullName>Intro-New Incoming CC</fullName>
+                    <default>false</default>
+                    <label>Intro-New Incoming CC</label>
+                </value>
+                <value>
+                    <fullName>Leadership Identification/Officer Learning</fullName>
+                    <default>false</default>
+                    <label>Leadership Identification/Officer Learning</label>
+                </value>
+                <value>
+                    <fullName>Lifelong Learning</fullName>
+                    <default>false</default>
+                    <label>Lifelong Learning</label>
+                </value>
+                <value>
+                    <fullName>Login</fullName>
+                    <default>false</default>
+                    <label>Login</label>
+                </value>
+                <value>
+                    <fullName>Marketing</fullName>
+                    <default>false</default>
+                    <label>Marketing</label>
+                </value>
+                <value>
+                    <fullName>Mentoring</fullName>
+                    <default>false</default>
+                    <label>Mentoring</label>
+                </value>
+                <value>
+                    <fullName>MFLOUP</fullName>
+                    <default>false</default>
+                    <label>MFLOUP</label>
+                </value>
+                <value>
+                    <fullName>Miscellaneous</fullName>
+                    <default>false</default>
+                    <label>Miscellaneous</label>
+                </value>
+                <value>
+                    <fullName>Networks</fullName>
+                    <default>false</default>
+                    <label>Networks</label>
+                </value>
+                <value>
+                    <fullName>New Member</fullName>
+                    <default>false</default>
+                    <label>New Member</label>
+                </value>
+                <value>
+                    <fullName>NMK</fullName>
+                    <default>false</default>
+                    <label>NMK</label>
+                </value>
+                <value>
+                    <fullName>No Reply</fullName>
+                    <default>false</default>
+                    <label>No Reply</label>
+                </value>
+                <value>
+                    <fullName>Other</fullName>
+                    <default>false</default>
+                    <label>Other</label>
+                </value>
+                <value>
+                    <fullName>Outside Chapter Event</fullName>
+                    <default>false</default>
+                    <label>Outside Chapter Event</label>
+                </value>
+                <value>
+                    <fullName>Payment</fullName>
+                    <default>false</default>
+                    <label>Payment</label>
+                </value>
+                <value>
+                    <fullName>Prospect</fullName>
+                    <default>false</default>
+                    <label>Prospect</label>
+                </value>
+                <value>
+                    <fullName>Prospect Basic</fullName>
+                    <default>false</default>
+                    <label>Prospect Basic</label>
+                </value>
+                <value>
+                    <fullName>Prospect In</fullName>
+                    <default>false</default>
+                    <label>Prospect In</label>
+                </value>
+                <value>
+                    <fullName>Refund</fullName>
+                    <default>false</default>
+                    <label>Refund</label>
+                </value>
+                <value>
+                    <fullName>Regional Business (RBM, REX, RMO, RLO, Conferences)</fullName>
+                    <default>false</default>
+                    <label>Regional Business (RBM, REX, RMO, RLO, Conferences)</label>
+                </value>
+                <value>
+                    <fullName>Registration</fullName>
+                    <default>false</default>
+                    <label>Registration</label>
+                </value>
+                <value>
+                    <fullName>Reinstate</fullName>
+                    <default>false</default>
+                    <label>Reinstate</label>
+                </value>
+                <value>
+                    <fullName>Renewal</fullName>
+                    <default>false</default>
+                    <label>Renewal</label>
+                </value>
+                <value>
+                    <fullName>Resign</fullName>
+                    <default>false</default>
+                    <label>Resign</label>
+                </value>
+                <value>
+                    <fullName>Second Chapter</fullName>
+                    <default>false</default>
+                    <label>Second Chapter</label>
+                </value>
+                <value>
+                    <fullName>SOS</fullName>
+                    <default>false</default>
+                    <label>SOS</label>
+                </value>
+                <value>
+                    <fullName>Speakers</fullName>
+                    <default>false</default>
+                    <label>Speakers</label>
+                </value>
+                <value>
+                    <fullName>Strategic Planning</fullName>
+                    <default>false</default>
+                    <label>Strategic Planning</label>
+                </value>
+                <value>
+                    <fullName>Succession Planning</fullName>
+                    <default>false</default>
+                    <label>Succession Planning</label>
+                </value>
+                <value>
+                    <fullName>The Source</fullName>
+                    <default>false</default>
+                    <label>The Source</label>
+                </value>
+                <value>
+                    <fullName>Tools (digital, E-CODE, etc)</fullName>
+                    <default>false</default>
+                    <label>Tools (digital, E-CODE, etc)</label>
+                </value>
+                <value>
+                    <fullName>Training</fullName>
+                    <default>false</default>
+                    <label>Training</label>
+                </value>
+                <value>
+                    <fullName>Transfer</fullName>
+                    <default>false</default>
+                    <label>Transfer</label>
+                </value>
+                <value>
+                    <fullName>Traveling Resource Program</fullName>
+                    <default>false</default>
+                    <label>Traveling Resource Program</label>
+                </value>
+                <value>
+                    <fullName>Updates</fullName>
+                    <default>false</default>
+                    <label>Updates</label>
+                </value>
+                <value>
+                    <fullName>Value of YPO</fullName>
+                    <default>false</default>
+                    <label>Value of YPO</label>
+                </value>
+                <value>
+                    <fullName>Voucher Requested</fullName>
+                    <default>false</default>
+                    <label>Voucher Requested</label>
+                </value>
+                <value>
+                    <fullName>Waiver</fullName>
+                    <default>false</default>
+                    <label>Waiver</label>
+                </value>
+                <value>
+                    <fullName>WPO</fullName>
+                    <default>false</default>
+                    <label>WPO</label>
+                </value>
+                <value>
+                    <fullName>WPO - Grandfather</fullName>
+                    <default>false</default>
+                    <label>WPO - Grandfather</label>
+                </value>
+                <value>
+                    <fullName>YPO Gold</fullName>
+                    <default>false</default>
+                    <label>YPO Gold</label>
+                </value>
+                <value>
+                    <fullName>YPO Gold - Grandfather</fullName>
+                    <default>false</default>
+                    <label>YPO Gold - Grandfather</label>
+                </value>
+            </valueSetDefinition>
+            <valueSettings>
+                <controllingFieldValue>NM Voucher</controllingFieldValue>
+                <valueName>Voucher Requested</valueName>
+            </valueSettings>
+            <valueSettings>
+                <controllingFieldValue>North Asia</controllingFieldValue>
+                <valueName>Completed</valueName>
+            </valueSettings>
+            <valueSettings>
+                <controllingFieldValue>Prospect</controllingFieldValue>
+                <valueName>Chapter Pursue</valueName>
+            </valueSettings>
+            <valueSettings>
+                <controllingFieldValue>Prospect</controllingFieldValue>
+                <valueName>Chapter Review</valueName>
+            </valueSettings>
+            <valueSettings>
+                <controllingFieldValue>Prospect</controllingFieldValue>
+                <valueName>Declined Chapter</valueName>
+            </valueSettings>
+            <valueSettings>
+                <controllingFieldValue>Prospect</controllingFieldValue>
+                <valueName>Prospect Basic</valueName>
+            </valueSettings>
+            <valueSettings>
+                <controllingFieldValue>Web</controllingFieldValue>
+                <valueName>ID Password</valueName>
+            </valueSettings>
+            <valueSettings>
+                <controllingFieldValue>Web</controllingFieldValue>
+                <valueName>Login</valueName>
+            </valueSettings>
+            <valueSettings>
+                <controllingFieldValue>Learning</controllingFieldValue>
+                <valueName>Alliances (Learning Institutes)</valueName>
+            </valueSettings>
+            <valueSettings>
+                <controllingFieldValue>Learning</controllingFieldValue>
+                <valueName>Awards / Recognition</valueName>
+            </valueSettings>
+            <valueSettings>
+                <controllingFieldValue>Learning</controllingFieldValue>
+                <valueName>Bootcamp / PLE</valueName>
+            </valueSettings>
+            <valueSettings>
+                <controllingFieldValue>Learning</controllingFieldValue>
+                <valueName>Budget / Funding</valueName>
+            </valueSettings>
+            <valueSettings>
+                <controllingFieldValue>Learning</controllingFieldValue>
+                <valueName>Calendar / Chapter Events</valueName>
+            </valueSettings>
+            <valueSettings>
+                <controllingFieldValue>Learning</controllingFieldValue>
+                <valueName>Champion Journey</valueName>
+            </valueSettings>
+            <valueSettings>
+                <controllingFieldValue>Learning</controllingFieldValue>
+                <valueName>CLW</valueName>
+            </valueSettings>
+            <valueSettings>
+                <controllingFieldValue>Learning</controllingFieldValue>
+                <valueName>Committee Work</valueName>
+            </valueSettings>
+            <valueSettings>
+                <controllingFieldValue>Learning</controllingFieldValue>
+                <controllingFieldValue>Membership</controllingFieldValue>
+                <valueName>Complaint</valueName>
+            </valueSettings>
+            <valueSettings>
+                <controllingFieldValue>Learning</controllingFieldValue>
+                <valueName>Day Chair</valueName>
+            </valueSettings>
+            <valueSettings>
+                <controllingFieldValue>Learning</controllingFieldValue>
+                <valueName>Digital Learning / On-Demand</valueName>
+            </valueSettings>
+            <valueSettings>
+                <controllingFieldValue>Learning</controllingFieldValue>
+                <valueName>EDGE</valueName>
+            </valueSettings>
+            <valueSettings>
+                <controllingFieldValue>Learning</controllingFieldValue>
+                <valueName>Executive Education</valueName>
+            </valueSettings>
+            <valueSettings>
+                <controllingFieldValue>Learning</controllingFieldValue>
+                <valueName>Faculty to Global Leaders</valueName>
+            </valueSettings>
+            <valueSettings>
+                <controllingFieldValue>Learning</controllingFieldValue>
+                <valueName>For Presidents by Presidents</valueName>
+            </valueSettings>
+            <valueSettings>
+                <controllingFieldValue>Learning</controllingFieldValue>
+                <valueName>GLC</valueName>
+            </valueSettings>
+            <valueSettings>
+                <controllingFieldValue>Learning</controllingFieldValue>
+                <valueName>Lifelong Learning</valueName>
+            </valueSettings>
+            <valueSettings>
+                <controllingFieldValue>Learning</controllingFieldValue>
+                <valueName>Marketing</valueName>
+            </valueSettings>
+            <valueSettings>
+                <controllingFieldValue>Learning</controllingFieldValue>
+                <valueName>Mentoring</valueName>
+            </valueSettings>
+            <valueSettings>
+                <controllingFieldValue>Learning</controllingFieldValue>
+                <controllingFieldValue>Event</controllingFieldValue>
+                <valueName>Other</valueName>
+            </valueSettings>
+            <valueSettings>
+                <controllingFieldValue>Learning</controllingFieldValue>
+                <valueName>Regional Business (RBM, REX, RMO, RLO, Conferences)</valueName>
+            </valueSettings>
+            <valueSettings>
+                <controllingFieldValue>Learning</controllingFieldValue>
+                <valueName>Speakers</valueName>
+            </valueSettings>
+            <valueSettings>
+                <controllingFieldValue>Learning</controllingFieldValue>
+                <controllingFieldValue>C&amp;R Chapter Visit</controllingFieldValue>
+                <valueName>Strategic Planning</valueName>
+            </valueSettings>
+            <valueSettings>
+                <controllingFieldValue>Learning</controllingFieldValue>
+                <valueName>The Source</valueName>
+            </valueSettings>
+            <valueSettings>
+                <controllingFieldValue>Learning</controllingFieldValue>
+                <valueName>Tools (digital, E-CODE, etc)</valueName>
+            </valueSettings>
+            <valueSettings>
+                <controllingFieldValue>Learning</controllingFieldValue>
+                <valueName>Training</valueName>
+            </valueSettings>
+            <valueSettings>
+                <controllingFieldValue>Learning</controllingFieldValue>
+                <valueName>Traveling Resource Program</valueName>
+            </valueSettings>
+            <valueSettings>
+                <controllingFieldValue>C&amp;R Chapter Visit</controllingFieldValue>
+                <valueName>Chapter Board Meeting</valueName>
+            </valueSettings>
+            <valueSettings>
+                <controllingFieldValue>C&amp;R Chapter Visit</controllingFieldValue>
+                <valueName>Chapter Event</valueName>
+            </valueSettings>
+            <valueSettings>
+                <controllingFieldValue>C&amp;R Chapter Visit</controllingFieldValue>
+                <valueName>Chapter Exco Meeting</valueName>
+            </valueSettings>
+            <valueSettings>
+                <controllingFieldValue>C&amp;R Chapter Visit</controllingFieldValue>
+                <valueName>General Business</valueName>
+            </valueSettings>
+            <valueSettings>
+                <controllingFieldValue>C&amp;R Chapter Visit</controllingFieldValue>
+                <valueName>Integration</valueName>
+            </valueSettings>
+            <valueSettings>
+                <controllingFieldValue>C&amp;R Chapter Visit</controllingFieldValue>
+                <valueName>Intro-New Incoming CC</valueName>
+            </valueSettings>
+            <valueSettings>
+                <controllingFieldValue>C&amp;R Chapter Visit</controllingFieldValue>
+                <valueName>Leadership Identification/Officer Learning</valueName>
+            </valueSettings>
+            <valueSettings>
+                <controllingFieldValue>C&amp;R Chapter Visit</controllingFieldValue>
+                <valueName>Outside Chapter Event</valueName>
+            </valueSettings>
+            <valueSettings>
+                <controllingFieldValue>C&amp;R Chapter Visit</controllingFieldValue>
+                <valueName>Succession Planning</valueName>
+            </valueSettings>
+            <valueSettings>
+                <controllingFieldValue>C&amp;R Chapter Visit</controllingFieldValue>
+                <valueName>Value of YPO</valueName>
+            </valueSettings>
+            <valueSettings>
+                <controllingFieldValue>Event</controllingFieldValue>
+                <valueName>International</valueName>
+            </valueSettings>
+            <valueSettings>
+                <controllingFieldValue>Event</controllingFieldValue>
+                <valueName>Registration</valueName>
+            </valueSettings>
+            <valueSettings>
+                <controllingFieldValue>Finance</controllingFieldValue>
+                <valueName>Adjustment</valueName>
+            </valueSettings>
+            <valueSettings>
+                <controllingFieldValue>Finance</controllingFieldValue>
+                <valueName>Payment</valueName>
+            </valueSettings>
+            <valueSettings>
+                <controllingFieldValue>IOS</controllingFieldValue>
+                <valueName>Contact Info</valueName>
+            </valueSettings>
+            <valueSettings>
+                <controllingFieldValue>Membership</controllingFieldValue>
+                <valueName>Ages2Stages</valueName>
+            </valueSettings>
+            <valueSettings>
+                <controllingFieldValue>Membership</controllingFieldValue>
+                <valueName>Alumni</valueName>
+            </valueSettings>
+            <valueSettings>
+                <controllingFieldValue>Membership</controllingFieldValue>
+                <valueName>CA</valueName>
+            </valueSettings>
+            <valueSettings>
+                <controllingFieldValue>Membership</controllingFieldValue>
+                <valueName>Chapter</valueName>
+            </valueSettings>
+            <valueSettings>
+                <controllingFieldValue>Membership</controllingFieldValue>
+                <valueName>Contact</valueName>
+            </valueSettings>
+            <valueSettings>
+                <controllingFieldValue>Membership</controllingFieldValue>
+                <valueName>Dual</valueName>
+            </valueSettings>
+            <valueSettings>
+                <controllingFieldValue>Membership</controllingFieldValue>
+                <valueName>Dues</valueName>
+            </valueSettings>
+            <valueSettings>
+                <controllingFieldValue>Membership</controllingFieldValue>
+                <valueName>Dues/Payment</valueName>
+            </valueSettings>
+            <valueSettings>
+                <controllingFieldValue>Membership</controllingFieldValue>
+                <valueName>Government</valueName>
+            </valueSettings>
+            <valueSettings>
+                <controllingFieldValue>Membership</controllingFieldValue>
+                <valueName>Grace</valueName>
+            </valueSettings>
+            <valueSettings>
+                <controllingFieldValue>Membership</controllingFieldValue>
+                <controllingFieldValue>MemOut</controllingFieldValue>
+                <valueName>MFLOUP</valueName>
+            </valueSettings>
+            <valueSettings>
+                <controllingFieldValue>Membership</controllingFieldValue>
+                <valueName>Networks</valueName>
+            </valueSettings>
+            <valueSettings>
+                <controllingFieldValue>Membership</controllingFieldValue>
+                <valueName>New Member</valueName>
+            </valueSettings>
+            <valueSettings>
+                <controllingFieldValue>Membership</controllingFieldValue>
+                <valueName>NMK</valueName>
+            </valueSettings>
+            <valueSettings>
+                <controllingFieldValue>Membership</controllingFieldValue>
+                <valueName>Prospect</valueName>
+            </valueSettings>
+            <valueSettings>
+                <controllingFieldValue>Membership</controllingFieldValue>
+                <valueName>Prospect In</valueName>
+            </valueSettings>
+            <valueSettings>
+                <controllingFieldValue>Membership</controllingFieldValue>
+                <valueName>Refund</valueName>
+            </valueSettings>
+            <valueSettings>
+                <controllingFieldValue>Membership</controllingFieldValue>
+                <valueName>Reinstate</valueName>
+            </valueSettings>
+            <valueSettings>
+                <controllingFieldValue>Membership</controllingFieldValue>
+                <valueName>Renewal</valueName>
+            </valueSettings>
+            <valueSettings>
+                <controllingFieldValue>Membership</controllingFieldValue>
+                <valueName>Resign</valueName>
+            </valueSettings>
+            <valueSettings>
+                <controllingFieldValue>Membership</controllingFieldValue>
+                <valueName>Second Chapter</valueName>
+            </valueSettings>
+            <valueSettings>
+                <controllingFieldValue>Membership</controllingFieldValue>
+                <valueName>SOS</valueName>
+            </valueSettings>
+            <valueSettings>
+                <controllingFieldValue>Membership</controllingFieldValue>
+                <valueName>Transfer</valueName>
+            </valueSettings>
+            <valueSettings>
+                <controllingFieldValue>Membership</controllingFieldValue>
+                <valueName>Updates</valueName>
+            </valueSettings>
+            <valueSettings>
+                <controllingFieldValue>Membership</controllingFieldValue>
+                <valueName>Waiver</valueName>
+            </valueSettings>
+            <valueSettings>
+                <controllingFieldValue>Membership</controllingFieldValue>
+                <valueName>WPO</valueName>
+            </valueSettings>
+            <valueSettings>
+                <controllingFieldValue>Membership</controllingFieldValue>
+                <valueName>WPO - Grandfather</valueName>
+            </valueSettings>
+            <valueSettings>
+                <controllingFieldValue>Membership</controllingFieldValue>
+                <valueName>YPO Gold</valueName>
+            </valueSettings>
+            <valueSettings>
+                <controllingFieldValue>Membership</controllingFieldValue>
+                <valueName>YPO Gold - Grandfather</valueName>
+            </valueSettings>
+            <valueSettings>
+                <controllingFieldValue>Corporate Services</controllingFieldValue>
+                <valueName>Escalations</valueName>
+            </valueSettings>
+            <valueSettings>
+                <controllingFieldValue>Corporate Services</controllingFieldValue>
+                <valueName>Event Information</valueName>
+            </valueSettings>
+            <valueSettings>
+                <controllingFieldValue>Corporate Services</controllingFieldValue>
+                <valueName>Miscellaneous</valueName>
+            </valueSettings>
+        </valueSet>
+    </fields>
+    <fields>
+        <fullName>Validation_Check__c</fullName>
+        <defaultValue>false</defaultValue>
+        <externalId>false</externalId>
+        <label>Validation Check</label>
+        <type>Checkbox</type>
+    </fields>
+    <listViews>
+        <fullName>FingerTip__AllActivities</fullName>
+        <filterScope>Team</filterScope>
+        <label>All Activities</label>
+    </listViews>
+    <listViews>
+        <fullName>MyActivities</fullName>
+        <filterScope>Mine</filterScope>
+        <filters>
+            <field>TASK.SUBJECT</field>
+            <operation>contains</operation>
+            <value>new member call</value>
+        </filters>
+        <filters>
+            <field>TASK.SUBJECT</field>
+            <operation>notContain</operation>
+            <value>exclusive</value>
+        </filters>
+        <filters>
+            <field>TASK.STATUS</field>
+            <operation>equals</operation>
+            <value>Open</value>
+        </filters>
+        <label>My Activities</label>
+    </listViews>
+    <listViews>
+        <fullName>MyDelegatedActivities</fullName>
+        <filterScope>Delegated</filterScope>
+        <label>My Delegated Activities</label>
+    </listViews>
+    <listViews>
+        <fullName>MyTeamsActivities</fullName>
+        <filterScope>Team</filterScope>
+        <label>My Team&apos;s Activities</label>
+    </listViews>
+    <listViews>
+        <fullName>TodaysTasks</fullName>
+        <filterScope>Mine</filterScope>
+        <filters>
+            <field>TASK.CLOSED</field>
+            <operation>equals</operation>
+            <value>0</value>
+        </filters>
+        <filters>
+            <field>ACTIVITY.TASK</field>
+            <operation>equals</operation>
+            <value>1</value>
+        </filters>
+        <filters>
+            <field>TASK.DUE_DATE</field>
+            <operation>lessThan</operation>
+            <value>TOMORROW</value>
+        </filters>
+        <label>Today&apos;s Tasks</label>
+    </listViews>
+    <listViews>
+        <fullName>UpcomingEvents</fullName>
+        <filterScope>Mine</filterScope>
+        <filters>
+            <field>ACTIVITY.TASK</field>
+            <operation>equals</operation>
+            <value>0</value>
+        </filters>
+        <filters>
+            <field>TASK.DUE_DATE</field>
+            <operation>greaterThan</operation>
+            <value>YESTERDAY</value>
+        </filters>
+        <label>Upcoming Events</label>
+    </listViews>
+    <searchLayouts>
+        <searchResultsAdditionalFields>TASK.SUBJECT</searchResultsAdditionalFields>
+        <searchResultsAdditionalFields>TASK.WHO_NAME</searchResultsAdditionalFields>
+        <searchResultsAdditionalFields>TASK.WHAT_NAME</searchResultsAdditionalFields>
+        <searchResultsAdditionalFields>TASK.DUE_DATE</searchResultsAdditionalFields>
+        <searchResultsAdditionalFields>CORE.USERS.ALIAS</searchResultsAdditionalFields>
+    </searchLayouts>
+    <sharingModel>ControlledByParent</sharingModel>
+</CustomObject>

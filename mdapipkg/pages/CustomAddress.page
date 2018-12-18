@@ -1,0 +1,28 @@
+<apex:page standardcontroller="Account_Affiliation__c" extensions="CustomAddressExtension" doctype="html-5.0" standardstylesheets="true" tabstyle="Account_Affiliation__c" showheader="false" sidebar="false">
+	<apex:form >
+		<apex:pageblock mode="maindetail">
+			<apex:pageblocksection columns="2">
+				<apex:pageblocksectionitem >
+					<apex:outputlabel id="StreetLabel" for="Street" value="{!$ObjectType.Account_Affiliation__c.fields.Street__c.Label}" />
+					<apex:outputfield id="Street" value="{!Account_Affiliation__c.Street__c}" />
+				</apex:pageblocksectionitem>
+				<apex:pageblocksectionitem >
+					<apex:outputlabel id="countryLabel" for="Label" value="{!$ObjectType.Account_Affiliation__c.fields.Country__c.Label}" />
+					<apex:outputfield id="Label" value="{!dummyAcct.BillingCountryCode}" />
+				</apex:pageblocksectionitem>
+				<apex:pageblocksectionitem >
+					<apex:outputlabel id="StreetLabel" for="City" value="{!$ObjectType.Account_Affiliation__c.fields.City__c.Label}" />
+					<apex:outputfield id="City" value="{!Account_Affiliation__c.City__c}" />
+				</apex:pageblocksectionitem>
+				<apex:pageblocksectionitem >
+					<apex:outputlabel id="StateLabel" value="{!$ObjectType.Account_Affiliation__c.fields.State__c.Label}" />
+					<apex:outputfield value="{!dummyAcct.BillingStateCode}" />
+				</apex:pageblocksectionitem>
+				<apex:pageblocksectionitem >
+					<apex:outputlabel id="postalCodeLabel" for="postalCode" value="{!$ObjectType.Account_Affiliation__c.fields.Postal_Code__c.Label}" />
+					<apex:outputfield id="postalCode" value="{!Account_Affiliation__c.Postal_Code__c}" />
+				</apex:pageblocksectionitem>
+			</apex:pageblocksection>
+		</apex:pageblock>
+	</apex:form>
+</apex:page>

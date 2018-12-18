@@ -1,0 +1,84 @@
+﻿<apex:page sidebar="false" showHeader="false" standardStylesheets="false" doctype="html-5.0">
+	
+	<head>
+		
+    	<meta charset="UTF-8"/>
+        <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no"/>
+        <title>YPO Renewals</title>
+        
+		<style type="text/css">
+			.cartIicon {
+				position: relative;
+				float: right;
+				margin-right: 2px;
+				cursor: pointer;
+			}
+			
+			.cart-circle {
+				display: none;
+			}
+			
+			.navbar-header img {
+				margin-left: 2px;
+			}
+		</style>
+	</head>
+	
+	<body>
+            
+        <!-- Global site tag (gtag.js) - Google Analytics -->
+        <script async="true" src="https://www.googletagmanager.com/gtag/js?id={!$Label.Google_Analytics_ID}"></script>
+        <script>
+            window.dataLayer = window.dataLayer || [];
+            function gtag(){dataLayer.push(arguments);}
+            gtag('js', new Date());
+            gtag('config', '{!$Label.Google_Analytics_ID}');
+        </script>
+        <!-- End Google Analytics code -->
+    
+		<apex:composition template="V_Template_ProspectFlow_YPO">
+	      <apex:define name="title">
+	         <title>
+	            Order confirmation | {! $Organization.Name}
+	         </title>
+	      </apex:define>
+	      <apex:define name="content">
+	         <div class="prntBtn btm-btns">
+	            <a href="{! URLFOR($Page.v_invoices,null,null)}">
+	                <button class="btn btn-blue">Print Invoice</button>
+	            </a>
+	         </div>
+	         <section class="congratsBlock">
+	            <figure>
+	               <apex:image id="theImage" value="{!URLFOR($Resource.prospectResources, 'prospectResources/images/checkMarkLogo.PNG')}"/>
+	            </figure>
+	            <h2>Congratulations</h2>
+	            <apex:outputPanel rendered="{! $CurrentPage.parameters.method == 'check' }" layout="none">
+	               <p> Your order has been received and an invoice has been sent to your email. <!-- {! $CurrentPage.parameters.method != 'check' } --></p>
+	            </apex:outputPanel>
+	            <apex:outputPanel rendered="{! $CurrentPage.parameters.method != 'check' }" layout="none">
+	               <p>Your payment was received and you will be receiving a confirmation email shortly. <!-- {! $CurrentPage.parameters.method == 'check' } --> </p>
+	            </apex:outputPanel>
+	            <div class="addressBlock">
+	               <apex:outputPanel rendered="{! $CurrentPage.parameters.method == 'check' }" layout="none">
+	                  <span>To complete the payment process please make checks and wires payable to YPO and include your name and membership ID number on the check.
+	                  <!-- {! $CurrentPage.parameters.method == 'check' } --></span>
+	                  <ul>
+	                     <li>Mail checks to:</li>
+	                     <li>YPO P.O.Box 202590,</li>
+	                     <li>Dallas, Texas 75320-2590, USA</li>
+	                  </ul>
+	                  <ul>
+	                     <li>Send courier(overnight) mail to:</li>
+	                     <li>YPO 202590 Regent Blvd.</li>
+	                     <li>Irving, Texas 75063, USA</li>
+	                  </ul>
+	               </apex:outputPanel>
+	            </div>
+	         </section>
+	      </apex:define>
+	   </apex:composition>
+	   
+	  </body>
+	  
+</apex:page>

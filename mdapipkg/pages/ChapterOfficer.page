@@ -1,0 +1,17 @@
+<apex:page standardController="Lead" extensions="ChapterOfficerLeadContExt" standardStylesheets="false" title="{!$Label.Chapter_Officer}">
+	<apex:form >
+		<apex:pageBlock title="{!$Label.Chapter_Officer_Section}" mode="edit">
+			<apex:pageBlockSection columns="1">
+				<apex:repeat value="{!$ObjectType.Lead.FieldSets.Chapter_Officer_Form}" var="f"> 
+			        <apex:inputField value="{!Lead[f]}" /><br/>
+			    </apex:repeat>
+			    <apex:outputField value="{!Lead.Organization__c}" /><br/>  
+			</apex:pageBlockSection>
+			
+			<apex:pageBlockButtons location="bottom">
+				<apex:commandButton value="{!$Label.Save}" title="{!$Label.Save}" action="{!Save}" />
+			</apex:pageBlockButtons>
+		</apex:pageBlock>
+	</apex:form>
+	
+</apex:page>

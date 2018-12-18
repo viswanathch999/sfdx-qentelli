@@ -1,0 +1,79 @@
+<apex:page standardController="Contact" extensions="AccountAffiliationRLContactContExt" sidebar="false" showHeader="false" tabStyle="Account_Affiliation__c">
+    <style>
+        .linkDecor
+        {
+        text-decoration:none;
+        color:#015ba7;
+        }
+        .linkDecor:hover
+        {
+        text-decoration:underline;
+        }
+    </style>
+    
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
+    <script>
+        var $j = jQuery.noConflict();
+    $j(document).ready(function() {
+        $j('[id$=accRecType]').on('change', function() {
+            queryDataByRT($j(this).val());
+        });     
+    });
+    function confirmDelete(){
+        if(confirm('Are you sure?'))
+            return true;
+        return false;
+    }        
+    function search(){
+        queryData(document.getElementById("type").options[document.getElementById("type").selectedIndex].value);
+    }
+    function redirect()
+    {
+        var url = '{!newURL}'; 
+        if(url != "null")
+            window.open(url, "_parent");
+    }
+    </script>
+    
+    <apex:form >
+        <apex:actionFunction name="queryDataByRT" action="{!queryResultsByRT}" rerender="panel"> 
+        </apex:actionFunction>
+        
+        <apex:pageBlock title="{!$Label.Account_Affiliations}" mode="new" tabStyle="Account_Affiliation__c">
+            
+            <apex:pageBlockButtons location="top">
+                <apex:commandButton value="New Account Affiliation"  action="{!dummy}" oncomplete="redirect();" />          
+                
+                <apex:outputLabel value="Filter by RecordType : " style="font-weight:bold;"> </apex:outputLabel>
+                
+                <apex:selectList id="accRecType" value="{!selectedRecordTypeId}" size="1">
+                    <apex:selectOptions value="{!accAffRecTypes}"/>
+                </apex:selectList>  
+            </apex:pageBlockButtons>        
+            <apex:outputPanel id="panel">
+                <apex:pageBlockTable id="results" value="{!filteredRecords}" var="index" rows="5" rendered="{!(filteredRecords.size > 0)}">   
+                    <apex:column headerValue="Action" >
+                        <apex:variable var="recordTypeId" value="{!index.RecordTypeId}"/>
+                        <apex:variable var="BusinessRecordEditPage" value="/apex/newBusinessAccountAffiliation?Id={!index.id}"/>
+                        <apex:variable var="otherEditPage" value="{!URLFOR($Action.Account_Affiliation__c.Edit, index.id,[retURL=index.Contact__c],true)}"/>
+                        <apex:outputLink value="{!IF(recordTypeId == '012610000005yaYAAQ', BusinessRecordEditPage, otherEditPage)}" target="_parent" styleclass="linkDecor" >Edit</apex:outputLink> |&nbsp;
+                        <apex:outputLink value="{!URLFOR($Action.Account_Affiliation__c.Delete, index.Id,[retURL=index.Contact__c])}" target="_parent" styleclass="linkDecor" onclick="return confirmDelete()">Del</apex:outputLink>
+                    </apex:column>
+                    <apex:column headerValue="{!$ObjectType.Account_Affiliation__c.Fields.Name.Label}">
+                        <apex:outputLink value="{!URLFOR($Action.Account_Affiliation__c.View, index.Id)}" target="_parent">{!index.Name}</apex:outputLink>
+                    </apex:column>
+                    <apex:repeat value="{!$ObjectType.Account_Affiliation__c.FieldSets.Related_List_Fields}" var="f"> 
+                        <apex:column headerValue="{!f.Label}">
+                            <apex:outputField value="{!index[f]}" />
+                        </apex:column>
+                    </apex:repeat>  
+                </apex:pageblocktable>
+                <apex:outputText rendered="{!(filteredRecords.size==0)}" value="No records found"/> 
+                <br/>
+                <apex:commandLink id="showall" action="{!queryAllResults}" rendered="{!(filteredRecords.size > 0)}" value="Show All" target="_blank">
+                </apex:commandLink> 
+            </apex:outputPanel>
+            <apex:inputfield value="{!Contact.Name}" rendered="false" />
+        </apex:pageBlock>
+    </apex:form> 
+</apex:page>

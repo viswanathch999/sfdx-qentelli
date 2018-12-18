@@ -1,0 +1,109 @@
+<!--COPYRIGHT KINETIC GROWTH INC-->
+<apex:page title="{! item.name}" showHeader="false" sidebar="false" standardStylesheets="false" applyHtmlTag="false" applyBodyTag="false" docType="html-5.0" controller="KGRenewal.VenueDetailController">
+<!--<apex:composition template="{! $Site.Template}">-->
+<apex:composition template="v_template">
+<apex:define name="title"><title>{! item.name} | {! $Organization.Name}</title></apex:define>
+<apex:define name="content">
+<script>
+    function swapImage(thumbnail) { //thumbnail parameter: image that should replace the main image
+        'use strict';
+        document.getElementById('detailMainImage0').src = thumbnail.src;
+        //document.getElementById('detailMainImage0anchor').href = thumbnail.src;
+    }
+</script>
+<!--Venue product classes (for legacy cart mode): kgvenue product id-->
+<div id="{! item.record.Id}" class="row kgvenue product id" data-venue-define="product" data-venue-id="{! item.record.Id}" data-venue-name="{! item.name}">
+    <!--main column-->
+    <!--<div class="col-xs-9 col-sm-10 col-md-11">-->
+    <div class="col-xs-12">
+        <div class="row">
+            <!--large image-->
+            <div class="col-xs-12 col-sm-5 col-md-4">
+                    <!--<a name="MainImage" id="detailMainImage0anchor" href="{!item.record.KGRenewal__MainImageSmall__c}">-->
+                        <img id="detailMainImage0" class="center-block img-responsive" src="{! $Site.prefix}{!item.record.KGRenewal__MainImageSmall__c}" alt="{! IF(NOT(ISNULL(item.record.KGRenewal__MainImageSmall__c)), item.name, '')}" />
+                    <!--</a>-->
+            </div> <!--/.col-->
+
+            <!--text-->
+            <div class="col-xs-12 col-sm-7 col-md-8">
+                <!--Venue product name classes (for legacy cart mode): kgvenue name-->
+                <h1 class="text-primary kgvenue name">{! item.name}</h1>
+                <hr />
+                <!--price, quantity, add to cart row-->
+                <div class="row">
+                    <!--standard price-->
+                    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12" >
+                        <!--show Standard Ecommerce Price with strikethrough format if it is higher than Original Price-->
+                        <apex:outputPanel rendered="{! item.hasCustomPrice}" layout="none">
+                            <h4 class="text-left">
+                                <s> <!--strikethrough-->
+                                    <apex:outputText value="{0, number, currency}">
+                                        <apex:param value="{! item.standardEcommercePrice}"/>
+                                    </apex:outputText>
+                                </s> <!--/strikethrough-->
+                            </h4>
+                            <p>
+                                You save:&nbsp;
+                                <apex:outputText value="{0, number, currency}">
+                                    <apex:param value="{! item.standardEcommercePrice - item.discountedPrice}"/>
+                                </apex:outputText>
+                                &nbsp;(
+                                <apex:outputText value="{0, number, percent}">
+                                    <apex:param value="{! (item.standardEcommercePrice - item.discountedPrice) / item.standardEcommercePrice}"/>
+                                </apex:outputText>
+                                )
+                            </p>
+                        </apex:outputPanel>
+                    </div> <!--/col-->
+                    <!--original price-->
+                    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+                        <!--Venue product price classes (for legacy cart mode): kgvenue unitprice-field decimal-->
+                        <h4 class="text-left text-danger kgvenue unitprice-field decimal">
+                            <apex:outputText value="{0, number, currency}">
+                                <apex:param value="{! ROUND(item.discountedPrice, 2)}"/>
+                            </apex:outputText>
+                        </h4>
+                        <br /> <!--used to vertically add space between price and add to cart button in xs view-->
+                    </div> <!--/col-->
+                    <!--quantity input field-->
+                    <div class="col-xs-5 col-sm-6 col-md-6 col-lg-6">
+                        <!--Venue Quantity classes (for legacy cart mode): kgvenue quantity-field integer-->
+                        <input type="number" class="form-control kgvenue quantity-field integer" data-venue-field-input="quantity" data-venue-field-type="integer" min="1" step="1" value="1" required="true"/>
+                    </div> <!--/col-->
+                    <br/>
+                    <!--additional input field 1-->
+                    <div class="col-xs-5 col-sm-6 col-md-6 col-lg-6">
+                        <!--Venue Quantity classes (for legacy cart mode): kgvenue quantity-field integer-->
+                        <input type="text" class="form-control kgvenue quantity-field integer" data-venue-field-input="KGRenewal__ShippingFirstName__c" value="This will be inserted in KGRenewal__ShippingFirstName__c" required="true"/>
+                    </div> <!--/col-->
+                    <!--additional input field 2-->
+                    <div class="col-xs-5 col-sm-6 col-md-6 col-lg-6">
+                        <!--Venue Quantity classes (for legacy cart mode): kgvenue quantity-field integer-->
+                        <input type="text" class="form-control kgvenue quantity-field integer" data-venue-field-input="KGRenewal__DiscountTarget__c" data-venue-field-type="decimal" value="This decimal be inserted in KGRenewal__DiscountTarget__c" required="true"/>
+                    </div> <!--/col-->
+                    <!--add to cart button-->
+                    <div class="col-xs-7 col-sm-6 col-md-6 col-lg-6">
+                        <!--Venue Add to Cart button classes (for legacy cart mode): kgvenue add single-->
+                        <!--Change 'data-venue-action="add"' to 'data-venue-action="add-and-navigate"' to go to cart page after clicking button-->
+                                <a class="btn btn-warning btn-block kgvenue add single" data-venue-action="add" role="button" href="{! URLFOR($Page.v_cart, null, ['id'=item.productId])}">
+                            Add to cart
+                            <span class="glyphicon glyphicon-shopping-cart"></span>
+                        </a>
+                    </div> <!--/col-->
+                </div> <!--/row-->
+
+                <hr />
+                <p>{! item.Description}</p>
+            </div> <!--/col-->
+
+        </div> <!--/row-->
+    </div> <!--/col--><!--/main column-->
+</div> <!--/row--> <!--/id item.record.Id-->
+
+<div id="shopping-bag" class="kgvenue-shopping-cart">
+<KGRenewal:CartComponent mode="scriptonly" />
+</div> <!--/kgvenue-shopping-cart-->
+
+</apex:define> <!--/content-->
+</apex:composition>
+</apex:page>

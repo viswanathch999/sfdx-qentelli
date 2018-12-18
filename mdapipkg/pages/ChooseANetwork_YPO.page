@@ -1,0 +1,145 @@
+<apex:page standardController="Contact" extensions="ChooseANetWorkExtn"  sidebar="false" showHeader="false" standardStylesheets="false">
+<style>
+    .cart-circle{
+        display:none;
+       
+    }
+     p{color:#717171;}
+</style>
+  <apex:stylesheet value="{!$Resource.InvisionAppStyle_YPO}"/>    
+    <apex:composition template="V_Template_ProspectFlow_YPO">
+        <apex:define name="content">            
+            <apex:form >
+            <div class="row">
+            <div class="col-md-10 col-md-offset-1 col-lg-8 col-lg-offset-2">
+            
+            
+                <apex:pageBlock id="pagblockId">
+                            <apex:actionStatus startText="requesting..." stopText="" id="status" />
+                            
+                                <h2 class="title">Choose a Business Network</h2>
+                                <p>
+                                    <apex:outputText value="{!$Label.ChooseANetwork_createsunic}" escape="false" />
+                                  
+                                    <span class="up-case chooseTiltle"> {!$Label.ChooseANetwork_PLEASESELECT} </span>
+                                </p>
+                            
+                                                  
+                           <section class="chooseNetwork">
+                            <apex:variable var="i" value="{!0}"/>
+                            <apex:repeat var="accbusnet" value="{!AccountBusinessNetwork}">
+                                <apex:variable var="i" value="{!i+1}"/>
+                                <apex:outputPanel id="panelBusinessDescId" >
+                                    <div class="panel">
+                                         <label class="control control--radio">
+                                                <input type="radio" value="{!accbusnet.AccBusinessNetwork.Id}" name="selectedAccountId" onclick="document.getElementById('continueBTN').disabled = false;"/>
+                                                {!accbusnet.AccBusinessNetwork.Name}
+                                                <div class="radioButtonDiv"></div>
+                                         </label>
+                                        <span id="showviewancId{!i}" class="view">
+                                            <a href="" onclick="showAccountDesc({!i})" > <span class="hidden-xs">View Details</span><elm class="glyphicon glyphicon-menu-down"></elm> </a>
+                                        </span>
+                                        <span style="display:none" id="hideviewancId{!i}" class="radio-elements-text view">
+                                            <a href="" onclick="hideAccountDesc({!i})" > <span class="hidden-xs">Hide details</span><elm class="glyphicon glyphicon-menu-up"></elm> </a>
+                                        </span>
+                                    </div>
+                                     
+                                     
+                                    <!--<div class="panel panel-padding col-md-8 col-md-offset-2 mrg-btm-1">
+                                       <!-- <div class="radio-elements"> 
+                                            <input type="radio" value="{!accbusnet.AccBusinessNetwork.Id}" name="selectedAccountId"/>
+                                             {!accbusnet.AccBusinessNetwork.Name}
+                                        </div>
+                                            <label class="control control--radio radio-elements">
+                                                <input type="radio" value="{!accbusnet.AccBusinessNetwork.Id}" name="selectedAccountId"/>
+                                                {!accbusnet.AccBusinessNetwork.Name}
+                                                <div class="radioButtonDiv"></div>
+                                            </label>
+                                        
+                                        <div id="showviewancId{!i}" class="radio-elements-text">
+                                            <a href="" onclick="showAccountDesc({!i})" > <spam class="glyphicon glyphicon-chevron-down"/> </a>
+                                        </div>
+                                        
+                                        
+                                        <div style="display:none" id="hideviewancId{!i}" class="radio-elements-text">
+                                            <a href="" onclick="hideAccountDesc({!i})" ><spam class="glyphicon glyphicon-chevron-up"/> </a>
+                                        </div>
+                                    </div>-->                                   
+                                    <div id="showAccountDescId{!i}" style="display:none" class="ash-bg">
+                                    
+                                        
+                                            <p>{!accbusnet.AccBusinessNetwork.Description}</p>
+                                        
+                                    </div>
+                                </apex:outputPanel>
+                            </apex:repeat>   
+                        
+                             <!--div class="panel panel-padding col-md-8 col-md-offset-2 inputCustomBtn text-center ppTB">                             
+                                    <div class="text-center cancelBtn">
+                                        <input type="submit" class="cancelBtn" value="Back"/>
+                                        <input type="submit" value="Continue to Catalog"/>
+                                    </div>  
+                            </div>
+                            <div class="panel panel-padding col-md-8 col-md-offset-2 no-pd mTop text-center inputCustomBtn">
+                                     <span ><apex:commandButton action="{!goBack}" value="Back" styleClass="btn btn-default" /></span>
+                                    <button type="button" onclick="getAccountRecordId()" class="btn btn-primary">Continue to Catalog</button>
+                            </div>-->
+                            <div class="btns-div btm-btns whiteBox">
+                              
+                                    <button type="button" onclick="goBack()" class="btn btn-gray">Back</button>
+                                    <button type="button" onclick="getAccountRecordId()" class="btn btn-blue" disabled="disabled" id="continueBTN">Continue to Catalog</button>
+                               
+                            </div>
+                            </section>  
+                </apex:pageBlock>
+                <apex:actionFunction name="goBack" action="{!goBack}"></apex:actionFunction> 
+                <apex:actionFunction name="callUpdateContact"  action="{!updateContact}" reRender="none" status="status">
+                     <apex:param name="firstParam" assignTo="{!selectedAccountId}" value="" />
+                </apex:actionFunction>
+                </div>
+            </div>
+                         
+            </apex:form>
+        </apex:define>
+    </apex:composition>
+    
+    
+    <script>
+        function getAccountRecordId(){
+            var selectAccount = document.getElementsByName("selectedAccountId");
+            var selAccountBusnetid;
+            for(var i=0;i<selectAccount.length;i++){
+                if(selectAccount[i].checked){
+                    //alert(selectAccount[i].value);
+                    selAccountBusnetid= selectAccount[i].value;
+                    break;
+                }    
+            }
+            //alert(selAccountBusnetid);
+            callUpdateContact(selAccountBusnetid);
+        }
+        
+        function showAccountDesc(divId){
+            var showview = 'showviewancId'+divId;
+            var hideview = 'hideviewancId'+divId;
+            var showaccdesc = 'showAccountDescId'+divId;
+            document.getElementById(showview).style.display ="none";
+            document.getElementById(hideview).style.display ="block"; 
+            document.getElementById(showaccdesc).style.display ="block"; 
+        }
+        function hideAccountDesc(divId){
+            var hideview = 'hideviewancId'+divId;
+            var showview = 'showviewancId'+divId;
+            var showaccdesc = 'showAccountDescId'+divId;
+            document.getElementById(showview).style.display ="block";
+            document.getElementById(hideview).style.display ="none"; 
+            document.getElementById(showaccdesc).style.display ="none";        
+        }
+        
+        
+        
+        
+        
+    </script>
+         
+</apex:page>

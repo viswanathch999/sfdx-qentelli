@@ -1,0 +1,62 @@
+<apex:page standardController="Contact" 
+    extensions="RenewalContactContExt" 
+    sidebar="false" 
+    id="thirdpartycertificationverifier"
+    showHeader="false"
+    standardStylesheets="false" 
+    title="{!$Label.Third_Party_Certification}"
+    action="{!init}">
+    
+    <link rel="stylesheet" type="text/css" href="https://mte-www.ypowpo.org/stylesheets/app.css"/>
+    <apex:form id="contactMemberServicesInfo">
+        
+        <!-- <apex:pageMessages id="messagesStart"></apex:pageMessages> -->
+        <apex:outputPanel id="opanelIsNotMember" rendered="{!NOT(isMember)}">You are currently not a member and cannot proceed with Renewals</apex:outputPanel>
+        <apex:outputPanel id="opanel">
+            <apex:pageBlock rendered="{!isYPO && isMember}" id="pb1">
+                <main role="main">
+                    
+                    <div class="row">
+                        
+                        <div class="small-24 medium-16 large-18 columns">
+                            <div class="tile">
+                                <div class="tile-header">    Your Third Party Information   </div>
+                                <div class="tile-body">
+                                    <p>
+                                        After completing the form below, select "Save &amp; Continue" and your third party will receive an email
+                                        from YPO-WPO Member Services with instructions.
+                                    </p>
+                                	<span class="input">
+					                	<apex:inputField value="{!oOpp.Third_Party_Name__c}" styleClass="input-field" id="fullName"/>
+								        <label class="input-label is-required" for="fullName">    Third Party's Full Name    </label>
+				                	</span>
+                                    <span class="input">
+					                	<apex:inputField value="{!oOpp.Third_Party_Firm__c}" styleClass="input-field" id="companyName"/>
+								        <label class="input-label is-required" for="companyName">    Third Party's Company Name    </label>
+				                	</span>
+                                    <span class="input">
+					                	<apex:inputField value="{!oOpp.Third_Party_Email__c}" styleClass="input-field" id="email"/>
+								        <label class="input-label is-required" for="email">    Third Party's Email    </label>
+				                	</span>
+                                </div>
+                                <div class="tile-footer_toolbar"> 
+                                        <apex:pageMessage id="emailVerificationMessage" summary="Certification sent to Third party for verification." severity="info" rendered="{!isEmailSent}" />
+                                </div>
+                            </div>    
+                        </div>
+                    </div>
+                </main>
+                <div class="row">
+                    <apex:pageMessages id="messagesRel"/>
+                    <apex:commandButton value="{!$Label.Back}" title="{!$Label.Back}" styleclass="button_raised" action="{!toThirdPartyCertification}" status="status2"/>
+                    <apex:commandButton value="{!$Label.Save}" title="{!$Label.Save}" styleclass="button_raised" action="{!uploadThirdPartyVerifier}" status="status2" reRender="opanel" />
+                    <apex:commandButton value="{!$Label.Continue}" title="{!$Label.Continue}" styleclass="button_raised is-disabled"  action="{!toVenuePage}" rendered="{!OR((ISBLANK(oOpp.Third_Party_Name__c)),(ISBLANK(oOpp.Third_Party_Firm__c)),(ISBLANK(oOpp.Third_Party_Email__c)))}"/>
+					<apex:commandButton value="{!$Label.Continue}" title="{!$Label.Continue}" styleclass="button_raised"  action="{!toVenuePage}" rendered="{!AND(NOT(ISBLANK(oOpp.Third_Party_Name__c)),NOT(ISBLANK(oOpp.Third_Party_Firm__c)),NOT(ISBLANK(oOpp.Third_Party_Email__c)))}"/>
+                    <apex:actionStatus layout="inline" startText="{!$Label.Processing}" stopText="" id="status2" startStyleClass="statusStyle"/>
+                </div>
+            </apex:pageBlock>
+        </apex:outputPanel>   
+        
+    </apex:form>
+ 
+</apex:page>

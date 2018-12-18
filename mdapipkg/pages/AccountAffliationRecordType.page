@@ -1,0 +1,75 @@
+<apex:page standardcontroller="Account_Affiliation__c" standardstylesheets="true" extensions="AccountAffliatoinRecordTypeExtension">
+<apex:form >
+	<script src="//ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+	<script src="//ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"></script>
+	<div class="bPageTitle">
+		<div class="ptBody">
+			<div class="content">
+				<img src="/img/s.gif" alt="Account Affiliation" class="pageTitleIcon" title="Account Affiliation" />
+				<h1 class="pageType">
+					New Account Affiliation<span class="titleSeparatingColon">:</span>
+				</h1>
+				<h2 class="pageDescription">Select Account Affiliation Record Type</h2>
+				<div class="blank"> </div>
+			</div><div class="links">
+				<a href="javascript:openPopupFocusEscapePounds(%27https://help.salesforce.com/apex/htdoor?loc=help&target=co_edit.htm&section=CustomObjects&language=en_US&release=210.17.8&instance=CS90%27, %27Help%27, 1024, 768, %27width=1024,height=768,resizable=yes,toolbar=yes,status=yes,scrollbars=yes,menubar=yes,directories=no,location=yes,dependant=no%27, false, false);" title="Help for this Page (New Window)">
+					<span class="helpLink">Help for this Page</span>
+					<img src="/img/s.gif" alt="" class="helpIcon" />
+				</a>
+			</div>
+		</div><div class="ptBreadcrumb"></div>
+	</div>
+	<div class="bDescription">Select a record type for the new account affiliation. To skip this page in the future, change your record type settings on your personal setup page.</div>
+	<div class="bPageBlock brandSecondaryBrd bEditBlock bLayoutBlock secondaryPalette" id="ep">
+		<div class="pbHeader">
+			<table cellspacing="0" cellpadding="0" border="0">
+				<tbody>
+					<tr><td class="pbTitle"><img src="/img/s.gif" alt="" class="minWidth" title="" width="1" height="1" /><h2 class="mainTitle">Select Account Affiliation Record Type</h2></td></tr>
+				</tbody>
+			</table>
+		</div><div class="pbBody">
+			<div class="pbError" id="errorDiv_ep" style="display: none">Error: Invalid Data. <br></br> Review all error messages below to correct your data.</div><div class="pbSubsection">
+				<table class="detailList" cellspacing="0" cellpadding="0" border="0">
+					<tbody>
+						<tr>
+							<td class="labelCol requiredInput"><label for="p3"><span class="assistiveText">*</span>Record Type of new record</label></td>
+							<td class="data2Col" colspan="3">
+								<div class="requiredInput">
+									<div class="requiredBlock"></div>
+										<apex:selectlist value="{!recordTypeName}" size="1" required="true">
+											<apex:selectoptions value="{!items}" />
+										</apex:selectlist>
+								</div>
+							</td>
+						</tr>
+						<tr class="last detailRow"><td colspan="4"><span id="errorText"></span></td></tr>
+					</tbody>
+				</table>
+			</div>
+		</div><div class="pbBottomButtons">
+			<table cellspacing="0" cellpadding="0" border="0">
+				<tbody>
+					<tr>
+						<td class="pbTitle">
+							<img src="/img/s.gif" alt="" class="minWidth" title="" width="1" height="1" />
+						</td>
+						<td class="pbButtonb" id="bottomButtonRow">
+							<apex:commandButton id="Continue" value="Continue" action="{!redirectRecordType}"/>
+							<input value="Cancel" class="btn" name="cancel" title="Cancel" type="submit" />
+						</td>
+					</tr>
+				</tbody>
+			</table>
+		</div><div class="pbFooter secondaryPalette"><div class="bg"></div></div>
+	</div>
+	<h3 class="recordTypesHeading">Available Account Affiliation Record Types</h3>
+	<table class="infoTable recordTypeInfo" cellspacing="0" cellpadding="0" border="0">
+		<tbody>
+			<tr class="headerRow"><th class="recordTypeName" scope="col">Record Type Name</th><th class="recordTypeDescription" scope="col">Description</th></tr>
+			<apex:repeat value="{!recordTypeOptions}" var="item">
+				<tr><th class="recordTypeName" scope="row">{!item.DeveloperName}</th><td class="recordTypeDescription">{!item.Description}</td></tr>
+			</apex:repeat>
+		</tbody>
+	</table>
+</apex:form>
+</apex:page>

@@ -1,0 +1,139 @@
+<apex:page standardcontroller="KGRenewal__Invoice__c" extensions="v_InvoiceExt" showheader="false" sidebar="false" standardstylesheets="false" title="View Invoice: {!KGRenewal__Invoice__c.Name}" doctype="html-5.0">
+    <apex:stylesheet value="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css" />
+    <div class="container">
+        <div class="row">
+            <div class="col-sm-10 col-sm-offset-2">
+                <div class="page-header">
+                    <span class="pull-right">
+                        <apex:outputlink value="{!$Page.v_invoicepdf}?id={!KGRenewal__Invoice__c.Id}" styleclass="btn btn-default">Download PDF</apex:outputlink>&nbsp;
+                        <apex:outputlink rendered="{!KGRenewal__Invoice__c.KGRenewal__IsClosed__c != 'Closed' && !isLifetime}" value="{!$Page.v_payinvoice}?id={!KGRenewal__Invoice__c.Id}" styleclass="btn btn-primary">Pay</apex:outputlink>
+                    </span>
+                    <h1>View Invoice: {!KGRenewal__Invoice__c.Name}</h1>
+                </div>
+            </div>
+        </div>
+        <!-- /.row -->
+        <div class="row">
+            <div class="col-sm-2">
+                <ul class="nav nav-pills nav-stacked">
+                    <li role="presentation"><a href="{!$Page.v_orders}">Past Orders</a></li>
+                    <li role="presentation"><a href="{!$Page.v_invoices}">Open Invoices</a></li>
+                    <li role="presentation"><a href="#">Paid Invoices</a></li>
+                </ul>
+                <!-- /.nav -->
+            </div>
+            <!-- ./col-sm-2 -->
+            <div class="col-sm-10">
+                <div class="form">
+                    <div class="row">
+                        <div class="col-sm-6 form-group">
+                            <label class="control-label">Invoice Number</label>
+                            <p class="form-control-static">
+                                {!KGRenewal__Invoice__c.Name}
+                            </p>
+                        </div>
+                        <div class="col-sm-6 form-group">
+                            <label class="control-label">Due Date</label>
+                            <p class="form-control-static">
+                                <apex:outputfield value="{!KGRenewal__Invoice__c.KGRenewal__DueDate__c}" />
+                            </p>
+                        </div>
+                    </div>
+                    <!-- /.row -->
+                    <div class="row">
+                        <div class="col-sm-6 form-group">
+                            <label class="control-label">Status</label>
+                            <p class="form-control-static">
+                                <apex:outputfield value="{!KGRenewal__Invoice__c.KGRenewal__Status__c}" />
+                            </p>
+                        </div>
+                    </div>
+                    <!-- /.row -->
+                    <div class="row">
+                        <div class="col-xs-12">
+                            <h3>Products</h3>
+                            <table class="table table-striped">
+                                <thead>
+                                    <tr>
+                                        <th>Product Name</th>
+                                        <th>Unit Price</th>
+                                        <th>Quantity</th>
+                                        <th>Extended Price</th>
+                                        <th>Tax</th>
+                                        <th>Total Price</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <apex:repeat value="{!KGRenewal__Invoice__c.KGRenewal__InvoiceItems__r}" var="invoiceItem">
+                                        <tr>
+                                            <td>
+                                                <apex:outputfield value="{!invoiceItem.Name}" />
+                                            </td>
+                                            <td>
+                                                <apex:outputfield value="{!invoiceItem.KGRenewal__UnitPriceDisplay__c}" />
+                                            </td>
+                                            <td>
+                                                <apex:outputfield value="{!invoiceItem.KGRenewal__QuantityDisplay__c}" />
+                                            </td>
+                                            <td>
+                                                <apex:outputfield value="{!invoiceItem.KGRenewal__Amount__c}" />
+                                            </td>
+                                            <td>
+                                                <apex:outputfield value="{!invoiceItem.KGRenewal__TaxAmount__c}" />
+                                            </td>
+                                            <td>
+                                                <apex:outputfield value="{!invoiceItem.KGRenewal__Amount__c}" />
+                                            </td>
+                                        </tr>
+                                    </apex:repeat>
+                                </tbody>
+                            </table>
+                        </div>
+                        <!-- /.col-xs-12 -->
+                    </div>
+                    <!-- ./row -->
+                    <div class="row">
+                        <div class="col-sm-6 form-group">
+                            <label class="control-label">Item Subtotal</label>
+                            <p class="form-control-static">
+                                <apex:outputfield value="{!KGRenewal__Invoice__c.KGRenewal__ItemSubtotal__c}" />
+                            </p>
+                        </div>
+                        <div class="col-sm-6 form-group">
+                            <label class="control-label">Tax</label>
+                            <p class="form-control-static">
+                                <apex:outputfield value="{!KGRenewal__Invoice__c.KGRenewal__Tax__c}" />
+                            </p>
+                        </div>
+                    </div>
+                    <!-- /.row -->
+                    <div class="row">
+                        <div class="col-sm-6 form-group">
+                            <label class="control-label">Invoice Total</label>
+                            <p class="form-control-static">
+                                <apex:outputfield value="{!KGRenewal__Invoice__c.KGRenewal__TotalAmount__c}" />
+                            </p>
+                        </div>
+                    </div>
+                    <!-- /.row -->
+                </div>
+                <!-- /.form -->
+            </div>
+            <!-- ./col-sm-10 -->
+        </div>
+        <!-- /.row -->
+    </div>
+    <!-- /.container -->
+
+    <script src="{!URLFOR($Resource.YPORenew, 'ypo-renewals/assets/js/jquery-3.2.1.min.js')}"></script>
+    <script src="{!URLFOR($Resource.YPORenew, 'ypo-renewals/assets/js/bootstrap.min.js')}"></script>
+
+    <script>
+        $(document).ready(function(){
+            if({!displayGraceModal} === true)
+                alert('{!$Label.Catalog_YPO_BackNoGrace}')
+            else if({!displayTransitionModal} === true)
+                alert('{!$Label.Catalog_YPO_BackTransitioned}');
+        });
+    </script>
+</apex:page>

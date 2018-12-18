@@ -1,0 +1,123 @@
+<apex:component access="global" controller="v_invoiceReceiptEmailController">
+<apex:attribute name="invoiceIdAttribute" description="Invoice Id" type="Id" assignto="{! invoiceId}" />
+<apex:attribute name="transactionAttribute" description="Transaction record" type="KGRenewal__Transaction__c" />
+<messaging:HtmlEmailBody >
+<html><head>
+    <style>
+        .top-border {
+            border-top: 2px solid black;
+        }
+    </style>
+</head><body>
+    <p><apex:outputText value="{0, date}">
+        <apex:param value="{! transactionAttribute.KGRenewal__CombinedTransactionDate__c}" />
+    </apex:outputText></p>
+    <p>Your {! $Organization.Name} receipt for order </p>
+    <table style="text-align: left;" cellpadding="8" rules="rows">
+        <tbody>
+            <tr>
+                <td colspan="2">
+                    <b>Shipping Address</b><br />
+                    <hr />
+                    {! shippingFirstName} {! shippingLastName}<br />
+                    {! shippingStreet1 }<br />
+                    <apex:outputPanel layout="none" rendered="{! NOT(ISBLANK(shippingStreet2))}">
+                        {! shippingStreet2 }<br />
+                    </apex:outputPanel>
+                    {! shippingCity} {! shippingState}&nbsp;&nbsp;{! shippingPostalCode}<br />
+                    {! shippingCountry}
+                </td>
+                <td>
+                    &nbsp;
+                </td>
+                <td colspan="2">
+                    <b>Billing Address</b><br />
+                    <hr />
+                    {! billingFirstName} {! billingLastName}<br />
+                    {! billingStreet1 }<br />
+                    <apex:outputPanel layout="none" rendered="{! NOT(ISBLANK(shippingStreet2))}">
+                        {! billingStreet2 }<br />
+                    </apex:outputPanel>
+                    {! billingCity} {! billingState}&nbsp;&nbsp;{! billingPostalCode}<br />
+                    {! billingCountry}
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <br />
+    <table style="text-align: right;" cellpadding="8" rules="rows">
+        <thead>
+            <tr>
+                <th style="text-align: left;"><b>Product</b></th>
+                <th><b>Unit price</b></th>
+                <th><b>Quantity</b></th>
+                <th><b>Extended price</b></th>
+            </tr>
+        </thead>
+        <tbody>
+             <apex:repeat var="lineItem" value="{! LineItemWrapperList}">
+                <tr>
+                    <!--Col 1--><td style="text-align: left;">
+                        {! lineItem.productCode}
+                        <br />&nbsp;&nbsp;&nbsp;<small>{! lineItem.name}</small>
+                    </td>
+                    <!--Col 2--><td>
+                        <apex:outputText value="{0, number, currency}">
+                            <apex:param value="{! ROUND(lineItem.UnitPrice, 2)}" />
+                        </apex:outputText>
+                    </td>
+                    <!--Col 3--><td>
+                        <apex:outputText value="{0, number}">
+                            <apex:param value="{! lineItem.Quantity}" />
+                        </apex:outputText>
+                    </td>
+                    <!--Col 4 --><td>
+                        <apex:outputText value="{0, number, currency}">
+                            <apex:param value="{! ROUND(lineItem.TotalPrice, 2)}" />
+                        </apex:outputText>
+                    </td>
+                </tr>
+            </apex:repeat>
+            <tr>
+                <td colspan="1"></td> <!--for better spacing use empty table cell instead of colspan="3" in next cell-->
+                <td colspan="2" class="top-border">Subtotal</td>
+                <td class="top-border">
+                    <apex:outputText value="{0, number, currency}">
+                        <apex:param value="{! ROUND(Amount, 2)}" />
+                    </apex:outputText>                            
+                </td>
+            </tr>
+            <tr>
+                <td colspan="1"></td>
+                <td colspan="2"  style="text-align: right;">Sales tax</td>
+                <td>
+                    <apex:outputText value="{0, number, currency}">
+                        <apex:param value="{! ROUND(tax, 2)}" />
+                    </apex:outputText>
+                </td>
+            </tr>
+            <tr>
+                <td colspan="1"></td>
+                <td colspan="2" class="top-border"><b>Order total</b></td>
+                <td class="top-border">
+                    <b><apex:outputText value="{0, number, currency}">
+                   <apex:param value="{! ROUND(BilledAmount, 2)}" />
+               </apex:outputText></b>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <br/>
+    <p>
+        Thank you for your order. If you have any questions, please contact us at:<br />
+        <br />
+        {! $Organization.Name}<br />
+        {! $Organization.Street}<br />
+        {! $Organization.City} {! $Organization.State}&nbsp;&nbsp;{! $Organization.PostalCode}<br />
+        {! $Organization.Country}<br />
+        <br />
+        Phone: {! $Organization.Phone}
+    </p>
+</body></html>
+</messaging:HtmlEmailBody>
+</apex:component>
