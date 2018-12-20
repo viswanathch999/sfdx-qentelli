@@ -1,0 +1,130 @@
+<apex:page showHeader="false" sidebar="false" standardStylesheets="false" applyHtmlTag="false" docType="html-5.0">
+
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" />
+    <apex:insert name="title" />
+
+    <apex:stylesheet value="{!URLFOR($Resource.prospectResources, 'prospectResources/app.css')}" />
+    <apex:stylesheet value="{!URLFOR($Resource.prospectResources, 'prospectResources/prospect.css')}" />      
+    <apex:stylesheet value="{!URLFOR($Resource.KGQuickstart_dist, '/css/site.min.css')}" />
+    
+    <!-- <link id="main_stylesheet" rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" /> -->
+    
+
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+        <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
+        <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+        <![endif]-->
+    <style>
+      /* Firefox-specific code for bootstrap responsive tables (needed as of bootstrap v3.3.2 documentation) */
+      @-moz-document url-prefix() { fieldset {display: table-cell;} }
+
+      #venueCartLineItems thead {display: none;}
+      #venueCartLineItems td:nth-child(3) {display: none;}
+      #venueCartLineItems td:nth-child(4) {display: none;}
+      #venueCartLineItems td:nth-child(5) {text-align: right;}
+      #venueCartLineItems tr:last-of-type {display: none;}
+      //.cart-total-label {display: none;}
+      //.cart-total-amount {display: none;}
+      #venueClearCartButton {display: none;}
+      #venueUpdateCartButton {display: none;}
+
+    select[size="1"] {height: 34px;}
+        .navbar-static-top{
+            background-color:#fff;
+            margin-bottom:0;
+        }
+           
+.notifNumber {
+    margin-left: 4px !important;
+    top: 4px;
+    position: relative;   
+        }
+    </style>
+      
+      <apex:stylesheet value="{!URLFOR($Resource.TisaWebFonts, 'TisaFonts.css')}" />  
+      <apex:stylesheet value="{!$Resource.InvisionAppStyle_YPO}"/>
+      
+  </head>
+
+  <body>
+    <!-- laoding modal-->
+    <div aria-hidden="true" aria-labelledby="loadingModalLabel" class="modal fade" id="loadingModal" role="dialog" tabindex="-1">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-body text-center">
+            <h4 class="lead" id="loadingModalLabel">Loading...</h4>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <nav class="navbar navbar-default navbar-static-top navbr-top-head" role="navigation">
+      <div class="container wraper-right">
+        <!-- Brand and toggle get grouped for better mobile display -->
+        <div class="navbar-header top-head">
+          <!--<button type="button" class="navbar-toggle collapsed menu-icon" data-toggle="collapse" data-target="#navbar-collapse-1">
+            <span class="sr-only">Toggle navigation</span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </button>-->
+          <a href="{! $Site.prefix}/">
+            <img alt="YPO " src="{! $Resource.YPOLogoLLL}" height="50" style="margin-top:10px;width: 270px; margin-left:30px;" />
+          </a>
+
+      <!--    <div class="cartIicon">
+            <svg id="icon-cart" class="svg-image" viewBox="0 0 32 32" onclick="window.location.href='{! URLFOR($Page.ShoppingCart_YPO)}'">
+                 <path class="path1" d="M31.3 15.9c0.4-0.1 0.7-0.5 0.7-0.9v-9.5c0-0.5-0.4-0.9-0.9-0.9h-23.3l-0.3-2.9c0-0.5-0.4-0.9-0.9-0.9h-6.6v1.9h5.7l1.8 16.8-1.6 3.9c-0.1 0-0.2 0-0.3 0-2.1 0-3.8 1.7-3.8 3.8s1.8 3.8 3.8 3.8 3.8-1.7 3.8-3.8c0-0.7-0.2-1.3-0.5-1.9h16.1c-0.3 0.6-0.5 1.2-0.5 1.9 0 2.1 1.7 3.8 3.8 3.8s3.8-1.7 3.8-3.8-1.7-3.8-3.8-3.8h-20.3l1.2-2.9 22.1-4.6zM30.1 6.5v7.7l-20.8 4.3-1.3-12h22.1zM5.6 29.1c-1 0-1.9-0.8-1.9-1.9 0-1 0.8-1.9 1.9-1.9s1.9 0.8 1.9 1.9c0 1-0.8 1.9-1.9 1.9zM30.1 27.2c0 1-0.8 1.9-1.9 1.9s-1.9-0.8-1.9-1.9c0-1 0.8-1.9 1.9-1.9s1.9 0.9 1.9 1.9z"></path>
+                 <div class="cart-circle">
+                  <div style="display:none;"> <apex:insert name="nav_links" /></div>
+                  <span class="notifNumber"><span class="cartSize" data-venue-source="cart-size"/></span>
+            </div>
+            </svg>
+             
+         </div>  -->
+            
+        </div>
+
+        <!--Collect the nav links, forms, and other content for toggling
+          <div class="collapse navbar-collapse hide-menu" id="navbar-collapse-1">
+              <ul class="nav navbar-nav navbar-right hidden-md hidden-lg hidden-sm">
+                <li><a href="#">About</a></li>
+                <li><a href="#">Services</a></li>
+                <li><a href="#">Contact</a></li>
+            </ul>
+        </div>-->
+        <!-- /.navbar-collapse -->
+      </div>
+      <!-- /.container -->
+    </nav>
+    <div class="container">
+      <apex:insert name="content" />
+      <footer>
+
+      </footer>
+      <site:previewAsAdmin />
+    </div>
+    <!--/container-->
+    <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+    <!--<script src="https://code.jquery.com/jquery-1.11.3.min.js"/>-->
+    <!-- <script src="https://code.jquery.com/jquery-2.2.4.min.js" /> -->
+    <apex:includeScript value="https://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js" />
+    <script type="text/javascript">
+    jQuery(function ($) {
+//  console.log($(".cartSize").attr('data-venue-source'));
+    });
+    </script>        
+
+    <!-- Include all compiled plugins (below), or include individual files as needed -->
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" />
+
+    <apex:includeScript value="{!URLFOR($Resource.KGQuickstart_dist, '/js/main.min.js')}" />
+  </body>
+</html>
+</apex:page>

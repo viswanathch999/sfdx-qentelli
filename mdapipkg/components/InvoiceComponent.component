@@ -1,0 +1,456 @@
+<apex:component controller="InvoicePdfCtrl" extensions="InvoicePdfExt" access="global">
+    <apex:attribute name="invoice" description="The Invoice to render this PDF for." 
+                    type="KGRenewal__Invoice__c" assignTo="{!invoiceRecord}" />
+    <apex:outputField value="{!invoiceRecord.KGRenewal__Subscription__c}" rendered="false" />
+    <apex:variable var="emptyList" value="'[]'" />
+    <head>
+        <style>
+            @page{
+                margin:0.25in;
+            }
+            body {
+                margin: 0;
+                font-size: 12px;
+                font-family: sans-serif;
+                color: #3d3d3d;
+            }
+            table { 
+              border-spacing:0;
+              border-collapse:collapse;
+            }
+            table.line-items {
+                margin-top: 10px;
+            }
+            h1 {
+                font-size: 14px;
+                display: block;
+                margin: 0 0 4px 0;
+            }
+            h2 {
+                font-size: 12px;
+                display: block;
+                margin: 0 0 2px 0;
+            }
+            td {
+                padding: 2px 6px;
+            }
+            td.company-header {
+                width: 50%;
+                text-align: left;
+            }
+            td.quote-header {
+                width: 50%;
+                text-align: right;
+            }
+            td.quote-header div{
+                text-align: left;
+            }
+            td.quote-header h1 {
+                /* color #1 */
+                background-color: rgb(0,105,166);
+                border-left: 4px solid rgb(0,105,166);
+                border-bottom: 1px solid rgb(0,105,166);
+                display:inline-block;
+                color: #FFF;
+                text-align: left;
+                font-size: 200%;
+                width: 100%;
+                padding: 3px 5px;
+            }
+            td.quote-header label {
+                font-weight: 700;
+                display: inline-block;
+                width: 130px;
+                text-align: left;
+                padding-left: 10px;
+            }
+            td.quote-header span {
+                display: inline-block;
+                text-align: left;
+            }
+            table.line-items tr.single-item-headers {
+                background: #F2F2F2;
+            }
+            table.line-items tr.cell-header {
+                background: #F2F2F2;
+            }
+            table.line-items td.column-header {
+                /* color #2 */
+                background-color: rgb(241,242,242);
+                border-left: 1px solid rgb(241,242,242);
+                background: no-repeat bottom left;
+                text-align: center;
+                border-bottom: none;
+                margin-top: 5px;
+                vertical-align: middle;
+                color: #444;
+            }
+            table.line-items td.column-header-spacer {
+                background: #FFF;
+            }
+            table.line-items td {
+                width: 10%;
+                padding: 5px;
+                text-align: center;
+                vertical-align: middle;
+            }
+            table.line-items td.description {
+                width: 30%;
+            }
+            table.line-items tr.repeat-items td {
+                /* color #3 */
+                background-color: rgb(255,255,255);
+                border-top: 1px solid #EEE;
+            }
+            table.line-items tr.repeat-items:last-of-type {
+                
+            }
+            table.line-items tr.item-totals td {
+            }
+            div.header-arrow {
+                display: none;
+            }
+            td.legal {
+                padding-top: 15px;
+            }
+            td.shipping-address {
+                padding-top: 15px;
+            }
+            td.item-header-row {
+                margin-top: 5px;
+                background: #28679e;
+                color: #F8F8F8;
+                text-align: left;
+            }
+        </style>
+    </head>
+    <table>
+        <tr class="header">
+            <td class="company-header">
+                <div>
+                    <h1><img src="{!$Resource.logoPlaceholder}" alt="Logo" width="200" /></h1>
+                </div>
+                <div>
+                    <h2>{!$Organization.Street}</h2>
+                </div>
+                <div>
+                    <h2>{!$Organization.City}, {!$Organization.State} {!$Organization.PostalCode}</h2>
+                </div>
+                <div>
+                    <apex:outputLink value="http:///www.place-holder-url.com">
+                        <h2>http:///www.place-holder-url.com</h2>
+                    </apex:outputLink>
+                </div>
+            </td>
+            <td class="quote-header">
+                <div>
+                    <h1>Invoice</h1>
+                </div>
+                <div>
+                    <label>Invoice Number:</label>
+                    <span>{!invoiceRecord.Name}</span>
+                </div>
+                <div>
+                    <label>Current Status:</label>
+                    <span>{!invoiceRecord.KGRenewal__Status__c}</span>
+                </div>
+                <div>
+                	<label>Period Start:</label>
+                	<span><apex:outputField value="{!invoice.KGRenewal__PeriodStart__c}" /></span>
+                </div>
+                <div>
+                	<label>Period End:</label>
+                	<span><apex:outputField value="{!invoice.KGRenewal__PeriodEnd__c}" /></span>
+                </div>
+                <div>
+                    <label>Sent Date:</label>
+                    <span><apex:outputField value="{!invoice.KGRenewal__BillingDate__c}" /></span>
+                </div>
+                <div>
+                    <label>Due Date:</label>
+                    <span><apex:outputField value="{!invoice.KGRenewal__DueDate__c}" /></span>
+                </div>
+            </td>
+        </tr>
+        <tr class="shipping">
+            <td class="shipping-address">
+                <h1>Bill To</h1>
+                <div>  <apex:outputField value="{!invoice.KGRenewal__Subscription__r.KGRenewal__Account__r.Name}" /></div>
+                <div><apex:outputField value="{!invoice.KGRenewal__Subscription__r.KGRenewal__Account__r.BillingStreet}" /></div>
+                <div><apex:outputField value="{!invoice.KGRenewal__Subscription__r.KGRenewal__Account__r.BillingCity}" />, &nbsp; <apex:outputField value="{!invoice.KGRenewal__Subscription__r.KGRenewal__Account__r.BillingState}" /> &nbsp; <apex:outputField value="{!invoice.KGRenewal__Subscription__r.KGRenewal__Account__r.BillingPostalCode}" /></div>
+            </td>
+        </tr>
+        <tr>
+            <td width="100%" colspan="2">
+                <table class="line-items">
+                    <tr class="single-item-headers cell-header">
+                        <td class="column-header" colspan="2">
+                            <h2>Subscription Term: Start/End</h2>
+                            <div class="header-arrow">&nbsp;</div>
+                        </td>
+                        <td class="column-header-spacer description" colspan="2">
+                            &nbsp;
+                        </td>
+                        <td class="column-header">
+                            <div class="header-arrow">&nbsp;</div>
+                            <h2>Salesperson Name</h2>
+                        </td>
+                        <td class="column-header">
+                            <div class="header-arrow">&nbsp;</div>
+                            <h2>Billing Frequency</h2>
+                        </td>
+                    </tr>
+                    <tr class="single-items">
+                        <td>
+                            <apex:outputField value="{!invoiceRecord.KGRenewal__Subscription__r.KGRenewal__StartDate__c}" />
+                        </td>
+                        <td>
+                            <apex:outputField value="{!invoiceRecord.KGRenewal__Subscription__r.KGRenewal__EndDate__c}" />
+                        </td>
+                        <td class="description" colspan="2">
+                            <span>&nbsp;</span>
+                        </td>
+                        <td>
+                            <span>{!invoiceRecord.KGRenewal__Subscription__r.KGRenewal__Account__r.Owner.Name}</span>
+                        </td>
+                        <td>
+                            <span>{!invoiceRecord.KGRenewal__Subscription__r.KGRenewal__BillingFrequency__c}</span>
+                        </td>
+                    </tr>
+                    <tr style="{!IF(oneTimeSaleLineItems.size > 0, '', 'display: none')}">
+                        <td colspan="6" class="item-header-row">
+                            <h2>One-Time Sale Items</h2>
+                        </td>
+                    </tr>
+                    <tr class="repeat-item-headers cell-header"  style="{!IF(oneTimeSaleLineItems.size > 0, '', 'display: none')}">
+                        <td class="column-header">
+                            <div class="header-arrow">&nbsp;</div>
+                            <h2>Quantity</h2>
+                        </td>
+                        <td class="column-header">
+                            <div class="header-arrow">&nbsp;</div>
+                            <h2>Code</h2>
+                        </td>
+                        <td class="column-header discount">
+                            <div class="header-arrow">&nbsp;</div>
+                            <h2>Additional Details</h2>
+                        </td>
+                        <td class="column-header">
+                            <div class="header-arrow">&nbsp;</div>
+                            <h2>Unit Price</h2>
+                        </td>
+                        <td class="column-header">
+                            <div class="header-arrow">&nbsp;</div>
+                            <h2>Discount</h2>
+                        </td>
+                        <td class="column-header">
+                            <div class="header-arrow">&nbsp;</div>
+                            <h2>Billed This Invoice</h2>
+                        </td>
+                    </tr>
+                    <apex:repeat value="{!oneTimeSaleLineItems}" var="item" rendered="{!oneTimeSaleLineItems.size > 0}">
+                        <tr class="repeat-items">
+                            <td class="titles">
+                                <apex:outputField value="{!item.KGRenewal__QuantityDisplay__c}" />
+                            </td>
+                            <td class="titles">
+                                <apex:outputField value="{!item.Name}" />
+                            </td>
+                            <td class="description">
+                                <apex:outputField value="{!item.KGRenewal__DescriptionDisplay__c}" />
+                            </td>
+                            <td class="titles">
+                                <apex:outputField value="{!item.KGRenewal__UnitPriceDisplay__c}" />
+                            </td>
+                            <td class="titles">
+                                <apex:outputField value="{!item.KGRenewal__DiscountDisplay__c}" />
+                            </td>
+                            <td class="titles">
+                                 <apex:outputField value="{!item.KGRenewal__Amount__c}" />
+                            </td>
+                        </tr>
+                    </apex:repeat>
+                </table>
+            </td>
+        </tr>
+        <tr>
+            <td width="100%" colspan="2">
+                <table class="line-items">
+                    <tr style="{!IF(subscriptionLineItems.size > 0, '', 'display: none')}">
+                        <td colspan="6" class="item-header-row">
+                            <h2>Subscription Items</h2>
+                        </td>
+                    </tr>
+                    <tr class="repeat-item-headers cell-header" style="{!IF(subscriptionLineItems.size > 0, '', 'display: none')}">
+                        <td class="column-header">
+                            <div class="header-arrow">&nbsp;</div>
+                            <h2>Quantity</h2>
+                        </td>
+                        <td class="column-header">
+                            <div class="header-arrow">&nbsp;</div>
+                            <h2>Code</h2>
+                        </td>
+                        <td class="column-header discount">
+                            <div class="header-arrow">&nbsp;</div>
+                            <h2>Additional Details</h2>
+                        </td>
+                        <td class="column-header">
+                            <div class="header-arrow">&nbsp;</div>
+                            <h2>Unit Price</h2>
+                        </td>
+                        <td class="column-header">
+                            <div class="header-arrow">&nbsp;</div>
+                            <h2>Discount</h2>
+                        </td>
+                        <td class="column-header">
+                            <div class="header-arrow">&nbsp;</div>
+                            <h2>Billed This Invoice</h2>
+                        </td>
+                    </tr>
+                    <apex:repeat value="{!subscriptionLineItems}" var="item">
+                        <tr class="repeat-items">
+                            <td class="titles">
+                                <apex:outputField value="{!item.KGRenewal__QuantityDisplay__c}" />
+                            </td>
+                            <td class="titles">
+                                <apex:outputField value="{!item.Name}" />
+                            </td>
+                            <td class="description">
+                                <apex:outputField value="{!item.KGRenewal__DescriptionDisplay__c}" />
+                            </td>
+                            <td class="titles">
+                                <apex:outputField value="{!item.KGRenewal__UnitPriceDisplay__c}" />
+                            </td>
+                            <td class="titles">
+                                <apex:outputField value="{!item.KGRenewal__DiscountDisplay__c}" />
+                            </td>
+                            <td class="titles">
+                            	<apex:outputField value="{!item.KGRenewal__Amount__c}" />
+                            </td> 
+                        </tr>
+                    </apex:repeat>
+                    <tr style="{!IF(invoiceRecord.KGRenewal__AdjustmentAmount__c != 0, '', 'display: none')}">
+                        <td colspan="6" class="item-header-row">
+                            <h2>Adjustments</h2>
+                        </td>
+                    </tr>
+                    <tr class="repeat-item-headers cell-header"  style="{!IF(invoiceRecord.KGRenewal__AdjustmentAmount__c != 0, '', 'display: none')}">
+                        <td class="column-header" colspan="5">
+                            <h2>Adjustment Description</h2>
+                        </td>
+                        <td class="column-header">
+                            <h2>Adjustment Amount</h2>
+                        </td>
+                    </tr>
+                    <tr class="repeat-items"  style="{!IF(invoiceRecord.KGRenewal__AdjustmentAmount__c != 0, '', 'display: none')}">
+                        <td colspan="5">
+                            <apex:outputField value="{!invoiceRecord.KGRenewal__AdjustmentDescription__c}" />
+                        </td>
+                        <td colspan="1">
+                            <apex:outputField value="{!invoiceRecord.KGRenewal__AdjustmentAmount__c}" />
+                        </td>
+                    </tr>
+                    <tr class="item-totals cell-header">
+                        <td colspan="4" class="column-header-spacer">
+                            &nbsp;
+                        </td>
+                        <td class="{!IF(invoice.KGRenewal__AmountPaid__c != 0, 'column-header', 'column-header-spacer')}">
+                            <h2><apex:outputText value="Amount Paid" rendered="{!invoice.KGRenewal__AmountPaid__c != 0}" /></h2>
+                        </td>
+                        <td class="column-header">
+                            <div class="header-arrow">&nbsp;</div>
+                            <h2>Total Due</h2>
+                        </td>
+                    </tr>
+                    <tr class="item-totals">
+                        <td colspan="3" class="column-header-spacer">
+                            &nbsp;
+                        </td>
+                        <td>
+                            
+                        </td>
+                        <td>
+                            <apex:outputField value="{!invoice.KGRenewal__AmountPaid__c}" rendered="{!invoice.KGRenewal__AmountPaid__c != 0}"/>
+                        </td>
+                        <td>
+                            <apex:outputField value="{!invoice.KGRenewal__AmountDue__c}" />
+                        </td>
+                    </tr>
+                </table>
+            </td>
+        </tr>
+        <apex:variable var="currentList" value="'{!invoice.KGRenewal__Transactions__r}'" />
+        <apex:outputPanel layout="none" rendered="{!currentList != emptyList}">
+        	<tr>
+        	<td colspan="2">
+        	<table width="100%">
+        	<tr>
+        		<td colspan="4" class="item-header-row" style="text-align: center;">
+                    <h2>Previous Payments</h2>
+                </td>
+        	</tr>
+        	<tr>
+        		<td class="column-header">
+                    <div class="header-arrow">&nbsp;</div>
+                    <h2>Date</h2>
+                </td>
+                <td class="column-header">
+                    <div class="header-arrow">&nbsp;</div>
+                    <h2>Amount</h2>
+                </td>
+                <td class="column-header">
+                    <div class="header-arrow">&nbsp;</div>
+                    <h2>Payment Method</h2>
+                </td>
+                <td class="column-header">
+                    <div class="header-arrow">&nbsp;</div>
+                    <h2>Additional Details</h2>
+                </td>
+        	</tr>
+        	<apex:repeat value="{!invoice.KGRenewal__Transactions__r}" var="payment">
+        		<tr>
+	        		<td>
+	        			<apex:outputField value="{!payment.CreatedDate}" />
+	        		</td>
+	        		<td>
+	        			<apex:outputField value="{!payment.KGRenewal__Amount__c}" />
+	        		</td>
+	        		<td>
+	        			<apex:outputField value="{!payment.KGRenewal__TransactionMethod__c}" />
+	        		</td>
+	        		<td>
+	        			<apex:outputField value="{!payment.KGRenewal__TransactionMethodDetails__c}" />
+	        		</td>
+        		</tr>
+        	</apex:repeat>
+        	</table>
+        	</td>
+        	</tr>
+        </apex:outputPanel>
+        <tr>
+            <td class="order-submit legal" colspan="2">
+                <div><b>Terms</b><br/>
+                    Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut non neque orci. Pellentesque rutrum mi nec tellus viverra vulputate. Suspendisse libero leo, vehicula non semper et, laoreet scelerisque metus. Nulla ipsum lacus, bibendum sed hendrerit at, laoreet in nisi. Vestibulum.
+                </div>
+            </td>
+        </tr>
+         <tr>
+            <td class="order-submit legal" colspan="2">
+                <div>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus porta nisl tellus.</div>
+            </td>
+        </tr>
+        <tr>
+            <td class="questions legal" colspan="2">
+                <div>In case you have any questions as it relates to your invoice, please email your designated Account Executive {!invoiceRecord.KGRenewal__Subscription__r.KGRenewal__Account__r.Owner.Name} at {!invoiceRecord.KGRenewal__Subscription__r.KGRenewal__Account__r.Owner.Email}</div>
+            </td>
+        </tr>
+       
+        <tr>
+            <td class="feed-legal legal" colspan="2">
+                <div>
+                	Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc diam neque, condimentum et consequat eget, imperdiet et nibh. Praesent dapibus felis a nisi ullamcorper suscipit. Mauris mauris justo, sodales vel dolor vel, venenatis faucibus purus. Donec dignissim malesuada quam, at hendrerit ante ullamcorper ut. Quisque ut eros sit amet lorem aliquet dapibus vel in eros. Donec eu libero sollicitudin, ultrices diam ut, gravida mi. Interdum et malesuada fames ac ante ipsum primis in faucibus. Suspendisse eu augue auctor, mollis erat nec, tincidunt odio. Aenean eget bibendum sapien. Duis nec sapien est. Quisque laoreet malesuada dapibus. Nam suscipit velit eu sollicitudin consectetur.
+                </div>
+            </td>
+        </tr>
+    </table>
+</apex:component>

@@ -1,0 +1,854 @@
+<!--COPYRIGHT KINETIC GROWTH INC-->
+<apex:page controller="KGRenewal.VenueCheckoutController" extensions="v_checkoutExt" action="{! setProspectOppAsCart}" id="checkout" cache="false" showHeader="false" sidebar="false" standardStylesheets="false" applyHtmlTag="false" doctype="html-5.0">
+<!--<apex:composition template="{! $Site.Template}">-->
+<apex:composition template="v_template">
+<apex:define name="title"><title>Checkout | {! $Organization.Name}</title></apex:define>
+<apex:define name="content">
+<script>
+function isCodeOfConductAccepted(){
+    if(document.getElementById('checkout:j_id0:checkout_form:ido').checked) {
+        moveToReview();
+
+    } else{
+         alert('You must agree to the Code of Conduct to continue');
+         return;
+    }
+
+}
+</script>
+<!--loading modal is included in v_template-->
+<apex:form id="checkout_form">
+<apex:outputPanel layout="block" id="checkout_page"> <!--used to rerender the page when moving between checkout steps-->
+
+<h1>{! IF(isPaymentSuccessful, 'Thank you ', 'Checkout ')} <small>{! IF(step = ENTRY, 'enter your info', IF(isPaymentSuccessful, 'your order is complete', 'review your order'))}</small></h1>
+
+<!--messages-->
+    <!--error message-->
+    <apex:outputPanel layout="block" rendered="{! NOT(ISBLANK(paymentErrorMessage))}">
+        <div class="alert alert-danger" role="alert">
+            <b>Payment error: </b>{! paymentErrorMessage}
+        </div> <!--/.alert-->
+    </apex:outputPanel> <!--/error messages-->
+
+    <!--payment success message-->
+    <apex:outputPanel layout="block" rendered="{! isPaymentSuccessful}">
+        <div class="alert alert-success" role="alert">
+            <b>Order placed. </b>Thank you, your order is complete.
+        </div> <!--/.alert-->
+    </apex:outputPanel>
+
+    <!--empty cart-->
+    <apex:outputPanel layout="block" rendered="{! AND(lineItems.size == 0, NOT(isPaymentSuccessful))}">
+        <div class="alert alert-warning" role="alert">
+            Your shopping cart is currently empty
+        </div> <!--/.alert-->
+    </apex:outputPanel>
+<!--/messages-->
+
+<apex:outputPanel layout="none" rendered="{! AND(step = REVIEW, lineItems.size > 0, NOT(pageHasError), NOT(isPaymentSuccessful))}"> <!--show order detils or not-->
+<!--<apex:outputPanel layout="none" rendered="{! AND(lineItems.size > 0, NOT(pageHasError), NOT(isPaymentSuccessful))}">--> <!--show order detils or not-->
+
+    <apex:outputPanel id="order_summary" layout="block" styleClass="panel panel-default"> <!--Order Summary panel-->
+        <div class="panel-heading">
+            <span class="panel-title">Order summary</span>
+        </div>
+        <div class="table-responsive">
+            <table class="table table-striped">
+                <thead>
+                <tr>
+                    <th><!--column for image--></th>
+                    <th class="text-left">Item</th>
+                    <th class="text-right">Unit price</th>
+                    <th class="text-right">Quantity</th>
+                    <!--<th></th> /column for buttons-->
+                    <th class="text-right">Extended price</th>
+                </tr>
+                </thead>
+
+                <tbody class="text-right">
+                    <apex:repeat var="item" value="{! lineItems}">
+                        <!--Venue product classes: kgvenue product id-->
+                        <tr id="" class="kgvenue product id">
+                            <td> <!--Item image-->
+                                <apex:outputPanel layout="none" rendered="{! AND(NOT(ISBLANK(item.pricebookEntry.product2.KGRenewal__MainImageSmall__c)), LEN(item.pricebookEntry.product2.KGRenewal__MainImageSmall__c) > 0)}">
+                                    <p class="form-control-static">
+                                        <!--<a href="/v_detail?id=">-->
+                                        <!--<a href="{!URLFOR($Page.v_detail, null, ['id'=item['product2Id']])}">-->
+                                            <apex:image styleClass="" value="{! item.pricebookEntry.product2.KGRenewal__MainImageSmall__c}" alt="{! item.name}" height="50"/>
+                                        <!--</a>-->
+                                    </p>
+                                </apex:outputPanel>
+                            </td> <!--/Item image-->
+
+                            <td class="text-left"> <!--Item name-->
+                                <p class="form-control-static">
+                                    <!--<a href="/v_detail?id=">-->
+                                    <!--<a href="{!URLFOR($Page.v_detail, null, ['id'=item['product2Id']])}">-->
+                                        <!--Venue product name classes: kgvenue name-->
+                                        <b><span class="kgvenue name">{! item.name}</span></b>
+                                    <!--</a>-->
+                                </p>
+                                <!--<apex:commandButton style="width:6em;" html-role="button" styleClass="pull-left btn btn-sm btn-link" onclick="this.disabled=true; this.value ='Removing';" value="Remove " rerender="order_summary"/>-->
+                            </td> <!--/Item name-->
+
+                            <td> <!--Unit price-->
+                                <!--Venue product price classes: kgvenue unitprice-field decimal-->
+                                <p class="form-control-static">
+                                    <apex:outputText styleClass="kgvenue unitprice-field decimal" value="{0, number, currency}">
+                                        <apex:param value="{! item.unitPrice}"/>
+                                    </apex:outputText>
+                                </p>
+                            </td> <!--/Unit price-->
+
+                            <td> <!--Quantity-->
+                                <p class="form-control-static">
+                                    <!--Venue Quantity classes: kgvenue quantity-field integer-->
+                                    <apex:outputText styleClass="kgvenue quantity-field integer" value="{0, number, integer}">
+                                        <apex:param value="{! item.quantity}"/>
+                                    </apex:outputText>
+                                </p>
+                            </td> <!--/Quantity-->
+
+                            <td class=""> <!--Extended price-->
+                                <p class="form-control-static">
+                                    <apex:outputText value="{0, number, currency}">
+                                        <apex:param value="{! item.totalPrice}"/>
+                                    </apex:outputText>
+                                </p>
+                            </td> <!--/Extended price-->
+                        </tr>
+                    </apex:repeat>
+
+                    <tr><b> <!--Subtotal table row-->
+                        <td colspan="4">
+                            Subtotal ({! TEXT(totalItemCount)} {! IF(totalItemCount > 1, 'items', 'item')}):
+                        </td>
+                        <td>
+                            <apex:outputText value="{0, number, currency}">
+                                <apex:param value="{! summary['subtotal']}" />
+                            </apex:outputText>
+                        </td>
+                    </b></tr> <!--/Subtotal table row-->
+
+                    <!--show Discount & Discounted subtotal rows if there is a coupon-->
+                    <!--<apex:outputPanel layout="none" rendered="{! summary['subtotal'] != couponData['amount_after_all_coupons']}">-->
+                    <apex:outputPanel layout="none" rendered="{! summary['subtotal'] != summary['coupon_data']['amount_after_all_coupons']}">
+                        <tr> <!--Discount table row-->
+                            <td colspan="4">Discount:</td>
+                            <td>
+                                <apex:outputText value="{0, number, currency}">
+                                    <!--<apex:param value="{! summary['subtotal'] - couponData['amount_after_all_coupons']}" />-->
+                                    <apex:param value="{! summary['subtotal'] - summary['coupon_data']['amount_after_all_coupons']}" />
+                                </apex:outputText>
+                            </td>
+                        </tr> <!--/Discount table row-->
+
+                        <tr><b> <!--Discounted subtotal table row-->
+                            <td colspan="4">Discounted subtotal:</td>
+                            <td>
+                                <apex:outputText value="{0, number, currency}">
+                                        <apex:param value="{! summary['billed_amount']}" />
+                                </apex:outputText>
+                            </td>
+                        </b></tr> <!--/Discounted subtotal table row-->
+                    </apex:outputPanel> <!--/Discount & Discounted subtotal rows-->
+
+                    <!-- Tax -->
+                    <!--<apex:outputPanel layout="none" rendered="{! summary['fees']['Tax__c']['status'] != 'error'}">-->
+                    <apex:outputPanel layout="none" rendered="false">-->
+                        <tr> <!--Estimated tax table row-->
+                            <td colspan="4">
+                                <apex:outputText rendered="{! step = ENTRY}">Estimated tax:</apex:outputText>
+                                <apex:outputText rendered="{! step = REVIEW}">Tax:</apex:outputText>
+                            </td>
+                            <td>
+                            <!--
+                                <apex:outputText value="{0, number, currency}">
+                                    <apex:param value="{! summary['fees']['Tax__c']['amount']}" />
+                                </apex:outputText>
+                            -->
+                            </td>
+                        </tr> <!--/Estimated tax table row-->
+
+                        <tr> <!--Taxed subtotal table row-->
+                            <td colspan="4">Subtotal with tax:</td>
+                            <td>
+                                <apex:outputText value="{0, number, currency}">
+                                    <apex:param value="{! summary['billed_amount']}" />
+                                </apex:outputText>
+                            </td>
+                        </tr> <!--/Taxed subtotal table row-->
+                    </apex:outputPanel>
+                    <!--
+                    <!-- Estimate tax button row -|->
+                    <apex:outputPanel layout="none" rendered="{! step = ENTRY}">
+                        <tr>
+                            <td colspan="{! IF(hasTerm, '4', '2')}">
+                                <p class="form-control-static">Enter shipping zip code:</p>
+                            </td>
+                            <td>
+                                <!--SG: need to assign value attribute to controller or extension variable-|->
+                                <apex:input style="width:8em;" styleClass="form-control pull-right" label="zip_for_tax" required="false" /> <!-- type="number" value="{! zipCode}"-|->
+                            </td>
+                            <td>
+                                <apex:commandButton style="width:8em;" value="Estimate tax" html-role="button" styleClass="btn btn-default" rerender="order_summary" ></apex:commandButton> <!--action="{! }"-|->
+                            </td>
+                            <td class="text-left">
+                                <p class="form-control-static">U.S. only</p>
+                            </td>
+                        </tr>
+                    </apex:outputPanel><!--/Estimate tax button row -|->
+                    -->
+                </tbody>
+            </table>
+        </div> <!--/.table-responsive-->
+    </apex:outputPanel> <!--/.panel--> <!--/Order Summary panel-->
+</apex:outputPanel> <!--/show order details or not-->
+
+<apex:outputPanel layout="block" rendered="{! AND(lineItems.size > 0, step = ENTRY, NOT(pageHasError), NOT(isPaymentSuccessful))}"> <!--show details or not-->
+    <!--this is where the shipping, billing, contact, payment components go-->
+    <div class="row">
+        <!-- DO NOT DELETE THIS COMMENT -->
+        <!-- <div class="col-sm-6">
+            v_shipping_component
+            <apex:outputPanel layout="block" styleClass="panel panel-default" id="shippingAddress" rendered="false">
+                <div class="panel-heading">
+                    <span class="panel-title">Shipping address</span>/.panel-title
+                </div> /.panel-heading
+
+                <div class="panel-body form-horizontal">
+
+                    Saved shipping addresses select list
+                    <apex:outputPanel layout="none" rendered="{! AND(NOT(isGuest), addressOptions.size > 1)}">
+                        <div class="form-group">
+                            <apex:outputLabel for="shipping_select" styleClass="col-sm-4 control-label" value="Saved addresses" />
+                            <div class="col-sm-8">
+                                <apex:selectList id="shipping_select" value="{! selectedShippingAddressId}" size="1" styleClass="form-control">
+                                    <apex:selectOptions value="{! addressOptions}" />
+                                    <apex:actionSupport event="onchange" action="{! updateShippingAddress}" rerender="shippingAddress" />
+                                </apex:selectList>
+                            </div> /.col
+                        </div> /.form-group
+                        <hr />
+                    </apex:outputPanel> /Saved shipping addresses select list
+
+                    <apex:outputPanel layout="none" rendered="{! ISBLANK(selectedShippingAddressId)}">
+                        <fieldset name="Shipping address">
+                    </apex:outputPanel>
+                    <apex:outputPanel layout="none" rendered="{! NOT(ISBLANK(selectedShippingAddressId))}">
+                        <fieldset name="Shipping address" disabled="disabled">
+                    </apex:outputPanel>
+                    <fieldset name="{! IF(ISBLANK(selectedShippingAddressId), 'Shipping address', 'Shipping address&quot; disabled=&quot;disabled')}">
+                        <div class="form-group"> First name
+                            <apex:outputLabel for="shipping_first_name" styleClass="col-sm-4 control-label v_required" value="First name *" />
+                            <div class="col-sm-8">
+                                <apex:inputText id="shipping_first_name" styleClass="form-control" value="{! shippingAddress.firstName}" label="Shipping first name" maxlength="40" html-placeholder="First name *" required="false" />
+                            </div> /.col
+                        </div> /First name
+
+                        <div class="form-group"> Last name
+                            <apex:outputLabel for="shipping_last_name" styleClass="col-sm-4 control-label v_required" value="Last name *" />
+                            <div class="col-sm-8">
+                                <apex:inputText id="shipping_last_name" styleClass="form-control" value="{! shippingAddress.lastName}" label="Shipping last name" maxlength="40" html-placeholder="Last name *" required="false" />
+                            </div> /.col
+                        </div> /Last name
+
+                        <div class="form-group"> Organization
+                            <apex:outputLabel for="shipping_organization" styleClass="col-sm-4 control-label" value="Company / Organization" />
+                            <div class="col-sm-8">
+                                <apex:inputText id="shipping_organization" styleClass="form-control" value="{! shippingAddress.organization}" label="Shipping organization" maxlength="40" html-placeholder="Company / Organization" />
+                            </div> /.col
+                        </div> /Organization
+
+                        <div class="form-group"> Street line 1
+                            <apex:outputLabel for="shipping_street_1" styleClass="col-sm-4 control-label v_required" value="Street (line 1) *" />
+                            <div class="col-sm-8">
+                                <apex:inputText id="shipping_street_1" styleClass="form-control" value="{! shippingAddress.streetAddress1}" label="Shipping street line 1" maxlength="40" html-placeholder="Street (line 1) *" required="false" />
+                            </div> /.col
+                        </div> /Street line 1
+
+                        <div class="form-group"> Street line 2
+                            <apex:outputLabel for="shipping_street_2" styleClass="col-sm-4 control-label" value="Street (line 2)" />
+                            <div class="col-sm-8">
+                                <apex:inputText id="shipping_street_2" styleClass="form-control" value="{! shippingAddress.streetAddress2}" label="Shipping street line 2" maxlength="40" html-placeholder="Street (line 2)" />
+                            </div> /.col
+                        </div> /Street line 2
+
+                        <div class="form-group"> City
+                            <apex:outputLabel for="shipping_city" styleClass="col-sm-4 control-label v_required" value="City *" />
+                            <div class="col-sm-8">
+                                <apex:inputText id="shipping_city" styleClass="form-control" value="{! shippingAddress.city}" label="Shipping city" maxlength="40" html-placeholder="City *" required="false" />
+                            </div> /.col
+                        </div> /City
+
+                        <div class="form-group"> State
+                            <apex:outputLabel for="shipping_state" styleClass="col-sm-4 control-label v_required" value="State *" />
+                            <div class="col-sm-8">
+                                <apex:inputText id="shipping_state" styleClass="form-control" value="{! shippingAddress.state}" label="Shipping state" maxlength="40" html-placeholder="State *" required="false" />
+                            </div> /.col
+                        </div> /State
+
+                        <div class="form-group"> Postal code
+                            <apex:outputLabel for="shipping_postal_code" styleClass="col-sm-4 control-label v_required" value="Zip / Postal code *" />
+                            <div class="col-sm-8">
+                                <apex:inputText id="shipping_postal_code" styleClass="form-control" value="{! shippingAddress.postalCode}" label="Shipping postal code" maxlength="40" html-placeholder="Zip / Postal code *" required="false" />
+                            </div> /.col
+                        </div> /Postal code
+
+                        <div class="form-group"> Shipping country
+                            <apex:outputLabel for="shipping_country" styleClass="col-sm-4 control-label v_required" value="Country *" />
+                            <div class="col-sm-8">
+                                <apex:selectList id="shipping_country" value="{! shippingAddress.country}" label="Shipping country" html-placeholder="Country *" size="1" styleClass="form-control" required="false">
+                                    <apex:selectOption itemValue="" itemLabel="Select country" itemDisabled="true" />
+                                    <apex:selectOption itemValue="USA" itemLabel="USA" />
+                                    <apex:selectOptions value="{! countryOptions}" />
+                                </apex:selectList>
+                            </div> /.col
+                        </div> /Shipping country
+
+                        <apex:outputPanel layout="none" rendered="{! NOT(isGuest)}">
+                        <apex:outputPanel layout="none" rendered="false">
+                            <div class="form-group"> Save address
+                                <div class="col-sm-4 control-label">for spacing</div> /.col.control-label
+                                <div class="col-sm-8">
+                                    <div class="checkbox">
+                                        <label>
+                                            <apex:inputCheckbox id="save_shipping" value="{! shippingAddress.isSavedAddress}" />
+                                            Save address
+                                        </label>
+                                    </div> /.checkbox
+                                </div> /.col
+                            </div> /.form-group /Save address
+
+                            <div class="form-group"> Set as primary shipping
+                                <div class="col-sm-4 control-label">for spacing</div> /.col.control-label
+                                <div class="col-sm-8">
+                                    <div class="checkbox">
+                                        <label>
+                                            <apex:inputCheckbox id="primary_shipping" value="{! shippingAddress.isPrimaryShipping}" />
+                                            Make primary shipping address
+                                        </label>
+                                    </div> /.checkbox
+                                </div> /.col
+                            </div> /.form-group /Set as primary shipping
+
+                            <div class="form-group"> Shipping label
+                                <apex:outputLabel for="shipping_label" styleClass="col-sm-4 control-label" value="Address nickname" />
+                                <div class="col-sm-8">
+                                    <apex:inputText id="shipping_label" styleClass="form-control" value="{! shippingAddress.label}" label="Shipping label" maxlength="40" html-placeholder="Address nickname" />
+                                </div> /.col
+                            </div> /.form-group /Shipping label
+                        </apex:outputPanel>
+                    </fieldset>
+
+                </div> /.panel-body.form-horizontal
+            </apex:outputPanel> /.panel shippingAddress
+        </div> --> <!--/.col-->
+        <div class="col-sm-6">
+            <!--v_billing_component-->
+            <apex:outputPanel layout="block" styleClass="panel panel-default" id="billingAddress">
+                <div class="panel-heading">
+                    <span class="panel-title">Billing address&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
+                    <span class="text-right"><apex:commandLink action="{! copyShippingAddressToBillingAddress}" value="Copy shipping address" rerender="billingAddress" rendered="false" /></span>
+                </div> <!--/.panel-heading-->
+
+                <div class="panel-body form-horizontal">
+
+                    <!--Saved billing addresses select list-->
+                    <!--<apex:outputPanel layout="none" rendered="{! AND(NOT(isGuest), addressOptions.size > 1)}">
+                        <div class="form-group">
+                            <apex:outputLabel for="billing_select" styleClass="col-sm-4 control-label" value="Saved addresses" />
+                            <div class="col-sm-8">
+                                <apex:selectList id="billing_select" value="{! selectedBillingAddressId}" size="1" styleClass="form-control">
+                                    <apex:selectOptions value="{! addressOptions}" />
+                                    <apex:actionSupport event="onchange" action="{! updateBillingAddress}" rerender="billingAddress" />
+                                </apex:selectList>
+                            </div> <!--/.col-->
+                        <!--</div> <!--/.form-group-->
+                      <!--<hr />
+                    </apex:outputPanel> <!--/Saved billing addresses select list-->
+                    <apex:outputPanel layout="none" rendered="{! AND(NOT(isGuest), billingAddressOptions.size > 1)}">
+                        <div class="form-group">
+                            <apex:outputLabel for="billing_select" styleClass="col-sm-4 control-label" value="Saved addresses" />
+                            <div class="col-sm-8">
+                                <apex:selectList id="billing_select2" value="{! selectedOption}" size="1" styleClass="form-control">
+                                    <apex:selectOptions value="{! billingAddressOptions}" />
+                                    <apex:actionSupport event="onchange" action="{! setBillingAddress}" rerender="billingAddress"/>
+                                </apex:selectList>
+                            </div> <!--/.col-->
+                        </div> <!--/.form-group-->
+                        <hr />
+                    </apex:outputPanel> <!--/Saved billing addresses select list-->
+
+                    <!--<apex:outputPanel layout="none" rendered="{! ISBLANK(selectedBillingAddressId)}">
+                        <fieldset name="Billing address">
+                    </apex:outputPanel>
+                    <apex:outputPanel layout="none" rendered="{! NOT(ISBLANK(selectedBillingAddressId))}">
+                        <fieldset name="Billing address" disabled="disabled">
+                    </apex:outputPanel>-->
+                    <!--<fieldset name="{! IF(ISBLANK(selectedBillingAddressId), 'Billing address', 'Billing address&quot; disabled=&quot;disabled')}">-->
+                        <div class="form-group"> <!--First name-->
+                            <apex:outputLabel for="billing_first_name" styleClass="col-sm-4 control-label v_required" value="First name *" />
+                            <div class="col-sm-8">
+                                <apex:inputText id="billing_first_name" styleClass="form-control" value="{! billingAddress.firstName}" label="Billing first name" maxlength="40" html-placeholder="First name *" required="false" />
+                            </div> <!--/.col-->
+                        </div> <!--/First name-->
+
+                        <div class="form-group"> <!--Last name-->
+                            <apex:outputLabel for="billing_last_name" styleClass="col-sm-4 control-label v_required" value="Last name *" />
+                            <div class="col-sm-8">
+                                <apex:inputText id="billing_last_name" styleClass="form-control" value="{! billingAddress.lastName}" label="Billing last name" maxlength="40" html-placeholder="Last name *" required="false" />
+                            </div> <!--/.col-->
+                        </div> <!--/Last name-->
+
+                        <div class="form-group"> <!--Organization-->
+                            <apex:outputLabel for="billing_organization" styleClass="col-sm-4 control-label" value="Company / Organization" />
+                            <div class="col-sm-8">
+                                <apex:inputText id="billing_organization" styleClass="form-control" value="{! billingAddress.organization}" label="Billing organization" maxlength="40" html-placeholder="Company / Organization" />
+                            </div> <!--/.col-->
+                        </div> <!--/Organization-->
+
+                        <div class="form-group"> <!--Street line 1-->
+                            <apex:outputLabel for="billing_street_1" styleClass="col-sm-4 control-label v_required" value="Street (line 1) *" />
+                            <div class="col-sm-8">
+                                <apex:inputText id="billing_street_1" styleClass="form-control" value="{! billingAddress.streetAddress1}" label="Billing street line 1" maxlength="40" html-placeholder="Street (line 1) *" required="false" />
+                            </div> <!--/.col-->
+                        </div> <!--/Street line 1-->
+
+                        <div class="form-group"> <!--Street line 2-->
+                            <apex:outputLabel for="billing_street_2" styleClass="col-sm-4 control-label" value="Street (line 2)" />
+                            <div class="col-sm-8">
+                                <apex:inputText id="billing_street_2" styleClass="form-control" value="{! billingAddress.streetAddress2}" label="Billing street line 2" maxlength="40" html-placeholder="Street (line 2)" />
+                            </div> <!--/.col-->
+                        </div> <!--/Street line 2-->
+
+                        <div class="form-group"> <!--City-->
+                            <apex:outputLabel for="billing_city" styleClass="col-sm-4 control-label v_required" value="City *" />
+                            <div class="col-sm-8">
+                                <apex:inputText id="billing_city" styleClass="form-control" value="{! billingAddress.city}" label="Billing city" maxlength="40" html-placeholder="City *" required="false" />
+                            </div> <!--/.col-->
+                        </div> <!--/City-->
+
+                        <div class="form-group"> <!--State-->
+                            <apex:outputLabel for="billing_state" styleClass="col-sm-4 control-label v_required" value="State *" />
+                            <div class="col-sm-8">
+                                <apex:inputText id="billing_state" styleClass="form-control" value="{! billingAddress.state}" label="Billing state" maxlength="40" html-placeholder="State *" required="false" />
+                            </div> <!--/.col-->
+                        </div> <!--/State-->
+
+                        <div class="form-group"> <!--Postal code-->
+                            <apex:outputLabel for="billing_postal_code" styleClass="col-sm-4 control-label v_required" value="Zip / Postal code *" />
+                            <div class="col-sm-8">
+                                <apex:inputText id="billing_postal_code" styleClass="form-control" value="{! billingAddress.postalCode}" label="Billing postal code" maxlength="40" html-placeholder="Zip / Postal code *" required="false" />
+                            </div> <!--/.col-->
+                        </div> <!--/Postal code-->
+
+                        <div class="form-group"> <!--Billing country-->
+                            <apex:outputLabel for="billing_country" styleClass="col-sm-4 control-label v_required" value="Country *" />
+                            <div class="col-sm-8">
+                                <apex:selectList id="billing_country" value="{! billingAddress.country}" label="Billing country" html-placeholder="Country *" size="1" styleClass="form-control" required="false">
+                                    <apex:selectOption itemValue="" itemLabel="Select country" itemDisabled="true" />
+                                    <apex:selectOption itemValue="USA" itemLabel="USA" />
+                                    <apex:selectOption itemValue="Canada" itemLabel="Canada" />
+
+                                    <!--<apex:selectOptions value="{! countryOptions}" />-->
+                                </apex:selectList>
+                            </div> <!--/.col-->
+                        </div> <!--/Billing country-->
+
+                        <!--<apex:outputPanel layout="none" rendered="{! NOT(isGuest)}">-->
+                        <apex:outputPanel layout="none" rendered="false">
+                            <div class="form-group"> <!--Save address-->
+                                <div class="col-sm-4 control-label"><!--for spacing--></div> <!--/.col.control-label-->
+                                <div class="col-sm-8">
+                                    <div class="checkbox">
+                                        <label>
+                                            <apex:inputCheckbox id="save_billing" value="{! billingAddress.isSavedAddress}" />
+                                            Save address
+                                        </label>
+                                    </div> <!--/.checkbox-->
+                                </div> <!--/.col-->
+                            </div> <!--/.form-group--> <!--/Save address-->
+
+                            <div class="form-group"> <!--Set as primary billing-->
+                                <div class="col-sm-4 control-label"><!--for spacing--></div> <!--/.col.control-label-->
+                                <div class="col-sm-8">
+                                    <div class="checkbox">
+                                        <label>
+                                            <apex:inputCheckbox id="primary_billing" value="{! billingAddress.isPrimaryBilling}" />
+                                            Make primary billing address
+                                        </label>
+                                    </div> <!--/.checkbox-->
+                                </div> <!--/.col-->
+                            </div> <!--/.form-group--> <!--/Set as primary billing-->
+
+                            <div class="form-group"> <!--Billing label-->
+                                <apex:outputLabel for="billing_label" styleClass="col-sm-4 control-label" value="Address nickname" />
+                                <div class="col-sm-8">
+                                    <apex:inputText id="billing_label" styleClass="form-control" value="{! billingAddress.label}" label="Billing label" maxlength="40" html-placeholder="Address nickname" />
+                                </div> <!--/.col-->
+                            </div> <!--/.form-group--> <!--/Billing label-->
+                        </apex:outputPanel>
+                    <!--</fieldset>-->
+
+                </div> <!--/.panel-body.form-horizontal-->
+            </apex:outputPanel> <!--/.panel--> <!--billingAddress-->
+        </div> <!--/.col-->
+        <div class="col-sm-6">
+            <!--v_contact_component-->
+            <apex:outputPanel layout="block" styleClass="panel panel-default" id="contactDetails">
+                <div class="panel-heading">
+                    <span class="panel-title">Contact details</span><!--/.panel-title-->
+                </div><!--/.panel-heading-->
+                <div class="panel-body form-horizontal">
+
+                    <div class="form-group"> <!--email address-->
+                        <apex:outputLabel for="contact_email" styleClass="col-sm-4 control-label v_required" value="Email *" />
+                        <div class="col-sm-8">
+                            <apex:input id="contact_email" styleClass="form-control" value="{! contactDetails['email']}" label="Contact email" html-maxlength="40" html-placeholder="Email *" required="false" /> <!--type="email"-->
+                        </div> <!--/.col-->
+                    </div> <!--/email address-->
+
+                    <div class="form-group"> <!--phone-->
+                        <apex:outputLabel for="contact_phone" styleClass="col-sm-4 control-label v_required" value="Phone *" />
+                        <div class="col-sm-8">
+                            <apex:input id="contact_phone" styleClass="form-control" value="{! contactDetails['phone']}" label="Contact phone" html-maxlength="40" html-placeholder="Phone *" required="false" /> <!--type="tel"-->
+                        </div> <!--/.col-->
+                    </div> <!--/phone-->
+
+                    <div class="form-group"> <!--additional emails-->
+                        <apex:outputLabel for="contact_additional_emails" styleClass="col-sm-4 control-label" value="Additional email" />
+                        <div class="col-sm-8">
+                            <apex:input id="contact_additional_emails" styleClass="form-control" value="{! contactDetails['additional_emails']}" label="Contact additional emails" html-maxlength="40" html-placeholder="Additional email" /> <!--type="email"-->
+                            <!--<apex:inputTextArea id="contact_additional_emails" styleClass="form-control" value="{! contactDetails['additional_emails']}" label="Contact additional emails" rows="3" html-placeholder="Additional email" />-->
+                        </div> <!--/.col-->
+                    </div> <!--/additional emails-->
+
+                </div> <!--/.panel-body.form-horizontal-->
+            </apex:outputPanel> <!--/Contact details-->
+            <!-- <br/><br/><br/><br/><br/><br/><br/><br/> -->
+            <!--v_payment_component-->
+            <apex:outputPanel layout="block" styleClass="panel panel-default" id="paymentCard">
+                <div class="panel-heading">
+                    <span class="panel-title">Payment</span><!--/.panel-title-->
+                </div> <!--/.panel-heading-->
+                <div class="panel-body form-horizontal">
+
+                    <div class="form-group"> <!--Cardholder name-->
+                        <apex:outputLabel for="paymentCard_name" styleClass="col-sm-4 control-label v_required" value="Payment Mode" />
+                        <div class="col-sm-8">
+                            <apex:selectList required="true" size="1" value="{!paymentMode}" styleClass="form-control" id="paymentModeSelect" onChange="togglePaymentMode()">
+                                <apex:selectOptions value="{!paymentOptions}" />
+                            </apex:selectList>
+                        </div> <!--/.col-->
+                    </div>
+                    <apex:actionFunction name="disableGateway" action="{!toggleGateway}" rerender="nothing">
+                        <apex:param name="val" assignTo="{!gatewayValue}" value="0"/>
+                    </apex:actionFunction>
+                    <apex:actionFunction name="enableGateway" action="{!toggleGateway}" rerender="nothing">
+                        <apex:param name="val" assignTo="{!gatewayValue}" value="1"/>
+                    </apex:actionFunction>
+                    <script>
+                        togglePaymentMode();
+                        function togglePaymentMode(){
+                            var currentMode =  jQuery( "[id$=paymentModeSelect]").val();
+                            if (currentMode == 'Payment Card'){
+                                jQuery( "[id$=paymentCardModePanel]").show();
+                                enableGateway();
+                            } else {
+                                jQuery( "[id$=paymentCardModePanel]").hide();
+                                disableGateway();
+                            }
+                        }
+                    </script>
+                    <div id="paymentCardModePanel">
+                        <apex:outputPanel rendered="{! AND(NOT(isGuest), paymentCardOptions.size > 1)}" layout="block"> <!--saved payment cards select list-->
+                            <div class="form-group">
+                                <apex:outputLabel for="paymentCard_select" styleClass="col-sm-4 control-label" value="Saved payment card" />
+                                <div class="col-sm-8">
+                                    <apex:selectList id="paymentCard_select" value="{! selectedPaymentCardId}" size="1" styleClass="form-control">
+                                        <apex:selectOptions value="{! paymentCardOptions}" />
+                                        <apex:actionSupport event="onchange" action="{! updatePaymentCard}" rerender="paymentCard"/> <!--action="{! newUpdatePaymentCard}"-->
+                                    </apex:selectList>
+                                </div>
+                            </div>
+                            <hr />
+                        </apex:outputPanel> <!--/saved payment cards select list-->
+
+                        <!--<apex:outputPanel layout="none" rendered="{! ISBLANK(selectedPaymentCardId)}">
+                            <fieldset name="Payment">
+                        </apex:outputPanel>
+                        <apex:outputPanel layout="none" rendered="{! NOT(ISBLANK(selectedPaymentCardId))}">
+                            <fieldset name="Payment" disabled="disabled">
+                        </apex:outputPanel>-->
+                        <!--<fieldset name="{! IF(ISBLANK(selectedPaymentCardId), 'Payment', 'Payment&quot; disabled=&quot;disabled')}">-->
+                            <div class="form-group"> <!-- Cardholder name -->
+                                <apex:outputLabel for="paymentCard_name" styleClass="col-sm-4 control-label v_required" value="Name on card *" />
+                                <div class="col-sm-8">
+                                    <apex:inputText id="paymentCard_name" styleClass="form-control" value="{! paymentCard.cardholderName}" label="Cardholder name" maxlength="40" html-placeholder="Name on card *" required="false" />
+                                </div> <!-- /.col -->
+                            </div> <!--/.form-group--> <!--/Cardholder name-->
+
+                            <div class="form-group"> <!-- Card number -->
+                                <apex:outputLabel for="paymentCard_number" styleClass="col-sm-4 control-label v_required" value="Card number *" />
+                                <div class="col-sm-8">
+                                    <apex:input id="paymentCard_number" styleClass="form-control" value="{! paymentCard.cardNumber}" label="Card number" html-maxlength="40" html-placeholder="Card number *" required="false" /> <!-- type="number" -->
+                                </div> <!-- /.col -->
+                            </div> <!--/.form-group--> <!--/Card number-->
+
+                            <div class="form-group"> <!-- Expiration month -->
+                                <apex:outputLabel for="paymentCard_exp_month" styleClass="col-sm-4 control-label v_required" value="Expiration month *" />
+                                <div class="col-sm-8">
+                                    <apex:selectList id="paymentCard_exp_month" styleClass="form-control" value="{! paymentCard.expirationMonth}" label="Card expiration month" size="1" required="false">
+                                        <apex:selectOption itemValue="" itemLabel="Expiration month" itemDisabled="true" html-selected="selected" />
+                                        <apex:selectOptions value="{! months}" />
+                                    </apex:selectList>
+                                </div> <!-- /.col -->
+                            </div> <!--/.form-group--> <!--/Expiration month-->
+
+                            <div class="form-group"> <!-- Expiration year -->
+                                <apex:outputLabel for="paymentCard_exp_year" styleClass="col-sm-4 control-label v_required" value="Expiration year *" />
+                                <div class="col-sm-8">
+                                    <apex:selectList id="paymentCard_exp_year" styleClass="form-control" value="{! paymentCard.expirationYear}" label="Card expiration year" size="1" required="false">
+                                        <apex:selectOption itemValue="" itemLabel="Expiration year" itemDisabled="true" html-selected="selected" />
+                                        <apex:selectOptions value="{! years}" />
+                                    </apex:selectList>
+                                </div><!--  /.col -->
+                            </div> <!--/.form-group--> <!--/Expiration year-->
+
+                            <div class="form-group"> <!-- Card security code -->
+                                <apex:outputLabel for="paymentCard_security_code" styleClass="col-sm-4 control-label v_required" value="Card security code *" />
+                                <div class="col-sm-8">
+                                    <apex:input id="paymentCard_security_code" styleClass="form-control" value="{! paymentCard.securityCode}" label="Card security code" html-maxlength="40" html-placeholder="Card security code *" required="false" /> <!-- type="number" -->
+                                </div> <!-- /.col -->
+                            </div> <!--/.form-group--> <!--/Card security code-->
+
+                            <!-- save card and primary -->
+                            <!--<apex:outputPanel layout="none" rendered="{! NOT(isGuest)}">-->
+                            <apex:outputPanel layout="none" rendered="false">
+                                <div class="form-group"> <!--Save card-->
+                                    <div class="col-sm-4 control-label"><!--for spacing--></div> <!--/.col.control-label-->
+                                    <div class="col-sm-8">
+                                        <div class="checkbox">
+                                            <label>
+                                                <apex:inputCheckbox id="save_card" value="{! paymentCard.isSavedCard}" />
+                                                Save payment card
+                                            </label>
+                                        </div> <!--/.checkbox-->
+                                    </div> <!--/.col-->
+                                </div> <!--/.form-group--> <!--/Save card-->
+
+                                <div class="form-group"> <!--Set as primary card-->
+                                    <div class="col-sm-4 control-label"><!--for spacing--></div> <!--/.col.control-label-->
+                                    <div class="col-sm-8">
+                                        <div class="checkbox">
+                                            <label>
+                                                <apex:inputCheckbox id="primary_card" value="{! paymentCard.isPrimary}" />
+                                                Make primary payment card
+                                            </label>
+                                        </div> <!--/.checkbox-->
+                                    </div> <!--/.col-->
+                                </div> <!--/.form-group--> <!--/Set as primary card-->
+
+                                <div class="form-group"> <!--Card label-->
+                                    <apex:outputLabel for="paymentCard_label" styleClass="col-sm-4 control-label" value="Card nickname" />
+                                    <div class="col-sm-8">
+                                        <apex:inputText id="paymentCard_label" styleClass="form-control" value="{! paymentCard.label}" label="Card label" maxlength="40" html-placeholder="Card nickname" />
+                                    </div> <!--/.col-->
+                                </div> <!--/.form-group--> <!--/Card label-->
+                            </apex:outputPanel> <!-- /save card and primary -->
+                        </div>
+                    <!--</fieldset>-->
+
+                </div> <!--/.panel-body.form-horizontal-->
+            </apex:outputPanel> <!--/.panel--> <!--/paymentCard-->
+        </div> <!--/.col-->
+    </div> <!--/.row-->
+    <!-- <div class="row">
+        <div class="col-sm-6"></div>
+        <div class="col-sm-6">
+
+        </div> /.col
+    </div> --> <!--/.row-->
+</apex:outputPanel> <!--/show detils or not--> <!--/step = ENTRY-->
+
+<apex:outputPanel layout="block" rendered="{! AND(lineItems.size > 0, step = REVIEW, NOT(pageHasError), NOT(isPaymentSuccessful))}"> <!--step=REVIEW, show details or not-->
+    <!--this is where the shipping, billing, contact, payment components go-->
+    <div class="row">
+        <!-- DO NOT REMOVE THIS COMMENT -->
+        <!-- <div class="col-sm-6">
+            <div class="panel panel-default">
+            <apex:outputPanel layout="block" styleClass="panel panel-default" id="shippingAddress2" rendered="false">
+                <div class="panel-heading">
+                    <span class="panel-title">Shipping address</span>/.panel-title
+                </div> /.panel-heading
+
+                <div class="panel-body form-horizontal">
+                    <address>
+                        {! shippingAddress.firstName} {! shippingAddress.lastName}<br/>
+                        <apex:outputPanel layout="none" rendered="{! LEN(shippingAddress.organization) > 0}">
+                            {! shippingAddress.organization}<br/>
+                        </apex:outputPanel>
+                        {! shippingAddress.streetAddress1}<br/>
+                        <apex:outputPanel layout="none" rendered="{! LEN(shippingAddress.streetAddress2) > 0}">
+                            {! shippingAddress.streetAddress2}<br/>
+                        </apex:outputPanel>
+                        {! shippingAddress.city} {! shippingAddress.state} {! shippingAddress.postalcode}<br/>
+                        {! shippingAddress.country}
+                    </address>
+                </div> /.panel-body.form-horizontal
+            </apex:outputPanel>
+            </div> /.panel /shippingAddress
+        </div> --> <!--/.col-->
+        <div class="col-sm-6">
+            <!--v_billing_component-->
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <span class="panel-title">Billing address</span><!--/.panel-title-->
+                </div> <!--/.panel-heading-->
+                <div class="panel-body form-horizontal">
+                    <address>
+                        {! billingAddress.firstName} {! billingAddress.lastName}<br/>
+                        <apex:outputPanel layout="none" rendered="{! LEN(billingAddress.organization) > 0}">
+                            {! billingAddress.organization}<br/>
+                        </apex:outputPanel>
+                        {! billingAddress.streetAddress1}<br/>
+                        <apex:outputPanel layout="none" rendered="{! LEN(billingAddress.streetAddress2) > 0}">
+                            {! billingAddress.streetAddress2}<br/>
+                        </apex:outputPanel>
+                        {! billingAddress.city} {! billingAddress.state} {! billingAddress.postalcode}<br/>
+                        {! billingAddress.country}
+                    </address>
+                </div> <!--/.panel-body.form-horizontal-->
+            </div> <!--/.panel--> <!--/billingAddress-->
+        </div> <!--/.col-->
+        <div class="col-sm-6">
+            <!--v_contact_component-->
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <span class="panel-title">Contact details</span><!--/.panel-title-->
+                </div> <!--/.panel-heading-->
+
+                <div class="panel-body form-horizontal">
+                    <address>
+                        {! contactDetails['email']}<br/>
+                        {! contactDetails['phone']}<br/>
+                        <br />
+                        {! contactDetails['additional_emails']}
+                    </address>
+                </div> <!--/.panel-body.form-horizontal-->
+            </div> <!--/.panel--> <!--/contact-->
+
+            <!--v_payment_component-->
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <span class="panel-title">Payment</span><!--/.panel-title-->
+                </div> <!--/.panel-heading-->
+                <apex:outputPanel rendered="{!paymentMode = 'Payment Card'}">
+                    <div class="panel-body form-horizontal">
+                        <address>
+                            {! paymentCard.cardholderName}<br/>
+                            {! paymentCard.maskedCardNumber}<br/>
+                            {! paymentCard.expirationMonth} {! paymentCard.expirationYear}
+                        </address>
+                    </div> <!--/.panel-body.form-horizontal-->
+                </apex:outputPanel>
+                <apex:outputPanel rendered="{!paymentMode != 'Payment Card'}">
+                    <div class="panel-body form-horizontal">
+                        <address>
+                            The selected payment mode is by check. <br/>A quote will be emailed to you upon checkout.
+                        </address>
+                    </div> <!--/.panel-body.form-horizontal-->
+                </apex:outputPanel>
+
+            </div> <!--/.panel--> <!--/contact-->
+        </div> <!--/.col-->
+    </div> <!--/.row-->
+    <!-- <div class="row">
+        <div class="col-sm-6"></div>
+        <div class="col-sm-6">
+        </div> /.col
+    </div> --> <!--/.row-->
+</apex:outputPanel> <!--/step=REVIEW, show details or not--> <!--/step = REVIEW-->
+
+
+<!-- Payment Information Text -->
+<apex:outputPanel layout="none" rendered="{! AND(lineItems.size > 0, step = ENTRY, NOT(pageHasError), NOT(isPaymentSuccessful))}">
+<div class="row">
+    <div class="col-sm-12">
+        YPO offers three methods of payment for your membership dues: Payment Card, Check, or Wire. Please select your Payment Mode above as either
+        Payment Card or Check/Wire.<br/><br/>
+        <p><b><u>Pay by Check:</u></b></p>
+        <p>Please make checks payable to YPO-WPO and include your name and membership ID number on check.<br/>
+        Mail checks to: YPO-WPO, P.O. Box 202590, Dallas, Texas 75320-2590, USA</p>
+        <p>Send courier (overnight) mail to: YPO-WPO - 202590, 2975 Regent Blvd., Irving, Texas 75063, USA</p>
+        <p><b><u>Pay by Wire Transfer:</u></b></p>
+        <p>Bank ABA #121000248 - Swift Code: WFBIUS6S<br/>
+        Wells Fargo Bank N.A. 420 Montgomery Street, San Francisco, CA.94104</p>
+        <p>For credit to:</p>
+        <p>Young Presidents' Organization<br/>
+        Account # 4121315014</p>
+    </div>
+</div><!--/. Payment Information Text -->
+
+<!-- Code of Conduct PDF Link and the check box -->
+<br/><apex:outputLink value="{!URLFOR($Resource.CodeofConduct)}">PDF: Read or print the full YPO-WPO Code of Conduct</apex:outputLink><br/>
+<!-- <input id="Ido" type="checkbox" checked="checked" name="acceptOrNot" value="I do" > I accept the Code of Conduct</input> -->
+<apex:inputCheckbox id="ido" value="{!isCodeOfConductAccepted}" /> I accept the Code of Conduct and Terms and Conditions
+<br/><br/><!--/. Code of Conduct PDF Link and the check box -->
+</apex:outputPanel>
+
+
+<!--buttons along the bottom of page-->
+<div class="text-center">
+    <!--Return to shopping button-->
+    <apex:outputLink rendered="{! lineItems.size = 0}" value="{! URLFOR($Page.v_catalog, null)}" styleClass="btn btn-primary" html-role="button"> <!--html-data-toggle="modal" html-data-target="#loadingModal"-->
+        <span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span> Return to shopping
+    </apex:outputLink>
+
+    <!--don't render these buttons if cart is empty-->
+    <apex:outputPanel rendered="{! lineItems.size > 0}" layout="none">
+        <!--Return to cart-->
+        &nbsp;
+        <apex:outputLink rendered="{! step = ENTRY}" value="{! URLFOR($Page.v_cart, null)}" styleClass="btn btn-default" html-role="button"> <!-- html-data-toggle="modal" html-data-target="#loadingModal" -->
+            <span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span> Return to cart <span class="glyphicon glyphicon-shopping-cart" aria-hidden="true"></span>
+        </apex:outputLink>
+
+        <!--Review order button-->
+        &nbsp;
+        <!--
+        <apex:commandLink rendered="{! step = ENTRY}" onclick="showFullLoader(); if(! validateRequiredFields('form')){ return false; }" oncomplete="hideFullLoader();" styleClass="btn btn-primary" html-role="button" action="{! moveToReview}" rerender="checkout_page">
+        -->
+
+        <!--
+        <apex:commandLink rendered="{! step = ENTRY}" styleClass="btn btn-primary" html-role="button" action="{! moveToReview}" rerender="checkout_page">
+            Review order <span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span>
+        </apex:commandLink>
+        -->
+
+        <!-- commandButton instead of commandLink allows HTML5 form validation (for required fields)-->
+        <apex:commandButton rendered="{! step = ENTRY}" value="Review order" styleClass="btn btn-primary" html-role="button" html-data-toggle="modal" html-data-target="#loadingModal" onclick="isCodeOfConductAccepted()" rerender="checkout_page" />
+        <apex:actionFunction name="moveToReview" action="{!moveToReview}" />
+        <!--Edit details button-->
+        &nbsp;
+        <apex:commandLink rendered="{! AND(step = REVIEW, NOT(isPaymentSuccessful))}" styleClass="btn btn-default" html-role="button" action="{! moveToEntry}" rerender="checkout_page"> <!-- html-data-toggle="modal" html-data-target="#loadingModal" -->
+            <span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span> Edit details
+        </apex:commandLink>
+
+        <!--Submit order button-->
+        &nbsp;
+        <apex:commandLink rendered="{! AND(step = REVIEW, NOT(isPaymentSuccessful))}" styleClass="btn btn-primary" html-role="button" html-data-toggle="modal" html-data-target="#loadingModal" action="{! newPay}" rerender="checkout_page">
+            Submit order <span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span>
+        </apex:commandLink>
+        <!--<apex:commandLink rendered="{! AND(step = REVIEW, NOT(isPaymentSuccessful))}" styleClass="btn btn-primary" html-role="button" html-data-toggle="modal" html-data-target="#loadingModal" action="{! customPay}" rerender="checkout_page">
+            CUSTOM Submit order <span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span>
+        </apex:commandLink>-->
+
+    </apex:outputPanel> <!--/don't render these buttons if cart is empty-->
+</div> <!--/.text-center--> <!--/buttons along the bottom of page-->
+
+</apex:outputPanel> <!--/id "checkout_page"--> <!--used to rerender the page when moving between checkout steps-->
+</apex:form>
+</apex:define> <!--/content-->
+</apex:composition>
+</apex:page>

@@ -1,0 +1,1096 @@
+﻿<apex:page controller="KGRenewal.VenueCatalogController" id="pageId" extensions="CatalogExtension_YPO" action="{! setProspectOppAsCart}" sidebar="false" showheader="false" standardstylesheets="false">
+    <head>
+                
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" />
+        <title>YPO Benefits Catalog</title>
+        
+        <!-- <apex:stylesheet value="{!URLFOR($Resource.fontAwesome, 'fontAwesome/css/font-awesome.css')}" />
+        <apex:stylesheet value="{!URLFOR($Resource.prospectResources, 'prospectResources/StyleGuide.css')}" />
+        <apex:stylesheet value="{!URLFOR($Resource.prospectResources, 'prospectResources/prospect.css')}" />
+        <apex:stylesheet value="{!$Resource.InvisionAppStyle_YPO}"/> -->
+        
+        <link rel="stylesheet" type="text/css" href="{!URLFOR($Resource.YPORenew, 'ypo-renewals/assets/css/bootstrap.min.css')}" />
+        <link rel="stylesheet" type="text/css" href="{!URLFOR($Resource.YPORenew, 'ypo-renewals/assets/css/styles.css')}" />
+        
+        <style>
+            #cart {
+                overflow-y: initial;
+            }
+            #cart .cart-body {
+                overflow-y: auto;
+            }
+            #cartdiv {
+                padding-bottom: 10px;
+            }
+        </style>
+        
+        <!--
+        <style>
+            #cartloadingdivId {
+                position: fixed;
+                width: 100%;
+                height: 100%;
+                background: rgba(0, 0, 0, 0.62);
+                text-align: center;
+                left: 0;
+                top: 0;
+                z-index: 1000;
+            }
+            #cartloadingdivId span {
+                display: inline-block;
+                top: 50%;
+                position: absolute;
+                color: #fff;
+                font-size: 20px;
+            }
+        </style> 
+        -->
+        
+    </head>
+    
+    <body>
+        
+        <!-- Global site tag (gtag.js) - Google Analytics -->
+        <script async="true" src="https://www.googletagmanager.com/gtag/js?id={!$Label.Google_Analytics_ID}"></script>
+        <script>
+            window.dataLayer = window.dataLayer || [];
+            function gtag(){dataLayer.push(arguments);}
+            gtag('js', new Date());
+            gtag('config', '{!$Label.Google_Analytics_ID}');
+        </script>
+        <!-- End Google Analytics code -->
+        
+        <!-- 
+            <apex:composition template="V_Template_ProspectFlow_YPO">
+              <apex:define name="title">
+                 <title>Products | {! $Organization.Name}</title>
+              </apex:define>-->
+        <!--   <apex:define name="nav_links" > -->
+        <li style="display:none">
+            <apex:outputpanel id="kgrencartcompId">
+                <KGRenewal:CartComponent mode="link" includebootstrapmodalresources="false" />
+            </apex:outputpanel>
+        </li>
+        <!--      </apex:define> -->
+        <!--      <apex:define name="content">-->
+        <apex:variable var="v_currentCategory" value="{! IF(ISBLANK(currentCategory),'',currentCategory)}" />
+        <apex:variable var="v_currentPageSize" value="{! IF(currentPageSize==10,'',currentPageSize)}" />
+        <apex:variable var="v_sortBy" value="{! IF(sortBy=='Name','',sortBy)}" />
+        <apex:variable var="v_showCart" value="true" />
+    
+        <nav class="navbar navbar-default navbar-fixed-top">
+            <div class="container">
+                <img class="logo" src="{!URLFOR($Resource.YPORenew, 'ypo-renewals/assets/img/ypo.svg')}" />
+                <div class="cart pull-right visible-xs visible-sm" onclick="openNav()">
+                    <div id="cart-count" class="count cart-count"></div>
+                    <i class="icon-shopping_cart"></i>
+                </div>
+            </div>
+        </nav>
+        <apex:form id="theform">
+            <div class="content-title">
+                <div class="container">
+                    <h1 class="v-center">{!$Label.Catalog_YPOMembershipCatalog}</h1>
+                </div>
+            </div>
+            <!-- Site Content -->
+            <div class="container">
+                <div style="color:black"> <apex:pagemessages id="messagesStart" /> <br /> </div>
+                <div class="content">
+                    <p class="desc">{!$Label.Catalog_Ypohaspartnered}</p>
+                    <!-- ------ Test Code ----------->
+                    <!--     <apex:outputPanel id="cartPanelId" >
+                                         <section class="cartBar">
+                                            <div class="panel pdd-20">
+                                               <div class="row">
+    
+                                                  <div class="col-xs-2 col-md-1"  >
+                                                     <div onclick="enableDiableDymmyDivModelPopup()" id="originalCartDivId" class="cartIcon">
+                                                        <div class="circle">
+                                                           <span class="notifNumber"><span data-venue-source="cart-size"/></span>
+                                                        </div>
+                                                        <svg id="icon-cart" class="svg-image1" viewBox="-10 32 32" style="width:35px;height:32px;">
+                                                           <path class="path1" d="M31.3 15.9c0.4-0.1 0.7-0.5 0.7-0.9v-9.5c0-0.5-0.4-0.9-0.9-0.9h-23.3l-0.3-2.9c0-0.5-0.4-0.9-0.9-0.9h-6.6v1.9h5.7l1.8 16.8-1.6 3.9c-0.1 0-0.2 0-0.3 0-2.1 0-3.8 1.7-3.8 3.8s1.8 3.8 3.8 3.8 3.8-1.7 3.8-3.8c0-0.7-0.2-1.3-0.5-1.9h16.1c-0.3 0.6-0.5 1.2-0.5 1.9 0 2.1 1.7 3.8 3.8 3.8s3.8-1.7 3.8-3.8-1.7-3.8-3.8-3.8h-20.3l1.2-2.9 22.1-4.6zM30.1 6.5v7.7l-20.8 4.3-1.3-12h22.1zM5.6 29.1c-1 0-1.9-0.8-1.9-1.9 0-1 0.8-1.9 1.9-1.9s1.9 0.8 1.9 1.9c0 1-0.8 1.9-1.9 1.9zM30.1 27.2c0 1-0.8 1.9-1.9 1.9s-1.9-0.8-1.9-1.9c0-1 0.8-1.9 1.9-1.9s1.9 0.9 1.9 1.9z"></path>
+                                                        </svg>
+                                                     </div>
+    
+    
+                                                      <div id="dummyCartDivId" style="display:none" class="cartIcon">
+                                                        <div class="circle">
+                                                           <span class="notifNumber"><span data-venue-source="cart-size"/></span>
+                                                        </div>
+                                                        <svg id="icon-cart" class="svg-image1" viewBox="-10 32 32" style="width:35px;height:32px;">
+                                                           <path class="path1" d="M31.3 15.9c0.4-0.1 0.7-0.5 0.7-0.9v-9.5c0-0.5-0.4-0.9-0.9-0.9h-23.3l-0.3-2.9c0-0.5-0.4-0.9-0.9-0.9h-6.6v1.9h5.7l1.8 16.8-1.6 3.9c-0.1 0-0.2 0-0.3 0-2.1 0-3.8 1.7-3.8 3.8s1.8 3.8 3.8 3.8 3.8-1.7 3.8-3.8c0-0.7-0.2-1.3-0.5-1.9h16.1c-0.3 0.6-0.5 1.2-0.5 1.9 0 2.1 1.7 3.8 3.8 3.8s3.8-1.7 3.8-3.8-1.7-3.8-3.8-3.8h-20.3l1.2-2.9 22.1-4.6zM30.1 6.5v7.7l-20.8 4.3-1.3-12h22.1zM5.6 29.1c-1 0-1.9-0.8-1.9-1.9 0-1 0.8-1.9 1.9-1.9s1.9 0.8 1.9 1.9c0 1-0.8 1.9-1.9 1.9zM30.1 27.2c0 1-0.8 1.9-1.9 1.9s-1.9-0.8-1.9-1.9c0-1 0.8-1.9 1.9-1.9s1.9 0.9 1.9 1.9z"></path>
+                                                        </svg>
+                                                     </div>
+    
+                                                      <div id="cartloadingdivId" style="display:none"> <span>Loading... </span></div>
+    
+    
+                                                  </div>
+                                                  <div class="col-xs-8 col-md-8 catalogyour"> {!$Label.Catalog_Your2016YPO} </div>
+                                                  <div class="col-xs-2 col-md-3 col-xs-12 blue-color text-right headTxt">
+    
+                                                         <span class="shoppingRemove">
+                                                             <a href="javascript:void(0)" class="btn btn-blue closeIcon" value="OK" role="button">
+                                                                 OK
+                                                             </a>
+                                                         </span>
+    
+    
+                                                  </div>
+                                               </div>
+                                            </div>
+                                         </section>
+                                      </apex:outputPanel> -->
+                    <!----------------end---------------->
+                    <div class="row">
+                        <div class="col-md-8">
+    
+    
+                            <div class="panel">
+                                <div class="panel-header">
+                                    <h3>Benefits</h3>
+                                </div>
+                                <div class="member-catalog-items">
+                                    <!-- catalog item -->
+                                    <apex:repeat value="{!productDisplayItems}" var="item">
+                                        <div class="member-catalog-item" data-venue-define="product" data-venue-id="{! item.productId}" data-venue-name="{! item.name}">
+                                            <div class="row">
+                                                <div class="col-md-2">
+                                                    <!--   <apex:outputLink value="{!URLFOR($Page.CatalogItemDetailed_YPO, null, ['id'=item.productId,'lifetime'=cameFromLifetimePage])}" rendered="{! NOT(ISNULL(item.record.KGRenewal__MainImageSmall__c))}"> -->
+                                                    <img class="center-block img-responsive" src="{!$Site.Prefix}{!item.record.KGRenewal__MainImageSmall__c}" alt="{!item.name}" />
+                                                    <!--   </apex:outputlink> -->
+                                                </div>
+                                                <div class="col-md-10">
+                                                    <div class="row member-catalog-info">
+    
+                                                        <h3 class="col-md-9">
+                                                            <!-- <a href="{! URLFOR($Page.CatalogItemDetailed_YPO, null, ['id'=item.productId,'lifetime'=cameFromLifetimePage])}"> -->
+                                                            <span class="kgvenue name">
+                                                                {!item.name}
+                                                            </span>
+                                                            <!--</a>-->
+                                                        </h3>
+                                                        <h3 class="col-md-3 price">
+                                                            <apex:outputtext styleclass="headTxt price" value="{!CurrencyCode}{0, number,###,###,###,##0}">
+                                                                <apex:param value="{! item.discountedPrice}" />
+                                                            </apex:outputtext>
+                                                        </h3>
+                                                    </div>
+                                                    <div>
+                                                        <p class="desc addHeight">
+                                                            <apex:outputtext style="white-space:pre-wrap;" escape="false" value="{!item.Description}" />
+                                                        </p>
+    
+                                                            <p><u><a href="#" onclick="getPDFLink('{!item.productId}');">More Benefit Details</a></u></p>
+    
+                                                    </div>
+                                                    <div class="">
+                                                        <apex:outputpanel rendered="{!NOT(item.record.Exclusive__c != 'Member')}">
+                                                            <div class="btm-btns">
+                                                                <!--<input type="Submit" class="btn btn-primary" data-venue-action="add" value="Add to cart" role="button" href="javascript:void(0);" onclick="addToCart('{!item.name}','','{!CurrencyCode}{! item.discountedPrice}','{!$Site.Prefix}{!item.record.KGRenewal__MainImageSmall__c}')"/> -->
+    
+                                                                <apex:commandbutton styleclass="btn btn-primary" html-data-venue-action="add" value="Add To Cart" onclick="openCatlogModelPopup();setItemId('{!item.name}')" />
+    
+                                                                <!-- <button class="btn btn-primary" type="button" data-venue-action="add" href="javascript:void(0);" onclick="window.location.reload();">Add To Cart</button> -->
+                                                                <!-- <input type="Submit" role="button" class="btn btn-primary" value="Add to cart" data-venue-action="add" href="javascript:void(0);" onclick="addToCart('{!item.name}','','{!CurrencyCode}{! item.discountedPrice}')"/>-->
+                                                            </div>
+                                                        </apex:outputpanel>
+                                                        <apex:outputpanel rendered="{!item.record.Exclusive__c != 'Member'}">
+                                                            <div class="btm-btns">
+                                                                <!--  <iframe src="{! URLFOR($Page.CatalogItemDetailed_YPO, null, ['id'=item.productId,'lifetime'=cameFromLifetimePage])}" name="targetframe" allowTransparency="true" scrolling="no" frameborder="0" >
+                                                                   </iframe>     -->
+                                                                <a href="{! URLFOR($Page.CatalogItemDetailed_YPO, null, ['id'=item.productId,'lifetime'=cameFromLifetimePage])}">
+                                                                    <!--<input type="Button" class="btn btn-primary" value="Select Beneficiary" data-toggle="modal" data-target="#selectBeneficiaryModal" /> -->
+                                                                    <input type="Button" class="btn btn-primary" value="Select Beneficiary" />
+                                                                </a>
+                                                            </div>
+                                                        </apex:outputpanel>
+                                                        <apex:outputpanel rendered="{! NOT(hasAvailableContactOptionsMap[item.productId])}" layout="none">
+                                                            <!--Ramneek 5/1/2017  Carol requested change item 6630
+                                                               <span>
+                                                              No more available Contacts
+                                                              </span>
+                                                            -->
+                                                        </apex:outputpanel>
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-8">
+    
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </apex:repeat>
+                                    <!-- <apex:actionFunction name="openCatlogModelPopup" action="{!CatalogModel_CartContrl}" reRender="removeRefreshId" />-->
+    
+                                </div>
+                            </div>
+    
+                            <div class="action-panel">
+                                <div class="row">
+                                    <div class="col-xs-6">
+                                        <button class="btn btn-default pull-left action-button" type="button" onclick="backValidate()">Back</button>
+                                    </div>
+                                    <div class="col-xs-6">
+                                        <button class="btn btn-primary pull-right action-button" type="button" onclick="goSaveAndContinue()">Continue</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-4 hidden-xs hidden-sm" id="cartdiv">
+                            <div class="cart-container clearfix">
+                                <div class="panel-header">
+                                    <h3>Shopping Cart (<apex:outputtext value="{!venueCartCtrl.lineItems.size}"></apex:outputtext>)</h3>
+                                    <div class="cart-close pull-right">
+                                        <!--<i class="icon-close" onclick="closeNav()"></i>-->
+                                    </div>
+                                </div>
+                                <ul id="cart-container" class="cart">
+                                    <apex:outputpanel id="removeRefreshId">
+                                        <apex:outputpanel id="ordersummaryId" layout="block" rendered="{! NOT(ISNULL(venueCartCtrl.lineItems)) && venueCartCtrl.lineItems.size > 0}">
+                                            <!--alert({!venueCartCtrl.lineItems.size});-->
+                                            <apex:variable value="{!1}" var="rowNum" />
+                                            <apex:repeat var="item" value="{! venueCartCtrl.lineItems}">
+                                                <li>
+                                                    <div style="{!IF(rowNum == 1 ,'display:none','display:block')}" class="catalogline"></div>
+                                                    <!--<div class="row model-left-right-pdd priceRow"> -->
+                                                    <!-- <img class="pull-left hidden-xs hidden-sm" src="{!URLFOR($Resource.YPORenew, 'ypo-renewals/assets/img/ypo-cart.png')}" /> -->
+                                                    <div class="pull-left hidden-xs hidden-sm">
+                                                        <apex:image value="{! item.pricebookEntry.product2.KGRenewal__MainImageSmall__c}" alt="" height="50" />
+                                                    </div>
+    
+                                                    <div class="pull-left cart-info">
+                                                        <span class="cart-title">{! item.name}</span><br/>
+                                                        <span class="cart-detail">{! item.description}</span>
+                                                        <!--  Remove Closing-->
+                                                        <div class="removeBlock">
+    
+                                                            <apex:outputpanel rendered="{! NOT(item.isLocked)}" layout="none" id="areyousuredelId">
+    
+                                                                <apex:outputpanel id="yesbuttonId1" rendered="{!($CurrentPage.parameters.yesparam == item.recordId  )}">
+                                                                    <apex:outputlink value="javascript:openCatlogDelSubModelPopup('{!item.recordId}');" rendered="{!($CurrentPage.parameters.yesparam == item.recordId)}">
+                                                                        Ok
+                                                                    </apex:outputlink>
+                                                                    <apex:commandlink value="Cancel" rendered="{!($CurrentPage.parameters.yesparam == item.recordId)}" rerender="yesbuttonId1">
+                                                                        <apex:param name="yesparam" value="nodisplay" />
+                                                                    </apex:commandlink>
+                                                                </apex:outputpanel>
+                                                                <div id="yesnodivId{!rowNum}" class="customAlertBox">
+                                                                    <!-- <p> Are you sure you want to remove this item? </p>
+                                                                     <a href="javascript:void(0)" onclick="yesnoSubModelHide({!rowNum});" class="noBtn">Cancel</a>-->
+                                                                    <apex:outputlink value="javascript:openCatlogDelSubModelPopup('{!item.recordId}');">
+                                                                        x Remove
+                                                                    </apex:outputlink>
+                                                                </div>
+                                                            </apex:outputpanel>
+                                                        </div>
+                                                        <!-- Remove Closing end -->
+                                                    </div>
+                                                    <div class="pull-right price">
+                                                        <span>
+                                                            <apex:outputtext value="{!CurrencyCode}{0, number,###,###,###,##0.00}">
+                                                                <apex:param value="{! item.totalPrice}" />
+                                                            </apex:outputtext>
+                                                        </span>
+                                                        <!--</div>-->
+    
+                                                    </div>
+                                                    <div class="clearfix"></div>
+                                                    <apex:variable var="rowNum" value="{!rowNum + 1}" />
+                                                </li>
+                                            </apex:repeat>
+                                        </apex:outputpanel>
+                                    </apex:outputpanel>
+    
+                                    <!-- <div class="modal-footer"> -->
+                                    <h3>
+                                        <span class="pull-left">Subtotal:</span>
+                                        <span class="pull-right">
+                                            <apex:outputtext value="{!CurrencyCode}{0, number,###,###,###,##0.00}">
+                                                <apex:param value="{! venueCartCtrl.summary['subtotal']}" />
+                                            </apex:outputtext>
+                                        </span>
+                                    </h3>
+                                </ul>
+                                <!-- <button type="button" class="btn btn-default" data-dismiss="modal">Close</button> -->
+                                <!-- <apex:commandButton action="{!closeCatalgogItem}" value="Close" styleClass="btn btn-default"  /> -->
+                                <!--                                       </div>-->
+                                <!--  <li>
+                                      <img class="pull-left" src="{!URLFOR($Resource.YPORenew, 'ypo-renewals/assets/img/ypo-cart.png')}"/>
+                                      <div class="pull-left cart-info">
+                                          <div class="cart-title">
+                                              2016 YPO Membership Fee
+                                          </div>
+                                          <div class="cart-detail">
+                                              Dallas Chapter
+                                          </div>
+                                      </div>
+                                      <div class="pull-right price">USD3,500.00</div>
+                                      <div class="clearfix"></div>
+                                  </li>
+                                  <li>
+                                      <img class="pull-left" src="{!URLFOR($Resource.YPORenew, 'ypo-renewals/assets/img/ypo-cart.png')}"/>
+                                      <div class="pull-left cart-info">
+                                          <div class="cart-title">
+                                              Reinstatement Fee
+                                          </div>
+                                          <div class="cart-detail">
+                                              Dallas Chapter
+                                          </div>
+                                      </div>
+                                      <div class="pull-right price">USD999,999.00</div>
+                                      <div class="clearfix"></div>
+                                  </li>
+                                  <li>
+                                      <img class="pull-left" src="{!URLFOR($Resource.YPORenew, 'ypo-renewals/assets/img/ypo-cart.png')}"/>
+                                      <div class="pull-left cart-info">
+                                          <div class="cart-title">
+                                              YPO Safe Travel Solution - Family Benefit
+                                          </div>
+                                          <div class="cart-detail">
+                                              Benjamin Wilder
+                                          </div>
+                                          <div class="remove">
+                                              <a href="#">x Remove</a>
+                                          </div>
+                                      </div>
+                                      <div class="pull-right price">USD119.00</div>
+                                      <div class="clearfix"></div>
+                                  </li> -->
+                                <!--<h3><span class="pull-left">Subtotal:</span><span class="pull-right">USD3,919.00</span></h3>-->
+                            </div>
+                        </div>
+                    </div>
+                    <!-- modal -->
+                    <div id="selectBeneficiaryModal" class="modal fade" tabindex="-1" role="dialog">
+                        <div class="modal-dialog" role="document">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                        <span aria-hidden="true">&times;</span>
+                                    </button>
+                                    <h4 class="modal-title">Select Beneficiary</h4>
+                                </div>
+                                <div class="modal-body">
+                                    <div class="select-benficiary-modal-header member-catalog-item">
+                                        <div class="row">
+                                            <div class="col-md-2">
+                                                <img src="{!URLFOR($Resource.YPORenew, 'ypo-renewals/assets/img/catalog1.png')}" class="img-responsive" />
+                                            </div>
+                                            <div class="col-md-7">
+                                                <div>
+                                                    <h3>YPO Safe Travel Solution - Family Benefit</h3>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-3">
+                                                <h3 class="price">USD119.00</h3>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label>Select a family member to add</label>
+                                        <div class="indent select-family">
+                                            <div class="radio">
+                                                <label>
+                                                    <input type="radio" name="selectFamilyMember" />
+                                                    <strong>Anna Wilder</strong> Spouse / Partner
+                                                </label>
+                                            </div>
+                                            <div class="radio">
+                                                <label>
+                                                    <input type="radio" name="selectFamilyMember" />
+                                                    <strong>Benjamin Wilder</strong> Child
+                                                </label>
+                                            </div>
+                                            <div class="radio">
+                                                <label>
+                                                    <input id="radioAddFamily" type="radio" value="addFamilyMember" name="selectFamilyMember" />
+                                                    Add a family member
+                                                </label>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div id="addFamilyMember" style="display: none;">
+                                        <div class="row">
+                                            <div class="col-md-6">
+                                                <div class="form-group">
+                                                    <label>Relation to You</label>
+                                                    <select class="form-control">
+                                                        <option value="">Select Option</option>
+                                                        <option value="Spouse_Partner">Spouse / Partner</option>
+                                                        <option value="Child">Child</option>
+                                                    </select>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-md-6">
+                                                <div class="form-group">
+                                                    <label class="required">First Name</label>
+                                                    <input class="form-control" />
+                                                </div>
+                                            </div>
+                                            <div class="col-md-6">
+                                                <div class="form-group">
+                                                    <label class="required">Last Name</label>
+                                                    <input class="form-control" />
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-md-6">
+                                                <div class="form-group">
+                                                    <label>Email</label>
+                                                    <input class="form-control" />
+                                                </div>
+                                            </div>
+                                            <div class="col-md-6">
+                                                <div class="form-group">
+                                                    <label>Phone Number</label>
+                                                    <div class="row condensed">
+                                                        <div class="col-xs-3"><input class="form-control" /></div>
+                                                        <div class="col-xs-6"><input class="form-control" /></div>
+                                                        <div class="col-xs-3"><input class="form-control" placeholder="Ext" /></div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-md-6">
+                                                <div class="form-group">
+                                                    <label>Birthday</label>
+                                                    <div class="row condensed">
+                                                        <div class="col-xs-4">
+                                                            <select class="form-control">
+                                                                <option value="">DD</option>
+                                                                <option value="1">01</option>
+                                                                <option value="2">02</option>
+                                                                <option value="3">03</option>
+                                                                <option value="4">04</option>
+                                                                <option value="5">05</option>
+                                                                <option value="6">06</option>
+                                                                <option value="7">07</option>
+                                                                <option value="8">08</option>
+                                                                <option value="9">09</option>
+                                                                <option value="10">10</option>
+                                                                <option value="11">11</option>
+                                                                <option value="12">12</option>
+                                                            </select>
+                                                        </div>
+                                                        <div class="col-xs-4">
+                                                            <select class="form-control">
+                                                                <option value="">MM</option>
+                                                                <option value="1">01</option>
+                                                                <option value="2">02</option>
+                                                                <option value="3">03</option>
+                                                                <option value="4">04</option>
+                                                                <option value="5">05</option>
+                                                                <option value="6">06</option>
+                                                                <option value="7">07</option>
+                                                                <option value="8">08</option>
+                                                                <option value="9">09</option>
+                                                                <option value="10">10</option>
+                                                                <option value="11">11</option>
+                                                                <option value="12">12</option>
+                                                            </select>
+                                                        </div>
+                                                        <div class="col-xs-4">
+                                                            <select class="form-control">
+                                                                <option value="">YYYY</option>
+                                                                <option value="1990">1990</option>
+                                                                <option value="1991">1991</option>
+                                                                <option value="1992">1992</option>
+                                                            </select>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="button" data-dismiss="modal" class="btn btn-primary">Add to Cart</button>
+                                </div>
+                            </div><!-- /.modal-content -->
+                        </div><!-- /.modal-dialog -->
+                    </div><!-- /.modal -->
+                </div>
+            </div>
+    
+            <!-- <div style="color:black"> <apex:pagemessages id="messagesStart" /> <br /> </div> -->
+    
+            <footer class="visible-md visible-lg">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-md-4"><img class="logo" style="margin-top: 10px;" src="{!URLFOR($Resource.YPORenew, 'ypo-renewals/assets/img/ypo-white.svg')}" /></div>
+                        <div class="col-md-4 text-center"><a href="https://media.ypowpo.org/libraries/publicLegal/exchange/TOU.pdf" target="_blank" style="color: #fdfeff;">{!$Label.Copyright_TOU}</a></div>
+                        <div class="col-md-4 text-right">&copy; {!$Label.Copyright_YPO}</div>
+                    </div>
+                </div>
+            </footer>
+    
+    
+    
+            <apex:pageblock id="pagblockId">
+                <div class="row">
+                    <div class="col-md-10 col-md-offset-1 col-lg-8 col-lg-offset-2">
+    
+                        <!-- Test Start
+                           <h2 class="title">{!$Label.Catalog_YPOMembershipCatalog}</h2>
+                            <p> {!$Label.Catalog_Ypohaspartnered} </p>
+                            <apex:outputPanel id="cartPanelId" >
+                               <section class="cartBar">
+                                  <div class="panel pdd-20">
+                                     <div class="row">
+    
+                                        <div class="col-xs-2 col-md-1"  >
+                                           <div onclick="enableDiableDymmyDivModelPopup()" id="originalCartDivId" class="cartIcon">
+                                              <div class="circle">
+                                                 <span class="notifNumber"><span data-venue-source="cart-size"/></span>
+                                              </div>
+                                              <svg id="icon-cart" class="svg-image1" viewBox="-10 32 32" style="width:35px;height:32px;">
+                                                 <path class="path1" d="M31.3 15.9c0.4-0.1 0.7-0.5 0.7-0.9v-9.5c0-0.5-0.4-0.9-0.9-0.9h-23.3l-0.3-2.9c0-0.5-0.4-0.9-0.9-0.9h-6.6v1.9h5.7l1.8 16.8-1.6 3.9c-0.1 0-0.2 0-0.3 0-2.1 0-3.8 1.7-3.8 3.8s1.8 3.8 3.8 3.8 3.8-1.7 3.8-3.8c0-0.7-0.2-1.3-0.5-1.9h16.1c-0.3 0.6-0.5 1.2-0.5 1.9 0 2.1 1.7 3.8 3.8 3.8s3.8-1.7 3.8-3.8-1.7-3.8-3.8-3.8h-20.3l1.2-2.9 22.1-4.6zM30.1 6.5v7.7l-20.8 4.3-1.3-12h22.1zM5.6 29.1c-1 0-1.9-0.8-1.9-1.9 0-1 0.8-1.9 1.9-1.9s1.9 0.8 1.9 1.9c0 1-0.8 1.9-1.9 1.9zM30.1 27.2c0 1-0.8 1.9-1.9 1.9s-1.9-0.8-1.9-1.9c0-1 0.8-1.9 1.9-1.9s1.9 0.9 1.9 1.9z"></path>
+                                              </svg>
+                                           </div>
+    
+    
+                                            <div id="dummyCartDivId" style="display:none" class="cartIcon">
+                                              <div class="circle">
+                                                 <span class="notifNumber"><span data-venue-source="cart-size"/></span>
+                                              </div>
+                                              <svg id="icon-cart" class="svg-image1" viewBox="-10 32 32" style="width:35px;height:32px;">
+                                                 <path class="path1" d="M31.3 15.9c0.4-0.1 0.7-0.5 0.7-0.9v-9.5c0-0.5-0.4-0.9-0.9-0.9h-23.3l-0.3-2.9c0-0.5-0.4-0.9-0.9-0.9h-6.6v1.9h5.7l1.8 16.8-1.6 3.9c-0.1 0-0.2 0-0.3 0-2.1 0-3.8 1.7-3.8 3.8s1.8 3.8 3.8 3.8 3.8-1.7 3.8-3.8c0-0.7-0.2-1.3-0.5-1.9h16.1c-0.3 0.6-0.5 1.2-0.5 1.9 0 2.1 1.7 3.8 3.8 3.8s3.8-1.7 3.8-3.8-1.7-3.8-3.8-3.8h-20.3l1.2-2.9 22.1-4.6zM30.1 6.5v7.7l-20.8 4.3-1.3-12h22.1zM5.6 29.1c-1 0-1.9-0.8-1.9-1.9 0-1 0.8-1.9 1.9-1.9s1.9 0.8 1.9 1.9c0 1-0.8 1.9-1.9 1.9zM30.1 27.2c0 1-0.8 1.9-1.9 1.9s-1.9-0.8-1.9-1.9c0-1 0.8-1.9 1.9-1.9s1.9 0.9 1.9 1.9z"></path>
+                                              </svg>
+                                           </div>
+    
+                                            <div id="cartloadingdivId" style="display:none"> <span>Loading... </span></div>
+    
+    
+                                        </div>
+                                        <div class="col-xs-8 col-md-8 catalogyour"> {!$Label.Catalog_Your2016YPO} </div>
+                                        <div class="col-xs-2 col-md-3 col-xs-12 blue-color text-right headTxt">
+                                            <a href="javascript:void(0)" class="closeIcon pull-right">Dismiss <span class="glyphicon glyphicon-remove"></span></a>
+                                               <span class="shoppingRemove">
+                                                   <a href="javascript:void(0)" class="btn btn-blue closeIcon" value="OK" role="button">
+                                                       OK
+                                                   </a>
+                                               </span>
+    
+    
+                                        </div>
+                                     </div>
+                                  </div>
+                               </section>
+                            </apex:outputPanel>
+                            <!-- ******************* CATALOG PRODUCTS SECTION START *************** -->
+                        <!--                     <section class="cartBlockSection">
+                                                <apex:repeat value="{!productDisplayItems}" var="item">
+                                                   <div class="panel cartBlock" data-venue-define="product" data-venue-id="{! item.productId}" data-venue-name="{! item.name}">
+                                                      <div class="row rowpadding padd-top-bottom ">
+                                                         <div class="col-xs-12 col-sm-2 col-md-2 imgBlock">
+                                                            <apex:outputLink value="{!URLFOR($Page.CatalogItemDetailed_YPO, null, ['id'=item.productId,'lifetime'=cameFromLifetimePage])}" rendered="{! NOT(ISNULL(item.record.KGRenewal__MainImageSmall__c))}">
+                                                               <img class="center-block img-responsive" src="{!$Site.Prefix}{!item.record.KGRenewal__MainImageSmall__c}" alt="{!item.name}" />
+                                                            </apex:outputlink>
+                                                         </div>
+                                                         <div class="col-xs-12 col-sm-8 col-md-8 cntBlock">
+                                                            <div class="blue-clr md-btm">
+                                                               <a href="{! URLFOR($Page.CatalogItemDetailed_YPO, null, ['id'=item.productId,'lifetime'=cameFromLifetimePage])}">
+                                                               <span class="kgvenue name" style="color:#3D7099" >
+                                                               {!item.name}
+                                                               </span>
+                                                               </a>
+                                                            </div>
+                                                            <div>
+                                                               <p class="desc addHeight">
+                                                                   <apex:outputText style="white-space:pre-wrap;" escape="false" value="{!item.description}" /> </p>
+                                                               <span class="showMore">Learn More.</span>
+                                                            </div>
+                                                            <div class="">
+                                                               <apex:outputPanel rendered="{!NOT(item.record.Exclusive__c != 'Member')}">
+                                                                  <div class="btm-btns">
+                                                                     <input type="Submit" class="btn btn-blue" data-venue-action="add" value="Add to cart" role="button" href="javascript:void(0);"/>
+                                                                  </div>
+                                                               </apex:outputPanel>
+                                                               <apex:outputPanel rendered="{!item.record.Exclusive__c != 'Member'}">
+                                                                  <div class="btm-btns">
+                                                                     <a href="{! URLFOR($Page.CatalogItemDetailed_YPO, null, ['id'=item.productId,'lifetime'=cameFromLifetimePage])}" style="padding:0px !important; margin:0 !important;">
+                                                                     <input type="Button" class="btn btn-blue" value="Select Beneficiary" />
+                                                                     </a>
+                                                                  </div>
+                                                               </apex:outputPanel>
+                                                               <apex:outputPanel rendered="{! NOT(hasAvailableContactOptionsMap[item.productId])}" layout="none">
+                                                                 <!--Ramneek 5/1/2017  Carol requested change item 6630
+                                                                   <span>
+                                                                  No more available Contacts
+                                                                  </span> -->
+                        <!--                                   </apex:outputPanel>
+                                                        </div>
+                                                     </div>
+                                                     <div class="col-xs-12 col-sm-2 col-md-2 text-right priceBlock">
+                                                        <apex:outputText styleClass="headTxt price" value="{!CurrencyCode}{0, number,###,###,###,##0.00}">
+                                                           <apex:param value="{! item.discountedPrice}" />
+                                                        </apex:outputText>
+                                                     </div>
+                                                  </div>
+                                               </div>
+                                            </apex:repeat>
+                                            <!-- ******************* CATALOG PRODUCTS SECTION END  *************** -->
+                        <!-- ******************* BUTTONS SECTION START *************** -->
+                        <!--                <div class="whiteBox btm-btns btm-btns">
+                                           <input class="btn btn-gray" value="Back" type="button" onclick="backValidate('{!hasGrace}')"/>
+                                           <!--a href="{! URLFOR($Page.ShoppingCart_YPO)}" -->
+                        <!--         <input type="button" class="btn btn-blue" value="Review Shopping Cart" onclick="window.location.href='{! URLFOR($Page.ShoppingCart_YPO, null, [lifetime=cameFromLifetimePage])}'" />
+                                 <!--/a-->
+                        <!--input class="btn btn-blue" value="Review Shopping Cart" type="submit"/-->
+                        <!--                        </div>
+                                             </section>-->
+                        <!--
+                           <button type="button" class="btn btn-default">Back</button>
+                           <button type="button" class="btn btn-primary"  data-toggle="modal" data-target="#catalogMembership">Review Shopping Cart</button>-->
+                        <!-- ******************* CATALOG MODEL SECTION START  *************** -->
+                        <!--        <apex:outputPanel id="catalogModelId">
+                                   <div class="slimScrollDiv">
+                                      <div class="modal fade catalogModelPopup" id="catalogMembership"  role="dialog" style="top: 45px;">
+                                         <div class="modal-dialog">
+                                            <!-- ************ MODEL CONTENT(HEADER/BODY/FOOTER) START ************** -->
+                        <!--                <div class="modal-content">
+                                           <div class="modal-header">
+                                              Shopping Cart (
+                                              <apex:outputText value="{!venueCartCtrl.lineItems.size}"></apex:outputText>
+                                              items )
+                                              <button type="button" onclick="closeCatalogModel()" class="close" id="clsBtn" data-dismiss="modal">&times;</button>
+                                              <!-- <apex:commandButton action="{!closeCatalgogItem}"  styleClass="close" html-data-dismiss="modal"  > &times; </apex:commandButton> -->
+                        <!--               </div>
+                                       <div class="modalPopBody">
+                                          <div class="modal-body model-padding">
+                                             <!--Order Summary panel-->
+                        <!--                 <apex:outputPanel id="removeRefreshId">
+                                            <apex:outputPanel id="ordersummaryId" layout="block" rendered="{! NOT(ISNULL(venueCartCtrl.lineItems)) && venueCartCtrl.lineItems.size > 0}">
+                                               <apex:variable value="{!1}" var="rowNum"/>
+                                               <apex:repeat var="item" value="{! venueCartCtrl.lineItems}">
+                                                  <div style="display:{!IF(rowNum == 1 ,'none','block')}" class="catalogline"></div>
+                                                  <div class="row model-left-right-pdd priceRow">
+                                                     <div class="col-xs-8 col-sm-8 col-md-8">
+                                                        <div class="primary-blue">{! item.name}</div>
+                                                        <div class="md-btm">
+                                                           {! item.description}
+                                                           <!--Term:
+                                                              <apex:outputText styleClass="" value="{0, number}">
+                                                              <apex:param value="{!item.term}"/>
+                                                              </apex:outputText>
+                                                              mo. -->
+                        <!--                            </div>
+                                                    <div class="removeBlock">
+    
+    
+                                                       <apex:outputPanel rendered="{! NOT(item.isLocked)}" layout="none" id="areyousuredelId">
+                                                          <!--
+                                                             <apex:outputLink  value="javascript:if (window.confirm('Are you sure want to remove item?')) openCatlogDelSubModelPopup('{!item.recordId}');">
+                                                              REMOVE
+                                                             </apex:outputLink>
+    
+    
+                                                             <apex:commandLink value="REMOVE"  reRender="yesbuttonId,yesbuttonId1" >
+                                                                 <apex:param name="yesparam" value="{!item.recordId}" />
+                                                             </apex:commandLink>
+                                                             -->
+                        <!--                                   <a href="javascript:void(0)" class="btn-blue" onclick="yesnoSubModel('{!rowNum}','{!venueCartCtrl.lineItems.size}');">REMOVE</a>
+                                                      <!--
+                                                         <apex:commandLink id="yesbuttonId" action="{!removeCatalgogItem}" value="Yes" rendered="{!($CurrentPage.parameters.yesparam == item.recordId)}" >
+                                                             <apex:param name="q" value="{!item.recordId}" assignTo="{!deleteItem}" />
+                                                         </apex:commandLink>
+                                                         -->
+                        <!--                          <apex:outputPanel id="yesbuttonId1" rendered="{!($CurrentPage.parameters.yesparam == item.recordId  )}" >
+                                                     <apex:outputLink value="javascript:openCatlogDelSubModelPopup('{!item.recordId}');" rendered="{!($CurrentPage.parameters.yesparam == item.recordId)}" >
+                                                        Ok
+                                                     </apex:outputLink>
+                                                     <apex:commandLink value="Cancel" rendered="{!($CurrentPage.parameters.yesparam == item.recordId)}" reRender="yesbuttonId1" >
+                                                        <apex:param name="yesparam" value="nodisplay" />
+                                                     </apex:commandLink>
+                                                  </apex:outputPanel>
+                                                  <div id="yesnodivId{!rowNum}" class="customAlertBox">
+                                                     <p> Are you sure you want to remove this item? </p>
+                                                     <a href="javascript:void(0)" onclick="yesnoSubModelHide({!rowNum});" class="noBtn">Cancel</a>
+                                                     <apex:outputLink value="javascript:openCatlogDelSubModelPopup('{!item.recordId}');"  >
+                                                        Ok
+                                                     </apex:outputLink>
+                                                  </div>
+                                               </apex:outputPanel>
+                                            </div>
+                                         </div>
+                                         <div class="col-xs-4 col-sm-4 col-md-4 text-right amount">
+                                            <span>
+                                               <apex:outputText value="{!CurrencyCode}{0, number,###,###,###,##0.00}">
+                                                  <apex:param value="{! item.totalPrice}"/>
+                                               </apex:outputText>
+                                            </span>
+                                         </div>
+                                      </div>
+                                      <apex:variable var="rowNum" value="{!rowNum + 1}"/>
+                                   </apex:repeat>
+                                </apex:outputPanel>
+                             </apex:outputPanel>
+                          </div>
+                          <div class="modal-footer">
+                             <span class="pull-left ash-color">SUBTOTAL</span>
+                             <apex:outputText styleClass="ash-color"  style="font-size:1.35em;font-weight:bold;color:#717171;" value="{!CurrencyCode}{0, number,###,###,###,##0.00}">
+                                <apex:param value="{! venueCartCtrl.summary['subtotal']}" />
+                             </apex:outputText>
+                             <!-- <button type="button" class="btn btn-default" data-dismiss="modal">Close</button> -->
+                        <!-- <apex:commandButton action="{!closeCatalgogItem}" value="Close" styleClass="btn btn-default"  /> -->
+                        <!-- </div>
+                        </div>
+                        <!-- ************ MODEL CONTENT(HEADER/BODY/FOOTER) START ************** -->
+                        <!--                                 </div>
+                                                      </div>
+                                                   </div>
+                                                </div>
+                                             </apex:outputPanel>
+                                             <!-- ******************* CATALOG MODEL SECTION END  *************** -->
+                        <!-- ******************* BUTTONS SECTION END *************** -->
+                    </div>
+                </div>
+                <!-- ********************** actionFunction *********************** -->
+            </apex:pageblock>
+            <apex:actionfunction name="openCatlogModelPopup" action="{!CatalogModel_CartContrl}" oncomplete="closeopenCatalogModel()" rerender="none" />
+            <apex:actionfunction name="openCatlogDelSubModelPopup" action="{!removeCatalgogItem}" rerender="none">
+                <apex:param name="q" value="" assignto="{!deleteItem}" />
+            </apex:actionfunction>
+            <apex:actionfunction name="goBackAction" action="{!back}" />
+            <apex:actionfunction name="goForwardAction" action="{!SaveAndContinue}" />
+    
+            <div id="cart">
+                <div class="cart-body">
+                    <div class="cart-container clearfix">
+                        <div class="panel-header">
+                            <h3>Shopping Cart (<span class="cart-count"></span>)</h3>
+                            <div class="cart-close pull-right">
+                                <i class="icon-close" onclick="closeNav()"></i>
+                            </div>
+                        </div>
+                        <ul id="cart-container" class="cart">
+                            <apex:outputpanel id="removeRefreshId2">
+                                <apex:outputpanel id="ordersummaryId2" layout="block" rendered="{! NOT(ISNULL(venueCartCtrl.lineItems)) && venueCartCtrl.lineItems.size > 0}">
+                                    <!--alert({!venueCartCtrl.lineItems.size});-->
+                                    <apex:variable value="{!1}" var="rowNum" />
+                                    <apex:repeat var="item" value="{! venueCartCtrl.lineItems}">
+                                        <li>
+                                            <div style="{ !IF(rowNum == 1,'display:none','display:block'); }" class="catalogline"></div>
+                                            <!--<div class="row model-left-right-pdd priceRow"> -->
+                                            <!-- <img class="pull-left hidden-xs hidden-sm" src="{!URLFOR($Resource.YPORenew, 'ypo-renewals/assets/img/ypo-cart.png')}" /> -->
+                                            <div class="pull-left hidden-xs hidden-sm">
+                                                <apex:image value="{! item.pricebookEntry.product2.KGRenewal__MainImageSmall__c}" alt="" height="50" />
+                                            </div>
+    
+                                            <div class="pull-left cart-info">
+                                                <span class="cart-title">{! item.name}</span><br/>
+                                                <span class="cart-detail">{! item.description}</span>
+                                                <!--  Remove Closing-->
+                                                <div class="removeBlock">
+    
+                                                    <apex:outputpanel rendered="{! NOT(item.isLocked)}" layout="none" id="areyousuredelId">
+    
+                                                        <apex:outputpanel id="yesbuttonId1" rendered="{!($CurrentPage.parameters.yesparam == item.recordId  )}">
+                                                            <apex:outputlink value="javascript:openCatlogDelSubModelPopup('{!item.recordId}');" rendered="{!($CurrentPage.parameters.yesparam == item.recordId)}">
+                                                                Ok
+                                                            </apex:outputlink>
+                                                            <apex:commandlink value="Cancel" rendered="{!($CurrentPage.parameters.yesparam == item.recordId)}" rerender="yesbuttonId1">
+                                                                <apex:param name="yesparam" value="nodisplay" />
+                                                            </apex:commandlink>
+                                                        </apex:outputpanel>
+                                                        <div id="yesnodivId{!rowNum}" class="customAlertBox">
+                                                            <!-- <p> Are you sure you want to remove this item? </p>
+                                                             <a href="javascript:void(0)" onclick="yesnoSubModelHide({!rowNum});" class="noBtn">Cancel</a>-->
+                                                            <apex:outputlink value="javascript:openCatlogDelSubModelPopup('{!item.recordId}');">
+                                                                x Remove
+                                                            </apex:outputlink>
+                                                        </div>
+                                                    </apex:outputpanel>
+                                                </div>
+                                                <!-- Remove Closing end -->
+                                            </div>
+                                            <div class="pull-right price">
+                                                        <span>
+                                                            <apex:outputtext value="{!CurrencyCode}{0, number,###,###,###,##0.00}">
+                                                                <apex:param value="{! item.totalPrice}" />
+                                                            </apex:outputtext>
+                                                        </span>
+                                                <!--</div>-->
+    
+                                            </div>
+                                            <div class="clearfix"></div>
+                                            <apex:variable var="rowNum" value="{!rowNum + 1}" />
+                                        </li>
+                                    </apex:repeat>
+                                </apex:outputpanel>
+                            </apex:outputpanel>
+                        </ul>
+                        <h3>
+                            <span class="pull-left">Subtotal:</span>
+                            <span class="pull-right">
+                                    <apex:outputtext value="{!CurrencyCode}{0, number,###,###,###,##0.00}">
+                                        <apex:param value="{! venueCartCtrl.summary['subtotal']}" />
+                                    </apex:outputtext>
+                                </span>
+                        </h3>
+                    </div>
+                </div>
+            </div>
+        </apex:form>
+    </body>
+    
+    
+    <script>
+
+        function getPDFLink(productId) {
+            var itemid = new Array();
+            var PDFLink = new Array();
+        <apex:repeat value="{!prod2}" var="url">
+            itemid.push('{!url.id}');
+            PDFLink.push('{!url.PDF_Link__c}');
+        </apex:repeat>
+            
+            var idx = $.inArray(productId, itemid);
+            window.open(PDFLink[idx], '_blank');
+            //jQuery('<form target="_blank" action="' + PDFLink[idx] + '" method="get"></form>').appendTo('body').submit().remove();
+        }
+
+        function kgCartAddPrecall(event) {
+            kg.catalog.kgCartAddPrecall(event);
+        }
+
+        function kgCartAddCallback() {
+            kg.catalog.kgCartAddCallback();
+        }
+
+        function enableDiableDymmyDivModelPopup(){
+            $('#originalCartDivId').css('display','none');
+            $('#dummyCartDivId').css('display','block');
+            $('#cartloadingdivId').css('display','block');
+            openCatlogModelPopup();
+        }
+
+        function showRemoveCatalogSubModel(catalogModelItem){
+            //alert('This is Alert When user trying to delete item'+catalogModelItem);
+            var result = confirm("Are you sure want to remove item?");
+            if (result) {
+                //alert(catalogModelItem);
+                openCatlogDelSubModelPopup(catalogModelItem);
+            }
+        }
+
+        var itemName;
+
+        function setItemId(name){
+
+            itemName = name;
+
+        }
+
+        function closeopenCatalogModel(){
+            //closeCatalogModel();
+            //openCatalogModel();
+            //customPop();
+            var cartItems = new Array();
+
+        <apex:repeat value="{!venueCartCtrl.lineItems}" var="cartItem">
+            cartItems.push('{!cartItem.name}');
+
+        </apex:repeat>
+
+            if($.inArray(itemName, cartItems) > -1) {
+            } else{
+                setTimeout('window.location.reload();', 2000);
+                setTimeout('window.scrollTo(500, 0);',  2500);
+            }
+        }
+
+
+        function openCatalogModel(){
+            $('#cartloadingdivId').css('display','none');
+            $("#catalogMembership").modal({
+                show: false,
+                backdrop: 'static'
+            });
+            $('#catalogMembership').modal('show');
+            customPop();
+        }
+
+        function closeCatalogModel(){
+            $('#dummyCartDivId').css('display','none');
+            $('#originalCartDivId').css('display','block');
+            $('#catalogMembership').modal('hide');
+            customPop();
+        }
+        function yesnoSubModel(divId,sz){
+            var closeBtn = document.getElementById("clsBtn");
+            closeBtn.setAttribute("disabled", true);
+            closeBtn.style.color = "#f1f1f1";
+            var showview = 'yesnodivId'+divId;
+            for (var i=1;i<=parseInt(sz);i++) {
+                var showviewno = 'yesnodivId'+i.toString();
+                if( document.getElementById(showviewno)!=null) {
+                    document.getElementById(showviewno).style.display ="none";
+                }
+            }
+            document.getElementById(showview).style.display ="block";
+            customPop();
+        }
+        function yesnoSubModelHide(divId){
+            var closeBtn = document.getElementById("clsBtn");
+            closeBtn.removeAttribute("disabled", false);
+            closeBtn.style.color = "#3D7099";
+            var hideview = 'yesnodivId'+divId;
+            document.getElementById(hideview).style.display ="none";
+
+        }
+
+        function goSaveAndContinue() {
+            // This is for the SaveAndContinue Button
+            goForwardAction();
+        }
+
+        function backValidate()
+        {
+            // This is for BACK Button
+            if('{!isGraceNeeded}' == 'true')
+                alert('{!$Label.Catalog_YPO_BackNoGrace}')
+            else if('{!isTransitioning}' == 'true')
+                alert('{!$Label.Catalog_YPO_BackTransitioned}')
+            else goBackAction();
+        }
+    </script>
+
+
+    <script src="{!URLFOR($Resource.KGQuickstart_dist, '/js/catalog.min.js')}"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"></script>
+    <script src="{!URLFOR($Resource.prospectResources, 'prospectResources/js/prospectCatalogPage.js')}"></script>
+    <!-- Scripts -->
+    <script src="{!URLFOR($Resource.YPORenew, 'ypo-renewals/assets/js/jquery-3.2.1.min.js')}"></script>
+    <script src="{!URLFOR($Resource.YPORenew, 'ypo-renewals/assets/js/bootstrap.min.js')}"></script>
+    <!-- Page Specific Scripts -->
+    <script src="{!URLFOR($Resource.YPORenew, 'ypo-renewals/assets/js/membership-catalog.js')}" type="text/javascript"></script>
+    <!-- Page Specific Scripts -->
+    <script src="{!URLFOR($Resource.YPORenew, 'ypo-renewals/assets/js/cart.js')}"></script>
+
+    <!-- <apex:includeScript value="{!$Resource.JQuery_slimscroll_min}"/> -->
+    <script>
+        customPop();
+        $(document).ready(function(){
+
+            if('{!urldeleteItem}' != '' && '{!urldeleteItem}' != null ){
+                $('#catalogMembership').modal('show');
+            }
+            customPop();
+
+            if({!displayGraceModal} === true)
+                alert('{!$Label.Catalog_YPO_BackNoGrace}')
+            else if({!displayTransitionModal} === true)
+                alert('{!$Label.Catalog_YPO_BackTransitioned}');
+        });
+
+        function customPop() {
+            var t = $("#catalogMembership .modalPopBody");
+            if (t.height() > 300) {
+                t.addClass("smallPop");
+            } else {
+                t.addClass("bigPop");
+            }
+        }
+
+    </script>
+    <script>
+        $(document).ready(function() {
+            $(".catalogDissmiss, .closeIcon").click(function(){
+                $(".cartBar .panel").slideUp();
+            });
+
+            $('.desc').each(function(index){
+                $(this).addClass('descr_'+index);
+            });
+
+            $(".desc").each(function( index ) {
+                //alert( $(".descr_"+index).text().length);
+                if($('.descr_'+index).text().length < "225") {
+                    //  $('.descr_'+index).next().addClass('hidden');
+                }
+            });
+
+            $(".showMore").click(function(){
+                if($(this).prev().hasClass('addHeight')){
+                    $(this).prev().removeClass("addHeight");
+                    $(this).addClass('hidden');
+                    //  $(this).html('Show Less..');
+                }
+                //  else{
+                //  $(this).prev().addClass("addHeight");
+                //  $(this).html('Learn More..');
+                //  }
+            });
+
+            scrubShoppingCart($('#cart-container'));
+        });
+
+        var currentCartCount = {!venueCartCtrl.lineItems.size};
+
+        function scrubShoppingCart($shoppingCart) {
+            scrubShoppingCartItemLogo($shoppingCart);
+        }
+
+        function scrubShoppingCartItemLogo($shoppingCart) {
+            var $shoppingCartItems = $shoppingCart.find('[id$="ordersummaryId"] li'),
+                $shoppingCartItemLogoContainer = $shoppingCartItems.children("div.pull-left.hidden-xs.hidden-sm");
+
+            $shoppingCartItemLogoContainer.each(function() {
+                var $firstChild = $(this).children(":first");
+
+                if ($firstChild.attr("src") === "" ||
+                    $firstChild.attr("src") === undefined ||
+                    $firstChild.attr("src") === null) {
+                    $firstChild.remove();
+                }
+            });
+        }
+
+        function addToCart(title, detail, cost, image) {
+            var imageHtml = (image !== null && image !== undefined && image !== "")? "                    <img class=\"pull-left hidden-xs hidden-sm\" src=\""+image+"\"/>\n": "";
+            currentCartCount++;
+            updateCartCount();
+            var html = "<li>\n" + imageHtml +
+                "                    <div class=\"pull-left cart-info\">\n" +
+                "                        <div class=\"cart-title\">\n" +
+                title +
+                "                        </div>\n" +
+                "                        <div class=\"cart-detail\">\n" +
+                detail +
+                "                        </div>\n" +
+                "<div class=\"remove\">\n" +
+                "                            <a href=\"#\">x Remove</a>\n" +
+                "                        </div>" +
+                "                    </div>\n" +
+                "                    <div class=\"pull-right price\">" + cost + ".00</div>\n" +
+                "                    <div class=\"clearfix\"></div>\n" +
+                "                </li>";
+            $("ul.cart").each(function() {
+                $(this).append(html);
+            });
+
+            //$('#cartdiv').load(document.URL +  ' #cartdiv');
+        }
+
+        function updateCartCount() {
+            $(".cart-count").each(function() {
+                $(this).html(currentCartCount);
+            });
+        }
+
+        $(function() {
+            updateCartCount();
+            console.log({!venueCartCtrl.lineItems.size});
+        });
+
+    </script>
+
+</apex:page>

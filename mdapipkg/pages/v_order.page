@@ -1,0 +1,149 @@
+<apex:page controller="KGRenewal.VenueViewOrderController" showHeader="false" sidebar="false" standardStylesheets="false" title="View Order: 00009483837" doctype="html-5.0">
+  <apex:styleSheet value="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css" />
+
+  <div class="container">
+    <div class="row">
+      <div class="col-sm-10 col-sm-offset-2">
+        <div class="page-header">
+          <h1>View Order: {!SUBSTITUTE(venueOrder.fieldMap['Name'], 'Cart', '')}</h1>
+        </div>
+      </div>
+    </div>
+    <!-- /.row -->
+    <div class="row">
+      <div class="col-sm-2">
+        <ul class="nav nav-pills nav-stacked">
+          <li role="presentation" class="active"><a href="{!$Page.v_orders}">Past Orders</a></li>
+          <li role="presentation"><a href="{!$Page.v_invoices}">Open Invoices</a></li>
+          <li role="presentation"><a href="#">Paid Invoices</a></li>
+        </ul>
+        <!-- /.nav -->
+      </div>
+      <!-- ./col-sm-2 -->
+      <div class="col-sm-10">
+        <div class="form">
+          <div class="row">
+            <div class="col-sm-6 form-group">
+              <label class="control-label">Order Number</label>
+              <p class="form-control-static">
+                {!SUBSTITUTE(venueOrder.fieldMap['Name'], 'Cart', '')}
+              </p>
+            </div>
+            <div class="col-sm-6 form-group">
+              <label class="control-label">Order Date</label>
+              <p class="form-control-static">
+                <apex:outputText value="{0,date,MM'/'dd'/'yyyy}">
+                  <apex:param value="{!venueOrder.fieldMap['CloseDate']}" />
+                </apex:outputText>
+              </p>
+            </div>
+          </div>
+          <!-- /.row -->
+          <div class="row">
+            <div class="col-sm-6 form-group">
+              <label class="control-label">Status</label>
+              <p class="form-control-static">
+                {!venueOrder.fieldMap['Description']}
+              </p>
+            </div>
+            <div class="col-sm-6 form-group">
+              <label class="control-label">Invoice</label>
+              <p class="form-control-static">
+                <apex:outputPanel rendered="{!venueOrder.invoice.KGRenewal__IsClosed__c == 'Closed'}">
+                  {!venueOrder.invoice.KGRenewal__Status__c}
+                </apex:outputPanel>
+                <apex:outputPanel rendered="{!venueOrder.invoice.KGRenewal__IsClosed__c != 'Closed'}">
+                  <apex:outputText value="{0,date,MM'/'dd'/'yyyy}">
+                    <apex:param value="{!venueOrder.invoice.KGRenewal__DueDate__c}" />
+                  </apex:outputText>
+                </apex:outputPanel>&nbsp;&nbsp;
+                <apex:outputLink value="#" styleclass="btn btn-xs btn-default">View PDF</apex:outputLink>
+                <apex:outputLink value="{!$Page.v_payinvoice}?id={!venueOrder.invoice.Id}" styleclass="btn btn-xs btn-primary" rendered="{!venueOrder.invoice.KGRenewal__IsClosed__c != 'Closed'}">Pay</apex:outputLink>
+              </p>
+            </div>
+          </div>
+          <!-- /.row -->
+          <div class="row">
+            <div class="col-xs-12">
+              <h3>Products</h3>
+              <table class="table table-striped">
+                <thead>
+                  <tr>
+                    <th>Product Name</th>
+                    <th>Unit Price</th>
+                    <th>Quantity</th>
+                    <th>Extended Price</th>
+                    <th>Tax</th>
+                    <th>Total Price</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <apex:repeat value="{!venueOrder.venueOrderItemList}" var="venueOrderItem">
+                    <td>{!venueOrderItem.fieldMap['KGRenewal__Name__c']}</td>
+                    <td>
+                      <apex:outputText value="{0,number,currency}">
+                        <apex:param value="{!venueOrderItem.fieldMap['KGRenewal__UnitPrice__c']}" />
+                      </apex:outputText>
+                    </td>
+                    <td>{!venueOrderItem.fieldMap['Quantity']}</td>
+                    <td>
+                      <apex:outputText value="{0,number,currency}">
+                        <apex:param value="{!venueOrderItem.fieldMap['TotalPrice']}" />
+                      </apex:outputText>
+                    </td>
+                    <td>
+                      <apex:outputText value="{0,number,currency}">
+                        <apex:param value="{!venueOrderItem.fieldMap['KGRenewal__TaxAmount__c']}" />
+                      </apex:outputText>
+                    </td>
+                    <td>
+                      <apex:outputText value="{0,number,currency}">
+                        <apex:param value="{!venueOrderItem.fieldMap['TotalPrice'] + venueOrderItem.fieldMap['KGRenewal__TaxAmount__c']}" />
+                      </apex:outputText>
+                    </td>
+                  </apex:repeat>
+                </tbody>
+              </table>
+            </div>
+            <!-- /.col-xs-12 -->
+          </div>
+          <!-- ./row -->
+          <div class="row">
+            <div class="col-sm-6 form-group">
+              <label class="control-label">Item Subtotal</label>
+              <p class="form-control-static">
+                <apex:outputText value="{0,number,currency}">
+                  <apex:param value="{!venueOrder.fieldMap['Amount']}" />
+                </apex:outputText>
+              </p>
+            </div>
+            <div class="col-sm-6 form-group">
+              <label class="control-label">Tax</label>
+              <p class="form-control-static">
+                <apex:outputText value="{0,number,currency}">
+                  <apex:param value="{!venueOrder.fieldMap['KGRenewal__Tax__c']}" />
+                </apex:outputText>
+              </p>
+            </div>
+          </div>
+          <!-- /.row -->
+          <div class="row">
+            <div class="col-sm-6 form-group">
+              <label class="control-label">Order Total</label>
+              <p class="form-control-static">
+                <apex:outputText value="{0,number,currency}">
+                  <apex:param value="{!venueOrder.fieldMap['KGRenewal__BilledAmount__c']}" />
+                </apex:outputText>
+              </p>
+            </div>
+          </div>
+          <!-- /.row -->
+        </div>
+        <!-- /.form -->
+      </div>
+      <!-- ./col-sm-10 -->
+    </div>
+    <!-- /.row -->
+  </div>
+  <!-- /.container -->
+</apex:page>

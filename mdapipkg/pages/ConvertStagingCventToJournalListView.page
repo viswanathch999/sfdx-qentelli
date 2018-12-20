@@ -1,0 +1,3 @@
+<apex:page standardController="Staging_Cvent_Transaction_Header__c" extensions="ffirule.IntegrationRuleEngine" action="{!convert}" recordSetVar="records">
+<ffirule:IntegrationRule engine="{!engine}"/>
+</apex:page>

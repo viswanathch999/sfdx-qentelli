@@ -1,0 +1,108 @@
+<apex:component controller="EditPageController" access="global">
+
+	<apex:attribute name="sObjectApiName" description="Unique name of the sObject" type="String" required="true" access="global"/>
+	<apex:attribute name="recordTypeId" description="The record type id of the specified sobject" type="String" required="true" access="global"/>
+	<apex:attribute name="obj" description="The record type id of the specified sobject" type="sObject" required="true" access="global"/>
+	<apex:attribute name="panel" description="Panel to render all the fields" type="String" required="true" access="global"/>
+	<apex:attribute name="excludedFieldList"
+					description="List of all the fields to exclude from being dynamically rendered on the page"
+					type="String[]"
+					required="false"
+					assignTo="{!excludedFields}"
+					access="global"/>
+	<apex:attribute name="readOnlyFieldList"
+					description="List of all the fields to rendered as output fields"
+					type="String[]"
+					required="false"
+					assignTo="{!readOnlyFields}"
+					access="global"/>
+
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"></script>
+	<apex:includeScript value="{!$Resource.json2}"/>
+	<apex:styleSheet value="{!$Resource.DynamicEditPageStyles}"/>
+	<script>
+		var __sfdcSessionId = '{!GETSESSIONID()}';
+	</script>
+	<script src="../../soap/ajax/24.0/connection.js" type="text/javascript"></script>
+	<script>
+		var DynamicEditPage = {
+			evaluateRequiredness : function(){
+				jQuery('.requiredInput select:disabled').closest('.requiredInput').removeClass('requiredInput').addClass('condRequiredInput');
+				jQuery('.condRequiredInput select:not(:disabled)').closest('.condRequiredInput').addClass('requiredInput').removeClass('condRequiredInput');
+			},
+
+			refresh : function(){
+				jQuery('select').change(function(){
+					DynamicEditPage.evaluateRequiredness();
+				});
+
+				DynamicEditPage.evaluateRequiredness();
+			},
+
+			render : function(){
+				var result = sforce.connection.describeLayout("{!sObjectApiName}", new Array("{!recordTypeId}"));
+				var dlr = result.getArray("layouts");
+
+				addJsonString(JSON.stringify(dlr[0]));
+			}
+		}
+	</script>
+	<c:LoadingStatusSpinner />
+	<apex:actionFunction name="addJsonString" action="{!parseJsonString}" rerender="{!panel}" status="LoadingStatusSpinner" onComplete="DynamicEditPage.refresh();">
+		<apex:param name="jsonStringParam" assignTo="{!jsonString}" value="" />
+	</apex:actionFunction>
+
+	<apex:repeat value="{!describeLayout.editLayoutSections}" var="section">
+		<apex:pageBlockSection title="{!IF(section.useHeading,section.heading,'')}" collapsible="{!section.isCollapsible}" columns="{!section.columns}" rendered="{!isValid}">
+			<apex:repeat value="{!section.layoutRows}" var="row">
+				<apex:repeat value="{!row.layoutItems}" var="item">
+					<apex:pageBlockSectionItem rendered="{!item.isVisible}">
+						<apex:outputLabel value="{!item.label}" rendered="{!NOT(item.isPlaceholder)}"/>
+						<apex:outputPanel layout="none" rendered="{!NOT(item.isPlaceholder)}">
+							<apex:repeat value="{!item.layoutComponents}" var="component">
+								<apex:outputPanel layout="none" rendered="{!NOT(component.isEmptySpace)}">
+									<apex:variable var="helpText" value="{!$ObjectType[sObjectApiName].Fields[component.fieldName].inlineHelpText}" />
+									<apex:variable var="controllingFieldName" value="{!$ObjectType[sObjectApiName].Fields[component.fieldName].controllerName.Name}" />
+									<apex:variable var="infoText" value="{!$ObjectType[sObjectApiName].Fields[controllingFieldName].label}" />
+									<apex:variable var="currentFieldIsOpportunityStage" value="{!AND($ObjectType[sObjectApiName].Name == $ObjectType.Opportunity.Name, $ObjectType[sObjectApiName].Fields[component.fieldName].Name == $ObjectType.Opportunity.Fields['StageName'].Name)}" />
+                                    <apex:variable var="currentFieldIsOpportunityProbability" value="{!AND($ObjectType[sObjectApiName].Name == $ObjectType.Opportunity.Name, $ObjectType[sObjectApiName].Fields[component.fieldName].Name == $ObjectType.Opportunity.Fields['Probability'].Name)}" />
+                                    <apex:variable var="currentFieldIsOpportunityForecastCategory" value="{!AND($ObjectType[sObjectApiName].Name == $ObjectType.Opportunity.Name, $ObjectType[sObjectApiName].Fields[component.fieldName].Name == $ObjectType.Opportunity.Fields['ForecastCategoryName'].Name)}" />
+									<div>
+										<apex:outputPanel styleClass="help_container" rendered="{!NOT(ISBLANK(helpText))}">
+											<div class="help_button">
+												<img src="/s.gif" alt="" class="help_orb" title="" />
+												<span class="help_text">{!helpText}</span>
+											</div>
+										</apex:outputPanel>
+										<div class="outputSection">
+										        <apex:inputField id="OpptyStage" styleClass="OpptyStage" 
+                                                                  value="{!obj[component.fieldName]}" 
+                                                                  required="{!item.isRequired}"
+                                                                  rendered="{!AND(item.isEditable, currentFieldIsOpportunityStage)}">
+                                                </apex:inputField>
+                                                <apex:inputField id="OpptyProbability" styleClass="OpptyProbability" 
+                                                                  value="{!obj[component.fieldName]}" 
+                                                                  rendered="{!AND(item.isEditable, currentFieldIsOpportunityProbability)}" 
+                                                                  required="{!item.isRequired}" />
+                                                <apex:inputField id="OpptyForecast" styleClass="OpptyForecast" 
+                                                                  value="{!obj[component.fieldName]}"
+                                                                  rendered="{!AND(item.isEditable, currentFieldIsOpportunityForecastCategory)}" 
+                                                                  required="{!item.isRequired}" />
+                                                                  
+											<apex:inputField value="{!obj[component.fieldName]}" rendered="{!AND(item.isEditable, AND( NOT( currentFieldIsOpportunityStage ), NOT( currentFieldIsOpportunityProbability ), NOT( currentFieldIsOpportunityForecastCategory )))}" required="{!item.isRequired}"/>
+											<apex:outputField value="{!obj[component.fieldName]}" rendered="{!NOT(item.isEditable)}" />
+											<apex:outputPanel styleClass="mouse_over_info_outer" rendered="{!AND(item.isEditable, NOT(ISBLANK(infoText)))}">
+												<img class="info_icon" title="" alt="" src="/s.gif" />
+												<div class="mouse_over_info">Depends on "{!infoText}"</div>
+											</apex:outputPanel>
+										</div>
+									</div>
+								</apex:outputPanel>
+							</apex:repeat>
+						</apex:outputPanel>
+					</apex:pageBlockSectionItem>
+				</apex:repeat>
+			</apex:repeat>
+		</apex:pageBlockSection>
+	</apex:repeat>
+</apex:component>

@@ -1,0 +1,98 @@
+<apex:page controller="KGRenewal.VenueInvoicesController" extensions="v_InvoicesControllerExt"  title="Invoices" showheader="false" sidebar="false" standardstylesheets="false" doctype="html-5.0">
+    
+    <apex:stylesheet value="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" />
+    
+    <div class="container">
+        <div class="row">
+            <div class="col-sm-10 col-sm-offset-2">
+                <div class="page-header">
+                    <h1>{!UPPER(invoiceType)} Invoices</h1>
+                    <!-- <h1>Invoices</h1> -->
+                </div>
+            </div>
+        </div><!-- /.row -->
+        
+        <div class="row">
+            <div class="col-sm-2">
+                <ul class="nav nav-pills nav-stacked">
+                    <!--<li role="presentation"><a href="{!$Page.v_orders}">Orders</a></li>-->
+                    <li role="presentation" class="{!IF(LOWER(invoiceType) == 'all', 'active', '')}">
+                        <a href="{!$Page.v_invoices}">All invoices</a>
+                    </li>
+                    <li role="presentation" class="{!IF(LOWER(invoiceType) == 'open', 'active', '')}">
+                        <a href="{!$Page.v_invoices}?type=open">Open invoices</a>
+                    </li>
+                    <li role="presentation" class="{!IF(LOWER(invoiceType) == 'closed', 'active', '')}">
+                        <a href="{!$Page.v_invoices}?type=closed">Paid invoices</a>
+                    </li>
+                </ul><!-- /.nav -->
+            </div><!-- ./col-sm-2 -->
+            <div class="col-sm-10">
+                <!-- col-sm-offset-2 -->
+                <table class="table table-striped">
+                    <thead>
+                        <apex:variable var="v_url" value="{!URLFOR($Page.v_invoices,null,['type'=invoiceType])}" />
+                        <tr>
+                            <th style="text-align:left;">
+                                <!--Invoice-->
+                                <c:v_sort_heading label="Invoice" fieldname="Name" url="{!v_url}" sortfield="{!sortField}" sortdirection="{!sortDirection}" />
+                            </th>
+                            <th style="text-align:left;">
+                                <!--Name-->
+                                <c:v_sort_heading label="Name" fieldname="Opportunity_Name__c" url="{!v_url}" sortfield="{!sortField}" sortdirection="{!sortDirection}" />
+                            </th>
+                            <th style="text-align:right;">
+                                <!--Due-->
+                                <c:v_sort_heading label="Due" fieldname="KGRenewal__DueDate__c" url="{!v_url}" sortfield="{!sortField}" sortdirection="{!sortDirection}" />
+                            </th>
+                            <th style="text-align:right;">
+                                <!--Amount-->
+                                <c:v_sort_heading label="Total" fieldname="KGRenewal__TotalAmount__c" url="{!v_url}" sortfield="{!sortField}" sortdirection="{!sortDirection}" />
+                            </th>
+                            <th style="text-align:right;">
+                                <!--Status-->
+                                <c:v_sort_heading label="Status" fieldname="KGRenewal__Status__c" url="{!v_url}" sortfield="{!sortField}" sortdirection="{!sortDirection}" />
+                            </th>
+                            <th style="text-align:right;">
+                                <!--Amount due-->
+                                <c:v_sort_heading label="Amount due" fieldname="KGRenewal__AmountDue__c" url="{!v_url}" sortfield="{!sortField}" sortdirection="{!sortDirection}" />
+                            </th>
+                            <th></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <apex:repeat value="{!recs}" var="r">
+                            <tr>
+                                <td><a href="{!$Page.v_invoicepdf}?id={!r.invoice.Id}">{!r.invoice.Name}</a></td>
+                                <td style="text-align:left;"><apex:outputText value="{!r.invoice.Opportunity_Name__c}" /></td>
+                                <td style="text-align:right;">
+                                    <apex:outputText value="{0, date, d MMMM yyyy}">
+                                        <apex:param value="{!r.invoice.KGRenewal__DueDate__c}" />
+                                    </apex:outputText>
+                                </td>
+                                <td style="text-align:right;"><apex:outputField value="{!r.invoice.KGRenewal__TotalAmount__c}" /></td>
+                                <td style="text-align:right;">{!r.invoice.KGRenewal__Status__c}</td>
+                                <td style="text-align:right;"><apex:outputField value="{!r.invoice.KGRenewal__AmountDue__c}" /></td>
+                                <td>
+                                    <apex:outputlink value="{!$Page.v_payinvoice}?id={!r.invoice.Id}" rendered="{!r.invoice.KGRenewal__AmountDue__c > 0 && r.isLifetime == false}">
+                                        Pay
+                                    </apex:outputlink>
+                                </td>
+                            </tr>
+                        </apex:repeat>
+                    </tbody>
+                </table>
+
+                <ul class="pager">
+                    <apex:outputpanel rendered="{!hasPreviousPage}" layout="none">
+                        <li><a href="{!$Page.v_invoices}?currentPage={!currentPage - 1}">&laquo; Previous</a></li>
+                    </apex:outputpanel>
+                    <apex:outputpanel rendered="{!hasNextPage}" layout="none">
+                        <li><a href="{!$Page.v_invoices}?currentPage={!currentPage + 1}">Next &raquo;</a></li>
+                    </apex:outputpanel>
+                </ul>
+            </div> <!-- ./col-sm-10 -->
+        </div> <!-- /.row -->
+    </div> <!-- /.container -->
+
+</apex:page>

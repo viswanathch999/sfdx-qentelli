@@ -1,0 +1,226 @@
+<apex:page title="{! item.name}" controller="KGRenewal.VenueDetailController" extensions="v_detailControllerExt" action="{! setProspectOppAsCart}" showHeader="false" sidebar="false" standardStylesheets="false" applyHtmlTag="false" applyBodyTag="false" docType="html-5.0">
+  <!--<apex:composition template="{! $Site.Template}">-->
+  <apex:styleSheet value="https://dev.ypowpo.org/stylesheets/app.css" />
+  <apex:composition template="v_template">
+    <apex:define name="title">
+      <title>{! item.name} | {! $Organization.Name}</title>
+    </apex:define>
+    <apex:define name="nav_links">
+      <li>
+        <KGRenewal:CartComponent mode="link" includeBootstrapModalResources="false" />
+      </li>
+    </apex:define>
+
+    <apex:define name="content">
+      <script>
+        function swapImage(thumbnail) { //thumbnail parameter: image that should replace the main image
+          'use strict';
+          document.getElementById('detailMainImage0').src = thumbnail.src;
+          //document.getElementById('detailMainImage0anchor').href = thumbnail.src;
+        }
+      </script>
+      <div id="{! item.record.Id}" class="row" data-venue-define="product" data-venue-id="{! item.record.Id}" data-venue-name="{! item.name}">
+       <div class="col-xs-12 panel panel-default panel-body" style="background-color:#3D7099;margin-bottom:0px;">
+          <div class= "row">
+            <a style="background-color:#3D7099; color:white;" href="{! URLFOR($Page.v_catalog)}">
+              <span class="glyphicon glyphicon-arrow-left"></span>
+              BACK TO CATALOG
+            </a>
+            <br/>
+           </div>
+          </div>
+        <!--main column-->
+        <!--<div class="col-xs-9 col-sm-10 col-md-11">-->
+        <div class="col-xs-12 panel panel-default panel-body">
+          <!--div class= "row">
+          <div class ="col-xs-12" style="background-color:#3D7099;padding-top: 10px;">
+            <a style="background-color:#3D7099; color:white;" href="{! URLFOR($Page.v_catalog)}">
+              <span class="glyphicon glyphicon-arrow-left"></span>
+              BACK TO CATALOG
+            </a>
+            <br/>
+           </div>
+          </div-->
+          <div class="row">
+            <!--large image-->
+            <div class="col-xs-12 col-sm-5 col-md-4">
+              <!--<a name="MainImage" id="detailMainImage0anchor" href="{!item.record.KGRenewal__MainImageSmall__c}">-->
+              <img id="detailMainImage0" class="center-block img-responsive" style="width:140px;height:130px;text-align: center;" src="{! $Site.prefix}{!item.record.KGRenewal__MainImageSmall__c}" alt="{! IF(NOT(ISNULL(item.record.KGRenewal__MainImageSmall__c)), item.name, '')}" />
+              <br/>
+              <!--</a>-->
+            </div>
+            <!--/.col-->
+
+            <!--text-->
+            <div class="col-xs-12 col-sm-5 col-md-6">
+              <!--Venue product name classes (for legacy cart mode): kgvenue name-->
+              <h1 class="text-primary kgvenue name" style="color:#3D7099">{! item.name}</h1>
+              <p>{! item.Description}</p>
+              <hr />
+
+              <apex:outputPanel rendered="{! item.record.family == 'Member Benefit'}" layout="none">
+                <div class="form-horizontal">
+                  <div class="form-group">
+                    <label class="col-md-6 control-label" for="contact-{! item.productId}">
+                      Select a household member for this product
+                    </label>
+                    <div class="col-md-6 input input-select">
+                      <select class="form-control" id="contact-{! item.productId}" data-venue-field-input="Contact__c">
+                        <apex:repeat value="{! contactOptions}" var="contact">
+                          <apex:outputPanel rendered="{! contact.disabled}" layout="none">
+                            <option value="{! contact.value}" disabled="true">{! contact.label}</option>
+                          </apex:outputPanel>
+                          <apex:outputPanel rendered="{! NOT(contact.disabled)}" layout="none">
+                            <option value="{! contact.value}">{! contact.label}</option>
+                          </apex:outputPanel>
+                        </apex:repeat>
+                      </select>
+                    </div>
+                  </div>
+                </div>
+                <!-- /.form-group -->
+                <div class="col-md-6" />
+                <div class="col-md-6">
+                  <a href="{! URLFOR($Page.NewProductQuickCreate,null,[id=item.productId])}">Add a household member</a>
+                </div>
+              </apex:outputPanel>
+              <!--price, quantity, add to cart row-->
+              <div class="row">
+                <!--standard price-->
+                <!--/col-->
+                <!--quantity input field-->
+
+
+                <!--/col-->
+                <!--add to cart button-->
+                <div class="col-xs-7 col-sm-6 col-md-6 col-lg-6">
+                  <!--Venue Add to Cart button classes (for legacy cart mode): kgvenue add single-->
+                  <!--Change 'data-venue-action="add"' to 'data-venue-action="add-and-navigate"' to go to cart page after clicking button-->
+                  <apex:outputPanel rendered="{! hasAvailableContactOptions}" layout="none">
+                    <a class="btn btn-block kgvenue add single button_raised" data-venue-action="add" role="button" href="{! URLFOR($Page.v_cart, null, ['id'=item.productId])}">
+                      Add to cart
+                      <!--span class="glyphicon glyphicon-shopping-cart"></span-->
+                    </a>
+                  </apex:outputPanel>
+                  <apex:outputPanel rendered="{! NOT(hasAvailableContactOptions)}" layout="none">
+                    <span>
+                      No remaining household members
+                    </span>
+                  </apex:outputPanel>
+                </div>
+                <div class="col-xs-5 col-sm-6 col-md-6 col-lg-6">
+                  <!-- Quantity input -->
+                  <div style="visibility:hidden;">
+                    <input type="number" class="form-control" data-venue-field-input="quantity" data-venue-field-type="integer" min="1" step="1" value="1" required="true" />
+                  </div>
+                </div>
+                <!--/col-->
+              </div>
+              <!--/row-->
+
+              <hr />
+              
+            </div>
+            <!--/col-->
+            <!--price column-->
+            <div class="col-xs-12 col-sm-2 col-md-2">
+                <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+                  <!--show Standard Ecommerce Price with strikethrough format if it is higher than Original Price-->
+                  <apex:outputPanel rendered="{! item.hasCustomPrice}" layout="none">
+                    <h4 class="text-left">
+                      <s>
+                        <!--strikethrough-->
+                        <apex:outputText value="{0, number, currency}">
+                          <apex:param value="{! item.standardEcommercePrice}" />
+                        </apex:outputText>
+                      </s>
+                      <!--/strikethrough-->
+                    </h4>
+                    <p>
+                      You save:&nbsp;
+                      <apex:outputText value="{0, number, currency}">
+                        <apex:param value="{! item.standardEcommercePrice - item.discountedPrice}" />
+                      </apex:outputText>
+                      &nbsp;(
+                      <apex:outputText value="{0, number, percent}">
+                        <apex:param value="{! (item.standardEcommercePrice - item.discountedPrice) / item.standardEcommercePrice}" />
+                      </apex:outputText>
+                      )
+                    </p>
+                  </apex:outputPanel>
+                </div>
+                <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+                  <!--Venue product price classes (for legacy cart mode): kgvenue unitprice-field decimal-->
+                  <h4 class="text-left kgvenue unitprice-field decimal">
+                    <apex:outputText value="{0, number, currency}">
+                      <apex:param value="{! ROUND(item.discountedPrice, 2)}" />
+                    </apex:outputText>
+                  </h4>
+                  <br />
+                  <!--used to vertically add space between price and add to cart button in xs view-->
+                </div>
+            </div>
+            <!--/price column-->
+          </div>
+          <!--/row-->
+        </div>
+        <!--/col-->
+        <!--/main column-->
+      </div>
+      <!--/row-->
+      <!--/id item.record.Id-->
+
+      <script>
+        /*var $optToDisable;
+        var $targetClicked;
+
+        function kgCartAddPrecall(event) {
+          //target = addtocart button
+          $targetClicked = $(event.target);
+          console.log($targetClicked);
+          // we find the closest data-venue-define attribute
+          var $prod = $(event.target).closest('[data-venue-define="product"]');
+          // go down to find our Contact input
+          var $contactSelect = $('[data-venue-field-input="Contact__c"]', $prod);
+          // Store that contact in the variable
+          var selectedContact = $contactSelect.val();
+          // get the option who's value is the contact
+          $optToDisable = $('option[value=' + selectedContact + ']', $contactSelect);
+        }
+
+        function kgCartAddCallback() {
+          //Check if optToDisable exists
+          if ($optToDisable.length) {
+            //go up to find the select
+            var $selectTag = $optToDisable.closest('select');
+            //disable the option that we added to cart
+            $optToDisable.prop('disabled', true);
+            // find the first option in our list that is enabled
+            var $firstOption = $optToDisable.closest('select').find('option:enabled');
+            if ($firstOption.size() > 0) {
+              // set that option as selected
+              $selectTag.val($firstOption[0].getAttribute("value"));
+            }
+            else {
+              //if they are all disabled, disable the list and remove the add to cart button
+              $selectTag.prop('disabled', true);
+              console.log($targetClicked);
+              $targetClicked.replaceWith('<span>No more available Contacts</span>');
+            }
+            $optToDisable = null;
+            $targetClicked = null;
+          }
+        }*/
+        function kgCartAddPrecall(event) {
+          kg.catalog.kgCartAddPrecall(event);
+        }
+
+        function kgCartAddCallback() {
+          kg.catalog.kgCartAddCallback();
+        }
+      </script>
+      <apex:includeScript value="{!URLFOR($Resource.KGQuickstart_dist, '/js/detail.min.js')}" />
+    </apex:define>
+    <!--/content-->
+  </apex:composition>
+</apex:page>

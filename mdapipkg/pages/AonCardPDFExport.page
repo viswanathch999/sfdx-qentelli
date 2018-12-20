@@ -1,0 +1,52 @@
+<apex:page renderAs="pdf" showHeader="false" sidebar="false" standardController="Contact" extensions="AonCardPDFExportController" standardStylesheets="false" applyBodyTag="false" applyHtmlTag="false">
+    <html>
+        <head>
+            <style type="text/css">
+                table { border-style: dashed; 
+                font-size: 0.75em;
+                }
+                .effectDate { font-size: 1.375em; }
+                .contName { color: lightblue ;
+                font-size: 1.5em ;
+                }
+                .alignright{
+                float: right;                       
+                margin-right: 30px; 
+                margin-top: 1%;
+                }
+            </style>
+            
+        </head>
+        <body>
+            <apex:pageMessages />
+            <apex:repeat value="{!familyMembers}" var="aMembersName">
+                <table>
+                    <tr><td class="contName">
+                        {!aMembersName}
+                        </td></tr>
+                    <tr><td>
+                        <apex:outputText styleClass="effectDate" value="Effective date: 
+                                                                        {0,date,dd MMMMM yyyy} - {1,date,dd MMMMM YYYY}">
+                            <apex:param value="{!myopp.KGRenewal__ContractEffectiveDate__c}" />
+                            <apex:param value="{!myOpp.KGRenewal__ContractEndDate__c}" />
+                        </apex:outputText>
+                        </td></tr>
+                    <tr><td>
+                        <b>Aon WorldAware</b><br/><br/>
+                        In the event of an emergency, contact the WorldAware operations center.<br/>
+                        24-hour emergency number: +1.312.470.3091<br/>
+                        Toll-free number (U.S. and Canada only): 1.877.938.6893<br/>
+                        <apex:image id="ypoLogo" value="{!$Resource.v_ypo_logo}" width="45" height="35" />        
+                        <apex:image styleclass="alignright" id="worldAWareLogo" value="{!$Resource.WorldAWare_logo}" width="60" height="35" />
+                        <br/>
+                        <small>
+                            (Please note: This is not a credit or medical insurance card. This benefit is non-transferable.)
+                        </small>
+                        </td>
+                    </tr>   
+                </table>
+                <br/>
+            </apex:repeat>
+        </body>
+    </html>
+</apex:page>

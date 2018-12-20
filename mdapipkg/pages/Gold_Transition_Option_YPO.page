@@ -1,0 +1,290 @@
+﻿<apex:page standardcontroller="Contact" extensions="GoldTransitionOption_YPO" action="{!init}" sidebar="false" showheader="false" standardstylesheets="false" applyhtmltag="false" doctype="html-5.0">
+<head>
+    
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" />
+    <title>YPO Renewals</title>
+    
+    <!-- CSS -->
+    <link rel="stylesheet" type="text/css" href="{!URLFOR($Resource.YPORenew, 'ypo-renewals/assets/css/bootstrap.min.css')}" />
+    <link rel="stylesheet" type="text/css" href="{!URLFOR($Resource.YPORenew, 'ypo-renewals/assets/css/styles.css')}" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jquery-confirm/3.1.1/jquery-confirm.min.css" />
+    <style>
+        .cartIicon {
+            display: none;
+        }
+        #required-indicator-message {
+            float: right;
+        }
+        @media (max-width: 425px) {
+            .panel-header h3 {
+                float: none !important;
+                display: block;
+            }
+            #required-indicator-message {
+                float: none;
+                display: block;
+            }
+        }
+        .has-error {
+            border-color: #B71F36;
+            color: #B71F36;
+        }
+    </style>
+    
+    <!-- JAVASCRIPT LIBS -->
+    <apex:includescript value="{!URLFOR($Resource.knockout)}" />
+    <apex:includescript value="{!URLFOR($Resource.knockoutvalidation)}" />
+</head>
+
+<body>
+    
+        <!-- Global site tag (gtag.js) - Google Analytics -->
+        <script async="true" src="https://www.googletagmanager.com/gtag/js?id={!$Label.Google_Analytics_ID}"></script>
+        <script>
+            window.dataLayer = window.dataLayer || [];
+            function gtag(){dataLayer.push(arguments);}
+            gtag('js', new Date());
+            gtag('config', '{!$Label.Google_Analytics_ID}');
+        </script>
+        <!-- End Google Analytics code -->
+        
+    <nav class="navbar navbar-default navbar-fixed-top">
+        <div class="container">
+            <img class="logo" src="{!URLFOR($Resource.YPORenew, 'ypo-renewals/assets/img/ypo.svg')}" />
+        </div>
+    </nav>
+
+    <apex:form >
+
+
+        <div class="content-title">
+            <div class="container">
+                <h1 class="v-center">{!$Label.Transition_YPO_YPOGoldTransitionOption}</h1>
+            </div>
+        </div>
+                
+        <!-- Site Content -->
+        <div class="container">
+            <div style="color:black"> <apex:pagemessages id="messagesStart" /> <br /> </div>
+            <div class="content">
+                <p class="desc">{!$Label.Transition_YPO_Gold_Eligible}</p>
+                <div class="row">
+                    <div class="col-md-9">
+                        <div class="panel info">
+                            <div class="panel-header">
+                                <img class="pull-left" src="{!URLFOR($Resource.YPORenew, 'ypo-renewals/assets/img/ypo-icon.png')}" />
+                                <h3 class="pull-left">{!$Label.Transition_YPO_Gold_WhatIsYpoGold}</h3>
+                                <div class="clearfix"></div>
+                            </div>
+                            <p>{!$Label.Transition_YPO_Thegraduation}</p>
+                            <p>
+                                {!$Label.Transition_YPO_Thegraduation2}
+                            </p>
+                        </div>
+
+                        <div class="panel">
+                            <div class="panel-header">
+                                <h3 class="pull-left">Chapter Selection</h3><!-- {!$Label.Transition_YPO_Transitionoptions} -->
+                                <div id="required-indicator-message" class=""><span class="required"></span> Indicates required field</div>
+                                <div class="clearfix"></div>
+                            </div>
+                            
+                            <!-- ALERT FOR VALIDATION ERRORS -->
+                            <div id="form-error-alert" class="alert alert-danger help-block with-errors hide" role="alert">
+                                <i class="icon-caution"></i> You must select an option for <em>Select Chapter</em>.
+                            </div>
+                                
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <apex:outputtext value="{!$Label.Transition_YPO_Gold_FromTheSelection}" escape="false" />
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="form-group" data-bind="validationElement: requiredTextInput1, css: {'is-not-empty': requiredTextInput1}">
+                                        <label class="required">Select Region</label>
+                                        <apex:actionregion >
+                                            <apex:selectlist id="regionInputTextId" value="{!selectedDesiredWPORegion}" size="1" styleclass="form-control" html-data-bind="textInput: requiredTextInput1" required="true">
+                                                <apex:actionsupport event="onchange" action="{!filterRegionChapters}" rerender="filteredChapter" oncomplete="validateSelection();" />
+                                                <apex:selectoptions value="{!desiredWPORegions}" />
+                                            </apex:selectlist>
+                                        </apex:actionregion>
+                                        <span class="validationMessage" data-bind="validationMessage: requiredTextInput1"></span>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="form-group" data-bind="validationElement: requiredTextInput2, css: {'is-not-empty': requiredTextInput2}">
+                                        <label class="required">Select Chapter</label>
+                                        <apex:outputpanel id="filteredChapter">
+                                            <apex:selectlist id="chapterInputTextId" value="{!selectedDesiredWPOChapter}" size="1" styleclass="form-control" html-data-bind="textInput: requiredTextInput2" onchange="validateSelection()" >
+                                                <apex:selectoptions value="{!desiredWPOChapters}" />
+                                            </apex:selectlist>
+                                        </apex:outputpanel>
+                                        <apex:outputtext value="{!$Label.Transition_YPO_Gold_TheChapterListIncludes}" escape="false" />
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="action-panel">
+                            <div class="row">
+                                <div class="col-xs-6">
+                                    <button class="btn btn-default action-button" type="button" onclick="backValidate('{!transitionFlag}')">{!$Label.Back}</button>
+                                </div>
+                                <div class="col-xs-6">
+                                    <button class="btn btn-primary action-button" onclick="ConfirmContinue()" id="ContinueId" role="button" type="button"><span class="hidden-xs">Proceed With </span>Transition</button>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                                    
+                    <div class="col-md-3">
+                        <div class="panel help visible-md visible-lg">
+                            <div class="panel-header text-center">
+                                <img class="panel-header-img" src="{!URLFOR($Resource.YPORenew, 'ypo-renewals/assets/img/help.svg')}" />
+                                <h3 class="help">{!$Label.Help_NeedHelp}</h3>
+                            </div>
+                            <p>{!$Label.Help_ifYouNeed} </p>
+                            <p class="clearfix need-help-phone">
+                                <i class="icon-phone"></i>
+                                <span class="pull-left">{!$Label.Help_Phone1}<br />{!$Label.Help_Phone2} </span>
+                            </p>
+                            <p class="clearfix need-help-email">
+                                <i class="icon-email"></i>
+                                <span class="pull-left need-help-email">{!$Label.Help_Email} </span>
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- <div style="color:black"> <apex:pagemessages id="messagesStart" /> <br /> </div> -->
+
+        <footer>
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-4"><img class="logo" src="{!URLFOR($Resource.YPORenew, 'ypo-renewals/assets/img/ypo-white.png')}" /></div>
+                    <div class="col-md-4 text-center"><a href="https://media.ypowpo.org/libraries/publicLegal/exchange/TOU.pdf" target="_blank" style="color: #fdfeff;">{!$Label.Copyright_TOU}</a></div>
+                    <div class="col-md-4 text-right">&copy; {!$Label.Copyright_YPO}</div>
+                </div>
+            </div>
+        </footer>
+
+        <apex:actionfunction name="callActionFuncFOrContinue" action="{!saveDesiredWPOChapter}" />
+        <apex:actionfunction name="goBack" action="{!goBack}" />
+
+    </apex:form>
+</body>
+        
+    <!-- Scripts -->
+    <script src="{!URLFOR($Resource.YPORenew, 'ypo-renewals/assets/js/jquery-3.2.1.min.js')}"></script>
+    <script src="{!URLFOR($Resource.YPORenew, 'ypo-renewals/assets/js/bootstrap.min.js')}"></script>
+    <apex:includescript value="https://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js" />
+    <apex:includescript value="https://cdnjs.cloudflare.com/ajax/libs/jquery-confirm/3.1.1/jquery-confirm.min.js" />
+            
+    <script>
+
+        $(document).ready(function(){
+            // knockjs function
+             ko.applyBindings(new inputGoldSelectModel());
+            $('[id*="chapterInputTextId"]').prop('required', true);
+            $('[id*="regionInputTextId"]').prop('required', true);  
+            
+            // Reset the Select Chapter input on page load 
+            resetSelectChapter();
+        
+            // Reset the Select Chapter input when the value for Select Region changes
+            $('[id*="regionInputTextId"]').change(function() {
+                // the timeout is a hack, other option is to change the response from the controller.
+                setTimeout(function() {
+                    resetSelectChapter();
+                }, 700);
+            });
+        
+            $('[id*="chapterInputTextId"]').change(function() {
+                if ( $('[id*="chapterInputTextId"]').val() != '' ) {
+                    $('[id*="chapterInputTextId"]').removeClass('has-error');
+                }
+            });
+        });
+    
+        /**
+        * Sets the [Select Chapter] dropdown value to "Select Option" on page load.
+        **/
+        function resetSelectChapter() {
+            $('[id*="chapterInputTextId"]').val('');
+        }
+
+        function ConfirmContinue() {
+            if ( $('[id*="chapterInputTextId"]').val() != '' ) {
+                callActionFuncFOrContinue();
+            }
+            else {
+                $('#form-error-alert').removeClass('hide');
+                $('[id*="chapterInputTextId"]').addClass('has-error');
+            };
+            
+           // $.confirm({
+              //  title: 'Are you sure you want to transition to YPO Gold?',
+              //  content: 'Dues Amounts will Not Change.',
+              //  buttons: {
+               //     Yes:function(){
+            //callActionFuncFOrContinue();
+                 //   },
+                 //   No: function () { backValidate('{!transitionFlag}'); },
+                //}
+           // });
+        }
+
+        var self;
+        var inputGoldSelectModel = function(){
+            self = this;
+            self.requiredTextInput1 = ko.observable('{!selectedDesiredWPORegion}').extend({ required: true })
+            self.requiredTextInput2 = ko.observable('{!selectedDesiredWPOChapter}').extend({ required: true })
+            validateSelection();
+        }
+
+
+        function validateSelection() {
+            // alert($('[id*="chapterInputTextId"]').val());
+            var toEnable=true;
+            if($('.validationMessage').text() != '' ){
+                //toEnable=false;
+            }
+            if($('[id*="regionInputTextId"]').val().length==0 ){
+                //toEnable=false;
+            }
+            if($('[id*="chapterInputTextId"]').val().length==0 ){
+                //toEnable=false;
+            }
+            self.requiredTextInput2($('[id*="chapterInputTextId"]').val());
+            //document.getElementById('ContinueId').disabled=!toEnable;
+
+        }
+
+    function backValidate(isTransition)
+    {
+        // This is for  BACK Button
+        if(isTransition == 'true')
+            alert('{!$Label.Transition_YPO_Back}')
+        else{
+            goBack();
+        }
+    }
+
+        ko.validation.init({
+               registerExtenders: true,
+               messagesOnModified: true,
+               insertMessages: false,
+               parseInputAttributes: true,
+               messageTemplate: null,
+               decorateInputElement: false,
+               grouping: {
+                   deep: true, observable: false
+               }
+           },
+           true);
+    </script>
+
+</apex:page>

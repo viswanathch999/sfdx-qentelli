@@ -1,0 +1,63 @@
+<apex:page standardController="Contact" 
+    extensions="RenewalContactContExt" 
+    sidebar="false" 
+    id="thirdpartycertification"
+    showHeader="false"
+    standardStylesheets="false" 
+    title="{!$Label.Third_Party_Certification }"
+    action="{!init}">
+    
+    <link rel="stylesheet" type="text/css" href="https://mte-www.ypowpo.org/stylesheets/app.css"/>
+    
+    <apex:form id="memberinfo">
+    
+    <apex:pageMessages id="messagesStart"></apex:pageMessages>
+    <apex:outputPanel id="opanelIsNotMember" rendered="{!NOT(isMember)}">You are currently not a member and cannot proceed with Renewals</apex:outputPanel>
+    <apex:outputPanel id="opanel">
+    <apex:pageBlock rendered="{!isYPO && isMember}" id="pb1">
+    <main role="main">
+    
+    <div class="row">
+    
+    <div class="small-24 medium-16 large-18 columns">
+    <div class="tile">
+        <div class="tile-header">    {!$Label.Third_Party_Certification}   </div>
+            <div class="tile-body">
+                <p>
+                    Third Party certification requires that your qualifying criteria be verified by your 
+                    company's independent auditing firm, certified public accountant, charted accountant 
+                    or attorney, or by your company's treasurer, financial officer or accounting officer 
+                    if you do not employ an external auditor.                    
+                </p>
+                <p>
+                    Types of documentation that can be submitted to verify your qualifying criteria include: A 
+                    letter on company letterhead signed by the third party or your company's treasurer, financial 
+                    officer or accounting officer. This can be emailed to the third party verifier or uploaded by 
+                    selecting that option below. If your company is publicly traded, you can upload your annual report
+                    or 10K filing by selecting "Upload" below.
+                </p>
+                <p>
+                    If you need additional time to collect this information, you may proceed with online renewal and 
+                    come back to complete your recertification by selecting the FY2016-2017 Membership Renewal link on
+                    your home page.
+                </p>
+                <p>
+                    To recertify now, please select how you prefer to share the documentation to be verified:
+                </p>
+            </div>    
+    </div>    
+    </div>
+    </div>
+    </main>
+    <div class="row">
+                    <apex:pageMessages id="messagesRel"/>
+                    <apex:commandButton value="{!$Label.Back}" title="{!$Label.Back}" styleclass="button_raised" action="{!changeQualifyingCompany}" status="status2"/>
+                    <apex:commandButton value="Email" title="{!$Label.Save}" styleclass="button_raised" action="{!toThirdPartyCertificationVerifier}" status="status2"/>
+                    <apex:commandButton value="Upload" title="{!$Label.Save}" styleclass="button_raised" action="{!toThirdPartyCertificationUpload}" status="status2"/>
+                    <apex:actionStatus layout="inline" startText="{!$Label.Processing}" stopText="" id="status2" startStyleClass="statusStyle"/>
+                </div>
+            </apex:pageBlock>
+    </apex:outputPanel>    
+    </apex:form>
+ 
+</apex:page>

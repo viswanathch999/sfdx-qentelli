@@ -1,0 +1,61 @@
+<apex:page showheader="false" sidebar="false" standardStylesheets="false" standardController="Contact" extensions="MarketingContContactExt" action="{!populateSegmentContents}" >
+	<apex:stylesheet value="{!URLFOR($Resource.Styles)}"/>
+	<apex:stylesheet value="{!URLFOR($Resource.MarketingCSS)}"/>
+	<apex:variable var="topImage" value="{!topSpotImage}" />
+	<apex:variable var="bottomImage1" value="{!bottomSpot1Image}" />
+	<apex:variable var="bottomImage2" value="{!bottomSpot2Image}" />
+	<apex:pageMessages ></apex:pageMessages>
+	
+	<main role="main" id="contextSpacing">
+		<div class="tile">
+			<div class="tile-header">
+				<apex:outputText value="{!$Label.SplashHeaderTitleText}" />
+			</div>
+			<div class="tile-body">
+				<apex:outputText escape="false" value="{!$Label.SplashHeaderText}" />
+				
+				<br/>
+				<br/>
+				
+				<table id="contextTable">
+					<tr>
+						<h2>{!topSpotTitleText}</h2>
+						<div id="topBanner" style="background-image: url('{!URLFOR($Resource.MarketingSpashPageTopSpotImagePack, topImage)}');">
+							<header>
+								<a href="{!topSpotUrl}">
+									<span>{!topSpotUrlText}</span>
+								</a>
+							</header>
+						</div>
+					</tr>
+					<tr>
+						<td id="bottomSpot1">
+							<div> 
+								<h2>{!bottomSpot1TitleText}</h2>
+								<div id="rightImage" style="background-image: url('{!URLFOR($Resource.MarketingSpashPageBottomSpot1ImagePack, bottomImage1)}');">
+									<header>
+										<a href="{!bottomSpot1Url}">
+											<span>{!bottomSpot1UrlText}</span>
+										</a>
+									</header>
+								</div>
+							</div>
+						</td>
+						<td id="bottomSpot2"> 
+							<div>
+								<h2>{!bottomSpot2TitleText}</h2>
+								<div id="leftImage" style="background-image: url('{!URLFOR($Resource.MarketingSpashPageBottomSpot2ImagePack, bottomImage2)}');">
+									<header>
+										<a href="{!bottomSpot2Url}">
+											<span>{!bottomSpot2UrlText}</span>
+										</a>
+									</header>
+								</div>
+							</div>
+						</td>
+					</tr>
+				</table>		
+			</div>
+		</div>
+	</main>
+</apex:page>

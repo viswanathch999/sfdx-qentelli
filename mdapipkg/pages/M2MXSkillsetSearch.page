@@ -1,0 +1,109 @@
+<apex:page id="pg" standardController="Case" extensions="M2MXCaseSearchCaseContExt" sidebar="true" showHeader="true" title="M2MX Skillset Search">
+    <style>
+        .statusStyle{
+        background:url({!URLFOR($Resource.ProcessingImage)}) no-repeat 0 0; 
+        padding-left:20px; 
+        margin-left:10px; 
+        padding-bottom:5px; 
+        }
+    </style>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
+    
+    <script>
+        function emailSuccessAndRedirect(){
+        alert('Email sent successfully');
+        var url = '/{!caseId}'; 
+        if(url != "null")
+            window.open(url, "_parent");
+    }
+    var flagOther = false;
+    function changed(element){
+        if(element.value == 'Other (Free Text)'){
+            toggle();
+            flagOther = true;
+        }
+        else if(flagOther){
+            toggle();
+        }
+    }
+    function categoryChanged(){
+        if(flagOther) {
+            console.log($("[id$='subCategory']").val());
+            $("[id$='subCategory']").val('');
+            toggle();
+            }
+    }
+    function toggle(){
+        $(".showWhenOther").toggle();
+        $(".hideWhenOther").toggle();
+    }
+    $(document).ready(function() {   
+        $(".showWhenOther").hide();             
+    });
+    
+    </script>
+    <apex:form id="form" >        
+        <apex:sectionHeader title="{!$ObjectType.Case.Label}" subtitle="{!$Label.M2MX_Search}"/>   
+        <apex:pageBlock id="block" title="Search the desired skillsets">
+        <apex:pageMessages id="message"/>   
+            <apex:pageBlockButtons >
+                <apex:commandButton id="searchButton"  styleClass="hideWhenOther" value="Search" action="{!getSearchResults}"  rerender="container,message"  status="status1"  />
+                <apex:commandButton id="addButton"  styleClass="showWhenOther" value="Add Skillset" action="{!saveSkillset}"  status="status1"  />
+                <apex:commandButton id="cancelButton" value="Cancel" action="{!cancel}" />   
+                <apex:actionStatus layout="inline" startText="Please Wait.." stopText="" id="status1" startStyleClass="statusStyle"/>
+            </apex:pageBlockButtons>
+            <apex:pageBlockSection columns="1">
+                <apex:pageBlockSectionItem >
+                    <apex:outputLabel value="Skillset(s)"  />
+                    <apex:inputText id="text" label="Skillset(s)" 
+                                    html-placeholder="Search Skillset(s)" value="{!searchString}"  size="50" />
+                </apex:pageBlockSectionItem>
+                <apex:pageBlockSectionItem >
+                    <apex:outputLabel value="Filter By Last Modified (Days)"
+                                      style="font-weight:bold;" />
+                    <apex:selectList value="{!noOfDays}" size="1">
+                        <apex:selectOptions value="{!LastModifiedByDays}" />
+                    </apex:selectList>
+                </apex:pageBlockSectionItem>
+                <apex:pageBlockSectionItem >
+                    <apex:outputLabel value="Template" style="font-weight:bold;" />
+                    <apex:selectList value="{!selectedTemplate}" size="1">
+                        <apex:selectOptions value="{!templates}" />
+                    </apex:selectList>
+                </apex:pageBlockSectionItem>
+                <apex:inputField onchange="categoryChanged();" value="{!skillSetRecord.Category__c}"/>
+                <apex:inputField id="subCategory" onchange="changed(this)" value="{!skillSetRecord.Sub_Category__c}"/>
+                
+                <apex:pageBlockSectionItem >
+                    <apex:outputLabel styleClass="showWhenOther" value="Expertise" style="font-weight:bold;" />
+                    <apex:inputField styleClass="showWhenOther" value="{!skillSetRecord.Expertise__c}"/>
+                </apex:pageBlockSectionItem>
+            </apex:pageBlockSection>            
+        </apex:pageBlock>       
+        
+        <apex:outputPanel id="container">        
+            <apex:pageBlock id="block2" rendered="{!renderTable}" title="Results({!searchResultsList.size})">
+                <apex:pageBlockButtons rendered="{!(searchResultsList.size >0)}">
+                    <apex:commandButton value="Send Email to selected person" action="{!sendEmail}" oncomplete="emailSuccessAndRedirect()" rerender="table"/>
+                </apex:pageBlockButtons>
+                <apex:outputText rendered="{!(searchResultsList.size==0)}" value="No records found"/>            
+                <apex:pageBlockTable id="table" value="{!searchResultsList}" var="rec"
+                                     rendered="{!(searchResultsList.size >0)}">
+                    <apex:column >
+                        <apex:inputCheckbox value="{!rec.isChecked}"/>
+                    </apex:column>
+                    <apex:column headerValue="{!$ObjectType.Contact.Fields.Name.Label}" value="{!rec.fullName}"/>
+                    <apex:column headerValue="{!$ObjectType.Contact.Fields.MailingCity.Label}" value="{!rec.city}"/>
+                    <apex:column headerValue="{!$ObjectType.Contact.Fields.MailingCountry.Label}" value="{!rec.country}"/>
+                    <apex:column headerValue="{!$ObjectType.Contact.Fields.Gender__c.Label}" value="{!rec.gender}"/>
+                    <apex:column headerValue="{!$ObjectType.M2MX_Skillsets__c.Fields.Category__c.Label}" value="{!rec.category}"/>
+                    <apex:column headerValue="{!$ObjectType.M2MX_Skillsets__c.Fields.Sub_Category__c.Label}" value="{!rec.subCategory}"/>
+                    <apex:column headerValue="{!$ObjectType.M2MX_Skillsets__c.Fields.Expertise__c.Label}" value="{!rec.expertise}"/>
+                    <apex:column headerValue="ObjectName" value="{!rec.objectName}"/>
+                    <apex:column headerValue="{!$ObjectType.Contact.Fields.Date_Last_M2MX_Request_Email__c.Label}" value="{!rec.lastContactedDate}"/>
+                </apex:pageBlockTable>
+            </apex:pageBlock>
+        </apex:outputPanel>
+    </apex:form>
+    
+</apex:page>

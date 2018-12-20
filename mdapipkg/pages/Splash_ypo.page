@@ -1,0 +1,41 @@
+<apex:page sidebar="false" showHeader="false" standardStylesheets="false" doctype="html-5.0">
+   <!--<apex:composition template="{! $Site.Template}">-->
+   <apex:stylesheet value="{!URLFOR($Resource.Styles)}"/>
+   <apex:stylesheet value="{!$Resource.InvisionAppStyle_YPO}"/>
+   <apex:composition template="V_Template_ProspectFlow_YPO">
+      <apex:define name="title">
+         <title>
+            Explore Your Membership Benefits | {! $Organization.Name}
+         </title>
+      </apex:define>
+      <apex:define name="content">
+         <div class="panel congratsPanel">
+            <p><img src="{!URLFOR($Resource.prospectResources, 'prospectResources/images/checkMarkLogo.PNG')}"/>{!$Label.Membership_Benefits_YPO_CongratulationsYourPayment}</p>
+            <div class="pull-right">
+               <a class="dismis" href="javascript:void(0)">
+                  {!$Label.ThirdPartyCertification_YPO_Dismis} 
+                  <elm><svg id="icon-x" style="width:12px; height:13px; margin:-2px 5px 0 0;" viewBox="0 0 32 32">
+<path class="path1" d="M28.8 25.8l-10-9.8 9.8-10-2.6-2.6-10 9.8-9.8-10-2.8 2.8 9.8 10-9.8 10 2.6 2.6 10-9.8 10 9.8z" fill="#346da5 "></path>
+               </svg></elm>
+               </a>
+               <a class=" btn btn-blue">{!$Label.Membership_Benefits_YPO_PrintInvoice}</a>
+            </div>
+         </div>
+         <div class="row membershipBenefits">
+            <div class="col-md-10 col-md-offset-1 col-lg-8 col-lg-offset-2">
+               <h2 class="title">{!$Label.Membership_Benefits_YPO_ExploreYourMembership} </h2>
+               <p>{!$Label.Membership_Benefits_YPO_WeHaveGreatYear}
+                  <span>{!$Label.Membership_Benefits_YPO_ThankYouForSaying}</span>
+               </p>
+               <section class="imgBlock">
+                  <div class="fullImg" > <apex:image value="{!URLFOR($Resource.Splash_Images,'Splash_Img1.JPG')}" /> </div> 
+                  <div class="halfImg" >
+                     <figure class="halfImg" > <apex:image value="{!URLFOR($Resource.Splash_Images,'Splash_Img2.JPG')}"  /> </figure> 
+                     <figure class="halfImg" > <apex:image value="{!URLFOR($Resource.Splash_Images,'Splash_Img3.JPG')}" /> </figure>
+                  </div>
+               </section>
+            </div>
+         </div>
+      </apex:define>
+   </apex:composition>
+</apex:page>

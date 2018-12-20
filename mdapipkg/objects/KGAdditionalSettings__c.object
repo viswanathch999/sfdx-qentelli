@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomObject xmlns="http://soap.sforce.com/2006/04/metadata">
+    <customSettingsType>Hierarchy</customSettingsType>
+    <description>Captures Kinetic Growth&apos;s Venue(Shopping Cart) settings</description>
+    <enableFeeds>false</enableFeeds>
+    <fields>
+        <fullName>Cart_Activation_Batch_Size__c</fullName>
+        <externalId>false</externalId>
+        <label>Cart Activation Batch Size</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <trackTrending>false</trackTrending>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>N_Days_Before_Effective_Date_Run_Batch__c</fullName>
+        <description>This number is the number of days before an Opportunity&apos;s Contract Effective Date to run the batch job which processes carts.</description>
+        <externalId>false</externalId>
+        <label>N Days Before Effective Date Run Batch</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <trackTrending>false</trackTrending>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Preactivation_Cart_Stage__c</fullName>
+        <externalId>false</externalId>
+        <label>Preactivation Cart Stage</label>
+        <length>255</length>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <label>KG Additional Settings</label>
+    <visibility>Public</visibility>
+</CustomObject>

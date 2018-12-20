@@ -1,0 +1,522 @@
+﻿<apex:page controller="KGRenewal.VenueCheckoutController" extensions="CheckoutCreditCardExtension_YPO" sidebar="false" showheader="false" standardstylesheets="false" doctype="html-5.0">
+
+    <head>
+        
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" />
+        <title>YPO Renewals</title>
+
+        <link rel="stylesheet" type="text/css" href="{!URLFOR($Resource.YPORenew, 'ypo-renewals/assets/css/bootstrap.min.css')}" />
+        <link rel="stylesheet" type="text/css" href="{!URLFOR($Resource.YPORenew, 'ypo-renewals/assets/css/styles.css')}" />
+
+        <style>
+            @media (max-width: 768px) {
+                .cart-container {
+                    padding-bottom: 45px;
+                }
+            }
+        </style>
+    </head>
+    
+    <body>
+        
+        <!-- Global site tag (gtag.js) - Google Analytics -->
+        <script async="true" src="https://www.googletagmanager.com/gtag/js?id={!$Label.Google_Analytics_ID}"></script>
+        <script>
+            window.dataLayer = window.dataLayer || [];
+            function gtag(){dataLayer.push(arguments);}
+            gtag('js', new Date());
+            gtag('config', '{!$Label.Google_Analytics_ID}');
+        </script>
+        <!-- End Google Analytics code -->
+        
+        <nav class="navbar navbar-default navbar-fixed-top">
+            <div class="container">
+                <img class="logo" src="{!URLFOR($Resource.YPORenew, 'ypo-renewals/assets/img/ypo.svg')}" />
+                <div class="cart pull-right visible-xs visible-sm" onclick="openNav()">
+                    <div id="cart-count" class="count cart-countc"><apex:outputtext value="{!lineItems.size}"></apex:outputtext></div>
+                    <i class="icon-shopping_cart"></i>
+                </div>
+            </div>
+        </nav>
+        <div class="content-title">
+            <div class="container">
+                <h1 class="v-center">Review</h1>
+            </div>
+        </div>
+        <apex:form >
+            <!-- Site Content -->
+            <div class="container">
+                <div style="color:black"> <apex:pagemessages id="messagesStart" /> <br /> </div>
+                <div class="content">
+                    <apex:outputpanel layout="block" rendered="{! NOT(ISBLANK(paymentErrorMsgYPO))}">
+                        <div class="alert alert-danger" role="alert">
+                            <b>Payment error: </b><apex:outputtext value="{!paymentErrorMsgYPO}" escape="false"></apex:outputtext>
+                        </div> <!--/.alert-->
+                    </apex:outputpanel>
+                    <p class="desc">Please review and confirm all information is correct.</p>
+                    <div id="form-error-alert" class="alert alert-danger help-block with-errors hide" role="alert">
+                        <i class="icon-caution"></i> Please agree to the <em>Code of Conduct</em> and <em>Terms and Conditions</em> to continue.
+                    </div>
+                    <div class="row">
+    
+                        <div class="col-md-8">
+    
+                            <div class="panel">
+                                <div class="panel-header">
+    
+    
+    
+    
+                                    <h3>Contact Information</h3>
+                                </div>
+    
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <p>
+                                            <strong>Contact Details</strong>
+                                            <br />
+                                            <span> {! currentContact['Name']} </span><br />
+                                            <span>{!currentContact['Account.Name']}</span><br />
+                                            <span>{!contactDetails['email']}</span><br />
+                                            <span>{!contactDetails['phone']}</span>
+                                        </p>
+                                    </div>
+                                    <div class="col-md-6">&nbsp;
+                                        <!--  Removing address: //-->
+                                        <!-- p>
+                                            <strong>Address</strong>
+                                            <br />
+                                            <span>
+                                                {! billingAddress.streetAddress1}<br />
+                                                {! billingAddress.city}, {! billingAddress.state} {! billingAddress.postalcode}<br />
+                                                {! billingAddress.country}
+                                            </span>
+                                        </p//-->
+                                    </div>
+                                </div>
+                                <div class="panel-header">
+                                    <h3 class="pull-left">Payment Information</h3>
+                                    <div class="clearfix"></div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <p>
+                                            <strong>Payment Details</strong>
+                                            <br />
+                                            <span>
+                                                {! billingAddress.streetAddress1} <br />
+                                                {! billingAddress.city},
+                                                {! billingAddress.state}
+                                                {! billingAddress.postalcode} <br />
+                                                {! billingAddress.country}
+                                            </span>
+                                        </p>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <p>
+                                            <strong>Payment Method</strong>
+                                            <br />
+                                            <apex:outputpanel rendered="{!paymentMode = 'Credit Card'}">
+                                                <span>{! paymentCard.cardholderName}</span>
+                                                <br />
+                                                <!-- <div><span> {!paymentMode} </span></div> -->
+                                                <span id="showFourDigits">Credit Card ending in <span id="FourDigitNumbers"></span></span>
+                                                <input id="MaskedNumber" value="{! paymentCard.maskedCardNumber}" style="display:none;" />
+                                            </apex:outputpanel>
+                                            <apex:outputpanel rendered="{!paymentMode != 'Credit Card'}">
+                                                <!--<div class="infoRow">-->
+                                                <span> The selected payment mode is by check. </span>
+                                                <span> A quote will be emailed to you upon checkout.</span>
+                                                <!-- </div> -->
+                                            </apex:outputpanel>
+                                        </p>
+                                    </div>
+                                </div>
+                                <div class="panel-header" style="{!IF(isLifetimeMembers,'display:none','display:block')}">
+                                    <h3>Code of Conduct</h3>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        <div class="form-group">
+                                            <div class="checkbox" style="{!IF(isLifetimeMembers,'margin-top: 0; display:none','margin-top: 0; display:block')}">
+                                                <label>
+                                                    <input type="{!IF(isLifetimeMembers,'hidden','checkbox')}" id="CodeofConductCheckId" class="" style="{!IF(isLifetimeMembers,'display:none; visibility:hidden;','')}" name="CodeofConductCheckName" value="{!isCodeOfConductAccepted}" required="{!IF(isLifetimeMembers,'false','true')}">As part of my membership, I have read and agree to the YPO <a href="{!$Resource.CodeOfConduct}" target="_blank">Code of Conduct and Terms and Conditions</a>.</input>
+                                                </label>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="action-panel">
+                                <div class="row">
+                                    <div class="col-xs-6">
+                                        <!-- BACK BUTTON -->
+                                        <button class="btn btn-default pull-left action-button" type="button" data-toggle="modal" data-target="#editAddressModal" id="ReturntoCartButtonId" onclick="goback()">
+                                            back
+                                        </button>
+                                    </div>
+                                    <div class="col-xs-6">
+                                        <!-- SUBMIT BUTTON -->
+                                        <apex:commandbutton styleclass="btn btn-primary pull-right action-button" value="Submit" id="SubmitOrderBtnId" onclick="return validate();" />
+                                    </div>
+                                </div>
+                            </div>
+    
+                            <apex:actionfunction name="submitOrder" action="{!newPay}" />
+                            <apex:actionfunction name="goback" action="{!goBackAction}" />
+                        </div>
+    
+                        <div class="col-md-4 hidden-xs hidden-sm">
+                            <div class="cart-container clearfix">
+                                <div class="panel-header">
+                                    <h3>Shopping Cart (<apex:outputtext value="{!lineItems.size}"></apex:outputtext>)</h3>
+                                </div>
+                                <ul id="cart-container" class="cart">
+                                    <apex:repeat var="item" value="{! lineItems}">
+                                        <li>
+                                            <div class="pull-left hidden-xs hidden-sm">
+                                                <apex:image value="{! item.pricebookEntry.product2.KGRenewal__MainImageSmall__c}" alt="" height="50" />
+                                            </div>
+                                            <div class="pull-left cart-info">
+                                                <span class="cart-title">{! item.name}</span>
+                                                <span class="cart-detail">{! item.Description}</span>
+                                            </div>
+    
+    
+                                            <div class="pull-right price">
+                                                <apex:outputtext value="{!CurrencyCode}{0, number,###,###,###,##0.00}">
+                                                    <apex:param value="{! item.totalPrice}" />
+                                                </apex:outputtext>
+                                            </div>
+                                            <div class="clearfix"></div>
+    
+                                        </li>
+                                    </apex:repeat>
+                                    <h3>
+                                        <span class="pull-left">
+                                            Subtotal:
+                                        </span>
+                                        <span class="pull-right">
+                                            <apex:outputtext value="{!CurrencyCode}{0, number,###,###,###,##0.00}">
+                                                <apex:param value="{! summary['subtotal']}" />
+                                            </apex:outputtext>
+                                        </span>
+                                    </h3>
+                                    <apex:outputpanel layout="none" rendered="{! summary['subtotal'] != summary['coupon_data']['amount_after_all_coupons']}">
+                                        <div class="text-right">
+                                            <span class="txt">Discount : </span>
+                                            <span class="amount">
+                                                <apex:outputtext value="{!CurrencyCode} {0, number,###,###,###,##0.00}">
+                                                    <apex:param value="{! summary['subtotal'] - summary['coupon_data']['amount_after_all_coupons']}" />
+                                                </apex:outputtext>
+                                            </span>
+                                        </div>
+                                        <div class="text-right">
+                                            <span class="txt">Discounted subtotal : </span>
+                                            <span class="amount">
+                                                <apex:outputtext value="{!CurrencyCode} {0, number,###,###,###,##0.00}">
+                                                    <apex:param value="{! summary['billed_amount']}" />
+                                                </apex:outputtext>
+                                            </span>
+                                        </div>
+                                    </apex:outputpanel>
+                                    <div class="totalPrice visible-xs visible-sm">
+                                        <div class="text-right">
+                                            <h3>
+                                                <span class="pull-left">
+                                                    Subtotal
+                                                </span>
+                                                <span class="pull-right">
+                                                    <apex:outputtext value="{!CurrencyCode}{0, number,###,###,###,##0.00}">
+                                                        <apex:param value="{! summary['subtotal']}" />
+                                                    </apex:outputtext>
+                                                </span>
+                                            </h3>
+                                        </div>
+                                        <apex:outputpanel layout="none" rendered="{! summary['subtotal'] != summary['coupon_data']['amount_after_all_coupons']}">
+                                            <div class="text-right">
+                                                <span class="txt">Discount : </span>
+                                                <span class="amount">
+                                                    <apex:outputtext value="{!CurrencyCode} {0, number,###,###,###,##0.00}">
+                                                        <apex:param value="{! summary['subtotal'] - summary['coupon_data']['amount_after_all_coupons']}" />
+                                                    </apex:outputtext>
+                                                </span>
+                                            </div>
+                                            <div class="text-right">
+                                                <span class="txt">Discounted subtotal : </span>
+                                                <span class="amount">
+                                                    <apex:outputtext value="{!CurrencyCode} {0, number,###,###,###,##0.00}">
+                                                        <apex:param value="{! summary['billed_amount']}" />
+                                                    </apex:outputtext>
+                                                </span>
+                                            </div>
+                                        </apex:outputpanel>
+                                    </div>
+                                </ul>
+    
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- <div style="color:black"> <apex:pagemessages id="messagesStart" /> <br /> </div> -->
+            <footer class="visible-md visible-lg">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-md-4"><img class="logo" src="{!URLFOR($Resource.YPORenew, 'ypo-renewals/assets/img/ypo-white.png')}" /></div>
+                        <div class="col-md-4 text-center"><a href="https://media.ypowpo.org/libraries/publicLegal/exchange/TOU.pdf" target="_blank" style="color: #fdfeff;">{!$Label.Copyright_TOU}</a></div>
+                        <div class="col-md-4 text-right">&copy; {!$Label.Copyright_YPO}</div>
+                    </div>
+                </div>
+            </footer>
+            <apex:inputhidden value="{!isCodeOfConductAccepted}" id="codeOfConductHiddenId" />
+    
+            <div id="cart">
+                <div class="cart-body">
+                    <div class="cart-container clearfix">
+                        <div class="panel-header">
+                            <h3>Shopping Cart (<apex:outputtext value="{!lineItems.size}"></apex:outputtext>)</h3>
+                            <div class="cart-close pull-right">
+                                <i class="icon-close" onclick="closeNav()"></i>
+                            </div>
+                        </div>
+                        <ul id="cart-container" class="cart">
+                            <apex:outputpanel id="removeRefreshId2">
+                                <apex:outputpanel id="ordersummaryId2" layout="block" rendered="{! NOT(ISNULL(venueCtrl.lineItems)) && venueCtrl.lineItems.size > 0}">
+                                    <!--alert({!venueCartCtrl.lineItems.size});-->
+                                    <apex:variable value="{!1}" var="rowNum" />
+                                    <apex:repeat var="item" value="{! venueCtrl.lineItems}">
+                                        <li>
+                                            <div style="{ !IF(rowNum == 1,'display:none','display:block'); }" class="catalogline"></div>
+                                            <!--<div class="row model-left-right-pdd priceRow"> -->
+                                            <!-- <img class="pull-left hidden-xs hidden-sm" src="{!URLFOR($Resource.YPORenew, 'ypo-renewals/assets/img/ypo-cart.png')}" /> -->
+                                            <div class="pull-left hidden-xs hidden-sm">
+                                                <apex:image value="{! item.pricebookEntry.product2.KGRenewal__MainImageSmall__c}" alt="" height="50" />
+                                            </div>
+                                            <div class="pull-left cart-info">
+                                                <span class="cart-title">{! item.name}</span>
+                                                <span class="cart-detail">{! item.Description}</span>
+                                            </div>
+                                            <div class="pull-right price">
+                                                <apex:outputtext value="{!CurrencyCode}{0, number,###,###,###,##0.00}">
+                                                    <apex:param value="{! item.totalPrice}" />
+                                                </apex:outputtext>
+                                            </div>
+
+                                            <div class="clearfix"></div>
+                                            <apex:variable var="rowNum" value="{!rowNum + 1}" />
+                                        </li>
+                                    </apex:repeat>
+                                </apex:outputpanel>
+                            </apex:outputpanel>
+                        </ul>
+                        <h3>
+                            <span class="pull-left">Subtotal:</span>
+                            <span class="pull-right">
+                                <apex:outputtext value="{!CurrencyCode}{0, number,###,###,###,##0.00}">
+                                    <apex:param value="{! venueCtrl.summary['subtotal']}" />
+                                </apex:outputtext>
+                            </span>
+                        </h3>
+                    </div>
+                </div>
+            </div>
+        </apex:form>
+    </body>
+        
+        
+    <!-- SCRIPTS -->
+    <script src="{!URLFOR($Resource.YPORenew, 'ypo-renewals/assets/js/jquery-3.2.1.min.js')}"></script>
+    <script src="{!URLFOR($Resource.YPORenew, 'ypo-renewals/assets/js/bootstrap.min.js')}"></script>
+    <script src="{!URLFOR($Resource.YPORenew, 'ypo-renewals/assets/js/validator.min.js')}"></script>
+    <script src="{!URLFOR($Resource.YPORenew, 'ypo-renewals/assets/js/cart.js')}"></script>
+    <apex:includescript value="https://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js" />
+    <script>
+        /**
+        * FORM VALIDATION (usinig bootstrap validator)
+        * add 'required="" or required="true" to form elements to validate them on submit of the form.
+        **/
+        function validate() {
+            // Validate the form
+            $('[id$="SubmitOrderBtnId"]').prop("data-disable", false);
+            $('[id$="SubmitOrderBtnId"]').prop("disabled", true);
+            $('[id="ReturntoCartButtonId"]').prop("disabled", true);
+            $('form').validator('validate');
+
+            // Post validation actions
+            if ($('form').data('bs.validator').validate({ignore:':hidden'}).hasErrors()) {
+                // form has errors so do this:
+                // alert('validation fail');
+                $('#form-error-alert').removeClass('hide').addClass('show');
+                window.setTimeout(function () {
+                    $('html, body').animate({ scrollTop: $('#form-error-alert').offset().top - 90 }, 500);
+                }, 0);
+                $('[id$="SubmitOrderBtnId"]').prop("disabled", false);
+                $('[id="ReturntoCartButtonId"]').prop("disabled", false);
+                $('#CodeofConductCheckId').addClass("error");
+                setTimeout(function () {
+                    $('[id$="SubmitOrderBtnId"]').removeClass("disabled");
+                }, 0);
+            } else {
+                // form has no errors so do this:
+                //alert('validation pass')
+                $('#form-error-alert').removeClass('show').addClass('hide');
+                //$('#SubmitOrderBtnId').disabled={!IF(isLifetimeMembers,'false','true')};
+                //diableBacktoCartButton();
+                delete_cookies();
+                submitOrder();
+            }
+
+            //$('form').validator('destroy');
+            //$('form').validator();
+            return false;
+        }
+    </script>
+
+    <script>
+    var delete_cookie = function(name) {
+        document.cookie = name + '=;expires=Thu, 01 Jan 1970 00:00:01 GMT;';
+    };
+    var delete_cookies = function(name) {
+        try
+        {
+            var fedAuthProdSupportACookie = getCookie("FedAuthProdSupportA");
+            if(fedAuthProdSupportACookie != null){
+                delete_cookie('FedAuthProdSupportA');
+            }
+            else
+            {
+                window.console.log('fedAuthProdSupportA Cookie not found');
+            }
+            var fedAuthProdSupportA1Cookie = getCookie("FedAuthProdSupportA1");
+            if(fedAuthProdSupportA1Cookie  != null){
+                delete_cookie('FedAuthProdSupportA1');
+            }
+            else
+            {
+                window.console.log('fedAuthProdSupportA1 Cookie not found');
+            }
+            var ypo_oauth2_nonprodCookie = getCookie("ypo_oauth2_nonprod");
+            if(ypo_oauth2_nonprodCookie != null){
+                delete_cookie('ypo_oauth2_nonprod');
+            }
+            else
+            {
+                window.console.log('ypo_oauth2_nonprod Cookie not found');
+            }
+            var fedAuthACookie = getCookie("FedAuthA");
+            if(fedAuthACookie != null){
+                delete_cookie('FedAuthA');
+            }
+            else
+            {
+                window.console.log('FedAuthA Cookie not found');
+            }
+            var fedAuthA1Cookie = getCookie("FedAuthA1");
+            if(fedAuthA1Cookie  != null){
+                delete_cookie('FedAuthA1');
+            }
+            else
+            {
+                window.console.log('FedAuthA1 Cookie not found');
+            }
+
+        }
+        catch(err)
+        {
+            //alert(err);
+            window.console.log(err);
+        }
+    };
+    function getCookie(name) {
+        var dc = document.cookie;
+        var prefix = name + "=";
+        var begin = dc.indexOf("; " + prefix);
+        if (begin == -1) {
+            begin = dc.indexOf(prefix);
+            if (begin != 0) return null;
+        }
+        else
+        {
+            begin += 2;
+            var end = document.cookie.indexOf(";", begin);
+            if (end == -1) {
+                end = dc.length;
+            }
+        }
+
+        return decodeURI(dc.substring(begin + prefix.length, end));
+    }
+    function diableBacktoCartButton() {
+        //$('#ReturntoCartButtonId').prop('disabled', true);
+        //alert('disabling');
+        //document.getElementById("ReturntoCartButtonId").disabled = true;
+    }
+    function enableReturnToCartButton() {
+        //alert('enabling');
+        //$('#ReturntoCartButtonId').prop('disabled', false);
+        //document.getElementById("ReturntoCartButtonId").disabled = false;
+    }
+    $(document).ready(function(){
+
+        if ({!paymentMode = 'Credit Card'}) {
+             var CardNumber = $('[id*="MaskedNumber"]').val();
+             //alert({! paymentCard.maskedCardNumber});
+             //alert(CardNumber);
+             var FourDigit=CardNumber.substr(-4);
+             //alert("2"+FourDigit);
+             $('#FourDigitNumbers').text(FourDigit);
+         }
+
+         if ($('#CodeofConductCheckId').is(':checked') == true) {
+            //document.getElementById("SubmitOrderBtnId").disabled = false;
+            $('[id*="codeOfConductHiddenId"]').val(true);
+         } else {
+             if ({!isLifetimeMembers} != true) {
+                 //    document.getElementById("SubmitOrderBtnId").disabled = true;
+             }
+             $('[id*="codeOfConductHiddenId"]').val(false);
+        }
+
+        $("#showFourDigits").text(function(_, val){
+            return val.replace(/\d{12}(\d{4})/, "*************$1");
+        });
+
+        // Code Of Conduct Checkbox selected
+        $("#CodeofConductCheckId").click(function(){
+            if($('#CodeofConductCheckId').is(':checked') == true){
+                //document.getElementById("SubmitOrderBtnId").disabled = false;
+                $('[id*="codeOfConductHiddenId"]').val(true);
+            }else{
+                //document.getElementById("SubmitOrderBtnId").disabled = true;
+                $('[id*="codeOfConductHiddenId"]').val(false);
+            }
+        });
+
+        scrubShoppingCart($('#cart-container'));
+
+        function scrubShoppingCart($shoppingCart) {
+            scrubShoppingCartItemLogo($shoppingCart);
+        }
+
+        function scrubShoppingCartItemLogo($shoppingCart) {
+            var $shoppingCartItems = $shoppingCart.find('li'),
+                $shoppingCartItemLogoContainer = $shoppingCartItems.children("div.pull-left.hidden-xs.hidden-sm");
+
+            $shoppingCartItemLogoContainer.each(function() {
+                var $firstChild = $(this).children(":first");
+
+                if ($firstChild.attr("src") === "" ||
+                    $firstChild.attr("src") === undefined ||
+                    $firstChild.attr("src") === null) {
+                    $firstChild.remove();
+                }
+            });
+        }
+
+    });
+
+
+    </script>
+</apex:page>

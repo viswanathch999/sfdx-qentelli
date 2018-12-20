@@ -1,0 +1,349 @@
+<apex:page controller="ThirdPartyCertificationPDFCtrl" showHeader="false" sidebar="false" applyBodyTag="false" applyHtmlTag="false" standardStylesheets="false" renderAs="pdf" >
+
+    <head>
+        
+        <title>Third Party Certification PDF</title>
+
+        <style>
+            
+            body {
+                font-family: "Trebuchet MS", Arial, Helvetica, sans-serif;
+                font-size: 9pt;
+            }
+            
+            @media print {
+                table {
+                    page-break-inside: auto;
+                }
+                
+                tr { 
+                    page-break-inside: avoid;
+                    page-break-after: auto;
+                }
+                
+                thead { 
+                    display: table-header-group;
+                }
+            }
+            
+            @page {
+                size: letter;
+				margin: 1cm;
+
+				@bottom-center {
+                    font-family: Arial, Helvetica, sans-serif;
+					font-size: 10px;
+                    content: "Page " counter(page) " of " counter(pages);
+                }
+				
+				@bottom-right {
+					font-family: Arial, Helvetica, sans-serif;
+					font-size: 10px;
+					content: "{!$Label.ThirdPartyCert_Revision}";
+				}
+			}
+
+			.header, .footer {
+				position: fixed;
+				width: 100%;
+			}
+
+			.header {
+				top: 0px;
+				height: 65px;
+			}
+
+			.footer {
+				bottom: 0px;
+				height: 80px;
+				text-align: center;
+				font-size: 10px;
+			}
+			
+			.content {
+				margin-top: 80px;
+				margin-bottom: 80px;
+			}
+
+			.page-break {
+				page-break-after: always;
+			}
+
+            table {
+                width: 100%;
+				table-layout: fixed;
+            }
+            
+            td {
+                white-space: nowrap; 
+				overflow: hidden;
+            }
+
+            .bottom-spacing  {
+                margin-bottom: 25px;
+            }
+            
+            .evenRow {
+                background-color: #DDD;
+            }
+            
+            .bottom-border {
+                border-bottom: 2px solid black;
+            }
+            
+			.td-10 {
+				width: 83.3%;
+				overflow: hidden;
+			}
+
+            .td-9 {
+                width: 75%;
+            }
+            
+            .td-8 {
+                width: 66.6%;
+            }
+            
+            .td-6 {
+                width: 50%;
+            }
+            
+            .td-4 {
+                width: 33.3%;
+            }
+            
+            .td-3 {
+                width: 25%;
+            }
+            
+            .td-2 {
+                width: 16.6%;
+            }
+
+			.nopad {
+				padding: 0px;
+				margin: 0px;
+			}
+
+			.upcase {
+				text-transform: uppercase;
+				font-weight: bold;
+			}
+
+
+        </style>
+        
+    </head>
+	
+
+	<body>
+		<apex:form >
+
+			<!-- Header -->
+			<div class="header">
+				<table>
+					<tr>
+						<td>
+							<img src="{!URLFOR($Resource.YPO_Logo_Horizontal)}" height="60" />
+						</td>
+						<td style="text-align:center;">
+							<h1 class="upcase nopad">YPO Membership Renewal</h1>
+							<h2 class="upcase nopad">Third Party Certification</h2>
+							<p class="nopad">
+								Effective&nbsp;
+								<apex:outputText value="{0, date, dd MMMM yyyy}">
+									<apex:param value="{!fiscalStart}" />
+								</apex:outputText>
+								&nbsp;-&nbsp;
+								<apex:outputText value="{0, date, dd MMMM yyyy}">
+									<apex:param value="{!fiscalEnd}" />
+								</apex:outputText>
+							</p>
+						</td>
+					</tr>
+				</table>
+			</div>
+
+			<!-- Footer -->
+			<div class="footer">
+				<apex:outputText value="{!$Label.ThirdPartyCert_Footer}" escape="false"></apex:outputText>
+			</div>
+
+
+            
+<!-- PAGE 1 -->
+
+			<div id="page1" class="content page-break">
+
+				<!-- Member Info -->
+				<table>
+					<tr>
+						<td>
+							<h4 class="nopad">
+								<span class="upcase">Member Name: </span>
+								<span>{!memberName}</span>
+							</h4>
+						</td>
+						<td>
+							<h4 class="nopad">
+								<span class="upcase">Member ID: </span>
+								<span>{!memberId}</span>
+							</h4>
+						</td>
+					</tr>
+					<tr>
+						<td>
+							<h4 class="nopad">
+								<span class="upcase">Primary Chapter: </span>
+								<span>{!chapterName}</span>
+							</h4>
+						</td>
+					</tr>
+                </table>
+
+				<!-- Greeting -->
+				<div id="greeting" class="bottom-spacing">
+					<apex:outputText value="{!$Label.ThirdPartyCert_Greeting}" escape="false">
+						<apex:param value="{!deadline}"/>
+					</apex:outputText>
+				</div>
+
+				<!-- Step 1 -->
+				<div id="step1" class="bottom-spacing">
+					<h3 class="upcase">Step 1:</h3>
+					<table>
+						<tr>
+							<td class="td-6 upcase">Qualifying Company:&nbsp;</td>
+							<td class="td-6">{!qualifyingCompany}</td>
+						</tr>
+						<tr>
+							<td class="upcase">Title Held:&nbsp;</td>
+							<td>{!titleHeld}</td>
+						</tr>
+						<tr>
+							<td class="upcase">Description of Role at Company:&nbsp;</td>
+							<td>{!roleAtCompany}</td>
+						</tr>
+						<tr>
+							<td class="upcase">Business Address 1:&nbsp;</td>
+							<td>{!busAddress1}</td>
+						</tr>
+						<tr>
+							<td class="upcase">Business Address 2:&nbsp;</td>
+							<td>{!busAddress2}</td>
+						</tr>
+						<tr>
+							<td class="upcase">City:&nbsp;</td>
+							<td>{!city}</td>
+						</tr>
+						<tr>
+							<td class="upcase">State/Province:&nbsp;</td>
+							<td>{!stateProvince}</td>
+						</tr>
+						<tr>
+							<td class="upcase">Country:&nbsp;</td>
+							<td>{!country}</td>
+						</tr>
+						<tr>
+							<td class="upcase">Postal Code:&nbsp;</td>
+							<td>{!postalCode}</td>
+						</tr>
+						<tr>
+							<td class="upcase">Business Size:&nbsp;</td>
+							<td>{!businessSize}</td>
+						</tr>
+						<tr>
+							<td class="upcase">Company Type:&nbsp;</td>
+							<td>{!companyType}</td>
+						</tr>
+					</table>
+				</div>
+
+				<!-- Step 2 -->
+				<div id="step2" class="bottom-spacing">
+					<h3 class="upcase">Step 2:</h3>
+					<apex:outputText value="{!$Label.ThirdPartyCert_Step2_Label1}" escape="false"></apex:outputText>
+					<apex:outputText value="{!$Label.ThirdPartyCert_Step2_ReqA}" escape="false">
+						<apex:param value="{!numOfEmployees}"/>
+						<apex:param value="{!annualCompensation}"/>
+					</apex:outputText>
+					<apex:outputText value="{!$Label.ThirdPartyCert_Step2_ReqB}" escape="false">
+						<apex:param value="{!typeOfCorp}"/>
+						<apex:param value="{!annualRevenue}"/>
+						<apex:param value="{!enterpriseType}"/>
+						<apex:param value="{!enterpriseValue}"/>
+					</apex:outputText>
+				</div>
+
+				<!-- Step 3 -->
+				<div id="step3" class="bottom-spacing">
+					<h3 class="upcase">Step 3:</h3>
+					<apex:outputText value="{!$Label.ThirdPartyCert_Step3}" escape="false"></apex:outputText>
+				</div>
+
+			</div>
+
+
+
+<!-- PAGE 2 -->
+
+			<div id="page2" class="content page-break">
+				
+				<!-- Step 4 -->
+				<div id="step4" class="bottom-spacing">
+					<h3 class="upcase">Step 4:</h3>
+					<apex:outputText value="{!$Label.ThirdPartyCert_Step4}" escape="false"></apex:outputText>&#xF0FE;
+					<apex:outputText value="{!$Label.ThirdPartyCert_Step4_Opt1}" escape="false"></apex:outputText>
+					<apex:outputText value="{!$Label.ThirdPartyCert_Step4_Opt2}" escape="false"></apex:outputText>
+					<apex:outputText value="{!$Label.ThirdPartyCert_Step4_Opt2_Table}" escape="false"></apex:outputText>
+					<apex:outputText value="{!$Label.ThirdPartyCert_Step4_Opt3}" escape="false"></apex:outputText>
+					<apex:outputText value="{!$Label.ThirdPartyCert_Step4_Opt3_Table}" escape="false"></apex:outputText>
+				</div>
+
+			</div>
+
+
+
+<!-- PAGE 3 -->
+
+			<div id="page3" class="content">
+				<h3 class="upcase">Third Party Certification FAQ</h3>
+				<p> <!-- FAQ #1 -->
+					<h4 class="upcase"><apex:outputText value="{!$Label.ThirdPartyCert_FAQ1_Label}" escape="false"></apex:outputText></h4>
+					<ul>
+						<li><apex:outputText value="{!$Label.ThirdPartyCert_FAQ1_Answer1}" escape="false"></apex:outputText></li>
+						<li><apex:outputText value="{!$Label.ThirdPartyCert_FAQ1_Answer2}" escape="false"></apex:outputText></li>
+						<li><apex:outputText value="{!$Label.ThirdPartyCert_FAQ1_Answer3}" escape="false"></apex:outputText></li>
+						<li><apex:outputText value="{!$Label.ThirdPartyCert_FAQ1_Answer4}" escape="false"></apex:outputText></li>
+					</ul>
+				</p>
+				<p> <!-- FAQ #2 -->
+					<h4 class="upcase"><apex:outputText value="{!$Label.ThirdPartyCert_FAQ2_Label}" escape="false"></apex:outputText></h4>
+					<ul>
+						<li><apex:outputText value="{!$Label.ThirdPartyCert_FAQ2_Answer1}" escape="false"></apex:outputText></li>
+						<li><apex:outputText value="{!$Label.ThirdPartyCert_FAQ2_Answer2}" escape="false"></apex:outputText></li>
+						<li><apex:outputText value="{!$Label.ThirdPartyCert_FAQ2_Answer3}" escape="false"></apex:outputText></li>
+					</ul>
+				</p>
+				<p> <!-- FAQ #3 -->
+					<h4 class="upcase"><apex:outputText value="{!$Label.ThirdPartyCert_FAQ3_Label}" escape="false"></apex:outputText></h4>
+					<ul>
+						<li><apex:outputText value="{!$Label.ThirdPartyCert_FAQ3_Answer1}" escape="false"></apex:outputText></li>
+						<li><apex:outputText value="{!$Label.ThirdPartyCert_FAQ3_Answer2}" escape="false"></apex:outputText></li>
+					</ul>
+				</p>
+				<p> <!-- FAQ #4 -->
+					<h4 class="upcase"><apex:outputText value="{!$Label.ThirdPartyCert_FAQ4_Label}" escape="false"></apex:outputText></h4>
+					<ul>
+						<li><apex:outputText value="{!$Label.ThirdPartyCert_FAQ4_Answer1}" escape="false"></apex:outputText></li>
+						<li><apex:outputText value="{!$Label.ThirdPartyCert_FAQ4_Answer2}" escape="false"></apex:outputText></li>
+						<li><apex:outputText value="{!$Label.ThirdPartyCert_FAQ4_Answer3}" escape="false"></apex:outputText></li>
+					</ul>
+				</p>
+			</div>
+
+
+		</apex:form>
+	</body>
+
+</apex:page>

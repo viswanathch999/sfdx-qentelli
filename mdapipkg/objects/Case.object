@@ -1,0 +1,1577 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomObject xmlns="http://soap.sforce.com/2006/04/metadata">
+    <actionOverrides>
+        <actionName>Accept</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>CancelEdit</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>ChangeStatus</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Clone</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>CloneAsChild</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>CloseCase</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Delete</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Edit</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>List</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>MassClose</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>NewCase</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>SaveEdit</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Tab</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>View</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <businessProcesses>
+        <fullName>Case Process</fullName>
+        <isActive>true</isActive>
+        <values>
+            <fullName>Closed</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Deleted</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Escalated</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>In Progress</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>New</fullName>
+            <default>true</default>
+        </values>
+        <values>
+            <fullName>Open</fullName>
+            <default>true</default>
+        </values>
+        <values>
+            <fullName>Pending QA</fullName>
+            <default>false</default>
+        </values>
+    </businessProcesses>
+    <businessProcesses>
+        <fullName>M2MX</fullName>
+        <isActive>true</isActive>
+        <values>
+            <fullName>Closed</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Deleted</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Escalated</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>In Progress</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>New</fullName>
+            <default>true</default>
+        </values>
+        <values>
+            <fullName>Open</fullName>
+            <default>true</default>
+        </values>
+        <values>
+            <fullName>Pending QA</fullName>
+            <default>false</default>
+        </values>
+    </businessProcesses>
+    <compactLayoutAssignment>SYSTEM</compactLayoutAssignment>
+    <enableFeeds>true</enableFeeds>
+    <externalSharingModel>Private</externalSharingModel>
+    <fields>
+        <fullName>AccountId</fullName>
+        <trackFeedHistory>false</trackFeedHistory>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Lookup</type>
+    </fields>
+    <fields>
+        <fullName>AssetId</fullName>
+        <trackFeedHistory>false</trackFeedHistory>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Lookup</type>
+    </fields>
+    <fields>
+        <fullName>BusinessHoursId</fullName>
+        <trackFeedHistory>false</trackFeedHistory>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Lookup</type>
+    </fields>
+    <fields>
+        <fullName>Case_Comments__c</fullName>
+        <description>This is only for migrated historical data that came from one text area field. Going forward you will use Case Comments.</description>
+        <externalId>false</externalId>
+        <label>Case Comments (Historical)</label>
+        <length>32768</length>
+        <trackFeedHistory>false</trackFeedHistory>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>LongTextArea</type>
+        <visibleLines>3</visibleLines>
+    </fields>
+    <fields>
+        <fullName>Case_Resolution_Comment__c</fullName>
+        <description>This is only for migrated History. Going forward standard Salesforce functionality will be used.</description>
+        <externalId>false</externalId>
+        <label>Case Resolution Comment (Historical)</label>
+        <length>32768</length>
+        <trackFeedHistory>false</trackFeedHistory>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>LongTextArea</type>
+        <visibleLines>3</visibleLines>
+    </fields>
+    <fields>
+        <fullName>Case_Type_Historical__c</fullName>
+        <externalId>false</externalId>
+        <label>Case Type (Historical)</label>
+        <required>false</required>
+        <trackFeedHistory>false</trackFeedHistory>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Picklist</type>
+        <valueSet>
+            <valueSetDefinition>
+                <sorted>false</sorted>
+                <value>
+                    <fullName>3rd Party Verification</fullName>
+                    <default>false</default>
+                    <label>3rd Party Verification</label>
+                </value>
+                <value>
+                    <fullName>Letter of Good Standing</fullName>
+                    <default>false</default>
+                    <label>Letter of Good Standing</label>
+                </value>
+                <value>
+                    <fullName>Lifetime Membership</fullName>
+                    <default>false</default>
+                    <label>Lifetime Membership</label>
+                </value>
+                <value>
+                    <fullName>Member Selects &apos;Other&apos; for Title Held</fullName>
+                    <default>false</default>
+                    <label>Member Selects &apos;Other&apos; for Title Held</label>
+                </value>
+                <value>
+                    <fullName>Membership Reinstatement</fullName>
+                    <default>false</default>
+                    <label>Membership Reinstatement</label>
+                </value>
+                <value>
+                    <fullName>Membership Resign</fullName>
+                    <default>false</default>
+                    <label>Membership Resign</label>
+                </value>
+                <value>
+                    <fullName>Network Resign</fullName>
+                    <default>false</default>
+                    <label>Network Resign</label>
+                </value>
+                <value>
+                    <fullName>Registration Cancellation</fullName>
+                    <default>false</default>
+                    <label>Registration Cancellation</label>
+                </value>
+                <value>
+                    <fullName>Registration Transfer to Another Event</fullName>
+                    <default>false</default>
+                    <label>Registration Transfer to Another Event</label>
+                </value>
+                <value>
+                    <fullName>Registration Transfer to Another Member</fullName>
+                    <default>false</default>
+                    <label>Registration Transfer to Another Member</label>
+                </value>
+                <value>
+                    <fullName>Request Grace</fullName>
+                    <default>false</default>
+                    <label>Request Grace</label>
+                </value>
+                <value>
+                    <fullName>Submission of Service Request/Activities</fullName>
+                    <default>false</default>
+                    <label>Submission of Service Request/Activities</label>
+                </value>
+                <value>
+                    <fullName>Update Qualifying Company Information</fullName>
+                    <default>false</default>
+                    <label>Update Qualifying Company Information</label>
+                </value>
+                <value>
+                    <fullName>YPO Gold Lifetime Membership</fullName>
+                    <default>false</default>
+                    <label>YPO Gold Lifetime Membership</label>
+                </value>
+                <value>
+                    <fullName>WPO Lifetime Membership</fullName>
+                    <default>false</default>
+                    <label>WPO Lifetime Membership</label>
+                </value>
+            </valueSetDefinition>
+        </valueSet>
+    </fields>
+    <fields>
+        <fullName>Category__c</fullName>
+        <externalId>false</externalId>
+        <label>Category</label>
+        <required>false</required>
+        <trackFeedHistory>false</trackFeedHistory>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Picklist</type>
+        <valueSet>
+            <controllingField>Type__c</controllingField>
+            <valueSetDefinition>
+                <sorted>false</sorted>
+                <value>
+                    <fullName>Data</fullName>
+                    <default>false</default>
+                    <label>Data</label>
+                </value>
+                <value>
+                    <fullName>Defect</fullName>
+                    <default>false</default>
+                    <label>Defect</label>
+                </value>
+                <value>
+                    <fullName>Change Request</fullName>
+                    <default>false</default>
+                    <label>Change Request</label>
+                </value>
+                <value>
+                    <fullName>General</fullName>
+                    <default>false</default>
+                    <label>General</label>
+                </value>
+            </valueSetDefinition>
+            <valueSettings>
+                <controllingFieldValue>Chapter - Chapter Admin</controllingFieldValue>
+                <valueName>Data</valueName>
+            </valueSettings>
+            <valueSettings>
+                <controllingFieldValue>Chapter - Chapter Admin</controllingFieldValue>
+                <valueName>Defect</valueName>
+            </valueSettings>
+            <valueSettings>
+                <controllingFieldValue>Chapter - Chapter Admin</controllingFieldValue>
+                <valueName>Change Request</valueName>
+            </valueSettings>
+            <valueSettings>
+                <controllingFieldValue>Chapter - Chapter Admin</controllingFieldValue>
+                <valueName>General</valueName>
+            </valueSettings>
+        </valueSet>
+    </fields>
+    <fields>
+        <fullName>ClosedDate</fullName>
+        <trackTrending>false</trackTrending>
+    </fields>
+    <fields>
+        <fullName>Comments</fullName>
+        <trackTrending>false</trackTrending>
+    </fields>
+    <fields>
+        <fullName>ContactEmail</fullName>
+        <trackTrending>false</trackTrending>
+    </fields>
+    <fields>
+        <fullName>ContactFax</fullName>
+        <trackTrending>false</trackTrending>
+    </fields>
+    <fields>
+        <fullName>ContactId</fullName>
+        <trackFeedHistory>false</trackFeedHistory>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Lookup</type>
+    </fields>
+    <fields>
+        <fullName>ContactMobile</fullName>
+        <trackTrending>false</trackTrending>
+    </fields>
+    <fields>
+        <fullName>ContactPhone</fullName>
+        <trackTrending>false</trackTrending>
+    </fields>
+    <fields>
+        <fullName>CurrencyIsoCode</fullName>
+        <trackFeedHistory>false</trackFeedHistory>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+    </fields>
+    <fields>
+        <fullName>Description</fullName>
+        <trackFeedHistory>false</trackFeedHistory>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+    </fields>
+    <fields>
+        <fullName>EngineeringReqNumber__c</fullName>
+        <externalId>false</externalId>
+        <label>Engineering Req Number</label>
+        <length>12</length>
+        <required>false</required>
+        <trackFeedHistory>false</trackFeedHistory>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>FeedItemId</fullName>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Lookup</type>
+    </fields>
+    <fields>
+        <fullName>GUID__c</fullName>
+        <externalId>true</externalId>
+        <label>GUID</label>
+        <length>50</length>
+        <required>false</required>
+        <trackFeedHistory>false</trackFeedHistory>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>IsClosedOnCreate</fullName>
+        <trackFeedHistory>false</trackFeedHistory>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+    </fields>
+    <fields>
+        <fullName>IsEscalated</fullName>
+        <trackFeedHistory>false</trackFeedHistory>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+    </fields>
+    <fields>
+        <fullName>Is_Grace_Waiver__c</fullName>
+        <defaultValue>false</defaultValue>
+        <externalId>false</externalId>
+        <label>Grace/Waiver?</label>
+        <trackFeedHistory>false</trackFeedHistory>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>M2MX_Requestor_Name__c</fullName>
+        <externalId>false</externalId>
+        <label>M2MX Requestor Name</label>
+        <length>100</length>
+        <required>false</required>
+        <trackFeedHistory>false</trackFeedHistory>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>NVMContactWorld__EmailSentTo__c</fullName>
+        <deprecated>false</deprecated>
+        <externalId>false</externalId>
+        <label>EmailSentTo</label>
+        <length>255</length>
+        <required>false</required>
+        <trackFeedHistory>false</trackFeedHistory>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>NVMContactWorld__NVMAccountOverride__c</fullName>
+        <deprecated>false</deprecated>
+        <externalId>false</externalId>
+        <label>NVMAccountOverride</label>
+        <length>255</length>
+        <required>false</required>
+        <trackFeedHistory>false</trackFeedHistory>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>NVMContactWorld__NVMCaseOrigin__c</fullName>
+        <deprecated>false</deprecated>
+        <description>The content of this field is presented on the contact pad when a case is assigned to an agent. For example: Email</description>
+        <externalId>false</externalId>
+        <inlineHelpText>The content of this field is presented on the contact pad when a case is assigned to an agent. For example: Email</inlineHelpText>
+        <label>NVM Case Origin</label>
+        <length>50</length>
+        <required>false</required>
+        <trackFeedHistory>false</trackFeedHistory>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>NVMContactWorld__NVMNodeOverride__c</fullName>
+        <deprecated>false</deprecated>
+        <description>Used to override the NewVoiceMedia node a case routing request is sent to</description>
+        <externalId>false</externalId>
+        <inlineHelpText>Used to override the NewVoiceMedia node a case routing request is sent to</inlineHelpText>
+        <label>NVMNodeOverride</label>
+        <length>255</length>
+        <required>false</required>
+        <trackFeedHistory>false</trackFeedHistory>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>NVMContactWorld__NVMOverrideCaseOwnerTimeoutLoggedIn__c</fullName>
+        <deprecated>false</deprecated>
+        <description>Override: how long to try to route replies to the case owner, when they are logged in</description>
+        <externalId>false</externalId>
+        <inlineHelpText>Override: how long to try to route replies to the case owner, when they are logged in</inlineHelpText>
+        <label>NVMOverrideCaseOwnerTimeoutLoggedIn</label>
+        <precision>9</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <trackFeedHistory>false</trackFeedHistory>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>NVMContactWorld__NVMOverrideCaseOwnerTimeoutLoggedOut__c</fullName>
+        <deprecated>false</deprecated>
+        <description>Override: how long to try to route replies to the case owner, when they are logged out</description>
+        <externalId>false</externalId>
+        <inlineHelpText>Override: how long to try to route replies to the case owner, when they are logged out</inlineHelpText>
+        <label>NVMOverrideCaseOwnerTimeoutLoggedOut</label>
+        <precision>9</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <trackFeedHistory>false</trackFeedHistory>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>NVMContactWorld__NVMRoutable__c</fullName>
+        <defaultValue>false</defaultValue>
+        <deprecated>false</deprecated>
+        <description>Used to determine whether a case should be routed to an agent via NVM</description>
+        <externalId>false</externalId>
+        <inlineHelpText>Used to determine whether a case should be routed to an agent via NVM</inlineHelpText>
+        <label>NVMRoutable</label>
+        <trackFeedHistory>false</trackFeedHistory>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>NVMContactWorld__RoutePlanIdentifier__c</fullName>
+        <deprecated>false</deprecated>
+        <externalId>false</externalId>
+        <label>RoutePlanIdentifier</label>
+        <length>40</length>
+        <required>false</required>
+        <trackFeedHistory>false</trackFeedHistory>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>NVMContactWorld__Skills__c</fullName>
+        <deprecated>false</deprecated>
+        <externalId>false</externalId>
+        <label>Skills</label>
+        <length>255</length>
+        <required>false</required>
+        <trackFeedHistory>false</trackFeedHistory>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Origin</fullName>
+        <trackFeedHistory>false</trackFeedHistory>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>OwnerId</fullName>
+        <trackFeedHistory>true</trackFeedHistory>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Lookup</type>
+    </fields>
+    <fields>
+        <fullName>ParentId</fullName>
+        <trackFeedHistory>false</trackFeedHistory>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Lookup</type>
+    </fields>
+    <fields>
+        <fullName>PotentialLiability__c</fullName>
+        <externalId>false</externalId>
+        <label>Potential Liability</label>
+        <required>false</required>
+        <trackFeedHistory>false</trackFeedHistory>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Picklist</type>
+        <valueSet>
+            <valueSetDefinition>
+                <sorted>false</sorted>
+                <value>
+                    <fullName>No</fullName>
+                    <default>false</default>
+                    <label>No</label>
+                </value>
+                <value>
+                    <fullName>Yes</fullName>
+                    <default>false</default>
+                    <label>Yes</label>
+                </value>
+            </valueSetDefinition>
+        </valueSet>
+    </fields>
+    <fields>
+        <fullName>Priority</fullName>
+        <trackFeedHistory>true</trackFeedHistory>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>Reason</fullName>
+        <trackFeedHistory>false</trackFeedHistory>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>SLAViolation__c</fullName>
+        <externalId>false</externalId>
+        <label>SLA Violation</label>
+        <required>false</required>
+        <trackFeedHistory>false</trackFeedHistory>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Picklist</type>
+        <valueSet>
+            <valueSetDefinition>
+                <sorted>false</sorted>
+                <value>
+                    <fullName>No</fullName>
+                    <default>false</default>
+                    <label>No</label>
+                </value>
+                <value>
+                    <fullName>Yes</fullName>
+                    <default>false</default>
+                    <label>Yes</label>
+                </value>
+            </valueSetDefinition>
+        </valueSet>
+    </fields>
+    <fields>
+        <fullName>SourceId</fullName>
+        <trackFeedHistory>false</trackFeedHistory>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Lookup</type>
+    </fields>
+    <fields>
+        <fullName>Status</fullName>
+        <trackFeedHistory>false</trackFeedHistory>
+        <trackHistory>true</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>Status_Reason__c</fullName>
+        <externalId>false</externalId>
+        <label>Status Reason</label>
+        <required>false</required>
+        <trackFeedHistory>false</trackFeedHistory>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Picklist</type>
+        <valueSet>
+            <valueSetDefinition>
+                <sorted>false</sorted>
+                <value>
+                    <fullName>Problem Solved</fullName>
+                    <default>false</default>
+                    <label>Problem Solved</label>
+                </value>
+                <value>
+                    <fullName>Request Cancelled/Closed w/o Decision</fullName>
+                    <default>false</default>
+                    <label>Request Cancelled/Closed w/o Decision</label>
+                </value>
+                <value>
+                    <fullName>In Progress</fullName>
+                    <default>false</default>
+                    <label>In Progress</label>
+                </value>
+                <value>
+                    <fullName>Escalate</fullName>
+                    <default>false</default>
+                    <label>Escalate</label>
+                </value>
+                <value>
+                    <fullName>Waiting for Details</fullName>
+                    <default>false</default>
+                    <label>Waiting for Details</label>
+                </value>
+                <value>
+                    <fullName>On Hold</fullName>
+                    <default>false</default>
+                    <label>On Hold</label>
+                </value>
+                <value>
+                    <fullName>Cancelled</fullName>
+                    <default>false</default>
+                    <label>Cancelled</label>
+                </value>
+                <value>
+                    <fullName>Researching</fullName>
+                    <default>false</default>
+                    <label>Researching</label>
+                </value>
+                <value>
+                    <fullName>Request Approved / Complete</fullName>
+                    <default>false</default>
+                    <label>Request Approved / Complete</label>
+                </value>
+                <value>
+                    <fullName>Request Denied by YPO-YPO Gold</fullName>
+                    <default>false</default>
+                    <label>Request Denied by YPO-YPO Gold</label>
+                </value>
+                <value>
+                    <fullName>Request Denied by YPO-WPO</fullName>
+                    <default>false</default>
+                    <label>Request Denied by YPO-WPO</label>
+                </value>
+                <value>
+                    <fullName>Request Cancelled / Closed w/o Decision</fullName>
+                    <default>false</default>
+                    <label>Request Cancelled / Closed w/o Decision</label>
+                </value>
+            </valueSetDefinition>
+        </valueSet>
+    </fields>
+    <fields>
+        <fullName>Subject</fullName>
+        <trackFeedHistory>false</trackFeedHistory>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+    </fields>
+    <fields>
+        <fullName>SuppliedCompany</fullName>
+        <trackTrending>false</trackTrending>
+    </fields>
+    <fields>
+        <fullName>SuppliedEmail</fullName>
+        <trackTrending>false</trackTrending>
+    </fields>
+    <fields>
+        <fullName>SuppliedName</fullName>
+        <trackTrending>false</trackTrending>
+    </fields>
+    <fields>
+        <fullName>SuppliedPhone</fullName>
+        <trackTrending>false</trackTrending>
+    </fields>
+    <fields>
+        <fullName>Traffic_Lights__c</fullName>
+        <externalId>false</externalId>
+        <formula>IMAGE( 
+CASE(Status, 
+&quot;New&quot;, &quot;/img/samples/light_green.gif&quot;,
+&quot;Working&quot;, &quot;/img/samples/light_yellow.gif&quot;,
+&quot;Escalated&quot;, &quot;/img/samples/light_red.gif&quot;, 
+&quot;/s.gif&quot;), 
+&quot;status color&quot;)</formula>
+        <label>Traffic Lights</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Type</fullName>
+        <trackFeedHistory>false</trackFeedHistory>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>Type__c</fullName>
+        <externalId>false</externalId>
+        <label>Type</label>
+        <required>false</required>
+        <trackFeedHistory>false</trackFeedHistory>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Picklist</type>
+        <valueSet>
+            <valueSetDefinition>
+                <sorted>false</sorted>
+                <value>
+                    <fullName>Chapter - Events</fullName>
+                    <default>false</default>
+                    <label>Chapter - Events</label>
+                </value>
+                <value>
+                    <fullName>Chapter - Chapter Admin</fullName>
+                    <default>false</default>
+                    <label>Chapter - Chapter Admin</label>
+                </value>
+                <value>
+                    <fullName>Chapter - Chapter Health Data</fullName>
+                    <default>false</default>
+                    <label>Chapter - Chapter Health Data</label>
+                </value>
+            </valueSetDefinition>
+        </valueSet>
+    </fields>
+    <fields>
+        <fullName>Validation_Check__c</fullName>
+        <defaultValue>false</defaultValue>
+        <externalId>false</externalId>
+        <label>Validation Check</label>
+        <trackFeedHistory>false</trackFeedHistory>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Checkbox</type>
+    </fields>
+    <listViews>
+        <fullName>AllOpenCases</fullName>
+        <filterScope>Everything</filterScope>
+        <filters>
+            <field>CASES.CLOSED</field>
+            <operation>equals</operation>
+            <value>0</value>
+        </filters>
+        <label>All Open Cases</label>
+    </listViews>
+    <listViews>
+        <fullName>All_Member_Services_Cases</fullName>
+        <columns>CASES.CASE_NUMBER</columns>
+        <columns>NAME</columns>
+        <columns>CASES.SUBJECT</columns>
+        <columns>CASES.STATUS</columns>
+        <columns>CASES.PRIORITY</columns>
+        <columns>CASES.CREATED_DATE</columns>
+        <columns>CORE.USERS.ALIAS</columns>
+        <filterScope>Everything</filterScope>
+        <filters>
+            <field>CASES.TYPE</field>
+            <operation>equals</operation>
+            <value>Member Services</value>
+        </filters>
+        <label>All Member Services Cases</label>
+    </listViews>
+    <listViews>
+        <fullName>Events_Queue_Case</fullName>
+        <filterScope>Queue</filterScope>
+        <label>Events Queue</label>
+        <queue>Events_Queue</queue>
+        <sharedTo>
+            <allInternalUsers></allInternalUsers>
+        </sharedTo>
+    </listViews>
+    <listViews>
+        <fullName>Exchange_Queue_Case</fullName>
+        <filterScope>Queue</filterScope>
+        <label>Exchange Queue</label>
+        <queue>Exchange_Queue</queue>
+        <sharedTo>
+            <allInternalUsers></allInternalUsers>
+        </sharedTo>
+    </listViews>
+    <listViews>
+        <fullName>GLC_Queue_Case</fullName>
+        <filterScope>Queue</filterScope>
+        <label>GLC Queue</label>
+        <queue>GLC_Queue</queue>
+        <sharedTo>
+            <allInternalUsers></allInternalUsers>
+        </sharedTo>
+    </listViews>
+    <listViews>
+        <fullName>General_Queue_Case</fullName>
+        <filterScope>Queue</filterScope>
+        <label>General Queue</label>
+        <queue>General_Queue</queue>
+        <sharedTo>
+            <allInternalUsers></allInternalUsers>
+        </sharedTo>
+    </listViews>
+    <listViews>
+        <fullName>Help_Desk_Queue_Case</fullName>
+        <filterScope>Queue</filterScope>
+        <label>Help Desk Queue</label>
+        <queue>Help_Desk_Queue</queue>
+        <sharedTo>
+            <allInternalUsers></allInternalUsers>
+        </sharedTo>
+    </listViews>
+    <listViews>
+        <fullName>IT_Queue_Case</fullName>
+        <filterScope>Queue</filterScope>
+        <label>IT Queue</label>
+        <queue>IT_Queue</queue>
+        <sharedTo>
+            <allInternalUsers></allInternalUsers>
+        </sharedTo>
+    </listViews>
+    <listViews>
+        <fullName>M2MX_Queue_Case</fullName>
+        <filterScope>Queue</filterScope>
+        <label>M2MX Queue</label>
+        <queue>M2MX_Queue</queue>
+        <sharedTo>
+            <allInternalUsers></allInternalUsers>
+        </sharedTo>
+    </listViews>
+    <listViews>
+        <fullName>Membership_Development_Case</fullName>
+        <filterScope>Queue</filterScope>
+        <label>Membership Development</label>
+        <queue>Membership_Development</queue>
+        <sharedTo>
+            <allInternalUsers></allInternalUsers>
+        </sharedTo>
+    </listViews>
+    <listViews>
+        <fullName>Membership_Development_GR_Case</fullName>
+        <columns>NAME</columns>
+        <columns>ACCOUNT.NAME</columns>
+        <filterScope>Queue</filterScope>
+        <label>Membership Development - Globalringers</label>
+        <queue>Membership_Development</queue>
+    </listViews>
+    <listViews>
+        <fullName>Membership_Services_Queue_Case</fullName>
+        <filterScope>Queue</filterScope>
+        <label>Member Services Queue</label>
+        <queue>Member_Services_Queue</queue>
+        <sharedTo>
+            <allInternalUsers></allInternalUsers>
+        </sharedTo>
+    </listViews>
+    <listViews>
+        <fullName>MyCases</fullName>
+        <filterScope>Mine</filterScope>
+        <label>My Cases</label>
+    </listViews>
+    <listViews>
+        <fullName>MyOpenCases</fullName>
+        <filterScope>Mine</filterScope>
+        <filters>
+            <field>CASES.CLOSED</field>
+            <operation>equals</operation>
+            <value>0</value>
+        </filters>
+        <label>My Open Cases</label>
+    </listViews>
+    <recordTypeTrackFeedHistory>false</recordTypeTrackFeedHistory>
+    <recordTypeTrackHistory>false</recordTypeTrackHistory>
+    <recordTypes>
+        <fullName>Case_Process</fullName>
+        <active>true</active>
+        <businessProcess>Case Process</businessProcess>
+        <label>Case Process</label>
+        <picklistValues>
+            <picklist>Case_Type_Historical__c</picklist>
+            <values>
+                <fullName>3rd Party Verification</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Letter of Good Standing</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Lifetime Membership</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Member Selects %27Other%27 for Title Held</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Membership Reinstatement</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Membership Resign</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Network Resign</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Registration Cancellation</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Registration Transfer to Another Event</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Registration Transfer to Another Member</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Request Grace</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Submission of Service Request%2FActivities</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Update Qualifying Company Information</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>WPO Lifetime Membership</fullName>
+                <default>false</default>
+            </values>
+        </picklistValues>
+        <picklistValues>
+            <picklist>Category__c</picklist>
+            <values>
+                <fullName>Change Request</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Data</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Defect</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>General</fullName>
+                <default>false</default>
+            </values>
+        </picklistValues>
+        <picklistValues>
+            <picklist>Origin</picklist>
+            <values>
+                <fullName>Email</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Fax</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Phone</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Web</fullName>
+                <default>false</default>
+            </values>
+        </picklistValues>
+        <picklistValues>
+            <picklist>PotentialLiability__c</picklist>
+            <values>
+                <fullName>No</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Yes</fullName>
+                <default>false</default>
+            </values>
+        </picklistValues>
+        <picklistValues>
+            <picklist>Priority</picklist>
+            <values>
+                <fullName>High</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Low</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Medium</fullName>
+                <default>true</default>
+            </values>
+        </picklistValues>
+        <picklistValues>
+            <picklist>Reason</picklist>
+            <values>
+                <fullName>Data Pull</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Duplicate</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Information Provided</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>New Report</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>No Response</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Report Change</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Report Defect</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Request Completed</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Training</fullName>
+                <default>false</default>
+            </values>
+        </picklistValues>
+        <picklistValues>
+            <picklist>SLAViolation__c</picklist>
+            <values>
+                <fullName>No</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Yes</fullName>
+                <default>false</default>
+            </values>
+        </picklistValues>
+        <picklistValues>
+            <picklist>Status_Reason__c</picklist>
+            <values>
+                <fullName>Cancelled</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Escalate</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>In Progress</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>On Hold</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Problem Solved</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Request Approved %2F Complete</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Request Cancelled %2F Closed w%2Fo Decision</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Request Denied by YPO-WPO</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Researching</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Waiting for Details</fullName>
+                <default>false</default>
+            </values>
+        </picklistValues>
+        <picklistValues>
+            <picklist>Type</picklist>
+            <values>
+                <fullName>Corporate Services</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>M2MX</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>MARCOM</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Member Services</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Membership Development</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Networks</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Product Management</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Service Desk</fullName>
+                <default>false</default>
+            </values>
+        </picklistValues>
+        <picklistValues>
+            <picklist>Type__c</picklist>
+            <values>
+                <fullName>Chapter - Chapter Admin</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Chapter - Chapter Health Data</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Chapter - Events</fullName>
+                <default>false</default>
+            </values>
+        </picklistValues>
+    </recordTypes>
+    <recordTypes>
+        <fullName>M2MX</fullName>
+        <active>true</active>
+        <businessProcess>M2MX</businessProcess>
+        <label>M2MX</label>
+        <picklistValues>
+            <picklist>Case_Type_Historical__c</picklist>
+            <values>
+                <fullName>3rd Party Verification</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Letter of Good Standing</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Lifetime Membership</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Member Selects %27Other%27 for Title Held</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Membership Reinstatement</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Membership Resign</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Network Resign</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Registration Cancellation</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Registration Transfer to Another Event</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Registration Transfer to Another Member</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Request Grace</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Submission of Service Request%2FActivities</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Update Qualifying Company Information</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>WPO Lifetime Membership</fullName>
+                <default>false</default>
+            </values>
+        </picklistValues>
+        <picklistValues>
+            <picklist>Category__c</picklist>
+            <values>
+                <fullName>Change Request</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Data</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Defect</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>General</fullName>
+                <default>false</default>
+            </values>
+        </picklistValues>
+        <picklistValues>
+            <picklist>Origin</picklist>
+            <values>
+                <fullName>Email</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Fax</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Phone</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Web</fullName>
+                <default>false</default>
+            </values>
+        </picklistValues>
+        <picklistValues>
+            <picklist>PotentialLiability__c</picklist>
+            <values>
+                <fullName>No</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Yes</fullName>
+                <default>false</default>
+            </values>
+        </picklistValues>
+        <picklistValues>
+            <picklist>Priority</picklist>
+            <values>
+                <fullName>High</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Low</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Medium</fullName>
+                <default>true</default>
+            </values>
+        </picklistValues>
+        <picklistValues>
+            <picklist>Reason</picklist>
+            <values>
+                <fullName>Data Pull</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Duplicate</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Information Provided</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>New Report</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>No Response</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Report Change</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Report Defect</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Request Completed</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Training</fullName>
+                <default>false</default>
+            </values>
+        </picklistValues>
+        <picklistValues>
+            <picklist>SLAViolation__c</picklist>
+            <values>
+                <fullName>No</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Yes</fullName>
+                <default>false</default>
+            </values>
+        </picklistValues>
+        <picklistValues>
+            <picklist>Status_Reason__c</picklist>
+            <values>
+                <fullName>Cancelled</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Escalate</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>In Progress</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>On Hold</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Problem Solved</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Request Approved %2F Complete</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Request Cancelled %2F Closed w%2Fo Decision</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Request Denied by YPO-WPO</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Researching</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Waiting for Details</fullName>
+                <default>false</default>
+            </values>
+        </picklistValues>
+        <picklistValues>
+            <picklist>Type</picklist>
+            <values>
+                <fullName>M2MX</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Membership Development</fullName>
+                <default>false</default>
+            </values>
+        </picklistValues>
+        <picklistValues>
+            <picklist>Type__c</picklist>
+            <values>
+                <fullName>Chapter - Chapter Admin</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Chapter - Chapter Health Data</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Chapter - Events</fullName>
+                <default>false</default>
+            </values>
+        </picklistValues>
+    </recordTypes>
+    <searchLayouts>
+        <customTabListAdditionalFields>CASES.CASE_NUMBER</customTabListAdditionalFields>
+        <customTabListAdditionalFields>CASES.SUBJECT</customTabListAdditionalFields>
+        <customTabListAdditionalFields>CASES.CREATED_DATE</customTabListAdditionalFields>
+        <customTabListAdditionalFields>CASES.PRIORITY</customTabListAdditionalFields>
+        <lookupDialogsAdditionalFields>CASES.CASE_NUMBER</lookupDialogsAdditionalFields>
+        <lookupDialogsAdditionalFields>CASES.SUBJECT</lookupDialogsAdditionalFields>
+        <lookupDialogsAdditionalFields>NAME</lookupDialogsAdditionalFields>
+        <lookupDialogsAdditionalFields>ACCOUNT.NAME</lookupDialogsAdditionalFields>
+        <lookupDialogsAdditionalFields>CASES.STATUS</lookupDialogsAdditionalFields>
+        <lookupPhoneDialogsAdditionalFields>CASES.CASE_NUMBER</lookupPhoneDialogsAdditionalFields>
+        <lookupPhoneDialogsAdditionalFields>CASES.SUBJECT</lookupPhoneDialogsAdditionalFields>
+        <lookupPhoneDialogsAdditionalFields>NAME</lookupPhoneDialogsAdditionalFields>
+        <lookupPhoneDialogsAdditionalFields>ACCOUNT.NAME</lookupPhoneDialogsAdditionalFields>
+        <lookupPhoneDialogsAdditionalFields>CASES.STATUS</lookupPhoneDialogsAdditionalFields>
+        <searchResultsAdditionalFields>CASES.CASE_NUMBER</searchResultsAdditionalFields>
+        <searchResultsAdditionalFields>CASES.SUBJECT</searchResultsAdditionalFields>
+        <searchResultsAdditionalFields>CASES.STATUS</searchResultsAdditionalFields>
+        <searchResultsAdditionalFields>CASES.CREATED_DATE</searchResultsAdditionalFields>
+        <searchResultsAdditionalFields>CORE.USERS.ALIAS</searchResultsAdditionalFields>
+    </searchLayouts>
+    <sharingModel>Private</sharingModel>
+    <webLinks>
+        <fullName>APXTConga4__Conga_Composer_OAuth</fullName>
+        <availability>online</availability>
+        <description>*** DO NOT USE THIS BUTTON ON A PAGE LAYOUT *** 
+
+OAuth buttons require additional setup. Please see the Composer Installation Guide for more details.
+
+COPY THE URL FROM THIS BUTTON and paste it into your own custom button or link. Then add optional parameters to finely tune the button&apos;s behavior. See the Composer Configuration Guide for details.</description>
+        <displayType>button</displayType>
+        <encodingKey>UTF-8</encodingKey>
+        <hasMenubar>false</hasMenubar>
+        <hasScrollbars>true</hasScrollbars>
+        <hasToolbar>false</hasToolbar>
+        <height>660</height>
+        <isResizable>true</isResizable>
+        <linkType>url</linkType>
+        <masterLabel>Conga Composer (OAuth)</masterLabel>
+        <openType>newWindow</openType>
+        <position>none</position>
+        <protected>false</protected>
+        <showsLocation>false</showsLocation>
+        <showsStatus>false</showsStatus>
+        <url>/apex/APXTConga4__Conga_Composer
+?serverUrl={!API.Partner_Server_URL_370}
+&amp;id={!Case.Id}</url>
+        <width>900</width>
+    </webLinks>
+    <webLinks>
+        <fullName>APXTConga4__Conga_Mail_Merge</fullName>
+        <availability>online</availability>
+        <description>*** DO NOT USE THIS BUTTON ON A PAGE LAYOUT *** 
+
+COPY THE URL FROM THIS BUTTON and paste it into your own custom button or link. Then add optional parameters to finely tune the button&apos;s behavior. See the Conga Configuration Guide for details.</description>
+        <displayType>button</displayType>
+        <encodingKey>UTF-8</encodingKey>
+        <hasMenubar>false</hasMenubar>
+        <hasScrollbars>false</hasScrollbars>
+        <hasToolbar>false</hasToolbar>
+        <height>660</height>
+        <isResizable>false</isResizable>
+        <linkType>url</linkType>
+        <masterLabel>Conga Composer</masterLabel>
+        <openType>newWindow</openType>
+        <position>none</position>
+        <protected>false</protected>
+        <showsLocation>false</showsLocation>
+        <showsStatus>false</showsStatus>
+        <url>https://composer.congamerge.com
+?serverUrl={!API.Partner_Server_URL_370}
+&amp;id={!Case.Id}</url>
+        <width>900</width>
+    </webLinks>
+    <webLinks>
+        <fullName>M2MX_Skillset_Search</fullName>
+        <availability>online</availability>
+        <description>M2MX Skillset Search</description>
+        <displayType>button</displayType>
+        <height>600</height>
+        <linkType>page</linkType>
+        <masterLabel>M2MX Skillset Search</masterLabel>
+        <openType>sidebar</openType>
+        <page>M2MXSkillsetSearch</page>
+        <protected>false</protected>
+    </webLinks>
+    <webLinks>
+        <fullName>UpsellCrosssellOpportunity</fullName>
+        <availability>online</availability>
+        <displayType>link</displayType>
+        <encodingKey>UTF-8</encodingKey>
+        <hasMenubar>true</hasMenubar>
+        <hasScrollbars>true</hasScrollbars>
+        <hasToolbar>true</hasToolbar>
+        <height>600</height>
+        <isResizable>true</isResizable>
+        <linkType>url</linkType>
+        <masterLabel>Up-sell / Cross-sell Opportunity</masterLabel>
+        <openType>newWindow</openType>
+        <position>none</position>
+        <protected>false</protected>
+        <showsLocation>true</showsLocation>
+        <showsStatus>true</showsStatus>
+        <url>https://na1.salesforce.com/opp/oppedit.jsp?accid={!Account.Id}&amp;opp3=Up-sell+/+Cross-sell&amp;opp5=Existing+Customer&amp;opp6=Customer+Support</url>
+    </webLinks>
+    <webLinks>
+        <fullName>dsfs__Send_with_DocuSign</fullName>
+        <availability>online</availability>
+        <description>This button will initiate a DocuSign Envelope that is linked to the Case</description>
+        <displayType>button</displayType>
+        <linkType>javascript</linkType>
+        <masterLabel>Send with DocuSign</masterLabel>
+        <openType>onClickJavaScript</openType>
+        <protected>false</protected>
+        <url>{!REQUIRESCRIPT(&quot;/apex/dsfs__DocuSign_JavaScript&quot;)}
+DocuSign_CreateEnvelope();</url>
+    </webLinks>
+</CustomObject>

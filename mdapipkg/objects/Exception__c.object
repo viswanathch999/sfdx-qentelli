@@ -1,0 +1,1235 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomObject xmlns="http://soap.sforce.com/2006/04/metadata">
+    <actionOverrides>
+        <actionName>Accept</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>CancelEdit</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Clone</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Delete</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Edit</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>List</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>New</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>SaveEdit</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Tab</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>View</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <allowInChatterGroups>false</allowInChatterGroups>
+    <compactLayoutAssignment>SYSTEM</compactLayoutAssignment>
+    <deploymentStatus>Deployed</deploymentStatus>
+    <enableActivities>true</enableActivities>
+    <enableBulkApi>true</enableBulkApi>
+    <enableChangeDataCapture>false</enableChangeDataCapture>
+    <enableEnhancedLookup>true</enableEnhancedLookup>
+    <enableFeeds>false</enableFeeds>
+    <enableHistory>true</enableHistory>
+    <enableReports>true</enableReports>
+    <enableSearch>true</enableSearch>
+    <enableSharing>true</enableSharing>
+    <enableStreamingApi>true</enableStreamingApi>
+    <externalSharingModel>ControlledByParent</externalSharingModel>
+    <fields>
+        <fullName>Account__c</fullName>
+        <deleteConstraint>SetNull</deleteConstraint>
+        <externalId>false</externalId>
+        <label>Chapter</label>
+        <lookupFilter>
+            <active>true</active>
+            <booleanFilter>1 OR 2</booleanFilter>
+            <filterItems>
+                <field>Account.Type</field>
+                <operation>equals</operation>
+                <value>Chapter</value>
+            </filterItems>
+            <filterItems>
+                <field>Account.Chapter_Network_Exception__c</field>
+                <operation>equals</operation>
+                <value>True</value>
+            </filterItems>
+            <isOptional>false</isOptional>
+        </lookupFilter>
+        <referenceTo>Account</referenceTo>
+        <relationshipLabel>Exceptions</relationshipLabel>
+        <relationshipName>Exceptions</relationshipName>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Lookup</type>
+    </fields>
+    <fields>
+        <fullName>Add_Waiver_Request_comments_or_cl__c</fullName>
+        <externalId>false</externalId>
+        <label>Chapter Comments</label>
+        <length>32768</length>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>LongTextArea</type>
+        <visibleLines>3</visibleLines>
+    </fields>
+    <fields>
+        <fullName>Age_Question_1__c</fullName>
+        <externalId>false</externalId>
+        <inlineHelpText>Please provide the reason/s that the candidate did not join YPO prior to his/her 45th birthday? Please provide Details.</inlineHelpText>
+        <label>Reason for Age Waiver</label>
+        <length>1000</length>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>LongTextArea</type>
+        <visibleLines>3</visibleLines>
+    </fields>
+    <fields>
+        <fullName>Age_Question_2__c</fullName>
+        <externalId>false</externalId>
+        <inlineHelpText>Please share the actions that the chapter leadership plans to take to accelerate the integration of the candidate in YPO considering he/she is joining after the age of 45. i.e. forum placement, day chair etc.</inlineHelpText>
+        <label>Age Integration Actions</label>
+        <length>1000</length>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>LongTextArea</type>
+        <visibleLines>3</visibleLines>
+    </fields>
+    <fields>
+        <fullName>All_Question_1__c</fullName>
+        <externalId>false</externalId>
+        <inlineHelpText>What unique value the prospective member brings to the Chapter and YPO- YPO Gold that justify an exception to the requirements? Please elaborate.</inlineHelpText>
+        <label>Unique Member Value</label>
+        <length>1000</length>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>LongTextArea</type>
+        <visibleLines>3</visibleLines>
+    </fields>
+    <fields>
+        <fullName>All_Question_2__c</fullName>
+        <externalId>false</externalId>
+        <inlineHelpText>What level of participation and contribution the prospective member brings to the Chapter and YPO-YPO Gold that justify an exception to the requirements? Please elaborate</inlineHelpText>
+        <label>Member Contribution</label>
+        <length>1000</length>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>LongTextArea</type>
+        <visibleLines>3</visibleLines>
+    </fields>
+    <fields>
+        <fullName>Annual_Revenue_Dollar_Business_Volume__c</fullName>
+        <externalId>false</externalId>
+        <label>Annual Revenue (Dollar Business Volume)</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Currency</type>
+    </fields>
+    <fields>
+        <fullName>Annual_Revenue__c</fullName>
+        <externalId>false</externalId>
+        <label>Annual Revenue</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Currency</type>
+    </fields>
+    <fields>
+        <fullName>Birthdate__c</fullName>
+        <externalId>false</externalId>
+        <label>Birthdate</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Date</type>
+    </fields>
+    <fields>
+        <fullName>CC_Approval__c</fullName>
+        <externalId>false</externalId>
+        <label>CC Approval</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Picklist</type>
+        <valueSet>
+            <restricted>true</restricted>
+            <valueSetDefinition>
+                <sorted>false</sorted>
+                <value>
+                    <fullName>Approved</fullName>
+                    <default>false</default>
+                    <label>Approved</label>
+                </value>
+                <value>
+                    <fullName>Rejected</fullName>
+                    <default>false</default>
+                    <label>Rejected</label>
+                </value>
+            </valueSetDefinition>
+        </valueSet>
+    </fields>
+    <fields>
+        <fullName>CMO_Approval__c</fullName>
+        <externalId>false</externalId>
+        <label>CMO Approval</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Picklist</type>
+        <valueSet>
+            <restricted>true</restricted>
+            <valueSetDefinition>
+                <sorted>false</sorted>
+                <value>
+                    <fullName>Approved</fullName>
+                    <default>false</default>
+                    <label>Approved</label>
+                </value>
+                <value>
+                    <fullName>Rejected</fullName>
+                    <default>false</default>
+                    <label>Rejected</label>
+                </value>
+            </valueSetDefinition>
+        </valueSet>
+    </fields>
+    <fields>
+        <fullName>CaseId__c</fullName>
+        <description>Holds the ID of the Case created through Request Grace on Renewals</description>
+        <externalId>false</externalId>
+        <label>CaseId</label>
+        <length>18</length>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Chapter_Administrator__c</fullName>
+        <deleteConstraint>SetNull</deleteConstraint>
+        <externalId>false</externalId>
+        <label>Chapter Administrator</label>
+        <referenceTo>User</referenceTo>
+        <relationshipName>Exceptions2</relationshipName>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Lookup</type>
+    </fields>
+    <fields>
+        <fullName>Chapter_Approval__c</fullName>
+        <externalId>false</externalId>
+        <label>Chapter Approval</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Picklist</type>
+        <valueSet>
+            <valueSetDefinition>
+                <sorted>false</sorted>
+                <value>
+                    <fullName>Approved</fullName>
+                    <default>false</default>
+                    <label>Approved</label>
+                </value>
+                <value>
+                    <fullName>Denied</fullName>
+                    <default>false</default>
+                    <label>Denied</label>
+                </value>
+            </valueSetDefinition>
+        </valueSet>
+    </fields>
+    <fields>
+        <fullName>Chapter_Membership_Officer__c</fullName>
+        <deleteConstraint>SetNull</deleteConstraint>
+        <externalId>false</externalId>
+        <label>Chapter Membership Officer</label>
+        <referenceTo>User</referenceTo>
+        <relationshipName>Exceptions1</relationshipName>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Lookup</type>
+    </fields>
+    <fields>
+        <fullName>Chpter_Chair__c</fullName>
+        <deleteConstraint>SetNull</deleteConstraint>
+        <externalId>false</externalId>
+        <label>Chapter Chair</label>
+        <referenceTo>User</referenceTo>
+        <relationshipName>Exceptions</relationshipName>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Lookup</type>
+    </fields>
+    <fields>
+        <fullName>Contact__c</fullName>
+        <externalId>false</externalId>
+        <label>Contact</label>
+        <referenceTo>Contact</referenceTo>
+        <relationshipLabel>Exceptions</relationshipLabel>
+        <relationshipName>Exceptions</relationshipName>
+        <relationshipOrder>0</relationshipOrder>
+        <reparentableMasterDetail>false</reparentableMasterDetail>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>MasterDetail</type>
+        <writeRequiresMasterRead>false</writeRequiresMasterRead>
+    </fields>
+    <fields>
+        <fullName>DSDateField__c</fullName>
+        <defaultValue>&quot;date&quot;</defaultValue>
+        <externalId>false</externalId>
+        <label>DSDateField</label>
+        <length>4</length>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>DSEnvStatus__c</fullName>
+        <externalId>false</externalId>
+        <label>DSEnvStatus</label>
+        <length>50</length>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Decision_Date__c</fullName>
+        <externalId>false</externalId>
+        <label>Decision Date</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Date</type>
+    </fields>
+    <fields>
+        <fullName>Description__c</fullName>
+        <externalId>false</externalId>
+        <inlineHelpText>Enter any additional information here</inlineHelpText>
+        <label>Description</label>
+        <length>32768</length>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>LongTextArea</type>
+        <visibleLines>3</visibleLines>
+    </fields>
+    <fields>
+        <fullName>Early_Transition_Request__c</fullName>
+        <externalId>false</externalId>
+        <formula>&quot;&amp;Id=&quot; +Id +
+&quot;&amp;TemplateId=a2F2C0000004Kw5&quot; +
+&quot;&amp;OFN=Early+Transition+Request+-+&quot;+Contact__c+
+&quot;&amp;DocuSignVisible=1&quot; +
+&quot;&amp;DocuSignEmailSubject=Please+DocuSign+this+document:+Early+Transition+Request&quot; +
+&quot;&amp;DocuSignEmailBody=Please+review+the+Early+Tranisition+request+for+&quot; +Opportunity__r.KGRenewal__Contact__r.FirstName + &quot;+&quot; + Opportunity__r.KGRenewal__Contact__r.LastName + &quot;+and+either+approve+or+reject.&quot; +
+&quot;&amp;DocuSignR1ID=&quot; +  Chapter_Membership_Officer__r.Id  +
+&quot;&amp;DocuSignR1Role=Signer+1&quot; +
+&quot;&amp;DocuSignR2ID=&quot; + Chpter_Chair__r.Id +
+&quot;&amp;DocuSignR2Role=Signer+2&quot; +
+&quot;&amp;DocuSignR3ID=&quot; + Chapter_Administrator__r.Id +
+&quot;&amp;DocuSignR3Type=Carbon+Copy&quot; + 
+&quot;&amp;DocuSignExpireVoidEnv=0&quot; +
+&quot;&amp;defaultpdf=0&quot; +
+&quot;&amp;DocuSignTag=0&quot; +
+&quot;&amp;DS7=17&quot; +
+&quot;&amp;QMode=DocuSign&quot;</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>Early Transition Request</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>End_of_Current_FY__c</fullName>
+        <externalId>false</externalId>
+        <formula>TEXT( YEAR(End_of_Current_Fiscal__c))</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>Current FY</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>End_of_Current_Fiscal__c</fullName>
+        <externalId>false</externalId>
+        <formula>/*(Start_of_Current_Fiscal_Year__c) + (364)*/ 
+DATE(YEAR(Start_of_Current_Fiscal_Year__c) + 1,6,30)</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>End of Current Fiscal</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Date</type>
+    </fields>
+    <fields>
+        <fullName>Enterprise_Value_Corporation_Value__c</fullName>
+        <externalId>false</externalId>
+        <label>Enterprise Value (Corporation Value)</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Currency</type>
+    </fields>
+    <fields>
+        <fullName>Exception_Category__c</fullName>
+        <externalId>false</externalId>
+        <label>Exception Category</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Picklist</type>
+        <valueSet>
+            <valueSetDefinition>
+                <sorted>false</sorted>
+                <value>
+                    <fullName>Grace</fullName>
+                    <default>false</default>
+                    <label>Grace</label>
+                </value>
+                <value>
+                    <fullName>Waiver</fullName>
+                    <default>false</default>
+                    <label>Waiver</label>
+                </value>
+            </valueSetDefinition>
+        </valueSet>
+    </fields>
+    <fields>
+        <fullName>GUID__c</fullName>
+        <caseSensitive>false</caseSensitive>
+        <externalId>true</externalId>
+        <label>GUID</label>
+        <length>50</length>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>true</unique>
+    </fields>
+    <fields>
+        <fullName>Geographic_Requirement__c</fullName>
+        <deleteConstraint>SetNull</deleteConstraint>
+        <externalId>false</externalId>
+        <label>Geographic Requirement</label>
+        <referenceTo>Geographic_Requirements__c</referenceTo>
+        <relationshipLabel>Exceptions</relationshipLabel>
+        <relationshipName>Exceptions</relationshipName>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Lookup</type>
+    </fields>
+    <fields>
+        <fullName>Grace_Chapter_Approval_CC__c</fullName>
+        <description>&quot;&amp;DS7=17&quot; +</description>
+        <externalId>false</externalId>
+        <formula>&quot;&amp;Id=&quot; +Id + 
+&quot;&amp;TemplateId=a2F61000001KGdX&quot; + 
+&quot;&amp;OFN=Grace+Request+-+&quot;+Contact__c+ 
+&quot;&amp;DocuSignVisible=1&quot; + 
+&quot;&amp;DocuSignEmailSubject=Please+DocuSign+this+document:+Grace+Request&quot; + 
+&quot;&amp;DocuSignEmailBody=Please+review+the+Grace+request+for+&quot; +Opportunity__r.KGRenewal__Contact__r.FirstName + &quot;+&quot; + Opportunity__r.KGRenewal__Contact__r.LastName + &quot;+and+either+approve+or+reject.&quot; + 
+&quot;&amp;DocuSignR1ID=&quot; + Chpter_Chair__r.Id + 
+&quot;&amp;DocuSignR1Type=Signer&quot; + 
+&quot;&amp;DocuSignR1Role=Signer+1&quot; + 
+&quot;&amp;DocuSignR1RoutingOrder=1&quot; + 
+&quot;&amp;DocuSignR2ID=&quot; + Chapter_Administrator__r.Id + 
+&quot;&amp;DocuSignR2Type=Carbon+Copy&quot; + 
+&quot;&amp;DocuSignR2Role=Signer+2&quot; + 
+&quot;&amp;DocuSignR2RoutingOrder=1&quot; + 
+&quot;&amp;DocuSignExpireVoidEnv=0&quot; + 
+&quot;&amp;DocuSignSendAsUserId=00561000002EHIF&quot;+ 
+&quot;&amp;defaultpdf=0&quot; + 
+&quot;&amp;DocuSignTag=0&quot; + 
+&quot;&amp;DS7=17&quot; + 
+&quot;&amp;QMode=DocuSign&quot;+ 
+&quot;&amp;docusignendpoint=prod&quot;</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>Grace Chapter Approval CC</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Grace_Chapter_Approval_CMO__c</fullName>
+        <externalId>false</externalId>
+        <formula>&quot;&amp;Id=&quot; +Id + 
+&quot;&amp;TemplateId=a2F61000001KGdX&quot; + 
+&quot;&amp;OFN=Grace+Request+-+&quot;+Contact__c+ 
+&quot;&amp;DocuSignVisible=1&quot; + 
+&quot;&amp;DocuSignEmailSubject=Please+DocuSign+this+document:+Grace+Request&quot; + 
+&quot;&amp;DocuSignEmailBody=Please+review+the+Grace+request+for+&quot; +Opportunity__r.KGRenewal__Contact__r.FirstName + &quot;+&quot; + Opportunity__r.KGRenewal__Contact__r.LastName + &quot;+and+either+approve+or+reject.&quot; + 
+&quot;&amp;DocuSignR1ID=&quot; + Chapter_Membership_Officer__r.Id + 
+&quot;&amp;DocuSignR1Type=Signer&quot; + 
+&quot;&amp;DocuSignR1Role=Signer+1&quot; + 
+&quot;&amp;DocuSignR1RoutingOrder=1&quot; + 
+&quot;&amp;DocuSignR2ID=&quot; + Chapter_Administrator__r.Id + 
+&quot;&amp;DocuSignR2Type=Carbon+Copy&quot; + 
+&quot;&amp;DocuSignR2Role=Signer+2&quot; + 
+&quot;&amp;DocuSignR2RoutingOrder=1&quot; + 
+&quot;&amp;DocuSignExpireVoidEnv=0&quot; + 
+&quot;&amp;DocuSignSendAsUserId=00561000002EHIF&quot;+ 
+&quot;&amp;defaultpdf=0&quot; + 
+&quot;&amp;DocuSignTag=0&quot; + 
+&quot;&amp;QMode=DocuSign&quot;+ 
+&quot;&amp;docusignendpoint=prod&quot;</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>Grace Chapter Approval CMO</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Grace_Ext_Chapter_Approval_CC__c</fullName>
+        <externalId>false</externalId>
+        <formula>&quot;&amp;Id=&quot; +Id +
+&quot;&amp;TemplateId=a2J4C000000Gp4o&quot; +
+&quot;&amp;OFN=Grace+Request+-+&quot;+Contact__c+
+&quot;&amp;DocuSignVisible=1&quot; +
+&quot;&amp;DocuSignEmailSubject=Please+DocuSign+this+document:+Grace+Request&quot; +
+&quot;&amp;DocuSignEmailBody=Please+review+the+Grace+Extension+request+for+&quot; +Opportunity__r.KGRenewal__Contact__r.FirstName + &quot;+&quot; + Opportunity__r.KGRenewal__Contact__r.LastName + &quot;+and+either+approve+or+reject.&quot; +
+&quot;&amp;DocuSignR1ID=&quot; +  Opportunity__r.Chpter_Chair__r.Id  + 
+&quot;&amp;DocuSignR1Role=Signer+1&quot; +
+&quot;&amp;DocuSignR2ID=&quot; + Opportunity__r.Chapter_Administrator__r.Id + 
+&quot;&amp;DocuSignR2Type=Carbon+Copy&quot; +
+&quot;&amp;DocuSignExpireVoidEnv=0&quot; +
+&quot;&amp;defaultpdf=0&quot; +
+&quot;&amp;DocuSignTag=0&quot; +
+&quot;&amp;DS7=17&quot; +
+&quot;&amp;QMode=DocuSign&quot;</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>Grace Ext Chapter Approval CC</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Grace_Ext_Chapter_Approval_CMO__c</fullName>
+        <externalId>false</externalId>
+        <formula>&quot;&amp;Id=&quot; +Id +
+&quot;&amp;TemplateId=a2J4C000000Gp4o&quot; +
+&quot;&amp;OFN=Grace+Request+-+&quot;+Contact__c+
+&quot;&amp;DocuSignVisible=1&quot; +
+&quot;&amp;DocuSignEmailSubject=Please+DocuSign+this+document:+Grace+Extension+Request&quot; +
+&quot;&amp;DocuSignEmailBody=Please+review+the+Grace+Extension+request+for+&quot; +Opportunity__r.KGRenewal__Contact__r.FirstName + &quot;+&quot; + Opportunity__r.KGRenewal__Contact__r.LastName + &quot;+and+either+approve+or+reject.&quot; +
+&quot;&amp;DocuSignR1ID=&quot; +   Opportunity__r.Chapter_Membership_Officer__r.Id   + 
+&quot;&amp;DocuSignR1Role=Signer+1&quot; +
+&quot;&amp;DocuSignR2ID=&quot; + Opportunity__r.Chapter_Administrator__r.Id + 
+&quot;&amp;DocuSignR2Type=Carbon+Copy&quot; +
+&quot;&amp;DocuSignExpireVoidEnv=0&quot; +
+&quot;&amp;defaultpdf=0&quot; +
+&quot;&amp;DocuSignTag=0&quot; +
+&quot;&amp;DS7=17&quot; +
+&quot;&amp;QMode=DocuSign&quot;</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>Grace Ext Chapter Approval CMO</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Next_FY__c</fullName>
+        <externalId>false</externalId>
+        <formula>TEXT(YEAR(End_of_Current_Fiscal__c) + 1)</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>Next FY</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>No_of_Employees__c</fullName>
+        <externalId>false</externalId>
+        <label>No. of Employees (directly supervise)</label>
+        <precision>8</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Opportunity_Name__c</fullName>
+        <externalId>false</externalId>
+        <formula>Opportunity__r.Name</formula>
+        <label>Opportunity Name</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Opportunity__c</fullName>
+        <externalId>false</externalId>
+        <label>Opportunity</label>
+        <referenceTo>Opportunity</referenceTo>
+        <relationshipLabel>Exceptions</relationshipLabel>
+        <relationshipName>Exceptions</relationshipName>
+        <relationshipOrder>1</relationshipOrder>
+        <reparentableMasterDetail>false</reparentableMasterDetail>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>MasterDetail</type>
+        <writeRequiresMasterRead>false</writeRequiresMasterRead>
+    </fields>
+    <fields>
+        <fullName>Organisation_type__c</fullName>
+        <externalId>false</externalId>
+        <label>Organization Type</label>
+        <length>100</length>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Qualifying_Company__c</fullName>
+        <externalId>false</externalId>
+        <label>Qualifying Company</label>
+        <length>255</length>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Send_Waiver_Request_Form__c</fullName>
+        <externalId>false</externalId>
+        <formula>IF( ISPICKVAL(Exception_Category__c,&quot;Waiver&quot;),
+HYPERLINK(&quot;https://composer.congamerge.com/?SessionId=&quot; + $Api.Session_ID + &quot;&amp;ServerUrl=&quot;+ $Api.Partner_Server_URL_240 + &quot;&amp;Id=&quot; + Id + &quot;&amp;TemplateId=a2J4C000000GmdI&quot; + &quot;&amp;DocuSignVisible=1&quot; + &quot;&amp;DocuSignEmailSubject=Please DocuSign this document: YPO Waiver Request&quot; + &quot;&amp;DocuSignEmailBody=Please review the YPO waiver request and either approve or reject.&quot; + &quot;&amp;DocuSignExpireVoidEnv=0&quot; + &quot;&amp;sc0=1&quot; + &quot;&amp;sc1=attachments&quot; + &quot;&amp;defaultpdf=1&quot; + &quot;&amp;DocuSignTag=0&quot; + &quot;&amp;QMode=DocuSign&quot;, &quot;Send Waiver Request Form&quot;),
+&quot; &quot;)</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <inlineHelpText>Link will display for &apos;Waiver&apos; Exceptions only.</inlineHelpText>
+        <label>Send Waiver Request Form</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Start_of_Current_Fiscal_Year__c</fullName>
+        <description>FOR FUNCTIONAL PURPOSE ONLY</description>
+        <externalId>false</externalId>
+        <formula>Opportunity__r.KGRenewal__ContractEffectiveDate__c</formula>
+        <label>Start of Current Fiscal Year</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Date</type>
+    </fields>
+    <fields>
+        <fullName>Status__c</fullName>
+        <externalId>false</externalId>
+        <label>Status</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Picklist</type>
+        <valueSet>
+            <valueSetDefinition>
+                <sorted>false</sorted>
+                <value>
+                    <fullName>Needs Chapter Approval</fullName>
+                    <default>false</default>
+                    <label>Needs Chapter Approval</label>
+                </value>
+                <value>
+                    <fullName>Needs PRC Approval</fullName>
+                    <default>false</default>
+                    <label>Needs PRC Approval</label>
+                </value>
+                <value>
+                    <fullName>Requested</fullName>
+                    <default>false</default>
+                    <label>Requested</label>
+                </value>
+                <value>
+                    <fullName>Approved</fullName>
+                    <default>false</default>
+                    <label>Approved</label>
+                </value>
+                <value>
+                    <fullName>Denied</fullName>
+                    <default>false</default>
+                    <label>Denied</label>
+                </value>
+            </valueSetDefinition>
+        </valueSet>
+    </fields>
+    <fields>
+        <fullName>Time_expected_to_requalify__c</fullName>
+        <externalId>false</externalId>
+        <inlineHelpText>For Grace Extension: the chapter expects the YPO member to qualify within this time (*) e.g. 1(one) year.</inlineHelpText>
+        <label>Time expected to requalify</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>TextArea</type>
+    </fields>
+    <fields>
+        <fullName>Title_Question_1__c</fullName>
+        <externalId>false</externalId>
+        <inlineHelpText>How is the candidate’s title equivalent to any of the qualifying titles as ‘top gun’ in the company? Please provide details.</inlineHelpText>
+        <label>Title Qualification</label>
+        <length>1000</length>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>LongTextArea</type>
+        <visibleLines>3</visibleLines>
+    </fields>
+    <fields>
+        <fullName>Title_Question_2__c</fullName>
+        <defaultValue>false</defaultValue>
+        <externalId>false</externalId>
+        <inlineHelpText>Chapter confirms that it has been objectively verified that the prospect is the ‘top gun’ in the company/or division regardless of the fact that his/her title is not one of the YPO qualifying titles</inlineHelpText>
+        <label>Title Confirmation</label>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>Title__c</fullName>
+        <externalId>false</externalId>
+        <label>Title</label>
+        <length>100</length>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Total_Employee_Compensation__c</fullName>
+        <externalId>false</externalId>
+        <label>Total Employee Compensation</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Currency</type>
+    </fields>
+    <fields>
+        <fullName>Type__c</fullName>
+        <externalId>false</externalId>
+        <label>Reason</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>MultiselectPicklist</type>
+        <valueSet>
+            <controllingField>Exception_Category__c</controllingField>
+            <valueSetDefinition>
+                <sorted>false</sorted>
+                <value>
+                    <fullName>Position Held No Longer Qualifies</fullName>
+                    <default>false</default>
+                    <label>Position Held No Longer Qualifies</label>
+                </value>
+                <value>
+                    <fullName>Company No Longer Qualifies</fullName>
+                    <default>false</default>
+                    <label>Company No Longer Qualifies</label>
+                </value>
+                <value>
+                    <fullName>Sold Company</fullName>
+                    <default>false</default>
+                    <label>Sold Company</label>
+                </value>
+                <value>
+                    <fullName>Started New Company</fullName>
+                    <default>false</default>
+                    <label>Started New Company</label>
+                </value>
+                <value>
+                    <fullName>Other</fullName>
+                    <default>false</default>
+                    <label>Other</label>
+                </value>
+                <value>
+                    <fullName>Employee</fullName>
+                    <default>false</default>
+                    <label>Employee</label>
+                </value>
+                <value>
+                    <fullName>Volume</fullName>
+                    <default>false</default>
+                    <label>Volume</label>
+                </value>
+                <value>
+                    <fullName>Age</fullName>
+                    <default>false</default>
+                    <label>Age</label>
+                </value>
+                <value>
+                    <fullName>Enterprise</fullName>
+                    <default>false</default>
+                    <label>Enterprise</label>
+                </value>
+                <value>
+                    <fullName>Employee Compensation</fullName>
+                    <default>false</default>
+                    <label>Employee Compensation</label>
+                </value>
+                <value>
+                    <fullName>Geographic Differentiation</fullName>
+                    <default>false</default>
+                    <label>Geographic Differentiation</label>
+                </value>
+                <value>
+                    <fullName>Title</fullName>
+                    <default>false</default>
+                    <label>Title</label>
+                </value>
+            </valueSetDefinition>
+            <valueSettings>
+                <controllingFieldValue>Grace</controllingFieldValue>
+                <valueName>Position Held No Longer Qualifies</valueName>
+            </valueSettings>
+            <valueSettings>
+                <controllingFieldValue>Grace</controllingFieldValue>
+                <valueName>Company No Longer Qualifies</valueName>
+            </valueSettings>
+            <valueSettings>
+                <controllingFieldValue>Grace</controllingFieldValue>
+                <valueName>Sold Company</valueName>
+            </valueSettings>
+            <valueSettings>
+                <controllingFieldValue>Grace</controllingFieldValue>
+                <valueName>Started New Company</valueName>
+            </valueSettings>
+            <valueSettings>
+                <controllingFieldValue>Grace</controllingFieldValue>
+                <valueName>Other</valueName>
+            </valueSettings>
+            <valueSettings>
+                <controllingFieldValue>Waiver</controllingFieldValue>
+                <valueName>Employee</valueName>
+            </valueSettings>
+            <valueSettings>
+                <controllingFieldValue>Waiver</controllingFieldValue>
+                <valueName>Volume</valueName>
+            </valueSettings>
+            <valueSettings>
+                <controllingFieldValue>Waiver</controllingFieldValue>
+                <valueName>Age</valueName>
+            </valueSettings>
+            <valueSettings>
+                <controllingFieldValue>Waiver</controllingFieldValue>
+                <valueName>Enterprise</valueName>
+            </valueSettings>
+            <valueSettings>
+                <controllingFieldValue>Waiver</controllingFieldValue>
+                <valueName>Employee Compensation</valueName>
+            </valueSettings>
+            <valueSettings>
+                <controllingFieldValue>Waiver</controllingFieldValue>
+                <valueName>Geographic Differentiation</valueName>
+            </valueSettings>
+            <valueSettings>
+                <controllingFieldValue>Waiver</controllingFieldValue>
+                <valueName>Title</valueName>
+            </valueSettings>
+        </valueSet>
+        <visibleLines>5</visibleLines>
+    </fields>
+    <fields>
+        <fullName>Type_of_Waiver__c</fullName>
+        <externalId>false</externalId>
+        <label>Type of Waiver</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Picklist</type>
+        <valueSet>
+            <restricted>true</restricted>
+            <valueSetDefinition>
+                <sorted>false</sorted>
+                <value>
+                    <fullName>Age</fullName>
+                    <default>false</default>
+                    <label>Age</label>
+                </value>
+                <value>
+                    <fullName>Employee</fullName>
+                    <default>false</default>
+                    <label>Employee</label>
+                </value>
+                <value>
+                    <fullName>Employee Compensation</fullName>
+                    <default>false</default>
+                    <label>Employee Compensation</label>
+                </value>
+                <value>
+                    <fullName>Enterprise</fullName>
+                    <default>false</default>
+                    <label>Enterprise</label>
+                </value>
+                <value>
+                    <fullName>Extraordinary Business Leader</fullName>
+                    <default>false</default>
+                    <label>Extraordinary Business Leader</label>
+                </value>
+                <value>
+                    <fullName>Grace Extension</fullName>
+                    <default>false</default>
+                    <label>Grace Extension</label>
+                </value>
+                <value>
+                    <fullName>Title</fullName>
+                    <default>false</default>
+                    <label>Title</label>
+                </value>
+                <value>
+                    <fullName>Volume</fullName>
+                    <default>false</default>
+                    <label>Volume</label>
+                </value>
+                <value>
+                    <fullName>YPO Gold Early Transition - Age</fullName>
+                    <default>false</default>
+                    <label>YPO Gold Early Transition - Age</label>
+                </value>
+                <value>
+                    <fullName>YPO Gold Early Transition - YPO Years</fullName>
+                    <default>false</default>
+                    <label>YPO Gold Early Transition - YPO Years</label>
+                </value>
+                <value>
+                    <fullName>Corporate Qualifications (Annual Compensation; Sales; No of employees; Enterprise value)</fullName>
+                    <default>false</default>
+                    <isActive>false</isActive>
+                    <label>Corporate Qualifications (Annual Compensation; Sales; No of employees; Enterprise value)</label>
+                </value>
+            </valueSetDefinition>
+        </valueSet>
+    </fields>
+    <fields>
+        <fullName>Validation_Check__c</fullName>
+        <defaultValue>false</defaultValue>
+        <externalId>false</externalId>
+        <label>Validation Check</label>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>Workflow_test_hyperlink_Conga__c</fullName>
+        <externalId>false</externalId>
+        <formula>HYPERLINK(&quot;https://composer.congamerge.com/?SessionId=&quot; + $Api.Session_ID +
+&quot;&amp;ServerURL=&quot; +  $Api.Partner_Server_URL_290 +
+ Grace_Chapter_Approval_CC__c,
+&quot;Test Conga Workflow via UI&quot;)</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>Workflow test hyperlink (Conga)</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <label>Exception</label>
+    <listViews>
+        <fullName>All</fullName>
+        <columns>NAME</columns>
+        <columns>Opportunity__c</columns>
+        <columns>Status__c</columns>
+        <columns>Contact__c</columns>
+        <filterScope>Everything</filterScope>
+        <label>All</label>
+    </listViews>
+    <listViews>
+        <fullName>ExceptionsGrace</fullName>
+        <columns>NAME</columns>
+        <columns>Contact__c</columns>
+        <columns>Opportunity__c</columns>
+        <columns>Organisation_type__c</columns>
+        <columns>Exception_Category__c</columns>
+        <columns>Account__c</columns>
+        <columns>Type__c</columns>
+        <columns>Status__c</columns>
+        <columns>Type_of_Waiver__c</columns>
+        <columns>CREATED_DATE</columns>
+        <filterScope>Everything</filterScope>
+        <filters>
+            <field>Exception_Category__c</field>
+            <operation>equals</operation>
+            <value>Grace</value>
+        </filters>
+        <label>Exception - Grace</label>
+    </listViews>
+    <listViews>
+        <fullName>ExceptionsWaiverTitle</fullName>
+        <columns>Contact__c</columns>
+        <columns>NAME</columns>
+        <columns>Opportunity__c</columns>
+        <columns>Organisation_type__c</columns>
+        <columns>Exception_Category__c</columns>
+        <columns>Account__c</columns>
+        <columns>Type__c</columns>
+        <columns>Status__c</columns>
+        <columns>Type_of_Waiver__c</columns>
+        <filterScope>Everything</filterScope>
+        <filters>
+            <field>Exception_Category__c</field>
+            <operation>equals</operation>
+            <value>Waiver</value>
+        </filters>
+        <filters>
+            <field>Type_of_Waiver__c</field>
+            <operation>equals</operation>
+            <value>Title</value>
+        </filters>
+        <label>Exception - Waiver - Title</label>
+    </listViews>
+    <listViews>
+        <fullName>GraceChptAppr</fullName>
+        <columns>Contact__c</columns>
+        <columns>NAME</columns>
+        <columns>Opportunity__c</columns>
+        <columns>Account__c</columns>
+        <columns>Exception_Category__c</columns>
+        <columns>Decision_Date__c</columns>
+        <columns>Type_of_Waiver__c</columns>
+        <columns>Status__c</columns>
+        <columns>Chapter_Membership_Officer__c</columns>
+        <columns>Chpter_Chair__c</columns>
+        <columns>Add_Waiver_Request_comments_or_cl__c</columns>
+        <columns>CREATED_DATE</columns>
+        <columns>LAST_UPDATE</columns>
+        <filterScope>Everything</filterScope>
+        <filters>
+            <field>Status__c</field>
+            <operation>equals</operation>
+            <value>Needs Chapter Approval,Approved</value>
+        </filters>
+        <filters>
+            <field>Exception_Category__c</field>
+            <operation>equals</operation>
+            <value>Grace</value>
+        </filters>
+        <filters>
+            <field>Account__c</field>
+            <operation>notEqual</operation>
+            <value>Exchange Test</value>
+        </filters>
+        <filters>
+            <field>Chapter_Approval__c</field>
+            <operation>notEqual</operation>
+            <value>Approved</value>
+        </filters>
+        <filters>
+            <field>CREATEDBY_USER</field>
+            <operation>notEqual</operation>
+            <value>Data_Migration</value>
+        </filters>
+        <label>Renewals - Grace Awaiting Chapter Aprvl</label>
+        <sharedTo>
+            <group>Chapter_Administrators</group>
+            <group>Chpt_Mbrshp_Officer</group>
+        </sharedTo>
+    </listViews>
+    <listViews>
+        <fullName>GraceDenied</fullName>
+        <columns>Contact__c</columns>
+        <columns>NAME</columns>
+        <columns>Opportunity__c</columns>
+        <columns>Exception_Category__c</columns>
+        <columns>Type_of_Waiver__c</columns>
+        <columns>Status__c</columns>
+        <columns>Account__c</columns>
+        <columns>Chapter_Membership_Officer__c</columns>
+        <columns>Chpter_Chair__c</columns>
+        <columns>Add_Waiver_Request_comments_or_cl__c</columns>
+        <columns>Decision_Date__c</columns>
+        <filterScope>Everything</filterScope>
+        <filters>
+            <field>Chapter_Approval__c</field>
+            <operation>equals</operation>
+            <value>Denied</value>
+        </filters>
+        <filters>
+            <field>Exception_Category__c</field>
+            <operation>equals</operation>
+            <value>Grace</value>
+        </filters>
+        <filters>
+            <field>Account__c</field>
+            <operation>notEqual</operation>
+            <value>Exchange Test</value>
+        </filters>
+        <label>Renewals - Grace Denied by Chapter</label>
+        <sharedTo>
+            <group>Chapter_Administrators</group>
+            <group>Chpt_Mbrshp_Officer</group>
+        </sharedTo>
+    </listViews>
+    <listViews>
+        <fullName>Needs_Chapter_Approval</fullName>
+        <columns>NAME</columns>
+        <columns>Opportunity__c</columns>
+        <columns>Status__c</columns>
+        <columns>Contact__c</columns>
+        <filterScope>Everything</filterScope>
+        <filters>
+            <field>Status__c</field>
+            <operation>equals</operation>
+            <value>Needs Chapter Approval</value>
+        </filters>
+        <label>Needs Chapter Approval</label>
+        <sharedTo>
+            <group>Chapter_Administrators</group>
+            <group>Chpt_Mbrshp_Officer</group>
+        </sharedTo>
+    </listViews>
+    <nameField>
+        <displayFormat>EX-{0000}</displayFormat>
+        <label>Exceptions ID</label>
+        <trackHistory>false</trackHistory>
+        <type>AutoNumber</type>
+    </nameField>
+    <pluralLabel>Exceptions</pluralLabel>
+    <searchLayouts/>
+    <sharingModel>ControlledByParent</sharingModel>
+    <startsWith>Vowel</startsWith>
+    <validationRules>
+        <fullName>Gold_Early_Transition_Exception</fullName>
+        <active>true</active>
+        <description>When Chapter Approval picklist is updated to Approved AND
+(Type of Exception = YPO Gold Early Transition – Age OR YPO Years) AND 
+Exception Category = Waiver
+The following fields are required:
+Unique Member Value, Member Contribution</description>
+        <errorConditionFormula>AND(
+ISPICKVAL( Chapter_Approval__c , &quot;Approved&quot;),
+ISPICKVAL( Exception_Category__c, &quot;Waiver&quot;),
+OR(
+ISPICKVAL( Type_of_Waiver__c, &quot;YPO Gold Early Transition - Age&quot;),
+ISPICKVAL( Type_of_Waiver__c, &quot;YPO Gold Early Transition - YPO Years&quot;)),
+OR(
+ISBLANK(All_Question_1__c) ,
+ISBLANK( All_Question_2__c ))
+)</errorConditionFormula>
+        <errorMessage>Approval of this exception type requires the following fields to be populated: Unique Member Value, and Member Contribution</errorMessage>
+    </validationRules>
+    <visibility>Public</visibility>
+    <webLinks>
+        <fullName>Grace_Chapter_Approval</fullName>
+        <availability>online</availability>
+        <displayType>button</displayType>
+        <encodingKey>UTF-8</encodingKey>
+        <hasMenubar>false</hasMenubar>
+        <hasScrollbars>true</hasScrollbars>
+        <hasToolbar>false</hasToolbar>
+        <height>600</height>
+        <isResizable>true</isResizable>
+        <linkType>url</linkType>
+        <masterLabel>Grace Chapter Approval</masterLabel>
+        <openType>newWindow</openType>
+        <position>none</position>
+        <protected>false</protected>
+        <showsLocation>false</showsLocation>
+        <showsStatus>false</showsStatus>
+        <url>https://composer.congamerge.com
+?SessionId={!API.Session_ID}
+&amp;ServerUrl={!$Api.Partner_Server_URL_290}
+&amp;Id={!Exception__c.Id}
+&amp;TemplateId=a2J4C000000GoyL
+&amp;OFN=Grace+Request+-+{!Exception__c.Contact__c}
+&amp;DocuSignVisible=1
+&amp;DocuSignEmailSubject=Please DocuSign this document: Grace Request
+&amp;DocuSignEmailBody=Please review the Grace request for {!Exception__c.Contact__c} and either approve or reject.
+&amp;DocuSignR1ID={!Opportunity.Chpter_ChairId__c}
+&amp;DocuSignR1Role=Signer+1
+&amp;DocuSignR2ID={!Opportunity.Chapter_Membership_OfficerId__c}
+&amp;DocuSignR2Role=Signer+2
+&amp;DocuSignR3ID={!Opportunity.Chapter_AdministratorId__c}
+&amp;DocuSignR3Type=Carbon+Copy
+&amp;DocuSignExpireVoidEnv=0
+&amp;defaultpdf=0
+&amp;DocuSignTag=0
+&amp;DocuSignSendAsUserId=00561000002De9d
+&amp;DS7=0
+&amp;QMode=DocuSign</url>
+    </webLinks>
+    <webLinks>
+        <fullName>Send_Waiver_for_Approval</fullName>
+        <availability>online</availability>
+        <description>d5118f8ddfc942f5a22debba9a0974dd</description>
+        <displayType>button</displayType>
+        <linkType>javascript</linkType>
+        <masterLabel>Send Waiver for Approval</masterLabel>
+        <openType>onClickJavaScript</openType>
+        <protected>false</protected>
+        <url>{!REQUIRESCRIPT(&quot;/apex/dsfs__DocuSign_JavaScript&quot;)}
+
+//********* Option Declarations (Do not modify )*********//
+var RC = &apos;&apos;;var RSL=&apos;&apos;;var RSRO=&apos;&apos;;var RROS=&apos;&apos;;var CCRM=&apos;&apos;;var CCTM=&apos;&apos;;var CCNM=&apos;&apos;;var CRCL=&apos;&apos;; var CRL=&apos;&apos;;var OCO=&apos;&apos;;var DST=&apos;&apos;;var LA=&apos;&apos;;var CEM=&apos;&apos;;var CES=&apos;&apos;;var STB=&apos;&apos;;var SSB=&apos;&apos;;var SES=&apos;&apos;;var SEM=&apos;&apos;;var SRS=&apos;&apos;;var SCS =&apos;&apos;;var RES=&apos;&apos;;
+//*************************************************//
+//DST=&apos;C039B684-0198-453A-9CB9-CF0315A7B48C&apos;;//
+
+//********* Page Callout (Do not modify) *********//
+window.location.href=
+&quot;/apex/dsfs__DocuSign_CreateEnvelope?DSEID=0
+&amp;SourceID={!Exception__c.Id}&amp;RC=&quot;+RC+&quot;&amp;RSL=&quot;+RSL+&quot;&amp;RSRO=&quot;+RSRO+&quot;&amp;RROS=&quot;+RROS+&quot;
+&amp;CCRM=&quot;+CCRM+&quot;&amp;CCTM=&quot;+CCTM+&quot;&amp;CRCL=&quot;+CRCL+&quot;&amp;CRL=&quot;+CRL+&quot;&amp;OCO=&quot;+OCO+&quot;
+&amp;DST=&quot;+DST+&quot;&amp;CCNM=&quot;+CCNM+&quot;&amp;LA=&quot;+LA+&quot;&amp;CEM=&quot;+CEM+&quot;&amp;CES=&quot;+CES+&quot;
+&amp;SRS=&quot;+SRS+&quot;&amp;STB=&quot;+STB+&quot;&amp;SSB=&quot;+SSB+&quot;&amp;SES=&quot;+SES+&quot;&amp;SEM=&quot;+SEM+&quot;
+&amp;SRS=&quot;+SRS+&quot;&amp;SCS=&quot;+SCS+&quot;&amp;RES=&quot;+RES;
+//*******************************************//</url>
+    </webLinks>
+</CustomObject>

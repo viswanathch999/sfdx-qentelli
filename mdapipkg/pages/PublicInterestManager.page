@@ -1,0 +1,80 @@
+<apex:page standardController="Interest__c" extensions="PublicInterestManagerInterestContExt" title="{!$Label.Public_Interest_Manager}">
+  <style>
+        .linkDecor
+        {
+            text-decoration:none;
+            color:#015ba7;
+        }
+        .linkDecor:hover
+        {
+            text-decoration:underline;
+        }
+        
+        .statusStyle{
+            background:url({!URLFOR($Resource.ProcessingImage)}) no-repeat 0 0; 
+            padding-left:20px; 
+            margin-left:10px; 
+            padding-bottom:5px; 
+        }
+    </style>
+    <script>
+        function confirmDelete(){
+            if(confirm('Are you sure?'))
+                return true;
+            return false;
+        }
+    </script>
+        
+  <apex:form >
+      <apex:pagemessages />
+      <apex:sectionHeader title="{!$ObjectType.Interest__c.LabelPlural} Edit" subtitle="{!$Label.Add_Remove_Interests}"/>
+      <apex:pageBlock title="{!$Label.Contact_Details}" id="contactDetails" mode="edit">
+          <apex:pageBlockSection title="Information">
+              <!--<apex:inputField value="{!oContact.Golf_Clubs__c}"/>-->
+              <apex:inputField value="{!oContact.Other_Languages__c}"/>
+              <!--<apex:inputField value="{!oContact.Consulates__c}"/>-->
+              <apex:inputField value="{!oContact.Other_Interest_1__c}"/>
+              <apex:inputField value="{!oContact.Other_Interest_2__c}"/>
+              <apex:inputField value="{!oContact.Other_Interest_3__c}"/>              
+              <apex:inputField value="{!oContact.Other_Interest_4__c}"/>
+              <apex:inputField value="{!oContact.Other_Interest_5__c}"/>
+          </apex:pageBlockSection>
+          
+          <apex:pageblockButtons >
+            <apex:commandButton value="{!$Label.Save}" action="{!saveContact}" reRender="contactDetails" status="status"/>
+            <apex:commandButton value="{!$Label.Save_And_Continue}" action="{!saveAndContinueContact}" status="status"/>
+            <apex:commandButton value="{!$Label.Cancel}" action="{!returnToContact}" />
+            <apex:actionStatus layout="inline" startText="Please Wait.." stopText="" id="status" startStyleClass="statusStyle"/>
+          </apex:pageblockButtons>
+          
+      </apex:pageBlock>
+      
+      <apex:pageBlock title="{!$Label.Add_Remove_Interests}" id="interestBlock" mode="edit">
+          <apex:pageBlockSection >
+              <apex:inputField value="{!oInterest.Type__c}"/>
+              <apex:inputField value="{!oInterest.Category__c}"/>
+              <apex:inputField value="{!oInterest.Interest__c}"/>
+          </apex:pageBlockSection>
+          
+          <apex:pageblockButtons >
+            <apex:commandButton value="{!$Label.Add}" action="{!saveInterest}" reRender="interestBlock, skills"/>
+          </apex:pageblockButtons>
+      </apex:pageBlock>
+      
+      <apex:pageBlock title="{!$ObjectType.Interest__c.LabelPlural} [{!lstInterests.size}]" id="skills" >
+          <apex:pageBlockTable value="{!lstInterests}" var="oInterestNew" rows="5"> 
+              <apex:column headerValue="{!$Label.Action}" >
+                  <apex:outputLink value="{!URLFOR($Action.Interest__c.Edit, oInterestNew.id,[retURL=oInterestNew.id],true)}" target="_parent" styleclass="linkDecor" >Edit</apex:outputLink> |&nbsp;
+                  <!-- Add Contact__c id of Interest field -->
+                  <apex:outputLink value="{!URLFOR($Action.Interest__c.Delete, oInterestNew.Id,[retURL='/apex/PublicInterestManager?CF00N4B000000VGm3_lkid='+oInterestNew.Contact__c+'&sfdc.override=1&scontrolCaching=1&retURL=%2F'+oInterestNew.Contact__c])}" 
+                                                            target="_parent" styleclass="linkDecor" onclick="return confirmDelete()">Del</apex:outputLink>
+              </apex:column>    
+              <apex:column headerValue="{!$ObjectType.Interest__c.fields.Category__c.Label}" value="{!oInterestNew.Category__c}" />
+              <apex:column headerValue="{!$ObjectType.Interest__c.fields.Interest__c.Label}" value="{!oInterestNew.Interest__c}" />
+          </apex:pageBlockTable>
+          
+          <apex:outputLink id="showall" value="/a0t?rlid=00N6100000BBD0G&id={!oContact.Id}" target="_blank">Show All</apex:outputLink>
+      </apex:pageBlock>
+          
+  </apex:form>  
+</apex:page>

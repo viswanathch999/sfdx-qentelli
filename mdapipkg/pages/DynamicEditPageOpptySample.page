@@ -1,0 +1,73 @@
+<apex:page standardController="Opportunity" extensions="DynamicEditPageOpptySampleController">
+    <apex:pageMessages id="msgs"/>
+    <apex:form id="OpportunityForm">
+        <apex:pageBlock id="OpportunityBlock">
+            
+            <!-- Page Block Buttons that will support the custom save and standard cancel methods -->
+            <apex:pageBlockButtons id="buttons">
+                <apex:commandButton action="{!save}" value="Save" rerender="msgs, OpportunityOutputPanel"/>
+                <apex:commandButton action="{!cancel}" value="Cancel" immediate="true"/>
+            </apex:pageBlockButtons>
+            
+            <apex:outputPanel id="OpportunityOutputPanel" layout="none">
+                
+                <!-- This is the edit page component -->
+                <c:EditPage sObjectApiName="{!theSObjectApiName}" 
+                                   recordTypeId="{!recordTypeId}" 
+                                   obj="{!myOpp}" 
+                                   panel="OpportunityOutputPanel"/>
+                <!-- END COMPONENT -->
+                
+            </apex:outputPanel>
+            
+            <apex:inputHidden id="hiddenOpptyStage" value="{!myOpp.StageName}"/>
+			<apex:inputHidden id="hiddenOpptyForecast" value="{!myOpp.ForecastCategoryName}"/>
+			<apex:inputHidden id="hiddenOpptyProbability" value="{!myOpp.Probability}"/>
+			
+        </apex:pageBlock>
+    </apex:form>
+    
+    <script type="text/javascript">
+        
+        //Calling the render function will allow the component to display the page after it has 
+        //Received the pagelayout information via the ajax toolkit 
+        $(document).ready(function() {      
+            DynamicEditPage.render();
+        });
+        
+        //This functionality is specific to the Opportunity
+        //and toggles the forecast and probability values based on the stage changes
+        $(document).on('change', 'select.OpptyStage', function( event ){ 
+			var stageName = event.currentTarget.value;
+			
+			$('select.OpptyStage').val( stageName );
+			$('input[id$="hiddenOpptyStage"]').val( stageName );
+
+			
+			DynamicEditPageOpptySampleController.changeStageName( stageName, function(response, event){
+				if (event.status){
+					
+					$('input[id$="hiddenOpptyForecast"]').val( response.ForecastCategoryName );
+					$('input[id$="hiddenOpptyProbability"]').val( response.Probability );
+					
+					$('input.OpptyProbability').val( response.Probability );
+					$('select.OpptyForecast').val( response.ForecastCategoryName );
+				}
+			});
+			
+		});
+        
+        //This functionality is specific to the Opportunity
+        //and changes the hidden probability value based on the probablity input changes
+		$(document).on('change', 'input.OpptyProbability', function( event ){ 
+			$('input[id$="hiddenOpptyProbability"]').val( event.currentTarget.value );
+		});
+		
+		//This functionality is specific to the Opportunity
+        //and changes the hidden forecast value based on the forecast input changes
+		$(document).on('change', 'select.OpptyForecast', function( event ){ 
+			$('input[id$="hiddenOpptyForecast"]').val( event.currentTarget.value );
+		});
+    </script>
+
+</apex:page>

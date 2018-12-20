@@ -1,0 +1,332 @@
+<apex:page standardController="Contact" 
+           extensions="AdditionalDataFormContactContExt" 
+           sidebar="false" 
+           showHeader="false" 
+           standardStylesheets="false" 
+           title="{!$Label.Additional_Data_Form}">
+           <!--action="{!getRelationshipForMember}">
+	
+    <!--<link rel="stylesheet" type="text/css" href="https://mte-www.ypowpo.org/stylesheets/app.css"/>-->
+    <style>
+        .center {
+        text-align: center; /* Reset content text */
+        }
+        .lookupInput
+        {
+        display: inline;
+        vertical-align: middle;
+        white-space: nowrap;
+        }
+        .lookupInput img
+        {
+        background-repeat: no-repeat;
+        margin-right: .25em;
+        vertical-align: middle;
+        }
+        .lookupInput .disabled
+        {
+        background-color: #ccc;
+        }
+        .lookupInput .emptyDependentLookup
+        {
+        font-style: italic;
+        }
+        .lookupInput input[readonly]
+        {
+        background-color: #e6e6e6;
+        border: 2px solid #e6e6e6;
+        color: #333;
+        cursor: default;
+        }
+        .lookupInput a.readOnly
+        {
+        float: right;
+        }
+        .lookupInput span.readOnly
+        {
+        display: block;
+        white-space: normal;
+        }
+        .lookupInput span.totalSummary
+        {
+        font-weight: bold;
+        }
+        .inlineEditRequiredDiv .lookupInput img,.inlineEditDiv .lookupInput img
+        {
+        vertical-align: middle;
+        }
+        .quickCreateModule .lookupInput input {
+        max-width: 155px
+        }
+        .lookupIcon {
+        background-image: url(/img/func_icons/util/lookup20.gif);
+        background-position: 0 0;
+        width: 20px;
+        height: 20px;
+        background-position: top left
+        }
+        .lookupIconOn {
+        background-image: url(/img/func_icons/util/lookup20.gif);
+        background-position: 0 0;
+        width: 20px;
+        height: 20px;
+        background-position: top right
+        }
+    </style>
+    
+    <apex:form >
+        <apex:pageMessages id="messagesStart"></apex:pageMessages>
+        <apex:pageBlock rendered="{!bRelationshipPresent}" id="pageBlock">
+            <apex:actionFunction action="{!calcDisabledFlag}" name="calculateDisabledFlag" rerender="buttonPanel"/>
+            <main role="main">
+                
+                <div class="row">
+                    
+                    <div class="small-24 medium-16 large-18 columns">
+                        <div class="tile">
+                            <div class="tile-header">    Additional Contact Details   </div>
+                            <div class="tile-body">
+                                <span class="input is-not-empty">
+                                    <apex:inputField value="{!contact.MailingStreet}" styleClass="input-field" id="mailingstreet"/>
+                                    <label class="input-label" for="mailingstreet">    {!$ObjectType.Contact.Fields.MailingStreet.Label}    </label>
+                                </span>
+                                
+                                <span class="input is-not-empty">
+                                    <apex:inputField value="{!contact.MailingCity}" styleClass="input-field" id="mailingcity"/>
+                                    <label class="input-label" for="mailingcity">    {!$ObjectType.Contact.Fields.MailingCity.Label}    </label>
+                                </span>
+                                
+                                <span class="input is-not-empty">
+                                    <apex:inputField value="{!contact.MailingState}" styleClass="input-field" id="mailingstate"/>
+                                    <label class="input-label" for="mailingstate">    {!$ObjectType.Contact.Fields.MailingState.Label}    </label>
+                                </span>
+                                
+                                <span class="input is-not-empty">
+                                    <apex:inputField value="{!contact.MailingPostalCode}" styleClass="input-field" id="mailingpostalcode"/>
+                                    <label class="input-label" for="mailingpostalcode">    {!$ObjectType.Contact.Fields.MailingPostalCode.Label}    </label>
+                                </span>
+                                
+                                <span class="input is-not-empty">
+                                    <apex:inputField value="{!contact.MailingCountry}" styleClass="input-field" id="mailingcountry"/>
+                                    <label class="input-label" for="mailingcountry">    {!$ObjectType.Contact.Fields.MailingCountry.Label}    </label>
+                                </span>
+                                
+                                <span class="input is-not-empty">
+                                    <apex:inputField value="{!contact.Address1_Type__c}" styleClass="input-field" id="address1type"/>
+                                    <label class="input-label" for="address1type">    {!$ObjectType.Contact.Fields.Address1_Type__c.Label}    </label>
+                                </span>
+                                
+                                <span class="input is-not-empty">
+                                    <apex:inputField value="{!contact.Phone}" styleClass="input-field" id="phone"/>
+                                    <label class="input-label" for="phone">    {!$ObjectType.Contact.Fields.Phone.Label}    </label>
+                                </span>
+                                
+                                <span class="input is-not-empty">
+                                    <apex:inputField value="{!contact.Preferred_Phone_todelete__c}" styleClass="input-field" id="preferredphone"/>
+                                    <label class="input-label" for="preferredphone">    {!$ObjectType.Contact.Fields.Preferred_Phone_todelete__c.Label}    </label>
+                                </span>
+                                
+                                <span class="input is-not-empty">
+                                    <apex:inputField value="{!contact.Fax}" styleClass="input-field" id="fax"/>
+                                    <label class="input-label" for="fax">    {!$ObjectType.Contact.Fields.Fax.Label}    </label>
+                                </span>
+                                
+                                <span class="input is-not-empty">
+                                    <apex:inputField value="{!contact.Preferred_Fax__c}" styleClass="input-field" id="preferredfax"/>
+                                    <label class="input-label" for="preferredfax">    {!$ObjectType.Contact.Fields.Preferred_Fax__c.Label}    </label>
+                                </span>
+                                
+                                <span class="input is-not-empty">
+                                    <apex:inputField value="{!contact.OtherStreet}" styleClass="input-field" id="otherstreet"/>
+                                    <label class="input-label" for="otherstreet">    {!$ObjectType.Contact.Fields.OtherStreet.Label}    </label>
+                                </span>
+                                
+                                <span class="input is-not-empty">
+                                    <apex:inputField value="{!contact.OtherCity}" styleClass="input-field" id="othercity"/>
+                                    <label class="input-label" for="othercity">    {!$ObjectType.Contact.Fields.OtherCity.Label}    </label>
+                                </span>
+                                
+                                <span class="input is-not-empty">
+                                    <apex:inputField value="{!contact.OtherState}" styleClass="input-field" id="otherstate"/>
+                                    <label class="input-label" for="otherstate">    {!$ObjectType.Contact.Fields.OtherState.Label}    </label>
+                                </span>
+                                
+                                <span class="input is-not-empty">
+                                    <apex:inputField value="{!contact.OtherPostalCode}" styleClass="input-field" id="otherpostalcode"/>
+                                    <label class="input-label" for="otherpostalcode">    {!$ObjectType.Contact.Fields.OtherPostalCode.Label}    </label>
+                                </span>
+                                
+                                <span class="input is-not-empty">
+                                    <apex:inputField value="{!contact.OtherCountry}" styleClass="input-field" id="othercountry"/>
+                                    <label class="input-label" for="othercountry">    {!$ObjectType.Contact.Fields.OtherCountry.Label}    </label>
+                                </span>
+                                
+                                <span class="input is-not-empty">
+                                    <apex:inputField value="{!contact.Other_Org_Member__c}" styleClass="input-field" id="otherorgmember"/>
+                                    <label class="input-label" for="otherorgmember">    {!$Label.What_other_Organizations_are_you_a_member_of}    </label>
+                                </span>
+                                <span class="input is-not-empty">
+                                    <apex:inputField value="{!contact.School__c}" styleClass="input-field, lookupInput, schoolLookup" id="schoolLookup"/>
+                                    <label class="input-label" for="schoolLookup" >     {!$ObjectType.Contact.Fields.School__c.Label}     </label>
+                                </span>
+                                
+                                
+                                <!-- <apex:repeat value="{!$ObjectType.Contact.FieldSets.School}" var="school"> 
+<apex:inputField value="{!Contact[school]}" styleClass="input-field"/>
+<label class="input-label" >     {!school.Label}     </label>
+</apex:repeat>-->
+                                
+                                
+                                <span class="input is-not-empty">
+                                    <apex:inputField value="{!contact.School_Type__c}" styleClass="input-field" id="schoolType"/>
+                                    <label class="input-label" for="schoolType" >     {!$ObjectType.Contact.Fields.School_Type__c.Label}     </label>
+                                </span>
+                                <span class="input is-not-empty">
+                                    <apex:inputField value="{!contact.School_Name__c}"  styleClass="input-field, schoolName" id="schoolName"/>
+                                    <label class="input-label" for="schoolName" >     {!$ObjectType.Contact.Fields.School_Name__c.Label}     </label>
+                                </span>
+                                <span class="input is-not-empty">
+                                    <apex:inputField value="{!contact.Degree_Type__c}" required="true" styleClass="input-field" id="degreeType"/>
+                                    <label class="input-label" for="degreeType" >     {!$ObjectType.Contact.Fields.Degree_Type__c.Label}     </label>
+                                </span>
+                                <span class="input is-not-empty">
+                                    <apex:inputField value="{!contact.Field_of_Study__c}" required="true" styleClass="input-field" id="FieldOfStudy"/>
+                                    <label class="input-label" for="FieldOfStudy" >     {!$ObjectType.Contact.Fields.Field_of_Study__c.Label}     </label>
+                                </span>
+                                <span class="input is-not-empty">
+                                    <apex:inputField value="{!contact.Graduation_Year__c}" required="true" styleClass="input-field" id="GradYear"/>
+                                    <label class="input-label" for="GradYear" >     {!$ObjectType.Contact.Fields.Graduation_Year__c.Label}     </label>
+                                </span>
+                                <span class="input is-not-empty">
+                                    <apex:inputField value="{!contact.School_City__c}" styleClass="input-field" id="SchoolCity"/>
+                                    <label class="input-label" for="SchoolCity" >     {!$ObjectType.Contact.Fields.School_City__c.Label}     </label>
+                                </span>
+                                <span class="input is-not-empty">
+                                    <apex:inputField value="{!contact.School_State__c}" styleClass="input-field" id="SchoolState"/>
+                                    <label class="input-label" for="SchoolState" >     {!$ObjectType.Contact.Fields.School_State__c.Label}     </label>
+                                </span>
+                                <span class="input is-not-empty">
+                                    <apex:inputField value="{!contact.School_Country__c}" styleClass="input-field" id="SchoolCountry"/>
+                                    <label class="input-label" for="SchoolCountry" >     {!$ObjectType.Contact.Fields.School_Country__c.Label}     </label>
+                                </span>
+                                
+                                <span class="input is-not-empty">
+                                    <apex:inputField value="{!contact.Passport_or_Driver_s_License__c}" styleClass="input-field" id="passportRichField"/>
+                                    <label class="input-label" for="passportRichField">    {!$ObjectType.Contact.Fields.Passport_or_Driver_s_License__c.Label}    </label>
+                                </span>
+                                
+                                <span class="input is-not-empty">
+                                    <apex:inputField value="{!contact.Business_Network__c}" styleClass="input-field" id="businessNetworkField"/>
+                                    <label class="input-label" for="businessNetworkField">    {!$ObjectType.Contact.Fields.Business_Network__c.Label}    </label>
+                                </span>
+                                <apex:outputLink id="showall" value="{!businessNetworkDocLink}" target="_blank">View Business Networks</apex:outputLink>
+                            </div>
+                        </div>
+                        
+                        <div class="tile">
+                            <div class="tile-header">    {!$Label.Spouse_Details}   </div>
+                            <apex:outputPanel id="spouseSection">
+                                <div class="tile-body" id="spouseSectionDiv">
+                                    <apex:variable value="{!0}" var="rowNumber"/>
+                                    <apex:pageBlockTable width="100%" value="{!lstSpouse}" var="oSpouse" > 
+                                        <apex:column headerValue="{!$Label.Action}" >
+                                            <apex:commandLink action="{!removeSpouse}" Value="{!$Label.Remove}" reRender="spouseSection">
+                                                <apex:param name="rowNumber" value="{!rowNumber}"/>
+                                            </apex:commandLink>
+                                        </apex:column>
+                                        <apex:repeat value="{!$ObjectType.Contact.FieldSets.Spouse}" var="f"> 
+                                            <apex:column headerValue="{!f.Label}">
+                                                <apex:inputField rendered="{!ISBLANK(oSpouse.Id)}" value="{!oSpouse[f]}" onchange="calculateDisabledFlag();" styleClass="center" />
+                                                <apex:outputField rendered="{!!ISBLANK(oSpouse.Id)}" value="{!oSpouse[f]}" styleClass="center" style="text-align: center;"/>
+                                                
+                                            </apex:column>
+                                        </apex:repeat>
+                                        <apex:column headerValue="{!$ObjectType.Contact.Fields.Birthdate.Label}">
+                                            <apex:inputField rendered="{!ISBLANK(oSpouse.Id)}" showDatePicker="false" value="{!oSpouse.birthDate}" styleClass="input-date" onchange="calculateDisabledFlag();"/>
+                                            <apex:outputField rendered="{!!ISBLANK(oSpouse.Id)}" value="{!oSpouse.birthDate}"/>
+                                        </apex:column>
+                                        <apex:variable var="rowNumber" value="{!rowNumber + 1}"/>
+                                    </apex:pageBlockTable> 
+                                </div>
+                            </apex:outputPanel>
+                        </div>
+                        
+                        
+                        <div class="tile">
+                            <div class="tile-header">    {!$Label.Child_Details}   </div>
+                            <apex:outputPanel id="childSection">
+                                <div class="tile-body" id="childSectionDiv">
+                                    <apex:variable value="{!0}" var="rowNumber1"/>
+                                    <apex:pageBlockTable width="100%" value="{!lstChild}" var="oChild">
+                                        <apex:column headerValue="{!$Label.Action}" >
+                                            <apex:commandLink action="{!removeChild}" Value="{!$Label.Remove}" reRender="childSection,messagesRel">
+                                                <apex:param name="rowNumber1" value="{!rowNumber1}"/>
+                                            </apex:commandLink>
+                                            <apex:variable var="rowNumber1" value="{!rowNumber1 + 1}"/>
+                                        </apex:column>
+                                        <apex:repeat value="{!$ObjectType.Contact.FieldSets.Child}" var="f"> 
+                                            <apex:column headerValue="{!f.Label}">
+                                                <apex:inputField rendered="{!ISBLANK(oChild.Id)}" value="{!oChild[f]}" styleClass="center"  onchange="calculateDisabledFlag();"/>
+                                                <apex:outputField rendered="{!!ISBLANK(oChild.Id)}" value="{!oChild[f]}" styleClass="center" style="text-align: center;"/>
+                                            </apex:column>
+                                        </apex:repeat>
+                                        <apex:column headerValue="{!$ObjectType.Contact.Fields.Birthdate.Label}">
+                                            <apex:inputField rendered="{!ISBLANK(oChild.Id)}" showDatePicker="false" value="{!oChild.birthDate}" styleClass="input-date" onchange="calculateDisabledFlag();"/>
+                                            <apex:outputField rendered="{!!ISBLANK(oChild.Id)}" value="{!oChild.birthDate}"/>
+                                        </apex:column>
+                                        
+                                    </apex:pageBlockTable> 
+                                </div>
+                            </apex:outputPanel>    
+                        </div>
+                        
+                    </div>    
+                </div>
+            </main>
+            
+            <apex:pageMessages id="messagesRel"></apex:pageMessages>
+            <apex:outputPanel id="buttonPanel">
+                <div class="row">
+                    <apex:commandButton value="{!$Label.Save}" title="{!$Label.Save}" styleclass="button_raised" action="{!updateContact}" reRender="messagesStart,messagesRel" status="status1"  disabled="{!bDisableSave}"/>
+                    <apex:commandButton value="{!$Label.Add_Spouse}" title="{!$Label.Add_Spouse}" styleclass="button_raised" action="{!addSpouse}" reRender="spouseSection,messagesRel,buttonPanel" immediate="true" status="status1" oncomplete="tieDatePicker();"/>
+                    <apex:commandButton value="{!$Label.Add_Child}" title="{!$Label.Add_Child}" styleclass="button_raised" action="{!addChild}" reRender="childSection,messagesRel,buttonPanel" immediate="true" status="status1" oncomplete="tieDatePicker();"/>
+                    <apex:commandButton value="{!$Label.Submit}" title="{!$Label.Submit}" styleclass="button_raised" action="{!saveSpouseAndChild}" reRender="messagesStart,messagesRel" status="status1"/>
+                    <apex:actionStatus layout="inline" startText="Please Wait.." stopText="" id="status1" startStyleClass="statusStyle"/>
+                    
+                </div>
+            </apex:outputPanel>
+        </apex:pageBlock>
+        <apex:actionFunction name="saveSpouseAndChildAF" action="{!saveSpouseAndChild}" />
+    </apex:form>
+    
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.9.2/jquery-ui.min.js"></script>
+    <apex:stylesheet value="https://ajax.googleapis.com/ajax/libs/jqueryui/1.9.0/themes/ui-lightness/jquery-ui.css"/>
+    <script>
+    var $j = jQuery.noConflict();
+    $j(document).ready(function() {
+        tieDatePicker();
+        var schoolLookup = $j(".schoolLookup")
+        schoolLookup.attr("placeholder", "{!$ObjectType.Contact.Fields.School__c.inlineHelpText}");
+        schoolLookup.attr("size", schoolLookup.attr('placeholder').length);
+        var schoolName = $j(".schoolName")
+        schoolName.attr("placeholder", "{!$ObjectType.Contact.Fields.School_Name__c.inlineHelpText}");
+        schoolName.attr("size", schoolName.attr('placeholder').length);        
+    });
+    function getDateFormat() {
+        try {
+            return UserContext.dateFormat.toLowerCase().replace("yyyy", "yy");;
+        } catch (e) {
+            return 'mm/dd/yy';
+        }
+    }
+    function tieDatePicker() {
+        var dformat = getDateFormat();
+        $j(".input-date").datepicker({
+            changeYear: true,
+            changeMonth: true,
+            dateFormat: dformat
+        });
+    };
+    </script>
+</apex:page>

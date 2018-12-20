@@ -1,0 +1,156 @@
+<apex:page standardController="Lead" renderAs="PDF" showHeader="false" applyHtmlTag="false">
+	<div>
+		<div align="center">
+			<h3><img src="/resource/1456367329000/YPOLogo2" style="height:50px; width: 50px; vertical-align: middle; display: inline-block;"/>YPO Membership Application</h3>
+		</div>
+		<table>
+			<tr>
+				<td>
+					<span style="text-size: 24px; "><b>{!Lead.Name}</b></span>
+					<table style="font-size: 10px; padding-bottom: 5px;">
+							<tr>
+								<td><b>Birthdate:</b></td> <td><apex:outputText value="{0,date,dd/MM/yyyy}"> <apex:param value="{!Lead.Birthdate__c}" /> </apex:outputText></td>
+							</tr>
+							<tr>
+								<td><b>Age (Current):</b></td><td>{!FLOOR(Lead.Age__c)}</td>
+							</tr>
+							<tr>
+								<td><b>Gender:</b></td><td>{!Lead.Gender__c}</td>
+							</tr>
+						</table>
+				</td>
+				<td align="right" style="width: 50%;">
+					<span style="text-size: 24px; "><b>{!Lead.Referred_by_Chapter__r.Name}</b></span><br/>
+						<table align="right" style="font-size: 10px; padding-bottom: 5px;">
+							<tr>
+								<td><b>Application Date:</b></td> <td><apex:outputText value="{0,date,dd/MM/yyyy}"> <apex:param value="{!Lead.Application_Date__c}" /> </apex:outputText></td>
+							</tr>
+							<tr style="{!IF(Lead.Applied_To_Chapter__c, "disylay: block", "display: none")}">
+								<td colspan="2" align="right">Applied directly to Chapter</td>
+							</tr>
+							<tr>
+								<td></td>
+							</tr>
+						</table>
+				</td>
+			</tr>
+			<tr>
+				<td colspan="2">
+					<apex:outputPanel rendered="{!Lead.Ref_Member__c != null || Lead.Officer_Comments__c != null}">
+						<span style="text-size: 18px;"><b><u>Referral Information</u></b></span>
+						<table style="font-size: 10px; padding-bottom: 5px;">
+							<tr>
+								<td><b>Referring Member:</b></td> <td>{!Lead.Ref_Member__c}</td>
+							</tr>
+							<tr>
+								<td><b>Referring Comments:</b></td><td>{!Lead.Officer_Comments__c}</td>
+							</tr>
+						</table>
+					</apex:outputPanel>
+					<span style="text-size: 18px;"><b><u>Business Contact Details</u></b></span>
+						<table style="font-size: 10px; padding-bottom: 5px;">
+							<tr>
+								<td><b>Primary Business:</b></td> <td>{!Lead.Company}</td>
+							</tr>
+							<tr>
+								<td><b>Primary Email:</b></td><td>{!Lead.Email}</td>
+							</tr>
+							<tr>
+								<td><b>Business Phone:</b></td><td>{!Lead.Phone_Country_Code__c} {!Lead.Phone}</td>
+							</tr>
+							<tr>
+								<td><b>Address:</b></td><td>{!Lead.Street}</td>
+							</tr>
+							<tr>
+								<td></td><td>{!Lead.City}</td>
+							</tr>
+							<tr style="{!IF(Lead.State != null, "disylay: block", "display: none")}">
+								<td></td><td>{!Lead.State}</td>
+							</tr>
+							<tr>
+								<td></td><td>{!Lead.Country} {!Lead.PostalCode}</td>
+							</tr>
+						</table>
+					<span style="text-size: 18px;"><b><u>Qualifying Information - "A" Requirement</u></b></span>
+						<table style="font-size: 10px; padding-bottom: 5px;">
+							<tr>
+								<td><b>Number of Employees:</b></td><td>{!Lead.NumberOfEmployees}</td>
+							</tr>
+							<tr>
+								<td><b>Employee Compensation:</b></td><td>
+									<apex:outputText value="{0,number,$#,###,###.00}">
+										<apex:param value="{!Lead.Tot_Empl_Comp__c}"/>
+									</apex:outputText>
+								
+								</td>
+							</tr>
+						</table>
+					<span style="text-size: 18px;"><b><u>Qualifying Information - "B" Requirement</u></b></span>
+						<table style="font-size: 10px; padding-bottom: 5px;">
+							<tr>
+								<td style="white-space: nowrap"><b>Corporation Type:</b></td> <td>{!Lead.Corp_Type__c}</td>
+							</tr>
+							<tr>
+								<td><b>Dollar Volume:</b></td><td>
+									<apex:outputText value="{0,number,$#,###,###.00}">
+										<apex:param value="{!Lead.AnnualRevenue}"/>
+									</apex:outputText>
+								
+								</td>
+							</tr>
+							<tr>
+								<td><b>Enterprise Type:</b></td> <td>{!Lead.Enterprise_Type__c}</td>
+							</tr>
+							<tr>
+								<td><b>Enterprise Value:</b></td><td>
+									<apex:outputText value="{0,number,$#,###,###.00}" rendered="{!Lead.Ent_Val__c != null && Lead.Ent_Val__c != 0}">
+										<apex:param value="{!Lead.Ent_Val__c}"/>
+									</apex:outputText>
+								
+								</td>
+							</tr>
+						</table>
+					<span style="text-size: 18px;"><b><u>Business Information</u></b></span>
+						<table style="font-size: 10px; padding-bottom: 5px;">
+							<tr>
+								<td style="width: 20%"><b>Title Held in Company:</b></td> <td>{!Lead.Title__c}&nbsp;&nbsp;&nbsp;&nbsp;{!Lead.Title_Other__c}</td>
+							</tr>
+							<tr>
+								<td><b>Type of President:</b></td><td>{!Lead.President_Type__c}</td>
+							</tr>
+							<tr>
+								<td><b>Type of Firm:</b></td><td>{!Lead.Firm_Type__c}</td>
+							</tr>
+							<tr>
+								<td><b>Scope of Business:</b></td><td>{!Lead.Business_Scope__c}</td>
+							</tr>
+							<tr>
+								<td><b>Business Industry:</b></td><td>{!Lead.Industry}</td>
+							</tr>
+							<tr>
+								<td></td><td>{!Lead.Sub_Category__c}</td>
+							</tr>
+							<tr>
+								<td><b>Is Subsidiary:</b></td><td>{!IF(Lead.Is_Subsidiary__c, "Yes", "")}</td>
+							</tr>
+							<tr>
+								<td><b>Parent Company:</b></td><td>{!Lead.Parent_Company__c}</td>
+							</tr>
+							<tr>
+								<td style="white-space: nowrap"><b>Responsible for Generating Sales?</b></td><td>{!IF(Lead.Responsible_for_Generating_Sales__c, "Yes", "No")}</td>
+							</tr>
+							<tr>
+								<td><b>Full Operational Authority?</b></td><td>{!IF(Lead.Full_Operational_Authority__c, "Yes", "No")}</td>
+							</tr>
+							<tr>
+								<td><b>Business Description:</b></td>
+							</tr>
+							<tr>
+								<td colspan="2">{!Lead.Business_Description__c}</td>
+							</tr>
+						</table>
+					</td>
+				</tr>
+		</table>
+	</div>
+</apex:page>

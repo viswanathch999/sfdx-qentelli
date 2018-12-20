@@ -1,0 +1,86 @@
+<apex:page controller="KGRenewal.VenueOrdersController" showHeader="false" sidebar="false" standardStylesheets="false" title="Past Orders" doctype="html-5.0" action="{!initializeVenueOrders}">
+  <apex:styleSheet value="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css" />
+  <apex:includeScript value="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js" />
+  <div class="container">
+    <div class="row">
+      <div class="col-sm-10 col-sm-offset-2">
+        <div class="page-header">
+          <h1>Past Orders</h1>
+        </div>
+      </div>
+    </div>
+    <!-- /.row -->
+    <div class="row">
+      <div class="col-sm-2">
+        <ul class="nav nav-pills nav-stacked">
+          <li role="presentation" class="active"><a href="{!$Page.v_orders}">Past Orders</a></li>
+          <li role="presentation"><a href="{!$Page.v_invoices}?type=open">Open Invoices</a></li>
+          <li role="presentation"><a href="{!$Page.v_invoices}?type=closed">Paid Invoices</a></li>
+        </ul>
+        <!-- /.nav -->
+      </div>
+      <!-- ./col-sm-2 -->
+      <div class="col-sm-10">
+        <table class="table table-striped">
+          <thead>
+            <tr>
+              <th>Order Number</th>
+              <th>Date</th>
+              <th>Amount</th>
+              <th>Status</th>
+              <th>Invoice</th>
+            </tr>
+          </thead>
+          <tbody>
+            <apex:repeat value="{!venueOrderList}" var="venueOrder">
+              <tr>
+                <td><a href="{!$Page.v_order}?id={!venueOrder.recordId}">{!SUBSTITUTE(venueOrder.fieldMap['Name'], 'Cart', '')}</a></td>
+                <td>
+                  <apex:outputText value="{0,date,MM'/'dd'/'yyyy}">
+                    <apex:param value="{!venueOrder.fieldMap['CloseDate']}" />
+                  </apex:outputText>
+                </td>
+                <td>
+                  <apex:outputText value="{0,number,currency}">
+                    <apex:param value="{!venueOrder.fieldMap['KGRenewal__BilledAmount__c']}" />
+                  </apex:outputText>
+                </td>
+                <td>{!venueOrder.fieldMap['Description']}</td>
+                <td>
+                  <apex:outputPanel rendered="{!NOT(ISNULL(venueOrder.invoice))}">
+                    <apex:outputPanel rendered="{!venueOrder.invoice.KGRenewal__IsClosed__c == 'Closed'}">
+                      {!venueOrder.invoice.KGRenewal__Status__c}
+                    </apex:outputPanel>
+                    <apex:outputPanel rendered="{!venueOrder.invoice.KGRenewal__IsClosed__c != 'Closed'}">
+                      <apex:outputText value="{0,date,MM'/'dd'/'yyyy}">
+                        <apex:param value="{!venueOrder.invoice.KGRenewal__DueDate__c}" />
+                      </apex:outputText>
+                    </apex:outputPanel>
+                    <a href="{!$Page.v_invoice}?id={!venueOrder.invoice.Id}">view</a>
+                  </apex:outputPanel>
+                </td>
+              </tr>
+            </apex:repeat>
+          </tbody>
+        </table>
+        <ul class="pager">
+          <apex:outputPanel rendered="{!hasPreviousPage}" layout="none">
+            <li><a href="{!$Page.v_orders}?pageSize={!pageSize}&currentPage={!currentPage - 1}">&laquo; Previous</a></li>
+          </apex:outputPanel>
+          <apex:outputPanel rendered="{!NOT(hasPreviousPage)}" layout="none">
+            <li class="disabled"><a href="#">&laquo; Previous</a></li>
+          </apex:outputPanel>
+          <apex:outputPanel rendered="{!hasNextPage}" layout="none">
+            <li><a href="{!$Page.v_orders}?pageSize={!pageSize}&currentPage={!currentPage + 1}">Next &raquo;</a></li>
+          </apex:outputPanel>
+          <apex:outputPanel rendered="{!NOT(hasNextPage)}" layout="none">
+            <li class="disabled"><a href="#">Next &raquo;</a></li>
+          </apex:outputPanel>
+        </ul>
+      </div>
+      <!-- ./col-sm-10 -->
+    </div>
+    <!-- /.row -->
+  </div>
+  <!-- /.container -->
+</apex:page>

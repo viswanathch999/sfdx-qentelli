@@ -1,0 +1,438 @@
+<apex:page standardController="Contact" 
+    extensions="RenewalContactContExt" 
+    sidebar="false" 
+    id="memberbio"
+    showHeader="false"
+    standardStylesheets="false" 
+    title="{!$Label.Member_Bio}"
+    action="{!init}">
+    
+
+    <link rel="stylesheet" type="text/css" href="https://mte-www.ypowpo.org/stylesheets/app.css"/>
+    
+    <!-- <apex:stylesheet value="{!URLFOR($Resource.Styles)}"/> -->
+    <style>
+        .center {
+            text-align: center; /* Reset content text */
+        }
+    </style>
+    <apex:form id="memberinfo">
+        <apex:pageMessages id="messagesStart"></apex:pageMessages>
+        <apex:outputPanel id="opanelIsNotMember" rendered="{!NOT(isMember)}">You are currently not a member and cannot proceed with Renewals</apex:outputPanel>
+        <apex:outputPanel id="opanel">
+            <apex:pageBlock rendered="{!isYPO && isMember}" id="pb1">
+                <main role="main">
+                    
+                    <div class="row">
+                        
+                        <div class="small-24 medium-16 large-18 columns">
+                            <div class="tile">
+                                <div class="tile-header">    Update Profile   </div>
+                                <div class="tile-body">
+                                    <p>
+                                        Leverage the full power of your YPO-WPO network by updating your profile today.
+                                    </p>
+                                    <p>
+                                        Let other members quickly find you by including your complete list of business experience skills, and interests. Everything in your profile is searchable - let it work for you.                        
+                                    </p>
+                                    <p>
+                                        Please update your profile and your family information below.
+                                    </p>
+                                </div>
+                            </div>
+                            
+                            <div class="tile">
+                                <div class="tile-header">    {!$Label.Your_Profile_Information}   </div>
+                                <div class="tile-body">
+                                    <h5> {!$Label.Primary_Membership_Info} </h5> <br/>
+                                    
+                                    <span class="input is-not-empty">
+                                        <apex:outputText value="{!Contact.Name}" styleClass="input-field" id="contactname"/>
+                                        <label class="input-label" for="contactname">    {!$ObjectType.Contact.Fields.Name.Label}    </label>
+                                    </span>
+                                    
+                                    <span class="input input-select">
+                                        <apex:inputField value="{!Contact.Address1_Type__c}" styleClass="input-field" id="addresstype"/>
+                                        <label class="input-label" for="addresstype">    Address Type    </label>
+                                    </span>
+                                    
+                                    <span class="input is-not-empty">
+                                        <apex:inputField value="{!Contact.MailingStreet}" styleClass="input-field" id="mailingstreet"/>
+                                        <label class="input-label" for="mailingstreet">    Address Street    </label>
+                                    </span>
+                                    
+                                    <span class="input is-not-empty">
+                                        <apex:inputField value="{!Contact.MailingCity}" styleClass="input-field" id="mailingcity"/>
+                                        <label class="input-label" for="mailingcity">     Address City   </label>
+                                    </span>
+                                    
+                                    <span class="input is-not-empty">
+                                        <apex:inputField value="{!Contact.MailingState}" styleClass="input-field" id="mailingstate"/>
+                                        <label class="input-label" for="mailingstate">     Address State/Province    </label>
+                                    </span>
+                                    
+                                    <span class="input is-not-empty">
+                                        <apex:inputField value="{!Contact.MailingPostalCode}" styleClass="input-field" id="mailingpostalcode"/>
+                                        <label class="input-label" for="mailingpostalcode">     Address Zip/Postal Code   </label>
+                                    </span>
+                                    
+                                    <span class="input is-not-empty">
+                                        <apex:inputField value="{!Contact.MailingCountry}" styleClass="input-field" id="mailingcountry"/>
+                                        <label class="input-label" for="mailingcountry">   Address Country    </label>
+                                    </span>
+                                    
+                                    <span class="input is-not-empty">
+                                        <apex:inputField value="{!Contact.Email}" styleClass="input-field" id="email"/>
+                                        <label class="input-label" for="email">    {!$ObjectType.Contact.Fields.Email.Label}    </label>
+                                    </span>
+                                    
+                                    <span class="input is-not-empty">
+                                        <apex:inputField value="{!Contact.Home_Phone_Country_Code__c}" styleClass="input-field" id="homephonecountrycode"/>
+                                        <label class="input-label" for="homephonecountrycode">    {!$ObjectType.Contact.Fields.Home_Phone_Country_Code__c.Label}    </label>
+                                    </span>
+                                    
+                                    <span class="input is-not-empty">
+                                        <apex:inputField value="{!Contact.HomePhone}" styleClass="input-field" id="homephone"/>
+                                        <label class="input-label" for="homephone">    {!$ObjectType.Contact.Fields.HomePhone.Label}    </label>
+                                    </span>
+                                    
+                                    <span class="input is-not-empty">
+                                        <apex:inputField value="{!Contact.Mobile_Phone_Country_Code__c}" styleClass="input-field" id="mobilephonecountrycode"/>
+                                        <label class="input-label" for="mobilephonecountrycode">    {!$ObjectType.Contact.Fields.Mobile_Phone_Country_Code__c.Label}    </label>
+                                    </span>
+                                    
+                                    <span class="input is-not-empty">
+                                        <apex:inputField value="{!Contact.MobilePhone}" styleClass="input-field" id="mobilephone"/>
+                                        <label class="input-label" for="mobilephone">    {!$ObjectType.Contact.Fields.MobilePhone.Label}    </label>
+                                    </span>
+                                    
+                                    <span class="input is-not-empty">
+                                        <apex:inputField value="{!Contact.Country_Code__c}" styleClass="input-field" id="phonecountrycode"/>
+                                        <label class="input-label" for="phonecountrycode">    {!$ObjectType.Contact.Fields.Country_Code__c.Label}    </label>
+                                    </span>
+                                    
+                                    <span class="input is-not-empty">
+                                        <apex:inputField value="{!Contact.Phone}" styleClass="input-field" id="phone"/>
+                                        <label class="input-label" for="phone">    {!$ObjectType.Contact.Fields.Phone.Label}    </label>
+                                    </span>
+                                    
+                                </div>
+                            </div>
+                            
+                            
+                            <div class="tile">
+                                <div class="tile-header">    {!$Label.Spouse_Details}   </div>
+                                <apex:outputPanel id="spouseSection" rendered="true">
+                                    <div class="tile-body" id="spouseSectionDiv">
+                                        <apex:outputPanel id="spouseTableSection" rendered="{!AND(NOT(ISBLANK(lstSpouse)), (lstSpouse.size > 0))}">
+                                        <table id="contacttable" class="display">
+                                            <thead>
+                                                <tr>
+                                                    <th>Action</th>
+                                                    <th>{!$ObjectType.Contact.Fields.FirstName.Label}</th>
+                                                    <th>{!$ObjectType.Contact.Fields.LastName.Label}</th>
+                                                    <th style="text-align:left">{!$ObjectType.Contact.Fields.Gender__c.Label}</th>
+                                                    <th>{!$ObjectType.Contact.Fields.Birthdate.Label}</th>
+                                                    <th>{!$ObjectType.Contact.Fields.Email.Label}</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                <apex:repeat value="{!lstSpouse}" var="oSpouse">
+                                                    <tr>
+                                                        <td>
+                                                            <apex:commandLink value="{!$Label.Remove}" action="{!removeSpouse}" rerender="spouseSection" >
+                                                                <apex:param name="firstParam" value="{!oSpouse.lineNo}" assignTo="{!rowNumber}"/>
+                                                            </apex:commandLink>
+                                                        </td>
+                                                        <td><apex:inputField value="{!oSpouse.con.FirstName}" styleClass="center"/></td>
+                                                        <td><apex:inputField value="{!oSpouse.con.LastName}" styleClass="center"/></td>
+                                                        <td><apex:inputField value="{!oSpouse.con.Gender__c}" styleClass="center"/></td>
+                                                        <td><apex:inputText value="{!oSpouse.birthDate}" styleClass="input-date"/></td>
+                                                        <td><apex:inputField value="{!oSpouse.con.Email}" styleClass="center"/></td>
+                                                    </tr>
+                                                </apex:repeat>
+                                            </tbody>
+                                        </table>
+                                        </apex:outputPanel>
+                                    </div>
+                                    <div class="tile-footer_toolbar"> 
+                                        <apex:pageMessage id="spouseYPOMessage" summary="Only one spouse/partner can be added" severity="error" rendered="{!isSpouseAvailabe}" />
+                                        <apex:commandButton value="{!$Label.Add_Spouse}" title="{!$Label.Add_Spouse}" styleclass="button button-footer right" action="{!addSpouse}"  reRender="spouseSection,messagesRel1" status="status3" oncomplete="tieDatePicker();"/>
+                                        <apex:actionStatus layout="inline" startText="{!$Label.Processing}" stopText="" id="status3" startStyleClass="statusStyle"/>
+                                    </div>
+                                </apex:outputPanel>
+                            </div>
+                            
+                            
+                            <div class="tile">
+                                <div class="tile-header">    {!$Label.Child_Details}   </div>
+                                <apex:outputPanel id="childSection" >
+                                    <div class="tile-body" id="childSectionDiv">
+                                        <apex:outputPanel id="childTableSection" rendered="{!AND(NOT(ISBLANK(lstChild)), (lstChild.size > 0))}">
+                                        <table id="contacttable" class="display">
+                                            <thead>
+                                                <tr>
+                                                    <th>Action</th>
+                                                    <th>{!$ObjectType.Contact.Fields.FirstName.Label}</th>
+                                                    <th>{!$ObjectType.Contact.Fields.LastName.Label}</th>
+                                                    <th style="text-align:left">{!$ObjectType.Contact.Fields.Gender__c.Label}</th>
+                                                    <th>{!$ObjectType.Contact.Fields.Birthdate.Label}</th>
+                                                    <th>{!$ObjectType.Contact.Fields.Email.Label}</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                <apex:repeat value="{!lstChild}" var="oChild">
+                                                    <tr>
+                                                        <td>
+                                                            <apex:commandLink value="{!$Label.Remove}" action="{!removeChild}" reRender="childSection">
+                                                                <apex:param name="firstParam" value="{!oChild.lineNo}" assignTo="{!rowNumber}"/>
+                                                            </apex:commandLink>
+                                                        </td>
+                                                        <td><apex:inputField value="{!oChild.con.FirstName}" styleClass="center"/></td>
+                                                        <td><apex:inputField value="{!oChild.con.LastName}" styleClass="center"/></td>
+                                                        <td><apex:inputField value="{!oChild.con.Gender__c}" styleClass="center"/></td>
+                                                        <td><apex:inputtext value="{!oChild.birthDate}" styleClass="input-date"/></td>
+                                                        <td><apex:inputField value="{!oChild.con.Email}" styleClass="center"/></td>
+                                                    </tr>
+                                                </apex:repeat>
+                                            </tbody>
+                                        </table>
+                                        </apex:outputPanel>
+                                    </div>
+                                    <div class="tile-footer_toolbar">  
+                                        <apex:commandButton value="{!$Label.Add_Child}" title="{!$Label.Add_Child}" styleclass="button button-footer right" action="{!addChild}" reRender="childSection,messagesRel2" status="status4" oncomplete="tieDatePicker();" />
+                                        <apex:actionStatus layout="inline" startText="{!$Label.Processing}" stopText="" id="status4" startStyleClass="statusStyle"/>
+                                    </div>
+                                </apex:outputPanel>    
+                            </div>
+                            
+                        </div>    
+                    </div>
+                </main>
+                
+                <apex:pageMessages id="messagesRel"></apex:pageMessages>
+                
+                <div class="row">
+                    <apex:commandButton value="{!$Label.Back}" title="{!$Label.Back}" styleclass="button_raised" action="{!redirectTo}"/>
+                    <apex:commandButton value="{!$Label.Save}" title="{!$Label.Save}" styleclass="button_raised" action="{!saveSpouseAndChild}" reRender="messagesRel" status="savestatus" />
+                    <apex:commandButton value="{!$Label.Continue}" title="{!$Label.Continue}" styleclass="button_raised" action="{!changeQualifyingCompany}"/>
+                    <apex:actionStatus layout="inline" startText="{!$Label.Processing}" stopText="" id="savestatus" startStyleClass="statusStyle"/>
+                </div>
+            </apex:pageBlock>   
+            <apex:pageBlock rendered="{!NOT(isYPO)}">
+                <main role="main">
+                    
+                    <div class="row">
+                        
+                        <div class="small-24 medium-16 large-18 columns">
+                            <div class="tile">
+                                <div class="tile-header">    Update Profile   </div>
+                                <div class="tile-body">
+                                    <p>
+                                        Leverage the full power of your YPO-WPO network by updating your profile today.
+                                    </p>
+                                    <p>
+                                        Let other members quickly find you by including your complete list of business experience skills, and interests. Everything in your profile is searchable - let it work for you.                        
+                                    </p>
+                                    <p>
+                                        Please update your profile and your family information below.
+                                    </p>
+                                </div>
+                            </div>
+                            <div class="tile">
+                                <div class="tile-header">    {!$Label.Your_Profile_Information} WPO  </div>
+                                <div class="tile-body">
+                                    <h5> {!$Label.Primary_Membership_Info} </h5> <br/>
+                                    <span class="input is-not-empty">
+                                        <apex:outputText value="{!Contact.Name}" styleClass="input-field" id="contactname"/>
+                                        <label class="input-label" for="contactname">    {!$ObjectType.Contact.Fields.Name.Label}    </label>
+                                    </span>
+                                    
+                                    <span class="input input-select">
+                                        <apex:inputField value="{!Contact.Address1_Type__c}" styleClass="input-field" id="addresstype"/>
+                                        <label class="input-label" for="addresstype">    Address Type    </label>
+                                    </span>
+                                    
+                                    <span class="input is-not-empty">
+                                        <apex:inputField value="{!Contact.MailingStreet}" styleClass="input-field" id="mailingstreet"/>
+                                        <label class="input-label" for="mailingstreet">    Address Street   </label>
+                                    </span>
+                                    
+                                    <span class="input is-not-empty">
+                                        <apex:inputField value="{!Contact.MailingCity}" styleClass="input-field" id="mailingcity"/>
+                                        <label class="input-label" for="mailingcity">    Address City    </label>
+                                    </span>
+                                    
+                                    <span class="input is-not-empty">
+                                        <apex:inputField value="{!Contact.MailingState}" styleClass="input-field" id="mailingstate"/>
+                                        <label class="input-label" for="mailingstate">    Address State/Province    </label>
+                                    </span>
+                                    
+                                    <span class="input is-not-empty">
+                                        <apex:inputField value="{!Contact.MailingPostalCode}" styleClass="input-field" id="mailingpostalcode"/>
+                                        <label class="input-label" for="mailingpostalcode">    Address Zip/Postal Code    </label>
+                                    </span>
+                                    
+                                    <span class="input is-not-empty">
+                                        <apex:inputField value="{!Contact.MailingCountry}" styleClass="input-field" id="mailingcountry"/>
+                                        <label class="input-label" for="mailingcountry">    Address Country    </label>
+                                    </span>
+                                    
+                                    <span class="input is-not-empty">
+                                        <apex:inputField value="{!Contact.Email}" styleClass="input-field" id="email"/>
+                                        <label class="input-label" for="email">    {!$ObjectType.Contact.Fields.Email.Label}    </label>
+                                    </span>
+                                    
+                                    <span class="input is-not-empty">
+                                        <apex:inputField value="{!Contact.Home_Phone_Country_Code__c}" styleClass="input-field" id="homephonecountrycode"/>
+                                        <label class="input-label" for="homephonecountrycode">    {!$ObjectType.Contact.Fields.Home_Phone_Country_Code__c.Label}    </label>
+                                    </span>
+                                    
+                                    <span class="input is-not-empty">
+                                        <apex:inputField value="{!Contact.HomePhone}" styleClass="input-field" id="homephone"/>
+                                        <label class="input-label" for="homephone">    {!$ObjectType.Contact.Fields.HomePhone.Label}    </label>
+                                    </span>
+                                    
+                                    <span class="input is-not-empty">
+                                        <apex:inputField value="{!Contact.Mobile_Phone_Country_Code__c}" styleClass="input-field" id="mobilephonecountrycode"/>
+                                        <label class="input-label" for="mobilephonecountrycode">    {!$ObjectType.Contact.Fields.Mobile_Phone_Country_Code__c.Label}    </label>
+                                    </span>
+                                    
+                                    <span class="input is-not-empty">
+                                        <apex:inputField value="{!Contact.MobilePhone}" styleClass="input-field" id="mobilephone"/>
+                                        <label class="input-label" for="mobilephone">    {!$ObjectType.Contact.Fields.MobilePhone.Label}    </label>
+                                    </span>
+                                    
+                                    <span class="input is-not-empty">
+                                        <apex:inputField value="{!Contact.Country_Code__c}" styleClass="input-field" id="phonecountrycode"/>
+                                        <label class="input-label" for="phonecountrycode">    {!$ObjectType.Contact.Fields.Country_Code__c.Label}    </label>
+                                    </span>
+                                    
+                                    <span class="input is-not-empty">
+                                        <apex:inputField value="{!Contact.Phone}" styleClass="input-field" id="phone"/>
+                                        <label class="input-label" for="phone">    {!$ObjectType.Contact.Fields.Phone.Label}    </label>
+                                    </span>
+                                    
+                                </div>
+                            </div>
+                            
+                            
+                            <div class="tile">
+                                <div class="tile-header">    {!$Label.Spouse_Details}   </div>
+                                <apex:outputPanel id="spouseSection">
+                                    <div class="tile-body" id="spouseSectionDiv">
+                                        <apex:outputPanel id="spouseTableSection" rendered="{!AND(NOT(ISBLANK(lstSpouse)), (lstSpouse.size > 0))}">
+                                        <table id="contacttable" class="display">
+                                            <thead>
+                                                <tr>
+                                                    <th>Action</th>
+                                                    <th>{!$ObjectType.Contact.Fields.FirstName.Label}</th>
+                                                    <th>{!$ObjectType.Contact.Fields.LastName.Label}</th>
+                                                    <th style="text-align:left">{!$ObjectType.Contact.Fields.Gender__c.Label}</th>
+                                                    <th>{!$ObjectType.Contact.Fields.Birthdate.Label}</th>
+                                                    <th>{!$ObjectType.Contact.Fields.Email.Label}</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                <apex:repeat value="{!lstSpouse}" var="oSpouse">
+                                                    <tr>
+                                                        <td>
+                                                            <apex:commandLink value="{!$Label.Remove}" action="{!removeSpouse}" reRender="spouseSection">
+                                                                <apex:param name="firstParam" value="{!oSpouse.lineNo}" assignTo="{!rowNumber}"/>
+                                                            </apex:commandLink>
+                                                        </td>
+                                                        <td><apex:inputField value="{!oSpouse.con.FirstName}" styleClass="center"/></td>
+                                                        <td><apex:inputField value="{!oSpouse.con.LastName}" styleClass="center"/></td>
+                                                        <td><apex:inputField value="{!oSpouse.con.Gender__c}" styleClass="center"/></td>
+                                                        <td><apex:inputText value="{!oSpouse.birthDate}" styleClass="input-date"/></td>
+                                                        <td><apex:inputField value="{!oSpouse.con.Email}" styleClass="center"/></td>
+                                                    </tr>
+                                                </apex:repeat>
+                                            </tbody>
+                                        </table>
+                                        </apex:outputPanel>
+                                    </div>
+                                    <div class="tile-footer_toolbar"> 
+                                        <apex:pageMessages id="messagesRel1"></apex:pageMessages> 
+                                        <apex:commandButton value="{!$Label.Add_Spouse}" title="{!$Label.Add_Spouse}" styleclass="button button-footer right" action="{!addSpouse}" reRender="spouseSection,messagesRel1" status="status3" oncomplete="tieDatePicker();"/>
+                                        <apex:actionStatus layout="inline" startText="{!$Label.Processing}" stopText="" id="status3" startStyleClass="statusStyle"/>
+                                    </div>
+                                </apex:outputPanel>
+                            </div>
+                            
+                            
+                            <div class="tile">
+                                <div class="tile-header">    {!$Label.Child_Details}   </div>
+                                <apex:outputPanel id="childSection" >
+                                    <div class="tile-body" id="childSectionDiv">
+                                        <apex:outputPanel id="childTableSection" rendered="{!AND(NOT(ISBLANK(lstChild)), (lstChild.size > 0))}">
+                                        <table id="contacttable" class="display">
+                                            <thead>
+                                                <tr>
+                                                    <th>Action</th>
+                                                    <th>{!$ObjectType.Contact.Fields.FirstName.Label}</th>
+                                                    <th>{!$ObjectType.Contact.Fields.LastName.Label}</th>
+                                                    <th style="text-align:left">{!$ObjectType.Contact.Fields.Gender__c.Label}</th>
+                                                    <th>{!$ObjectType.Contact.Fields.Birthdate.Label}</th>
+                                                    <th>{!$ObjectType.Contact.Fields.Email.Label}</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                <apex:repeat value="{!lstChild}" var="oChild">
+                                                    <tr>
+                                                        <td>
+                                                            <apex:commandLink value="{!$Label.Remove}" action="{!removeChild}" reRender="childSection">
+                                                                <apex:param name="firstParam" value="{!oChild.lineNo}" assignTo="{!rowNumber}"/>
+                                                            </apex:commandLink>
+                                                        </td>
+                                                        <td><apex:inputField value="{!oChild.con.FirstName}" styleClass="center"/></td>
+                                                        <td><apex:inputField value="{!oChild.con.LastName}" styleClass="center"/></td>
+                                                        <td><apex:inputField value="{!oChild.con.Gender__c}" styleClass="center"/></td>
+                                                        <td><apex:inputText value="{!oChild.birthDate}" styleClass="input-date"/></td>
+                                                        <td><apex:inputField value="{!oChild.con.Email}" styleClass="center"/></td>
+                                                    </tr>
+                                                </apex:repeat>
+                                            </tbody>
+                                        </table>
+                                        </apex:outputPanel>
+                                    </div>
+                                    <div class="tile-footer_toolbar">  
+                                        <apex:commandButton value="{!$Label.Add_Child}" title="{!$Label.Add_Child}" styleclass="button button-footer right" action="{!addChild}" reRender="childSection,messagesRel2" status="status4" oncomplete="tieDatePicker();"/>
+                                        <apex:actionStatus layout="inline" startText="{!$Label.Processing}" stopText="" id="status4" startStyleClass="statusStyle"/>
+                                    </div>
+                                </apex:outputPanel>    
+                            </div>
+                        </div>    
+                    </div>
+                </main>
+                
+                <apex:pageMessages id="messagesRel"></apex:pageMessages>
+                
+                <div class="row">
+                    <apex:commandButton value="{!$Label.Back}" title="{!$Label.Back}" styleclass="button_raised" action="{!redirectTo}"/>
+                    <apex:commandButton value="{!$Label.Save}" title="{!$Label.Save}" styleclass="button_raised" action="{!saveSpouseAndChild}" reRender="messagesRel" status="savestatus" />
+                    <apex:commandButton value="{!$Label.Continue}" title="{!$Label.Continue}" styleclass="button_raised" action="{!toVenuePage}"/>
+                    <apex:actionStatus layout="inline" startText="{!$Label.Processing}" stopText="" id="savestatus" startStyleClass="statusStyle" />
+                </div>
+            </apex:pageBlock>
+        </apex:outputPanel>
+    </apex:form>
+    
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.9.2/jquery-ui.min.js"></script>
+    <apex:stylesheet value="https://ajax.googleapis.com/ajax/libs/jqueryui/1.9.0/themes/ui-lightness/jquery-ui.css"/>
+    <script>
+        var $j = jQuery.noConflict();
+        $j(document).ready(function() {
+            tieDatePicker();
+        });
+        
+        function tieDatePicker() {
+            $j("input[class$=input-date]").datepicker({
+                changeYear: true,
+                changeMonth: true,
+                dateFormat: "mm/dd/yy"
+            });
+        };
+    </script>
+</apex:page>

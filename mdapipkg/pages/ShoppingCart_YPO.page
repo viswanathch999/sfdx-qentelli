@@ -1,0 +1,168 @@
+<apex:page controller="KGRenewal.VenueCartController" extensions="v_CartControllerExt" action="{! updateQuantity}" showHeader="false" sidebar="false" standardStylesheets="false" applyHtmlTag="false" doctype="html-5.0">
+	
+	<head>
+		
+		<meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" />
+        <title>YPO Renewals</title>
+		
+    	<apex:stylesheet value="{!$Resource.InvisionAppStyle_YPO}"/>
+    </head>
+    
+    <body>
+    	    
+        <!-- Global site tag (gtag.js) - Google Analytics -->
+        <script async="true" src="https://www.googletagmanager.com/gtag/js?id={!$Label.Google_Analytics_ID}"></script>
+        <script>
+            window.dataLayer = window.dataLayer || [];
+            function gtag(){dataLayer.push(arguments);}
+            gtag('js', new Date());
+            gtag('config', '{!$Label.Google_Analytics_ID}');
+        </script>
+        <!-- End Google Analytics code -->
+    
+	    <apex:composition template="V_Template_ProspectFlow_YPO">
+	
+			<apex:define name="nav_links" >
+	        	<li>
+	            <apex:outputPanel id="kgrencartcompId">
+	               <KGRenewal:CartComponent mode="link" includeBootstrapModalResources="false"  />
+	            </apex:outputPanel>
+	         	</li>
+	      	</apex:define>
+	        
+	        <apex:define name="content">            
+	            <apex:form >
+	                <apex:pageBlock id="pagblockId">                    
+	                    <div class="row">                                        
+	                        <div class="col-md-10 col-md-offset-1 col-lg-8 col-lg-offset-2">
+	                            <h2 class="title">Shopping Cart</h2>
+	                            <section class="shoppingCartBlock">                               
+	                                
+	                                <!--cart is empty-->
+	                                <apex:outputPanel layout="none" rendered="{! lineItems.size == 0}">
+	                                    <div class="alert alert-info" role="alert">
+	                                        <b>Your shopping cart is empty</b>
+	                                    </div> <!--/.alert-->
+	                                </apex:outputPanel>
+	                                
+	                                <!--error messages from cart controller-->
+	                                <apex:outputPanel layout="none" rendered="{! hasError}">
+	                                    <apex:repeat var="errorMessage" value="{! errorMessages}">
+	                                        <div class="alert alert-warning" role="alert">
+	                                            <b>{! errorMessage}</b>
+	                                        </div> <!--/.alert-->
+	                                    </apex:repeat>
+	                                </apex:outputPanel>
+	                                
+	                                <apex:repeat value="{! lineItems}" var="item">
+	                                    <div class="row">
+	                                        <div class="hidden-xs col-sm-2 col-md-2 logoBlock">
+	                                            <a href="{! URLFOR($Page.CatalogItemDetailed_YPO, null, ['id'=item.pricebookEntry.product2])}">                                              
+	                                                <apex:image styleClass="img-responsive" value="{! item.pricebookEntry.product2.KGRenewal__MainImageSmall__c}" alt="" height="50" />
+	                                            </a>
+	                                        </div>
+	                                        <div class="col-xs-8 col-sm-7 col-md-7">                                            
+	                                            <span class="cartTitle">
+	                                                <a href="{! URLFOR($Page.CatalogItemDetailed_YPO, null, ['id'=item.pricebookEntry.product2])}">  
+	                                                {! item.name}
+	                                                </a>
+	                                            </span>                                            
+	                                            <span class="infoTxt">{! item.description}</span>                                           
+	                                            <apex:outputPanel rendered="{! NOT(item.isLocked)}">
+	                                                <!-- <a class="rmv" role="button" onclick="window.location=('{! URLFOR($Page.ShoppingCart_YPO, null,['q'=item.recordId])}'+':0');"> -->
+	                                                <span class="shoppingRemove">
+	                                                <a href="javascript:void(0)" onclick="showhideModel('{!item.recordId}')" class="btn btn-blue">
+	                                                    Remove
+	                                                </a>
+	                                                </span>
+	                                                <apex:param name="itemrecordIdVal" value="{!item.recordId}" />
+	                                            </apex:outputPanel>                                          
+	                                        </div>
+	                                        <div class="col-xs-4 col-sm-3 col-md-3 num-char">                                        
+	                                            <apex:outputText value="{!CurrencyCode}{0, number,###,###,###,##0.00}">
+	                                                <apex:param value="{! item.totalPrice}"/>
+	                                            </apex:outputText>                                        
+	                                        </div>
+	                                    </div>                                    
+	                                </apex:repeat>
+	                                
+	                                
+	                                <div class="" style="display:none" id="customAlertBoxDivId">
+	                                <div class="customAlertBox customAlertBoxPop">
+	                                    <p>Are you sure you want to remove this item?</p>
+	                                    <a class="noBtn" href="javascript:void(0)" onclick="showhideModel('')">Cancel</a> 
+	                                    <!-- <a href="javascript:void(0)">Yes</a>  -->
+	                                     <a role="button" onclick="AreyouSureDelete()" > 
+	                                         Ok
+	                                    </a>
+	                                </div>
+	                                </div>
+	                                
+	                                <div class="row priceRow hidden-xs">
+	                                    <div class="col-md-12 text-right">
+	                                        <span class="txt">Subtotal</span><span class="amount">                                        
+	                                        <apex:outputText value="{!CurrencyCode}{0, number,###,###,###,##0.00}">
+	                                            <apex:param value="{! summary['subtotal']}" />
+	                                        </apex:outputText>
+	                                        </span>
+	                                    </div>                                    
+	                                </div>
+	                                
+	                                <div class="text-center btm-btns">
+	                                    <div class="row priceRow visible-xs">
+	                                        <div class="col-md-12 text-right">
+	                                            <span class="txt">Subtotal</span><span class="amount">                                        
+	                                            <apex:outputText value="{!CurrencyCode}{0, number,###,###,###,##0.00}">
+	                                                <apex:param value="{! summary['subtotal']}" />
+	                                            </apex:outputText>
+	                                            </span>
+	                                        </div>                                    
+	                                    </div>
+	                                    <a href="{! URLFOR($Page.catalog_YPO, null, [lifetime=cameFromLifetimePage])}" class="btn {! IF(lineItems.size > 0,' btn-gray',' btn-blue')}" role="button">
+	                                       Return to Catalog
+	                                    </a>
+	
+	                                    <apex:outputPanel layout="none" rendered="{! lineItems.size > 0}">
+	                                         <apex:outputpanel rendered="{!prospectRType}" >
+	                                            <a href="{! URLFOR($Page.CodeOfConduct_YPO, null)}" class="btn btn-blue" role="button">                                            
+	                                                Proceed to Checkout
+	                                            </a>
+	                                         </apex:outputpanel>
+	                                         <apex:outputpanel rendered="{!!prospectRType}" >
+	                                            <a href="{! URLFOR($Page.Checkout_Check_Wire_YPO, null, [lifetime=cameFromLifetimePage])}" class="btn btn-blue" role="button">                                            
+	                                                Proceed to Checkout
+	                                            </a>
+	                                         </apex:outputpanel>
+	                                    </apex:outputPanel>
+	                                </div>
+	                            </section>
+	                        </div>
+	                    </div>
+	                </apex:pageBlock>
+	            </apex:form>
+	        </apex:define>
+	    </apex:composition> 
+	</body>
+	    
+    <apex:includeScript value="https://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js" />
+    <script>
+        var itemrecordId;        
+        function showhideModel(itemrecordIdVal){
+            itemrecordId = itemrecordIdVal;
+            if(document.getElementById('customAlertBoxDivId').style.display == "none"){
+                document.getElementById('customAlertBoxDivId').style.display ="block";
+                 $('body').addClass("in"); 
+                
+            }else{
+                document.getElementById('customAlertBoxDivId').style.display ="none";
+                $('body').removeClass("in"); 
+            }
+        }
+        function AreyouSureDelete(){
+            window.location="{!$Page.ShoppingCart_YPO}?q="+itemrecordId+":0";
+        }  
+    </script>
+
+    
+</apex:page>

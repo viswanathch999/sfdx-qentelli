@@ -1,0 +1,29 @@
+<apex:page standardController="Contact" 
+           extensions="RenewalContactContExt" 
+           sidebar="false" 
+           id="LifetimeOption"
+           showHeader="false"
+           standardStylesheets="false" 
+           title="Lifetime Option"
+           action="{!init}">
+    <div>
+        <h1>Lifetime Option</h1>
+    </div>
+    <h2>You have the option to become a lifetime member or to renew as an annual memeber</h2>
+    
+    <ul>
+        <li>Lifetime membership offers a discounted, one-time dues payment or installment payments based on your age. Annual
+            membership offers an annual dues amount set by the YPO International Board Every year.</li>
+        <li>Please see the dues options below</li>
+        <li> If you choose to renew as an annual member, select “Renew as Annual' and you will be directed through the online
+            renewal process.</li>
+        <li> If you would like to choose lifetime membership, select "Contact Me" and a member of the YPO Member Services team
+            will contact you within 24 hours to explain your dues options and renew your membership.</li>
+        <li> If you have any questions, please contact Member Services via any of the numbers listed under “Need Assistance?
+            on the left side of this page</li>
+    </ul> 
+    <apex:form >
+        <apex:commandButton value="Contact Me" action="{!toContactMemberServices}"/>
+        <apex:commandButton value="Review As Annual" action="{!toVCatalog}"/>
+    </apex:form>
+</apex:page>

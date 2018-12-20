@@ -1,0 +1,244 @@
+<apex:page controller="KGRenewal.VenueCatalogController" extensions="v_catalogExt" action="{! setProspectOppAsCart}" title="Product catalog" showHeader="false" sidebar="false" standardStylesheets="false" applyHtmlTag="false" docType="html-5.0">
+  <!--<apex:composition template="{! $Site.Template}">-->
+  <apex:composition template="v_template">
+    <apex:define name="title">
+      <title>Products | {! $Organization.Name}</title>
+    </apex:define>
+    <apex:define name="nav_links">
+      <li>
+        <KGRenewal:CartComponent mode="link" includeBootstrapModalResources="false" />
+      </li>
+    </apex:define>
+    <apex:define name="content">
+
+      <apex:variable var="v_currentCategory" value="{! IF(ISBLANK(currentCategory),'',currentCategory)}" />
+      <!--apex:variable var="v_currentPageSize" value="{! IF(currentPageSize==10,'',currentPageSize)}" /-->
+            <apex:variable var="v_currentPageSize" value="20" />
+      <apex:variable var="v_sortBy" value="{! IF(sortBy=='Name','',sortBy)}" />
+      <apex:variable var="v_showCart" value="true" />
+
+      <div class="row">
+        <div class="col-sm-12">
+
+          <div class="panel panel-default">
+            <div class="panel-body">
+              <p>
+                YPO has partnered with several companies that we believe can provide important benefits to you. Please select any of the below optional benefits that you wish to add to your membership.
+              </p>
+              <p>
+                You may view items already selected by clicking "Cart" in the upper-right of the screen. When ready to checkout, click "Checkout".
+              </p>
+            </div>
+          </div>
+
+          <br/>
+          <br/>
+
+          <!--breadcrumb v2-->
+          <apex:outputPanel layout="none" rendered="{! breadcrumbTrail.size > 0}">
+            <ol class="breadcrumb">
+              <li class="{! IF(ISBLANK(currentCategory), 'active', '')}">
+                <a href="{! URLFOR($Page.v_catalog, null, ['page-size'=v_currentPageSize, 'sort'=v_sortBy])}">All products</a>
+              </li>
+              <apex:repeat value="{! breadcrumbTrail}" var="crumb">
+                <!-- category breadcrumb: -->
+                <apex:outputPanel layout="none" rendered="{! NOT(BEGINS(crumb, 'Search:'))}">
+                  <li class="{! IF(AND(crumb == currentCategory, ISBLANK(searchTerm)), 'active', '')}">
+                    <a href="{! URLFOR($Page.v_catalog, null, ['category'=crumb, 'page-size'=v_currentPageSize, 'sort'=v_sortBy])}">{! crumb}</a>
+                  </li>
+                </apex:outputPanel>
+                <!-- serch term breadcrumb: -->
+                <apex:outputPanel layout="none" rendered="{! BEGINS(crumb, 'Search:')}">
+                  <li class="active">
+                    {! crumb}&nbsp;
+                    <a href="{! URLFOR($Page.v_catalog, null, ['category'=v_currentCategory, 'page-size'=v_currentPageSize, 'sort'=v_sortBy])}">
+                      <!--&times;-->&#x2716;</a>
+                  </li>
+                </apex:outputPanel>
+              </apex:repeat>
+            </ol>
+            <!--/.breadcrumb-->
+          </apex:outputPanel>
+          <!--/breadcrumb v2-->
+
+          <!--errors-->
+          <apex:repeat var="siteError" value="{! siteErrors}">
+            <div class="alert alert-danger" role="alert">
+              <span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span> <b>siteError[summary]</b>
+              <br /> siteError[description]
+              <!--<br />siteError[trace]-->
+            </div>
+            <!--/.alert-->
+          </apex:repeat>
+
+          <!--no products to display-->
+          <apex:outputPanel layout="none" rendered="{! productDisplayItems.size == 0}">
+            <div class="alert alert-warning" role="alert">
+              <span class="glyphicon glyphicon-ban-circle" aria-hidden="true"></span> <b>No results found.</b> Please change your search and filter options
+            </div>
+            <!--/.alert-->
+          </apex:outputPanel>
+
+          <apex:repeat var="item" value="{! productDisplayItems}">
+            <div id="{! item.productId}" class="row product-tile" data-venue-define="product" data-venue-id="{! item.productId}" data-venue-name="{! item.name}">
+              <!--product image-->
+              <div class="col-xs-12 col-sm-3">
+                <apex:outputLink value="{! URLFOR($Page.v_detail, null, ['id'=item.productId])}" rendered="{! NOT(ISNULL(item.record.KGRenewal__MainImageSmall__c))}">
+                  <img class="center-block img-responsive" src="{! $Site.Prefix}{! item.record.KGRenewal__MainImageSmall__c}" alt="{! item.name}" />
+                  <br />
+                </apex:outputlink>
+              </div>
+              <!--/.col-->
+              <!--/product image-->
+
+              <div class="col-xs-12 col-sm-9">
+                <!--product name-->
+                <a href="{! URLFOR($Page.v_detail, null, ['id'=item.productId])}">
+                  <!--Venue product name classes: kgvenue name-->
+                  <h3 class="media-heading text-primary">
+                    <span class="kgvenue name">{! item.name}</span>
+                  </h3>
+                </a>
+                <!--product description-->
+                <!--<p>{! item.description}</p>-->
+                <p>
+                  <apex:outputText value="{! IF(LEN(item.description) > 200, LEFT(item.description, 200) + '...', item.description)}"></apex:outputText>
+                </p>
+                <!--price, quantity, add to cart row-->
+
+                <apex:outputPanel rendered="{! item.record.family == 'Member Benefit'}" layout="none">
+                  <div class="form-horizontal">
+                    <div class="form-group">
+                      <label class="col-md-6 control-label" for="contact-{! item.productId}">
+                        Select a household member for this product
+                      </label>
+                      <div class="col-md-6">
+                        <select class="form-control" id="contact-{! item.productId}" data-venue-field-input="Contact__c">
+                          <apex:repeat value="{! optionsMap[item.productId]}" var="contact">
+                            <apex:outputPanel rendered="{! contact.disabled}" layout="none">
+                              <option value="{! contact.value}" disabled="true">{! contact.label}</option>
+                            </apex:outputPanel>
+                            <apex:outputPanel rendered="{! NOT(contact.disabled)}" layout="none">
+                              <option value="{! contact.value}">{! contact.label}</option>
+                            </apex:outputPanel>
+                          </apex:repeat>
+                        </select>
+                      </div>
+                    </div>
+                    <!-- /.form-group -->
+                    <div class="col-md-6" />
+                    <div class="col-md-6">
+                      <a href="{! URLFOR($Page.NewProductQuickCreate,null,[id=item.productId])}">Add a household member</a>
+                    </div>
+                  </div>
+                  <!-- /.form-horizontal -->
+
+                </apex:outputPanel>
+
+                <div class="row">
+                  <!--standard price-->
+                  <div class="col-xs-6 col-sm-offset-4 col-sm-4 {! IF(v_showCart=='true','col-md-offset-0','col-md-offset-6')} col-md-3 {! IF(v_showCart=='true','col-lg-offset-3','col-lg-offset-8')} col-lg-2">
+                    <!--show standard eCommerce price (aka list price) with strikethrough format if it is higher than original price-->
+                    <apex:outputPanel rendered="{! item.hasCustomPrice}" layout="none">
+                      <h4 class="text-muted text-right">
+                        <s>
+                          <!--strikethrough-->
+                          <apex:outputText value="{0, number, currency}">
+                            <!--<apex:param value="{! ROUND(item.standardEcommercePrice, 2)}"/>-->
+                            <apex:param value="{! item.standardEcommercePrice}" />
+                          </apex:outputText>
+                        </s>
+                        <!--/strikethrough-->
+                      </h4>
+                    </apex:outputPanel>
+                  </div>
+                  <!--/.col-->
+                  <!--/standard eCommerce price (aka list price)-->
+                  <!--original price-->
+                  <div class="col-xs-6 col-sm-4 col-md-3 col-lg-2">
+                    <!--Venue product price classes: kgvenue unitprice-field decimal-->
+                    <h4 class="text-right text-danger kgvenue unitprice-field decimal">
+                      <apex:outputText value="{0, number, currency}">
+                        <apex:param value="{! item.discountedPrice}" />
+                      </apex:outputText>
+                    </h4>
+                    <br />
+                    <!--used to vertically add space between price and add to cart button in xs view-->
+                  </div>
+                  <!--/.col-->
+                  <apex:outputPanel layout="none" rendered="{! v_showCart=='true'}">
+                    <!--quantity input field-->
+                    <div class="col-xs-6 col-sm-offset-4 col-sm-4 col-md-offset-0 col-md-3 col-lg-2">
+                      <!-- Quantity input -->
+                      <div style="visibility:hidden;">
+                        <input type="number" class="form-control" min="1" step="1" value="1" required="true" data-venue-field-input="quantity" data-venue-field-type="integer" />
+                      </div>
+                      <!--  <input id="OliEffectiveDateInputDue" data-venue-field-input="KGRenewal__ContractEffectiveDate__c" type="hidden" data-venue-input-type="date" required="true" value="{!IF(item.record.Family == 'Member Benefit',beginningOfCycle,IF(item.record.Family == 'Annual Dues',beginningOfMonth,''))}"/>-->
+                    </div>
+                    <!--/.col-->
+
+                    <!--Add to cart button-->
+                    <div class="col-xs-6 col-sm-4 col-md-3 col-lg-3 product-tile-btn">
+                      <!--Venue Add to Cart button classes: kgvenue add single-->
+                      <!--<a class="btn btn-warning btn-block kgvenue add single" data-venue-action="add" role="button" href="{! URLFOR($Page.v_cart, null, ['id'=item.productId])}" data-venue-action-callback="customCallback">-->
+                      <apex:outputPanel rendered="{! hasAvailableContactOptionsMap[item.productId]}" layout="none">
+                        <a class="btn btn-warning btn-block kgvenue add single" data-venue-action="add" role="button" href="javascript:void(0);">
+                              Add to cart
+                              <span class="glyphicon glyphicon-shopping-cart"></span>
+                          </a>
+                      </apex:outputPanel>
+                      <apex:outputPanel rendered="{! NOT(hasAvailableContactOptionsMap[item.productId])}" layout="none">
+                        <span>
+                          No more available Contacts
+                        </span>
+                      </apex:outputPanel>
+                    </div>
+                    <!--/.col-->
+                  </apex:outputPanel>
+                </div>
+                <!--/.row-->
+
+              </div>
+              <!--/.col-->
+            </div>
+            <!--/.row item.record.ID-->
+            <hr />
+          </apex:repeat>
+
+          <apex:outputPanel layout="none" rendered="{! hasPreviousPage || hasNextPage}">
+            <ul class="pager">
+              <li style="{! IF(hasFirstPage, '', 'visibility:hidden;')}">
+                <a href="{! IF(hasFirstPage, URLFOR($Page.v_catalog, null, ['category'=v_currentCategory, 'page-size'=v_currentPageSize, 'sort'=v_sortBy, 'search-term'=searchTerm]),'#')}">&laquo;</a>
+              </li>
+              <li style="{! IF(hasPreviousPage, '', 'visibility:hidden;')}">
+                <a href="{! IF(hasPreviousPage, URLFOR($Page.v_catalog, null, ['category'=v_currentCategory, 'page-number'=currentPage-1, 'page-size'=v_currentPageSize, 'sort'=v_sortBy, 'search-term'=searchTerm]),'#')}">&lsaquo; Previous</a>
+              </li>
+              <li style="{! IF(hasNextPage, '', 'visibility:hidden;')}">
+                <a href="{! IF(hasNextPage, URLFOR($Page.v_catalog, null, ['category'=v_currentCategory, 'page-number'=currentPage+1, 'page-size'=v_currentPageSize, 'sort'=v_sortBy, 'search-term'=searchTerm]),'#')}">Next &rsaquo;</a>
+              </li>
+              <li style="{! IF(hasLastPage, '', 'visibility:hidden;')}">
+                <!-- need to update currentPage+1 to lastPage in controller extension -->
+                <a href="{! IF(hasLastPage, URLFOR($Page.v_catalog, null, ['category'=v_currentCategory, 'page-number'=currentPage+1, 'page-size'=v_currentPageSize, 'sort'=v_sortBy, 'search-term'=searchTerm]),'#')}">&raquo;</a>
+              </li>
+            </ul>
+            <!--/.pager-->
+          </apex:outputPanel>
+
+        </div>
+        <!--/.col-->
+      </div>
+      <!--/.row-->
+      <script>
+        function kgCartAddPrecall(event) {
+          kg.catalog.kgCartAddPrecall(event);
+        }
+
+        function kgCartAddCallback() {
+          kg.catalog.kgCartAddCallback();
+        }
+      </script>
+      <apex:includeScript value="{!URLFOR($Resource.KGQuickstart_dist, '/js/catalog.min.js')}" />
+    </apex:define>
+    <!--/content-->
+  </apex:composition>
+</apex:page>

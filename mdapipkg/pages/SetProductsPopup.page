@@ -1,0 +1,29 @@
+<apex:page standardController="Opportunity" extensions="SetProductServices" sidebar="false" showHeader="false" action="{!flowControl}">
+<script type="text/javascript">
+	
+	// functionality does not work for IE
+	/*
+	window.opener.location.reload(false);		
+	window.top.close();
+	*/
+	function closeAndRefresh(){
+		window.opener.location.href="/{!$CurrentPage.parameters.id}";
+		window.top.close();
+	} 
+ 
+</script>
+
+<apex:pageMessage rendered="{! not(processComplete) }" summary="Processing..." severity="Info" />
+
+<apex:pageBlock rendered="{! processComplete }">
+
+	<apex:pageBlockSection >
+		<apex:pagemessages />
+	</apex:pageBlockSection>
+	
+</apex:pageBlock>
+
+<apex:form >
+	<apex:commandButton action="{!saveOpp}" oncomplete="closeAndRefresh()" value="Close and Refresh"/>
+</apex:form>
+</apex:page>

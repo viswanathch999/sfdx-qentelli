@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomObject xmlns="http://soap.sforce.com/2006/04/metadata">
+    <customSettingsType>Hierarchy</customSettingsType>
+    <description>Defines default flow settings (e.g., email)</description>
+    <enableFeeds>false</enableFeeds>
+    <fields>
+        <fullName>Email__c</fullName>
+        <defaultValue>&quot;SFNotification@ypo.org&quot;</defaultValue>
+        <description>Represents default flow email address - used for sending email from flow (e.g., custom fault message)</description>
+        <externalId>false</externalId>
+        <inlineHelpText>Represents default flow email address - used for sending email from flow (e.g., custom fault message)</inlineHelpText>
+        <label>Email</label>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Email</type>
+        <unique>false</unique>
+    </fields>
+    <label>Flow Settings</label>
+    <visibility>Public</visibility>
+</CustomObject>

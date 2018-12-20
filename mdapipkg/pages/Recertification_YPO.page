@@ -1,0 +1,1188 @@
+<apex:page standardController="Contact" extensions="RecertificationExtension" action="{!init}" sidebar="false" showHeader="false" standardStylesheets="false" applyHtmlTag="false" doctype="html-5.0">
+    
+    <apex:includeScript value="{!URLFOR($Resource.knockout)}"/>
+    <apex:includeScript value="{!URLFOR($Resource.knockoutvalidation)}"/>
+    <apex:stylesheet value="{!URLFOR($Resource.Styles)}"/>
+
+    <apex:composition template="V_Template_ProspectFlow_YPO">
+        <apex:define name="content">
+        <div class="row">
+                        <div class="col-md-10 col-md-offset-1 col-lg-8 col-lg-offset-2">
+            <apex:form >
+                
+                <apex:outputPanel id="opanelIsNotMember" rendered="{!NOT(isMember)}">
+                    
+                            
+                            <p class="padding-top-15">You are currently not a member and cannot proceed with Renewals</p>
+                       
+                </apex:outputPanel>
+                
+                <apex:outputPanel rendered="{!isMember}" >
+                   
+                            <h2 class="title">{!$Label.Recertification_YPO_Recertification}</h2>
+                            <p> {!$Label.Recertification_YPO_Yourmember} </p>
+                            <span class="subTit">{!$Label.Recertification_YPO_Pleasesubmit}</span>                            
+                            
+                            <apex:outputPanel rendered="{!!isYPO_GoldMember}" >                          
+                            
+                                <!-- ******************* Recertification Block START ******************* -->
+                                <section class="checkoutBlock recertificationBlock">
+                                    
+                                    <!-- ***************** Display Dissmiss Block START *************** -->
+                                    <apex:outputpanel rendered="{!isGraceAvailable}">   
+                                        <div id="yourcompanydivId" class="panel headTxt requestDiv" >
+                                            <p>{!$Label.Recertification_YPO_Yourcompany}</p>
+                                            <div class="pull-right">
+                                                <a class="dismis request" href="javascript:void(0)">
+                                                    <svg id="icon-x" viewBox="0 0 32 32" style="width:12px; height:13px; margin:-2px 5px 0 0;">
+                                                        <path class="path1" d="M28.8 25.8l-10-9.8 9.8-10-2.6-2.6-10 9.8-9.8-10-2.8 2.8 9.8 10-9.8 10 2.6 2.6 10-9.8 10 9.8z" fill="#346da5"></path>
+                                                    </svg>
+                                                    {!$Label.Recertification_YPO_Dismiss}
+                                                </a>
+                                                <apex:commandButton value="{!$Label.Request_Grace}" title="{!$Label.Request_Grace}" styleclass="btn btn-blue" action="{!requestGrace}"  /> 
+                                                <!-- rendered="{!isGraceAvailable}"  -->
+                                            </div>
+                                        </div>
+                                    </apex:outputpanel> 
+                                    <apex:outputPanel rendered="{!isTransitionAvailable}">
+                                        <div id="yourareeligibleId" class="panel headTxt iamDiv" >
+                                            <p> {!$Label.Recertification_YPO_Yourareeligible} </p>
+                                            <div class="pull-right">
+                                                <a class="dismis Iam" href="javascript:void(0)">
+                                                    <svg id="icon-x" viewBox="0 0 32 32" style="width:12px; height:13px; margin:-2px 5px 0 0;">
+                                                        <path class="path1" d="M28.8 25.8l-10-9.8 9.8-10-2.6-2.6-10 9.8-9.8-10-2.8 2.8 9.8 10-9.8 10 2.6 2.6 10-9.8 10 9.8z" fill="#346da5"></path>
+                                                    </svg> {!$Label.Recertification_YPO_Dismiss} 
+                                                </a>
+                                                <apex:commandButton value="{!$Label.ThirdPartyCertification_YPO_IamInterested}" title="{!$Label.ThirdPartyCertification_YPO_IamInterested}" styleclass="btn btn-blue" action="{!requestTransition}"   /> 
+                                                <!-- rendered="{!isTransitionAvailable}" -->
+                                            </div>
+                                        </div>
+                                    </apex:outputPanel>
+                                    <!-- ***************** Display Dissmiss Block END *************** -->
+                                    
+                                    <section class="contactInfo">
+                                        <!-- ***************** QUALIFYING COMPANY View Section START ************* -->
+                                        <div class="changeParent">
+                                            <div class="panel mainMem" id="">
+                                                <h2 class="headTxt blue-color">
+                                                    {!$Label.Recertification_YPO_Qualifyingcompany}
+                                                    <a class="changeQualifying" href="javascript:void(0)">
+                                                        <span class="glyphicon glyphicon-pencil"></span>
+                                                    </a>
+                                                </h2>
+                                            </div>
+                                            
+                                            <div class="ash-bg qualify">
+                                                <div class="infoRow">
+                                                    <span id="companyOrgId"></span>
+                                                    <span>
+                                                        <em id="mailingstreet"></em>
+                                                        <em id="mailingcity"></em>
+                                                        <em id="mailingstatecode"></em>
+                                                        <em id="mailingcountrycode"></em>
+                                                        <em id="mailingpostalcode"></em>
+                                                    </span>
+                                                </div> 
+                                                
+                                                <div class="infoRow">
+                                                    <label>SUBSIDARY</label>
+                                                    <span id="businessphone"></span>
+                                                    <span id="SubsidarySpanId" class="ext"></span>
+                                                </div>
+                                                
+                                            </div>                                     
+                                        </div>
+                                        <!-- ***************** QUALIFYING COMPANY View Section END ************* -->
+                                        
+                                        <!-- ***************** QUALIFYING COMPANY Edit Section START ************* -->
+                                        <div class="changeDiv recertificatinScreen" style="display:none;">
+                                            <div class="panel btnTopRow">                                            
+                                                <a class="qualifyBack" href="javascript:void(0)">
+                                                    <svg id="ContactEditsvgId" style="width:15px; height:15px; padding-right:5px; fill: #fff;" viewBox="0 0 32 32">
+                                                        <path class="path1" d="M14 29.8l2.8-3-8.8-9h24v-4h-24l8.8-9-2.8-3-14 14z"></path>
+                                                    </svg>
+                                                    Back to qualifying Company
+                                                </a>
+                                                <button class="btn" disabled="disabled"  id="QualifyCompUpSaveId" role="button" type="button"> SAVE </button>
+                                            </div>
+                                            
+                                            <div class="inner-content">
+                                                
+                                                <div class="nameCompany">
+                                                    <div class="nameInnerLeft">
+                                                        <label>Name of Company</label>
+                                                        <span id="qualifyCompanyNameSpanId"></span>
+                                                        <a href="javascript:void(0)" class="changeCompanyName" id="editCompanyNameBoxId"><span class="glyphicon glyphicon-pencil"></span>Change Company Name</a>  </div>                                            
+                                                </div>
+                                                
+                                                <!-- The below Company Name will be editabled only when click on change company name above -->
+                                                <div class="enablecompname" style="display:none">                                            
+                                                    <div class="input" data-bind="validationElement0: requiredTextInputQualifyComp, css: {'is-not-empty': requiredTextInputQualifyComp}">
+                                                        <apex:input id="qualifycompInputTextId" value="{!Opp_QualifyingCompany}" styleClass="input-field" html-data-bind="textInput: requiredTextInputQualifyComp"  />
+                                                        <label class="input-label" for="qualifycompInputTextId"> COMPANY NAME </label>
+                                                        <span class="validationMessage" data-bind="validationMessage: requiredTextInputQualifyComp"></span>                                                    
+                                                    </div>
+                                                    
+                                                </div>
+                                                
+                                                <div>                                            
+                                                    <div class="input" data-bind="validationElement1: requiredTextInputStreet, css: {'is-not-empty': requiredTextInputStreet}">
+                                                        <input id="streetInputTextId"  Class="input-field" data-bind="textInput: requiredTextInputStreet" onkeyup="validateQualifyingCompanyForm()"/>
+                                                        <label class="input-label " for="streetInputTextId"> {!$ObjectType.Account.Fields.BillingStreet.Label} </label>
+                                                        <span class="validationMessage" data-bind="validationMessage: requiredTextInputStreet"></span>
+                                                    </div>
+                                                </div>                                        
+                                                <div>
+                                                    <div class="input" data-bind="validationElement2: requiredTextInputCity, css: {'is-not-empty': requiredTextInputCity}">
+                                                        <input id="cityInputTextId" Class="input-field" data-bind="textInput: requiredTextInputCity" onkeyup="validateQualifyingCompanyForm()" />
+                                                        <label class="input-label " for="cityInputTextId"> {!$ObjectType.Account.Fields.BillingCity.Label} </label>
+                                                        <span class="validationMessage" data-bind="validationMessage: requiredTextInputCity"></span>
+                                                    </div>
+                                                </div>
+                                                
+                                                <div>  
+                                                    <span class="input-select">
+                                                        <div class="input selectArw" data-bind="validationElement4: requiredTextInputCountry, css: {'is-not-empty': requiredTextInputCountry}" >
+                                                            <apex:inputField id="countryInputTextId" value="{!oAcc.BillingCountrycode}" styleClass="input-field" html-data-bind="textInput: requiredTextInputCountry"  />
+                                                            <label class="input-label " for="countryInputTextId">  {!$ObjectType.Account.Fields.BillingCountry.Label} </label>
+                                                            <span class="validationMessage" data-bind="validationMessage: requiredTextInputCountry"></span>
+                                                        </div>
+                                                    </span>
+                                                </div>
+                                                
+                                                <div class="selectDiv">
+                                                    <span class="input-select">
+                                                        <div class="input selectArw " data-bind="validationElement3: requiredTextInputState, css: {'is-not-empty': requiredTextInputState}">
+                                                            <apex:inputField id="stateInputTextId" value="{!oAcc.BillingStatecode}" styleClass="input-field" html-data-bind="textInput: requiredTextInputState" onchange="validateStateKJS(this)" />
+                                                            <label class="input-label " for="stateInputTextId">State / Province / Region</label>
+                                                            <span class="validationMessage" data-bind="validationMessage: requiredTextInputState"></span>
+                                                        </div>
+                                                    </span>
+                                                </div>
+                                                
+                                                <div>                                            
+                                                    <div class="input" data-bind="validationElement4: requiredTextInputPostal, css: {'is-not-empty': requiredTextInputPostal}">
+                                                        <input id="postalInputTextId"  Class="input-field" data-bind="textInput: requiredTextInputPostal"  onkeyup="validateQualifyingCompanyForm()"/>
+                                                        <label class="input-label " for="postalInputTextId">Zip / postal code</label>
+                                                        <span class="validationMessage" data-bind="validationMessage: requiredTextInputPostal"></span>
+                                                    </div>
+                                                </div>
+                                                
+                                                <div class="companyInput">                                            
+                                                    <div class="input" data-bind="validationElement5: requiredTextInputWebsite, css: {'is-not-empty': requiredTextInputWebsite}">
+                                                        <input id="websiteInputTextId"  Class="input-field" data-bind="textInput: requiredTextInputWebsite"  onkeyup="validateQualifyingCompanyForm()"/>
+                                                        <label class="input-label is-required" for="websiteInputTextId">COMPANY WEBSITE</label>
+                                                        <span class="validationMessage" data-bind="validationMessage: requiredTextInputWebsite"></span>
+                                                    </div>
+                                                </div>
+                                                <div class="terms">
+                                                    <input id="SubsidaryInputId" name="SubsidaryInputName" class="customCheckbox" type="checkbox"/>
+                                                    <label for="SubsidaryInputId" name="SubsidaryInputName">Subsidary </label>
+                                                </div>
+                                                
+                                                <!-- The below code is used for either the qualification Company is either edit or not isQualifyingCompanyEditable  -->
+                                                <apex:inputHidden value="{!isQualifyingCompanyEditable}" id="isQualifyingCompanyEditableId" />
+                                                <apex:inputHidden value="{!CompanyWebsite}" id="companyWebisteHiddenId" />
+                                            </div>       
+                                            <!-- bottom panel -->
+                                            <div class="panel bottomDiv btnsRow">
+                                                
+                                                <a class="qualifyBack" href="javascript:void(0)">
+                                                    <svg id="ContactEditsvgId" style="width:15px; height:15px; padding-right:5px; fill: #000;" viewBox="0 0 32 32">
+                                                        <path class="path1" d="M14 29.8l2.8-3-8.8-9h24v-4h-24l8.8-9-2.8-3-14 14z"></path>
+                                                    </svg>
+                                                    Back to qualifying Company
+                                                </a>                                            
+                                                
+                                                <button class="btn" id="QualifyCompDownSaveId" role="button" type="button" > SAVE </button>
+                                            </div>
+                                        </div> 
+                                        <!-- ***************** QUALIFYING COMPANY Edit Section END ************* -->
+                                        
+                                        <!-- ********************* Main Membership Creteria View Section Start ********************* -->
+                                        <div class="reSizeCompany memberCriteria">
+                                            <div class="panel mainMem" id="ContactDetailDivPanelId">
+                                                <h2 class="headTxt blue-color">{!$Label.Recertification_YPO_MainMembership}<span class="glyphicon glyphicon-pencil mainCriteriaDiv"></span></h2>
+                                            </div>
+                                            <div class="panel reSizeCriteria">
+                                                <label>Industry </label>
+                                                <em id="IndustryEMId">Sales</em>
+                                                <label>Corporation Type</label>
+                                                <em id="CorporationTypeEMId">Sales</em>
+                                                <label>Firm Type</label>
+                                                <em id="FirmTypeEMId">Profit</em>
+                                                <label>Business Scope</label>
+                                                <em id="BusinessScopeEMId">International</em>
+                                                <label>President Type</label>
+                                                <em id="PresidentTypeEMId">Professional Manager</em>
+                                                <label>Title Held</label>
+                                                <em id="TitleheldEMId">Professional Manager</em>
+                                            </div>
+                                        </div>
+                                        <!-- ********************* Main Membership Creteria View Section End ********************* -->
+                                        
+                                        <!-- ********************* Main Membership Creteria  Edit Section START ********************* -->
+                                        <div class="memberCriteriaShowHideDiv" style="display:none">
+                                            <div class="panel criteriaPanel btnTopRow">
+                                                
+                                                <a class="CriteriaBack" href="javascript:void(0)">
+                                                    <svg id="ContactEditsvgId" style="width:15px; height:15px; padding-right:5px; fill: #fff;" viewBox="0 0 32 32">
+                                                        <path class="path1" d="M14 29.8l2.8-3-8.8-9h24v-4h-24l8.8-9-2.8-3-14 14z"></path>
+                                                    </svg>
+                                                    Back to Main Membership Criteria
+                                                </a>                                            
+                                                
+                                                
+                                                <button class="btn" disabled="disabled" id="mainMembershipUpSaveId" role="button" type="button" > SAVE </button>
+                                                
+                                            </div>
+                                            <div class="panel reEnterNum" id="ContactDetailDivPanelId"> 
+                                                <div class="reCertiInputs">
+                                                    <span class="input-select">
+                                                        <div class="input selectArw" data-bind="validationElement1: requiredTextInputIndustry, css: {'is-not-empty': requiredTextInputIndustry}"  >                                    
+                                                            <apex:selectList value="{!Opp_Industry}" size="1" id="IndustryInputTextId" styleClass="input-field" html-data-bind="textInput: requiredTextInputIndustry" onchange="validateMainMemberForm()" >
+                                                                <apex:selectOption itemValue="" itemLabel="Select one" html-selected="selected" />
+                                                                <apex:selectOptions value="{!Industry}"  />
+                                                            </apex:selectList>                                            
+                                                            <label class="input-label is-required" for="IndustryInputTextId">Industry</label>
+                                                            <span class="validationMessage" data-bind="validationMessage: requiredTextInputIndustry"></span>
+                                                        </div>
+                                                    </span>
+                                                </div>
+                                                
+                                                <div class="reCertiInputs">
+                                                    <span class="input-select">
+                                                        <div class="input selectArw" data-bind="validationElement2: requiredTextInputCorpType, css: {'is-not-empty': requiredTextInputCorpType}"  >                                    
+                                                            <apex:selectList value="{!Opp_CorporationType}" size="1"  id="CorpTypeInputTextId" styleClass="input-field" html-data-bind="textInput: requiredTextInputCorpType" onchange="validateMainMemberForm()" >
+                                                                <apex:selectOption itemValue="" itemLabel="Select one" html-selected="selected" />
+                                                                <apex:selectOptions value="{!CorporationType}"  />
+                                                            </apex:selectList>
+                                                            <label class="input-label is-required" for="CorpTypeInputTextId">  Corporation Type </label>
+                                                            <span class="validationMessage" data-bind="validationMessage: requiredTextInputCorpType"></span>
+                                                        </div>
+                                                    </span>
+                                                </div>
+                                                
+                                                <div class="reCertiInputs">
+                                                    <span class="input-select">
+                                                        <div class="input selectArw" data-bind="validationElement3: requiredTextInputFirmType, css: {'is-not-empty': requiredTextInputFirmType}"  >                                    
+                                                            <apex:selectList value="{!Opp_FirmType}" size="1" id="FirmTypeInputTextId" styleClass="input-field" html-data-bind="textInput: requiredTextInputFirmType" onchange="validateMainMemberForm()" >
+                                                                <apex:selectOption itemValue="" itemLabel="Select one" html-selected="selected" />
+                                                                <apex:selectOptions value="{!FirmType}"  />
+                                                            </apex:selectList>
+                                                            <label class="input-label is-required" for="FirmTypeInputTextId"> {!$ObjectType.Opportunity.Fields.Firm_Type__c.Label} </label>
+                                                            <span class="validationMessage" data-bind="validationMessage: requiredTextInputFirmType"></span>
+                                                        </div>
+                                                    </span>
+                                                </div>
+                                                
+                                                <div class="reCertiInputs">
+                                                    <span class="input-select">
+                                                        <div class="input selectArw" data-bind="validationElement4: requiredTextInputBusinessScope, css: {'is-not-empty': requiredTextInputBusinessScope}"  >                                    
+                                                            <apex:selectList value="{!Opp_BusinessScope}" size="1" id="BusinessScopeInputTextId" styleClass="input-field" html-data-bind="textInput: requiredTextInputBusinessScope"  onchange="validateMainMemberForm()">
+                                                                <apex:selectOption itemValue="" itemLabel="Select one" html-selected="selected" />
+                                                                <apex:selectOptions value="{!BusinessScope}"  />
+                                                            </apex:selectList>
+                                                            <label class="input-label is-required" for="BusinessScopeInputTextId"> {!$ObjectType.Opportunity.Fields.Business_Scope__c.Label} </label>
+                                                            <span class="validationMessage" data-bind="validationMessage: requiredTextInputBusinessScope"></span>
+                                                        </div>
+                                                    </span>
+                                                </div>
+                                                
+                                                <div class="reCertiInputs">
+                                                    <span class="input-select">
+                                                        <div class="input selectArw" data-bind="validationElement5: requiredTextInputPresidentType, css: {'is-not-empty': requiredTextInputPresidentType}"  >                                    
+                                                            <apex:selectList value="{!Opp_PresidentType}" size="1" id="PresidentTypeInputTextId" styleClass="input-field" html-data-bind="textInput: requiredTextInputPresidentType" onchange="validateMainMemberForm()" >
+                                                                <apex:selectOption itemValue="" itemLabel="Select one" html-selected="selected" />
+                                                                <apex:selectOptions value="{!PresidentType}"  />
+                                                            </apex:selectList>                                            
+                                                            <label class="input-label is-required" for="PresidentTypeInputTextId"> {!$ObjectType.Opportunity.Fields.President_Type__c.Label} </label>
+                                                            <span class="validationMessage" data-bind="validationMessage: requiredTextInputPresidentType"></span>
+                                                        </div>
+                                                    </span>
+                                                </div>
+                                                
+                                                <div class="reCertiInputs">
+                                                    <span class="input-select">
+                                                        <div class="input selectArw" data-bind="validationElement6: requiredTextInputTitleHeld, css: {'is-not-empty': requiredTextInputTitleHeld}"  >                                    
+                                                            <apex:selectList value="{!Opp_Title}" size="1" id="TitleHeldInputTextId" styleClass="input-field" html-data-bind="textInput: requiredTextInputTitleHeld" onchange="validateMainMemberForm()" >
+                                                                <apex:selectOption itemValue="" itemLabel="Select one" html-selected="selected" />
+                                                                <apex:selectOptions value="{!Title}"  />
+                                                            </apex:selectList>                                                
+                                                            <label class="input-label is-required" for="TitleHeldInputTextId">  {!$ObjectType.Opportunity.Fields.Title__c.Label} HELD </label>
+                                                            <span class="validationMessage" data-bind="validationMessage: requiredTextInputTitleHeld"></span>
+                                                        </div>
+                                                    </span>
+                                                </div>
+                                            </div> 
+                                            <div class="panel criteriabottomDiv btnsRow">
+                                                
+                                                <a class="CriteriaBack" href="javascript:void(0)">
+                                                    <svg id="ContactEditsvgId" style="width:15px; height:15px; padding-right:5px; fill: #000;" viewBox="0 0 32 32">
+                                                        <path class="path1" d="M14 29.8l2.8-3-8.8-9h24v-4h-24l8.8-9-2.8-3-14 14z"></path>
+                                                    </svg>
+                                                    Back to qualifying Company
+                                                </a>                                            
+                                                <button class="btn" disabled="disabled" id="mainMembershipDownSaveId" role="button" type="button" > SAVE </button>                                 
+                                            </div>
+                                        </div>
+                                        <!-- ********************* Main Membership Creteria Edit Section END ********************* -->
+                                        
+                                        
+                                        <!-- ********************* Size of Company View Section START ********************* -->
+                                        <div class="reSizeCompany sizeCompany">
+                                            <div class="panel">
+                                                <h2 class="headTxt blue-color">
+                                                    Size of Company <span class="glyphicon glyphicon-pencil sizePencil"></span>
+                                                </h2>
+                                            </div>
+                                            <div class="panel reSize">
+                                                <label>Number of Regular Employees</label>
+                                                <em id="NumberofRegularEmpEMId"></em>
+                                                <label>Employee compensation <span>(do not include member)</span></label>
+                                                <em id="EmpCompensationEMId"></em>
+                                            </div>
+                                        </div>
+                                        <!--- ********************* Size of Company View Sction END ********************* -->
+                                        
+                                        
+                                        <!-- ********************* Size of Company Edit Section START ********************* -->
+                                        <div class="sizeMainHideDiv" style="display:none;">
+                                            <div class="panel btnTopRow">
+                                                
+                                                <a href="javascript:void(0)" class="sizeBack">
+                                                    <svg id="ContactEditsvgId" style="width:15px; height:15px; padding-right:5px; fill: #fff;" viewBox="0 0 32 32">
+                                                        <path class="path1" d="M14 29.8l2.8-3-8.8-9h24v-4h-24l8.8-9-2.8-3-14 14z"></path>
+                                                    </svg>
+                                                    Back to Size of Company
+                                                </a>                                            
+                                                
+                                                
+                                                <button class="btn" disabled="disabled" id="SizeOfCompanyUpSaveId" role="button" type="button" > SAVE </button>
+                                                
+                                            </div>
+                                            <div class="penel size numEmp">
+                                                <div class="input" data-bind="validationElement0: requiredTextInputNumberOfEmp, css: {'is-not-empty': requiredTextInputNumberOfEmp}">
+                                                    <input class="input-field" data-bind="textInput: requiredTextInputNumberOfEmp" id="NumberofEmpInputTextId" onkeyup="validateSizeOfCompForm()" />
+                                                    <label class="input-label is-required" for="NumberofEmpInputTextId">Number of Regular Employees <elm class="qmarkIcon">?</elm></label>
+                                                    <span class="validationMessage" data-bind="validationMessage: requiredTextInputNumberOfEmp" style="">This field is required.</span>
+                                                </div>
+                                                <div class="input" data-bind="validationElement1: requiredTextInputCompensation, css: {'is-not-empty': requiredTextInputCompensation}">
+                                                    <input class="input-field" data-bind="textInput: requiredTextInputCompensation" id="CompensationInputTextId" onkeyup="validateSizeOfCompForm()" />
+                                                    <label class="input-label is-required" for="CompensationInputTextId">Employees Compensation <span>(do not include member)</span></label>
+                                                    <span class="validationMessage" data-bind="validationMessage: requiredTextInputCompensation" style="">This field is required.</span>
+                                                </div>
+                                            </div>
+                                            <div class="panel sizeBottomDiv btnsRow">
+                                                
+                                                <a class="sizeBack" href="javascript:void(0)">
+                                                    <svg id="ContactEditsvgId" style="width:15px; height:15px; padding-right:5px; fill: #000;" viewBox="0 0 32 32">
+                                                        <path class="path1" d="M14 29.8l2.8-3-8.8-9h24v-4h-24l8.8-9-2.8-3-14 14z"></path>
+                                                    </svg>
+                                                    Back to Size of Company
+                                                </a>                                            
+                                                
+                                                
+                                                <button class="btn" disabled="disabled" id="SizeOfCompanyDownSaveId" role="button" type="button" > SAVE </button>
+                                                
+                                            </div>
+                                        </div>
+                                        <!-- ********************* Size of Company Edit Section END ********************* -->
+                                        
+                                        <!-- ********************* Value of Company View Section START ********************* -->
+                                        <div class="reSizeCompany reSizeValue ">
+                                            <div class="panel">
+                                                <h2 class="headTxt blue-color">
+                                                    Value of Company <span class="glyphicon glyphicon-pencil valuePencil"></span>
+                                                </h2>
+                                            </div>
+                                            <div class="panel reSize">
+                                                <label>Dollar Volume <span>(based on the corporation type selected in membership criteria)</span></label>
+                                                <em id="DollarVolumeEMId"></em>
+                                                <label>Enterprise Value <span>(last fiscal year)</span></label>
+                                                <em id="EnterpriseValueEMId"></em>
+                                                <label>Enterprise Type </label>
+                                                <em id="EnterpriseTypeEMId"></em>
+                                            </div>
+                                        </div>
+                                        <!-- ********************* Value of Company View Section END ********************* -->
+                                        
+                                        <!-- ********************* Value of Company Edit Section START ********************* -->
+                                        <div class="valueMainHideDiv" style="display:none;">
+                                            <div class="panel btnTopRow">                                            
+                                                <a href="javascript:void(0)" class="valueBack">
+                                                    <svg id="ContactEditsvgId" style="width:15px; height:15px; padding-right:5px; fill: #fff;" viewBox="0 0 32 32">
+                                                        <path class="path1" d="M14 29.8l2.8-3-8.8-9h24v-4h-24l8.8-9-2.8-3-14 14z"></path>
+                                                    </svg>
+                                                    Back to Value of Company
+                                                </a>                                           
+                                                <button class="btn" disabled="disabled" id="ValueOfCompUpSaveId" role="button" type="button" > SAVE </button>
+                                            </div>
+                                            <div class="penel size num">
+                                                
+                                                <div class="input" data-bind="validationElement1: requiredTextInputAnnualRev, css: {'is-not-empty': requiredTextInputAnnualRev}">
+                                                    <input class="input-field" data-bind="textInput: requiredTextInputAnnualRev" id="AnnualRevInputTextId" onkeyup="validateValueOfCompForm()" value=""/>
+                                                    <label class="input-label is-required" for="AnnualRevInputTextId">Dollar Volume<span> (based on the corporation type selected 
+                                                        membership criteria)</span></label>
+                                                    <span class="validationMessage" data-bind="validationMessage: requiredTextInputAnnualRev" style="">This field is required.</span>
+                                                </div>
+                                                <div class="enter">
+                                                    <div class="input" data-bind="validationElement1: requiredTextInputEnterprise, css: {'is-not-empty': requiredTextInputEnterprise}">
+                                                        <input class="input-field" data-bind="textInput: requiredTextInputEnterprise" id="EnterpriseInputTextId" onkeyup="validateValueOfCompForm()" value=""/>
+                                                        <label class="input-label is-required" for="EnterpriseInputTextId">Enterprise Value <span>(last fiscal year)</span></label>
+                                                        <span class="validationMessage" data-bind="validationMessage: requiredTextInputEnterprise" style="">This field is required.</span>
+                                                    </div>
+                                                </div>
+                                                <span class="input-select typeSelect">
+                                                    <div class="input selectArw" data-bind="validationElement5: requiredTextInputEnterpriseType, css: {'is-not-empty': requiredTextInputEnterpriseType}"  >                                    
+                                                        <apex:selectList value="{!Opp_EnterpriseType}" size="1" id="EnterpriseTypeInputTextId" styleClass="input-field" html-data-bind="textInput: requiredTextInputEnterpriseType " onchange="validateValueOfCompForm()" >
+                                                            <apex:selectOption itemValue="" itemLabel="--None--" html-selected="selected" />
+                                                            <apex:selectOptions value="{!EnterpriseType}"  />
+                                                        </apex:selectList>
+                                                        <label class="input-label is-required" for="EnterpriseTypeInputTextId">{!$ObjectType.Opportunity.Fields.Enterprise_Type__c.Label}</label>
+                                                        <span class="validationMessage" data-bind="validationMessage: requiredTextInputEnterpriseType"></span>
+                                                    </div>
+                                                </span>
+                                                
+                                                <div class="terms">
+                                                    <input class="customCheckbox" id="SubsidiaryCheckId" name="SubsidiaryCheckName" type="checkbox"/>
+                                                    <label for="SubsidiaryCheckId" name="SubsidiaryCheckName">Subsidiary </label>
+                                                </div>
+                                                
+                                            </div>
+                                            <div class="panel valueBottomDiv btnsRow">                                           
+                                                <a class="valueBack" href="javascript:void(0)">
+                                                    <svg id="ContactEditsvgId" style="width:15px; height:15px; padding-right:5px; fill: #000;" viewBox="0 0 32 32">
+                                                        <path class="path1" d="M14 29.8l2.8-3-8.8-9h24v-4h-24l8.8-9-2.8-3-14 14z"></path>
+                                                    </svg>
+                                                    Back to Value of Company
+                                                </a>                                           
+                                                <button class="btn" disabled="disabled" id="ValueOfCompDownSaveId" role="button" type="button" > SAVE </button>
+                                            </div>
+                                        </div>
+                                        <!-- ********************* Value of Company Edit Section END ********************* -->
+                                        
+                                    </section>
+                                    
+                                    <!-- ***** Qualifying block END ***** -->
+                                    <div class="btm-btns btm-btns whiteBox">
+                                        <input type="button"  class="btn btn-gray" onclick="window.location.href='{! URLFOR($Page.UpdateProfileInfo_YPO,null,[Id=$CurrentPage.parameters.Id])}'" value="Back"></input>
+                                    <!-- <apex:commandButton value="Submit" id="submitButtonId"  styleclass="btn btn-blue" disabled="true" action="{!saveOnRecertification}" /> -->
+                                    <input type="button"  class="btn btn-blue" value = "Continue" id="submitButtonId" onclick="callActionFuncFOrSubmit()" ></input>
+                                </div>
+                            
+                                </section>
+                            </apex:outputPanel>
+                            <!-- ***** recertificationBlock END ***** --> 
+                    
+                    
+                    <!-- *************** YPO gold membership Criteria START ****************** --->  
+                    <apex:outputPanel rendered="{!isYPO_GoldMember}" >
+                        <section class="reCertiCondition companyRecrtification">
+                            <h6>YPO gold membership Criteria</h6>
+                            
+                            <div class="fieldset">
+                                <span class="input-select">
+                                    <div class="input" data-bind="validationElement0: ypoGoldCorprequiredTextInput, css: {'is-not-empty': ypoGoldCorprequiredTextInput}" >
+                                        <apex:selectList value="{!Opp_CorporationType}" size="1"  id="CorpTypeisYPOMembInputTextId" styleClass="input-field" html-data-bind="textInput: ypoGoldCorprequiredTextInput" onchange="validateYPOGoldMemberForm()" >
+                                            <apex:selectOption itemValue="" itemLabel="Select one" html-selected="selected" />
+                                            <apex:selectOptions value="{!CorporationType}"  />
+                                        </apex:selectList>
+                                        <label class="input-label is-required" for="CorpTypeisYPOMembInputTextId">Corporation Type<elm class="glyphicon glyphicon-triangle-bottom"></elm>          </label>
+                                        <span class="validationMessage" data-bind="validationMessage: ypoGoldCorprequiredTextInput"></span> 
+                                    </div>
+                                </span>
+                                
+                                <span class="input-select">
+                                    <div class="input" data-bind="validationElement0: ypoGoldPresrequiredTextInput, css: {'is-not-empty': ypoGoldPresrequiredTextInput}" >
+                                        <apex:selectList value="{!Opp_PresidentType}" size="1" id="PresidentTypeisYPOMembInputTextId" styleClass="input-field" html-data-bind="textInput: ypoGoldPresrequiredTextInput" onchange="validateYPOGoldMemberForm()" >
+                                            <apex:selectOption itemValue="" itemLabel="Select one" html-selected="selected" />
+                                            <apex:selectOptions value="{!PresidentType}"  />
+                                        </apex:selectList>                                        
+                                        <label class="input-label is-required" for="PresidentTypeisYPOMembInputTextId"> President Type  <elm class="glyphicon glyphicon-triangle-bottom"></elm>  </label>
+                                        <span class="validationMessage" data-bind="validationMessage: ypoGoldPresrequiredTextInput"></span> 
+                                    </div>
+                                </span>
+                                
+                                <div class="input input-select" data-bind="validationElement0: ypoGoldBusirequiredTextInput, css: {'is-not-empty': ypoGoldBusirequiredTextInput}" >
+                                    <apex:selectList value="{!Opp_BusinessScope}" size="1" id="BusinessScopeisYPOMembInputTextId" styleClass="input-field" html-data-bind="textInput: ypoGoldBusirequiredTextInput"  onchange="validateYPOGoldMemberForm()">
+                                        <apex:selectOption itemValue="" itemLabel="Select one" html-selected="selected" />
+                                        <apex:selectOptions value="{!BusinessScope}"  />
+                                    </apex:selectList>
+                                    <label class="input-label is-required" for="BusinessScopeisYPOMembInputTextId"> Business scope  <elm class="glyphicon glyphicon-triangle-bottom"></elm> </label>
+                                    <span class="validationMessage" data-bind="validationMessage: ypoGoldBusirequiredTextInput"></span> 
+                                </div>
+                                <div class="recertiInputs">
+                                    <div class="input" data-bind="validationElement0: ypoGoldAnnualrequiredTextInput, css: {'is-not-empty': ypoGoldAnnualrequiredTextInput}" >
+                                        <apex:inputText value="{!AnnualRevenue}" styleClass="input-field" id="AnnualRevisYPOMembInputTextId" html-data-bind="textInput: ypoGoldAnnualrequiredTextInput" onkeyup="validateYPOGoldMemberForm()"/>
+                                        <label class="input-label is-required" for="AnnualRevisYPOMembInputTextId"> Dollar business volume </label>
+                                        <span class="validationMessage" data-bind="validationMessage: ypoGoldAnnualrequiredTextInput"></span> 
+                                    </div>
+                                </div>
+                            </div>
+                        </section>
+                        
+                        <div class="btm-btns btm-btns whiteBox">
+                            <input class="btn btn-gray" value="Back" type="button" onclick="window.location.href='{! URLFOR($Page.UpdateProfileInfo_YPO,null,[Id=$CurrentPage.parameters.Id])}'"/>
+                            <!-- <apex:commandButton value="Submit" id="submitButtonId"  styleclass="btn btn-blue"  /> --> <!-- action="{!saveGo}" -->
+                            <input type="button"  class="btn btn-blue" value = "Submit" id="ypoGoldSubmitButtonId" onclick="mapAndUpdateYPOGoldMembership()" />
+                        </div>                        
+                    </apex:outputPanel>
+                    
+                    <!-- *************** YPO gold membership Criteria END  ****************** --->                        
+                    
+                    
+                        
+            
+                    <apex:actionFunction name="callActionFuncFOrSubmit" action="{!saveOnRecertification}" immediate="true"/>
+                </apex:outputPanel>
+            </apex:form> 
+</div>
+</div>          
+        </apex:define>
+    </apex:composition>
+
+    <apex:includeScript value="https://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js" />
+    <script>
+
+        //alert('{!isYPO_GoldMember}');
+        // alert('{!AnnualRevenue}');
+        // alert("{!oContact.Id}");
+
+        var opportunityResult;
+        var OppId;
+        var ChangeQualifyClicked = 'No';
+        var qualifyCompanyEdited = 'No';
+        var mainMembershipEdited = 'No';
+        var sizeOfCompany = 'No';
+        var valueOfCompany = 'No';
+
+        getAnOpportunity();
+
+        
+        $(document).ready(function(){
+            
+            // This is for the Request Grace Dismiss button
+            $(".request").click(function(){
+                $(".requestDiv").hide();
+            });
+            
+            // This is for the I'm Interested Dismiss button
+            $(".Iam").click(function(){
+                $(".iamDiv").hide();
+            });
+            
+            // This is for to be editable the QUALIFYING COMPANY section
+            $(".changeQualifying").click(function(){
+                qualifyCompanyEdited = 'Yes';
+                setEditAccountAddress(opportunityResult);
+                $(".changeParent").hide();
+                $(".changeDiv").show();
+                $(".nameCompany").show()
+                $(".enablecompname").hide();
+                
+                // This is to be set if QualifyingCompanyEditable when you click on pencil icon or change Qualifying text.
+                $('[id*=isQualifyingCompanyEditableId]').val(true);
+                
+            });
+            
+            // This is for the editable Company Name box
+            $("#editCompanyNameBoxId").click(function(){
+                // This is to be set if QualifyingCompanyEditable when you click on pencil icon or change Qualifying text.
+                $('[id*=isQualifyingCompanyEditableId]').val(true);
+                ChangeQualifyClicked = 'Yes';               
+            });
+            
+            // This is for the COMPANY NAME Box EDIT Button
+           $(".changeCompanyName").click(function(){                 
+                $(".nameCompany").hide();
+                $(".enablecompname").show();
+           });
+           
+           // This is for the QUALIFYING COMPANY Edit Section BACK button
+            $(".qualifyBack").click(function(){
+                ChangeQualifyClicked = 'No';
+                $(".changeDiv").hide();
+                $(".changeParent").show();
+            });
+            
+            // This is for Up save button on Qualify Company Edit Section to Save it.
+            $("#QualifyCompUpSaveId").click(function(){
+                mapAndupdateQualifyCompanyInfo();
+                getAnOpportunity();
+                qualifyCompanyEdited = 'No';
+                ChangeQualifyClicked = 'No';
+                $(".changeDiv").hide();
+                $(".changeParent").show();
+            });
+            // This is for Down save button on Qualify Company Edit Section to Save it.
+            $("#QualifyCompDownSaveId").click(function(){
+                mapAndupdateQualifyCompanyInfo();
+                getAnOpportunity();
+                qualifyCompanyEdited = 'No';
+                ChangeQualifyClicked = 'No';
+                $(".changeDiv").hide();
+                $(".changeParent").show();
+            });
+            
+            
+            // This is going to be enable the MAIN MEMBERSHIP CRITERIA Section
+            $(".mainCriteriaDiv").click(function(){
+                mainMembershipEdited = 'Yes';
+                displayMainmembershipinEditSec(opportunityResult);
+                $(".reSizeCompany.memberCriteria").hide();
+                $(".memberCriteriaShowHideDiv").show();
+           });
+          
+           // This is for the Main Membership Creteria  Edit Section BACK Button
+            $(".CriteriaBack").click(function(){
+                mainMembershipEdited = 'No';
+                $(".reSizeCompany.memberCriteria").show()
+                $(".memberCriteriaShowHideDiv").hide();
+           });
+           
+            // This is for the save the Main Membership Criteria Info on Both UP and DOWN save
+            $("#mainMembershipUpSaveId").click(function(){                
+                // The below method to update the Opportunity Main Membership Criteria Info Through Remote Object Mapping
+                mapAndUpdateMainMembership();
+                
+                getAnOpportunity();
+                mainMembershipEdited = 'No';
+                $(".reSizeCompany.memberCriteria").show()
+                $(".memberCriteriaShowHideDiv").hide();
+            });
+            $("#mainMembershipDownSaveId").click(function(){
+                // The below method to update the Opportunity Main Membership Criteria Info Through Remote Object Mapping
+                mapAndUpdateMainMembership();
+                
+                getAnOpportunity();
+                mainMembershipEdited = 'No';
+                $(".reSizeCompany.memberCriteria").show()
+                $(".memberCriteriaShowHideDiv").hide();
+            });
+            
+            // This is for the SIZE OF COMPANY View Section Pencil Icon
+            $(".sizePencil").click(function(){
+                sizeOfCompany = 'Yes';
+                SizeOfCompanyInfoinEditSec(opportunityResult);
+                $(".sizeCompany").hide();
+                $(".sizeMainHideDiv").show();
+            });                        
+            
+            // This is for the Size of Company Edit Section BACK Button
+            $(".sizeBack").click(function(){
+                sizeOfCompany = 'No';
+                $(".sizeMainHideDiv").hide();
+                $(".sizeCompany").show();
+            });
+            
+            // This is for the Size of Company Edit Section Save Button Up update it through remote action
+            $("#SizeOfCompanyUpSaveId").click(function(){
+                mapAndUpdateSizeOfCompany();
+                getAnOpportunity();
+                sizeOfCompany = 'No';
+                $(".sizeMainHideDiv").hide();
+                $(".sizeCompany").show();
+            });
+            // This is for the Size of Company Edit Section Save Button Down update it through remote action
+            $("#SizeOfCompanyDownSaveId").click(function(){
+                mapAndUpdateSizeOfCompany();
+                getAnOpportunity();
+                sizeOfCompany = 'No';
+                $(".sizeMainHideDiv").hide();
+                $(".sizeCompany").show();
+            });
+            
+            // This is for the Value of Company View Section Pencil Icon           
+            $(".valuePencil").click(function(){
+                valueOfCompany = 'Yes';
+                valueOfCompanyInfoinEditSec(opportunityResult);
+                $(".reSizeValue").hide();
+                $(".valueMainHideDiv").show();
+            });
+            
+            // This is for the Value of Company Edit Section BACK Button
+            $(".valueBack").click(function(){
+                valueOfCompany = 'No';
+                $(".valueMainHideDiv").hide();
+                $(".reSizeValue").show();
+            });
+            
+            // This is for the Value of Company Edit Section Save Button Up update it through remote action
+            $("#ValueOfCompUpSaveId").click(function(){
+                // The below method to update the Opportunity Main Membership Criteria Info Through Remote Object Mapping
+                mapAndUpdatevalueOfCompany();
+                
+                getAnOpportunity();
+                valueOfCompany = 'No';
+                $(".valueMainHideDiv").hide();
+                $(".reSizeValue").show();
+            });
+            
+            // This is for the Value of Company Edit Section Save Button Down update it through remote action
+            $("#ValueOfCompDownSaveId").click(function(){
+                // The below method to update the Opportunity Main Membership Criteria Info Through Remote Object Mapping
+                mapAndUpdatevalueOfCompany();
+                
+                getAnOpportunity();
+                valueOfCompany = 'No';
+                $(".valueMainHideDiv").hide();
+                $(".reSizeValue").show();
+            });
+            
+            
+            // Initialize KO Form Validation           
+            $('#stateDIV').bind("DOMSubtreeModified DOMNodeInserted DOMNodeRemoved",function(){
+                //$('[id*="stateDIV"]').find("span").addClass("input-select");
+            });
+                        
+            // This will be called Knockout validations:
+            ko.applyBindings(new textInputModel());
+        });
+
+        /**************** VISUALFORCE REMOTE ACTION STARTS ********************/
+
+        function getAnOpportunity(){
+            var JId = '{!oContact.Id}';
+            var jsonContact = '{ "Id" : \"'+ JId
+                                + '\" }';
+            //alert(jsonContact);
+            
+            Visualforce.remoting.Manager.invokeAction(
+                '{!$RemoteAction.RecertificationExtension.getAnOpportunity}',
+                jsonContact,
+                function(result, event){
+                    if (event.status) {                       
+                        if(result != null ){                            
+                            opportunityResult = result;
+                            if(result.Qualifying_Company__c != undefined && result.Qualifying_Company__c != null && result.Qualifying_Company__c != ''){
+                                $('#companyOrgId').text(result.Qualifying_Company__c);
+                                $('#qualifyCompanyNameSpanId').text(result.Qualifying_Company__c);
+                            }else{
+                                $('#companyOrgId').text('');
+                                $('#qualifyCompanyNameSpanId').text('');
+                            }
+                            
+                            displayQualifyCompInf(result);
+                            mainMebershipDetailsInfo(result);
+                            SizeOfCompanyDetailsInfo(result);
+                            ValueOfCompanyDetailsInfo(result);
+                        }      
+                    }else{
+                         window.console.log('Error in get An  Account record');
+                    }
+                },
+                {escape: true}
+             );
+        }
+
+        // This will be update opportunity by each section wise.
+
+        function updateOpportunityByEachSection(updateOppJsonStr , sectionName){
+            Visualforce.remoting.Manager.invokeAction(
+                '{!$RemoteAction.RecertificationExtension.updateOpportunityEachSec}',
+                updateOppJsonStr,
+                function(result, event){
+                    if (event.status) {
+                        if(result != null ){ 
+                            // alert('Success --- Opportynity Updated----');                            
+                            if(sectionName == 'QualifyCompany'){
+                                //alert(sectionName +'\n -- 1');
+                            }else if(sectionName == 'MainMembership'){
+                                //alert(sectionName +'\n -- 2');
+                            }else if(sectionName == 'SizeOfCompany'){
+                                //alert(sectionName +'\n -- 3');
+                            }else if(sectionName == 'ValueOfCompany'){
+                                //alert(sectionName +'\n -- 4');
+                            }else if(sectionName == 'YPOGollMembership'){
+                                //alert(sectionName +'\n -- 5');
+                                // This is called to Apex Action to navigate to next page based on YPO Criteria.
+                                callActionFuncFOrSubmit(); 
+                            }
+                        }
+                    }else{
+                         window.console.log('Error in get An  Account record');
+                    }
+                },
+                {escape: true}
+             );
+        }
+
+        // Displays Main Membership Creteria details in View Section from Opportunity Obj through Remote Action
+        function mainMebershipDetailsInfo(resultOpp){
+            if(resultOpp != null){
+                $('#IndustryEMId').text(resultOpp.Organization_Type__c);
+                $('#CorporationTypeEMId').text(resultOpp.Organization_Type__c);
+                $('#FirmTypeEMId').text(resultOpp.Firm_Type__c);
+                $('#BusinessScopeEMId').text(resultOpp.Business_Scope__c);
+                $('#PresidentTypeEMId').text(resultOpp.President_Type__c);
+                $('#TitleheldEMId').text(resultOpp.Title__c);
+            }
+        }
+        // Displays Main Membership Creteria details in Edit Section form fields from Opportunity Obj through Remote Action
+        function displayMainmembershipinEditSec(resultMainMembership){
+            // Do the correct mapping for the Main membership Criteria Inf fields :- YPO Team to be Update:
+            if(resultMainMembership != undefined && resultMainMembership != null && resultMainMembership != ''){
+                self.requiredTextInputIndustry(resultMainMembership.Organization_Type__c);
+                self.requiredTextInputCorpType(resultMainMembership.Organization_Type__c);
+                self.requiredTextInputFirmType(resultMainMembership.Firm_Type__c);
+                self.requiredTextInputBusinessScope(resultMainMembership.Business_Scope__c);
+                self.requiredTextInputPresidentType(resultMainMembership.President_Type__c);
+                self.requiredTextInputTitleHeld(resultMainMembership.Title__c);
+            }
+        }
+        // update the Main Membership Criteria Info in opportunity when you click save on this section - verified here.
+        function mapAndUpdateMainMembership(){
+            OppId = '{!loadOpportunityId}';
+            var JOppIndustry =$("[id*=IndustryInputTextId]").val();
+            var JOppCorporationType =$("[id*=CorpTypeInputTextId]").val();                
+            var JOppFirmType =$("[id*=FirmTypeInputTextId]").val();
+            var JOppBusinessScope =$("[id*=BusinessScopeInputTextId]").val();
+            var JOppPresidentType =$("[id*=PresidentTypeInputTextId]").val();
+            var JOppTitle =$("[id*=TitleHeldInputTextId]").val();
+            
+            // Do the correct mapping for the Main membership Criteria Inf fields :- YPO Team to be Update:
+            var oppJsonmainMembership = '{ "Id" : \"'+ OppId
+            //  Do the correct mapping for the below field :- YPO Team to be Update: 
+            //+ '\" , "Organization_Type__c"        : \"'+ JOppIndustry
+            + '\" , "Organization_Type__c"          : \"'+ JOppCorporationType
+            + '\" , "Firm_Type__c"              : \"'+ JOppFirmType
+            + '\" , "Business_Scope__c" : \"'+ JOppBusinessScope                
+            + '\" , "President_Type__c"         : \"'+JOppPresidentType
+            + '\" , "Title__c"  : \"'+JOppTitle
+            + '\" }';            
+            updateOpportunityByEachSection(oppJsonmainMembership, 'MainMembership');
+        }
+
+        // Displays SIZE OF COMPANY in View section from the Opportunity through Remote Action
+        function SizeOfCompanyDetailsInfo(resultOpp){
+            if(resultOpp != null){
+                $('#NumberofRegularEmpEMId').text(resultOpp.NumberOfEmployees__c);
+                $('#EmpCompensationEMId').text(resultOpp.Total_Employee_Compensation__c);                
+            }
+        }
+        // Displays SIZE OF COMPANY Info in Edit section from the Opportunity through Remote Action
+        function SizeOfCompanyInfoinEditSec(resultSizeOfComp){
+            if(resultSizeOfComp != undefined && resultSizeOfComp != null && resultSizeOfComp != ''){
+                self.requiredTextInputNumberOfEmp(resultSizeOfComp.NumberOfEmployees__c);
+                self.requiredTextInputCompensation(resultSizeOfComp.Total_Employee_Compensation__c);
+            }
+        }       
+        // update the SIZE OF COMPANY Info in opportunity when you click save on this section - verified here.
+        function mapAndUpdateSizeOfCompany(){
+            OppId = '{!loadOpportunityId}';
+            var JOppNumberOfEmployees =$('#NumberofEmpInputTextId').val();
+            var JOppTotalEmployeeCompensation =$('#CompensationInputTextId').val();
+            //alert(JOppNumberOfEmployees +'\n'+JOppTotalEmployeeCompensation);
+            
+            // Do the correct mapping for the SIZE OF COMPANY Inf fields :- YPO Team to be Update:
+            var oppJsonsizeOfComp = '{ "Id" : \"'+ OppId      
+            + '\" , "NumberOfEmployees__c"      : \"'+JOppNumberOfEmployees
+            + '\" , "Total_Employee_Compensation__c"    : \"'+JOppTotalEmployeeCompensation
+            + '\" }';  
+            updateOpportunityByEachSection(oppJsonsizeOfComp,'SizeOfCompany');
+        }
+
+        // Displays VALUE OF COMPANY in View section from the Opportunity through Remote Action
+        function ValueOfCompanyDetailsInfo(resultOpp){
+            if(resultOpp != null){
+                $('#DollarVolumeEMId').text(resultOpp.AnnualRevenue__c);
+                $('#EnterpriseValueEMId').text(resultOpp.Enterprise_Value__c);
+                $('#EnterpriseTypeEMId').text(resultOpp.Enterprise_Type__c);
+            }
+        }
+        // Displays VALUE OF COMPANY Info in Edit section from the Opportunity through Remote Action
+        function valueOfCompanyInfoinEditSec(resultValueOfComp){
+            if(resultValueOfComp != undefined && resultValueOfComp != null && resultValueOfComp != ''){
+                self.requiredTextInputAnnualRev(resultValueOfComp.AnnualRevenue__c);
+                self.requiredTextInputEnterprise(resultValueOfComp.Enterprise_Value__c);
+                self.requiredTextInputEnterpriseType(resultValueOfComp.Enterprise_Type__c);
+            }
+        }
+        // update the VALUE OF COMPANY Info in opportunity when you click save on this section
+        function mapAndUpdatevalueOfCompany(){
+            OppId = '{!loadOpportunityId}';
+            var JAnnualRevenue = $('#AnnualRevInputTextId').val();
+            var JEnterpriseValue = $('#EnterpriseInputTextId').val();
+            var JEnterpriseType = $("[id*=EnterpriseTypeInputTextId]").val();
+            
+            // Do the correct mapping for the Value Of Company Inf fields :- YPO Team to be Update:
+            var oppJsonvalueOfCompany = '{ "Id" : \"'+ OppId
+            + '\" , "AnnualRevenue__c"          : \"'+ JAnnualRevenue
+            + '\" , "Enterprise_Value__c"               : \"'+ JEnterpriseValue
+            + '\" , "Enterprise_Type__c"    : \"'+ JEnterpriseType
+            + '\" }';
+            //alert(oppJsonvalueOfCompany);
+            updateOpportunityByEachSection(oppJsonvalueOfCompany , 'ValueOfCompany');
+        }
+
+        // Displays the  QUALIFYING COMPANY Info  in View Section from the Opportunty through Remote Action::
+        function displayQualifyCompInf(resultAcc){
+           
+            // Do the correct mapping for the Qualify Company Inf fields :- YPO Team to be Update:
+            if(resultAcc != null){                
+                // alert(resultAcc.Subsidiary__c);
+                if(resultAcc.Subsidiary__c == true ){
+                    $('#SubsidarySpanId').text('Yes');
+                }else{
+                    $('#SubsidarySpanId').text('No');
+                }
+                
+                if(resultAcc.QC_StreetAddress1__c != null)
+                    $('#mailingstreet').text(resultAcc.QC_StreetAddress1__c);
+                else $('#mailingstreet').text('');
+                
+                if(resultAcc.QC_City__c != null)
+                    $('#mailingcity').text(resultAcc.QC_City__c);
+                else $('#mailingcity').text('');
+
+                $('#mailingstatecode').text(resultAcc.QC_State__c);
+                $('#mailingcountrycode').text(resultAcc.QC_Country__c);
+                
+                if(resultAcc.QC_PostalCode__c != null)
+                    $('#mailingpostalcode').text(resultAcc.QC_PostalCode__c);
+                else $('#mailingpostalcode').text('');
+                
+                //$('[id*=companyWebisteHiddenId]').val(resultAcc.Website);
+            }
+        }       
+        // Displays the  QUALIFYING COMPANY Info in Edit Section from the Opportunty through Remote Action:
+        function setEditAccountAddress(resultAcc){
+            if(resultAcc != null){
+                if(resultAcc.Subsidiary__c == true){
+                    $('#SubsidaryInputId').prop( "checked", true );
+                }else{
+                     $('#SubsidaryInputId').prop( "checked", false );
+                }
+                self.requiredTextInputCountry(resultAcc.QC_CountryCode__c);
+                self.requiredTextInputState(resultAcc.QC_StateCode__c);
+                self.requiredTextInputStreet(resultAcc.QC_StreetAddress1__c);
+                self.requiredTextInputCity(resultAcc.QC_City__c);
+                self.requiredTextInputPostal(resultAcc.QC_PostalCode__c);
+            }
+        }       
+        // update QUALIFYING COMPANY Info in Opportunity When you click on Save button on this section.
+        function mapAndupdateQualifyCompanyInfo(){
+            OppId = '{!loadOpportunityId}';            
+            
+            var JQualifyCompany = $("[id*=qualifycompInputTextId]").val();
+            var JStreet =  $('#streetInputTextId').val();
+            var JCity = $('#cityInputTextId').val();
+            var JCountryCode =$("[id*=countryInputTextId]").val();
+            var JStateCode = $("[id*=stateInputTextId]").val();
+            var JPostal = $('#postalInputTextId').val();
+            var JState = $("[id*=stateInputTextId]").find("option:selected").text();
+            var JCountry =  $("[id*=countryInputTextId]").find("option:selected").text();
+            var JSubsidiry;
+            
+            if($('#SubsidaryInputId').is(':checked') == true){
+                JSubsidiry = true;
+            }else JSubsidiry = false;
+
+            var oppJQualifyComp='';
+            if(ChangeQualifyClicked =='Yes'){
+                oppJQualifyComp = '\" , "Qualifying_Company__c" : \"'+JQualifyCompany;
+            }
+            
+            // Do the correct mapping for the Qualify Company Info fields :- YPO Team to be Update:
+            var oppJsonQualifyComp = '{ "Id" : \"'+ OppId
+            + '\" , "QC_StreetAddress1__c"   : \"'+ JStreet
+            + '\" , "QC_City__c"            : \"'+ JCity
+            + '\" , "QC_Country__c" : \"'+ JCountry                
+            + '\" , "QC_State__c"       : \"'+JState
+            + '\" , "QC_PostalCode__c"  : \"'+JPostal
+            + '\" , "QC_StateCode__c"       : \"'+JStateCode
+            + '\" , "QC_CountryCode__c"     : \"'+JCountryCode
+            + '\" , "Subsidiary__c"     : \"'+JSubsidiry;
+            
+            if(oppJQualifyComp != ''){
+                oppJsonQualifyComp = oppJsonQualifyComp + oppJQualifyComp + '\" }';
+            }else{
+                oppJsonQualifyComp = oppJsonQualifyComp + '\" }';
+            }
+            updateOpportunityByEachSection(oppJsonQualifyComp, 'QualifyCompany');          
+        }
+
+
+        // update the YPO GOLD MEMBERSHIP CRITERIA Info in opportunity when you click Submit/Continue Button on this section - verified here.
+        function mapAndUpdateYPOGoldMembership(){
+            OppId = '{!loadOpportunityId}';
+            var JOppCorporationType =$("[id*=CorpTypeisYPOMembInputTextId]").val();
+            var JOppPresidentType =$("[id*=PresidentTypeisYPOMembInputTextId]").val();            
+            var JOppBusinessScope =$("[id*=BusinessScopeisYPOMembInputTextId]").val();            
+            var JAnnualRevenue =$("[id*=AnnualRevisYPOMembInputTextId]").val();
+            
+            // Do the correct mapping for the Main membership Criteria Inf fields :- YPO Team to be Update:
+            var oppJsonypogoldMembership = '{ "Id" : \"'+ OppId
+            //  Do the correct mapping for the below field :- YPO Team to be Update:
+            + '\" , "Organization_Type__c"          : \"'+ JOppCorporationType
+            + '\" , "President_Type__c"         : \"'+JOppPresidentType            
+            + '\" , "Business_Scope__c" : \"'+ JOppBusinessScope
+            + '\" , "AnnualRevenue__c"  : \"'+JAnnualRevenue
+            + '\" }';            
+            updateOpportunityByEachSection(oppJsonypogoldMembership, 'YPOGollMembership');
+        }
+        
+        // Verified - here - This is for the VALUE OF COMPANY section validations, Save button enable/disble
+        function validateValueOfCompForm(){
+            var toEnable=true;      
+            if($('.validationMessage').text() != '' ){
+                toEnable=false;
+            }
+            if($('[id*=AnnualRevInputTextId]').val().length==0 || $('[id*=EnterpriseInputTextId]').val().length==0 || $('[id*=EnterpriseTypeInputTextId]').val().length==0 ) {
+                toEnable=false;
+            }
+            document.getElementById('ValueOfCompUpSaveId').disabled=!toEnable;
+            document.getElementById('ValueOfCompDownSaveId').disabled=!toEnable;
+            document.getElementById('submitButtonId').disabled=!toEnable;
+        }
+        
+        // qualifying compay save button enable/disable
+        function validateQualifyingCompanyForm(){
+            //alert();
+            var toEnable=true;      
+            if($('.validationMessage').text() != '' ){
+                toEnable=false;
+            }
+            if($('[id*=streetInputTextId]').val().length==0 || $('[id*=cityInputTextId]').val().length==0 || $('[id*=websiteInputTextId]').val().length==0 ) {
+                toEnable=false;
+            }
+            if($('[id*=postalInputTextId]').val().length==0 || $('[id*=cityInputTextId]').val().length==0 || $('[id*=websiteInputTextId]').val().length==0 ) {
+                toEnable=false;
+            }
+            document.getElementById('QualifyCompUpSaveId').disabled=!toEnable;
+            document.getElementById('QualifyCompDownSaveId').disabled=!toEnable;
+            document.getElementById('submitButtonId').disabled=!toEnable;
+        }
+        
+        // Verified - here - This is for the SIZE OF COMPANY section validations, Save button enable/disble
+        function validateSizeOfCompForm(){
+            var toEnable=true;      
+            if($('.validationMessage').text() != '' ){
+                toEnable=false;
+            }
+            if($('[id*=NumberofEmpInputTextId]').val().length==0 || $('[id*=NumberofEmpInputTextId]').val() == 0 || $('[id*=CompensationInputTextId]').val().length==0 ) { 
+                toEnable=false;
+                //alert('--IF in SIDE-'+toEnable);
+            }
+            //alert('--OUT SIDE-'+toEnable);
+            document.getElementById('SizeOfCompanyUpSaveId').disabled=!toEnable;
+            document.getElementById('SizeOfCompanyDownSaveId').disabled=!toEnable;
+            document.getElementById('submitButtonId').disabled=!toEnable;
+        }
+        
+        // Verified - here - This is for the  MAIN MEMBERSHIP CRITERIA section validations, Save button enable/disble
+        function validateMainMemberForm(){        
+            var toEnable=true;      
+            if($('.validationMessage').text() != '' ){
+                toEnable=false;
+            }
+            if($('[id*=IndustryInputTextId]').val().length==0 || $('[id*=CorpTypeInputTextId]').val().length==0 || $('[id*=FirmTypeInputTextId]').val().length==0 ) {
+                toEnable=false;
+            }
+            if($('[id*=BusinessScopeInputTextId]').val().length==0 || $('[id*=PresidentTypeInputTextId]').val().length==0 || $('[id*=TitleHeldInputTextId]').val().length==0 ) {
+                toEnable=false;
+            }            
+            document.getElementById('mainMembershipUpSaveId').disabled=!toEnable;
+            document.getElementById('mainMembershipDownSaveId').disabled=!toEnable;
+            document.getElementById('submitButtonId').disabled=!toEnable;
+        }
+
+        // Verified - here - This is for the YPO GOLD MEMBERSHIP CRITERIA section validations, Save button enable/disble
+        function validateYPOGoldMemberForm(){        
+            var toEnable=true;      
+            if($('.validationMessage').text() != '' ){
+                toEnable=false;
+            }
+            if( $('[id*=CorpTypeisYPOMembInputTextId]').val().length==0 || $('[id*=PresidentTypeisYPOMembInputTextId]').val().length==0 ) {
+                toEnable=false;
+            }
+            if($('[id*=BusinessScopeisYPOMembInputTextId]').val().length==0 || $('[id*=AnnualRevisYPOMembInputTextId]').val().length==0 ) {
+                toEnable=false;
+            }            
+            document.getElementById('ypoGoldSubmitButtonId').disabled=!toEnable;
+        }
+
+        function validateStateKJS(kstate){
+           self.requiredTextInputState(kstate.value);
+        }
+
+        var self;
+        var textInputModel = function() {
+            self = this;
+            
+            self.requiredTextInputQualifyComp = ko.observable('{!JSENCODE(Opp_QualifyingCompany)}').extend()
+            self.requiredTextInputStreet = ko.observable().extend({})
+            self.requiredTextInputCity = ko.observable().extend({})
+            self.requiredTextInputState = ko.observable('{!oAcc.BillingStatecode}').extend()
+            self.requiredTextInputCountry = ko.observable('{!oAcc.BillingCountrycode}').extend()          
+            self.requiredTextInputPostal = ko.observable().extend({})
+            self.requiredTextInputWebsite = ko.observable().extend({})
+            
+            self.requiredTextInputIndustry = ko.observable('{!Opp_Industry}').extend({ required: true })
+            self.requiredTextInputCorpType = ko.observable('{!Opp_CorporationType}').extend({ required: true })
+            self.requiredTextInputFirmType = ko.observable('{!Opp_FirmType}').extend({ required: true })
+            self.requiredTextInputBusinessScope = ko.observable('{!Opp_BusinessScope}').extend({ required: true })
+            self.requiredTextInputPresidentType = ko.observable('{!Opp_PresidentType}').extend({ required: true })
+            self.requiredTextInputTitleHeld = ko.observable('{!Opp_Title}').extend({ required: true })
+            
+            self.requiredTextInputNumberOfEmp = ko.observable('{!NumberOfEmployees}').extend({required: true , digit : true, min: 1,          
+             })
+            self.requiredTextInputCompensation = ko.observable('{!TotalEmployeeCompensation}').extend({
+            required: true , AmountVal0: true, digit:true,
+            pattern: { params:  /^[a-zA-Z0-9_ ]+$/g, message: "Invalid data."}
+             })
+
+            self.requiredTextInputAnnualRev = ko.observable('{!AnnualRevenue}').extend({
+             required: true , AmountVal: true, digit:true,
+             pattern: { params:  /^[a-zA-Z0-9_ ]+$/g, message: "Invalid data."}
+               })
+            self.requiredTextInputEnterprise = ko.observable('{!EnterpriseValue}').extend({
+             required: true, AmountVal: true, digit:true,
+             pattern: { params:  /^[a-zA-Z0-9_ ]+$/g, message: "Invalid data."}
+               })
+            self.requiredTextInputEnterpriseType = ko.observable('{!Opp_EnterpriseType}').extend({ required: true })
+            
+            self.ypoGoldCorprequiredTextInput = ko.observable('{!Opp_CorporationType}').extend({ required: true })
+            self.ypoGoldPresrequiredTextInput = ko.observable('{!Opp_PresidentType}').extend({ required: true })  
+            self.ypoGoldBusirequiredTextInput = ko.observable('{!Opp_BusinessScope}').extend({ required: true })
+            self.ypoGoldAnnualrequiredTextInput = ko.observable('{!AnnualRevenue}').extend({
+             required: true,
+             pattern: { params:  /^(?:[0-9]+(?:\.[0-9]{0,2})?)?$/, message: "Invalid data."}
+              })
+        }
+        
+        ko.validation.registerExtenders();
+       
+        ko.validation.rules['AmountVal'] = {
+            validator: function (val, validate) {
+                var numbers = /^(?:[0-9]+(?:\.[0-9]{0,2})?)?$/;  
+                if(val.match(numbers) && val>0) { return true; }else{return false;}
+            },
+            message: 'Invalid Amount Format'
+        };
+
+        ko.validation.rules['AmountVal0'] = {
+            validator: function (val, validate1) {
+                //alert('-- This is in requiredTextInputCompensation --\n'+val);
+                //alert(validate1);
+                var numbers = /^(?:[0-9]+(?:\.[0-9]{0,2})?)?$/;  
+                if(val>0 && val.match(numbers) ) { return true; }else{return false;}
+            },
+            message: 'Invalid Amount Format'
+        };
+
+        ko.validation.init({
+            registerExtenders: false,
+            messagesOnModified: true,
+            insertMessages: false,
+            parseInputAttributes: true,
+            messageTemplate: null,
+            decorateInputElement: false,
+            grouping: {
+                deep: true, observable: false
+            }
+        }, 
+        true);
+    </script>
+</apex:page>

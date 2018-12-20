@@ -1,0 +1,73 @@
+<apex:page title="Compare products" showHeader="false" sidebar="false" standardStylesheets="false" applyHtmlTag="false" applyBodyTag="false" docType="html-5.0" controller="KGRenewal.VenueCompareController">
+<!--<apex:composition template="{! $Site.Template}">-->
+<apex:composition template="v_template">
+<apex:define name="title"><title>Compare products | {! $Organization.Name}</title></apex:define>
+<apex:define name="content">
+
+<div class="page-header">
+    <h1>Compare products{!IF(NOT(ISBLANK(label)),': '+label,'')}</h1>
+</div>
+
+<apex:outputPanel layout="none" rendered="{! productDisplayItems.size == 0}"><!--error message-->
+    <div class="alert alert-danger" html-role="alert">
+        There are no products to compare
+    </div> <!--/.alert-->
+</apex:outputPanel> <!--/error message-->
+
+<apex:outputPanel layout="none" rendered="{! productDisplayItems.size <> 0}">
+<div class="table-responsive">
+<table class="table table-striped table-condensed">
+    <thead>
+    <tr> <!--image row-->
+        <td style="border-top: 0px;"><!--empty column for row labels--></td>
+        <apex:repeat value="{! productDisplayItems}" var="item">
+            <td style="border-top: 0px;">
+                <apex:outputPanel layout="none" rendered="{! NOT(ISBLANK(item.record.KGRenewal__MainImageSmall__c))}">
+                    <a href="{! URLFOR($Page.v_detail, null, ['id'=item.record.Id])}">
+                        <img alt="{! item.record.Name}" src="{! item.record.KGRenewal__MainImageSmall__c}" height="200" />
+                    </a>
+                </apex:outputPanel>
+            </td>
+        </apex:repeat>
+    </tr> <!--/image row-->
+    <tr> <!--name row-->
+        <td style="border-top: 0px;"><!--empty column for row labels--></td>
+        <apex:repeat value="{! productDisplayItems}" var="item">
+            <td style="border-top: 0px;">
+                <a href="{! URLFOR($Page.v_detail, null, ['id'=item.record.Id])}">{! item.record.Name}</a>
+            </td>
+        </apex:repeat>
+    </tr> <!--/name row-->
+    <tr> <!--price row-->
+        <td style="border-top: 0px;"><!--empty column for row labels--></td>
+        <apex:repeat value="{! productDisplayItems}" var="item">
+            <td style="border-top: 0px;">
+                <apex:outputPanel layout="none" rendered="{! item.hasCustomPrice}"><!--strikethrough list price-->
+                    <s><apex:outputText styleClass="text-muted" value="{0, number, currency}">
+                        <apex:param value="{! item.standardEcommercePrice}"/>
+                    </apex:outputText></s><br />
+                </apex:outputPanel><!--/strikethrough list price-->
+                <apex:outputText styleClass="text-danger" value="{0, number, currency}">
+                    <apex:param value="{! item.discountedPrice}"/>
+                </apex:outputText>
+            </td>
+        </apex:repeat>
+    </tr> <!--/price row-->
+    </thead>
+    <tbody>
+    <apex:repeat value="{! fieldSetMemberList}" var="f">
+        <tr>
+            <td>{! f.label} <!--row labels: fieldset field names--></td>
+            <apex:repeat value="{! productDisplayItems}" var="item">
+                <td><apex:outputText rendered="{! f.type<>'boolean'}">{! item.record[f]}</apex:outputText><apex:outputText rendered="{! f.type=='boolean' && item.record[f]==true}">&#x2714;</apex:outputText></td><!--booleans display a check mark if true, empty if false-->
+            </apex:repeat>
+        </tr>
+    </apex:repeat>
+    </tbody>
+</table>
+</div> <!--/.table-responsive-->
+</apex:outputPanel>
+
+</apex:define>
+</apex:composition>
+</apex:page>
