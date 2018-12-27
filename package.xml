@@ -1,13 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Package xmlns="http://soap.sforce.com/2006/04/metadata">
   <types>
-    <members>salesforce</members>
-    <members>Salesforcedemo</members>
-    <members>Sampledemo</members>
-    <members>simple1</members>
-    <name>ApexClass</name>
-  </types>
-  <types>
     <members>GettingStarted</members>
     <name>AuraDefinitionBundle</name>
   </types>
@@ -28,11 +21,6 @@
   <types>
     <members>Dev_Hub_Lightning</members>
     <name>CustomApplication</name>
-  </types>
-  <types>
-    <members>salesforce__c</members>
-    <members>sfdx_test__mdt</members>
-    <name>CustomObject</name>
   </types>
   <types>
     <members>Getting_Started</members>
@@ -88,7 +76,6 @@
     <members>DuplicateRecordSet-Duplicate Record Set Layout</members>
     <members>EmailMessage-Email Message Layout</members>
     <members>Event-Event Layout</members>
-    <members>FeedItem-Feed Item Layout</members>
     <members>Global-Global Layout</members>
     <members>Idea-Idea Layout</members>
     <members>Lead-Lead Layout</members>
@@ -103,16 +90,13 @@
     <members>ProfileSkill-Skill Layout</members>
     <members>ProfileSkillUser-Skill User Layout</members>
     <members>QuickText-Quick Text Layout</members>
-    <members>salesforce__c-salesforce Layout</members>
     <members>ScorecardAssociation-Scorecard Association Layout</members>
     <members>ScorecardMetric-Scorecard Metric Layout</members>
     <members>Scorecard-Scorecard Layout</members>
-    <members>sfdx_test__mdt-sfdx-test Layout</members>
     <members>SocialPersona-Social Persona Layout</members>
     <members>SocialPost-Social Post Layout</members>
     <members>Solution-Solution Layout</members>
     <members>Task-Task Layout</members>
-    <members>UserAlt-User Profile Layout</members>
     <members>UserProvAccount-User Provisioning Account Layout</members>
     <members>UserProvisioningLog-User Provisioning Log Layout</members>
     <members>UserProvisioningRequest-User Provisioning Request Layout</members>
@@ -295,10 +279,6 @@
     <name>Report</name>
   </types>
   <types>
-    <members>salesforce__c</members>
-    <name>SharingRules</name>
-  </types>
-  <types>
     <members>Account</members>
     <members>Asset</members>
     <members>Case</members>
@@ -309,7 +289,6 @@
     <members>Lead</members>
     <members>Opportunity</members>
     <members>Order</members>
-    <members>salesforce__c</members>
     <members>Solution</members>
     <members>Task</members>
     <members>WorkOrder</members>
