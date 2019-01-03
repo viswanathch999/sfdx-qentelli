@@ -1,4 +1,4 @@
-/* General purpose Email Utility Class with the following features:
+/*** General purpose Email Utility Class with the following features:
  * Method chaining that construct and return an instance of a Email Util to 
  * save you the trouble of instantiating an EmailUtil when sending email.
  * Support templates. (whatId, templateId, targetObjectId)
