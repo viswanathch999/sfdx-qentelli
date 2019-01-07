@@ -35,7 +35,7 @@
   
     <taskdef resource="com/salesforce/antlib.xml" uri="antlib:com.salesforce">
         <classpath>
-            <pathelement location="C:\apache-ant-1.9.13-bin\apache-ant-1.9.13\lib" />        	
+            <pathelement location="C:\apache-ant-1.10.5\lib" />        	
         </classpath>
     </taskdef>
 	
