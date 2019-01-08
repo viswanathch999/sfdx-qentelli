@@ -5,5 +5,10 @@
         <members>EmailUtil</members>
         <name>ApexClass</name>
     </types>
+    <types>
+        <members>CompanyDashboards/AdoptionDashboard</members>
+        <members>CompanyDashboards/CompanyPerformanceDashboard</members>
+        <name>Dashboard</name>
+    </types>
     <version>44.0</version>
 </Package>
