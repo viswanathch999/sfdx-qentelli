@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomObject xmlns="http://soap.sforce.com/2006/04/metadata">
+    <customSettingsType>Hierarchy</customSettingsType>
+    <description>Captures houses qualification numbers for Lead and Opportunity equations</description>
+    <enableFeeds>false</enableFeeds>
+    <fields>
+        <fullName>Ann_Rev_Agency__c</fullName>
+        <description>Holds value for Annual Revenue - Dollar business income - for Agency-type.</description>
+        <externalId>false</externalId>
+        <inlineHelpText>Holds value for Annual Revenue - Dollar business income - for Agency-type.</inlineHelpText>
+        <label>Annual Revenue (Agency)</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <trackTrending>false</trackTrending>
+        <type>Currency</type>
+    </fields>
+    <fields>
+        <fullName>Ann_Rev_Financial__c</fullName>
+        <description>Holds value for Annual Revenue - Dollar business income - for Financial Institutions.</description>
+        <externalId>false</externalId>
+        <inlineHelpText>Holds value for Annual Revenue - Dollar business income - for Financial Institutions.</inlineHelpText>
+        <label>Annual Revenue (Financial)</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <trackTrending>false</trackTrending>
+        <type>Currency</type>
+    </fields>
+    <fields>
+        <fullName>Ann_Rev_Sales__c</fullName>
+        <description>Holds value for Annual Revenue - Dollar business income - for Sales, Service and Manufacturing companies.</description>
+        <externalId>false</externalId>
+        <inlineHelpText>Holds value for Annual Revenue - Dollar business income - for Sales, Service and Manufacturing companies.</inlineHelpText>
+        <label>Annual Revenue (Sales etc.)</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <trackTrending>false</trackTrending>
+        <type>Currency</type>
+    </fields>
+    <fields>
+        <fullName>Ent_Val__c</fullName>
+        <externalId>false</externalId>
+        <label>Enterprise Value</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <trackTrending>false</trackTrending>
+        <type>Currency</type>
+    </fields>
+    <fields>
+        <fullName>Low_Min_Empl__c</fullName>
+        <description>This houses the minimum number of employees threshold in conjunction with other requirements. Example: An company must have at least 15 employees AND $2,000,000 employee compensation.</description>
+        <externalId>false</externalId>
+        <inlineHelpText>This houses the minimum number of employees threshold in conjunction with other requirements.</inlineHelpText>
+        <label>Lower Minimum Employees</label>
+        <precision>4</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <trackTrending>false</trackTrending>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Tot_Empl_Comp__c</fullName>
+        <externalId>false</externalId>
+        <label>Total Employee Compensation</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <trackTrending>false</trackTrending>
+        <type>Currency</type>
+    </fields>
+    <fields>
+        <fullName>Up_Min_Empl__c</fullName>
+        <description>This houses the minimum number of employees threshold as a stand alone requirement. Example: A company must have 50 or more employees.</description>
+        <externalId>false</externalId>
+        <inlineHelpText>This houses the minimum number of employees threshold as a stand alone requirement.</inlineHelpText>
+        <label>Upper Minimum Employees</label>
+        <precision>4</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <trackTrending>false</trackTrending>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <label>Qualification Settings</label>
+    <visibility>Public</visibility>
+</CustomObject>

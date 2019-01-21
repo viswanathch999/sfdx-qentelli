@@ -1,0 +1,22 @@
+<!--COPYRIGHT KINETIC GROWTH INC-->
+<apex:page showHeader="false" sidebar="false" standardStylesheets="false" applyHtmlTag="false" docType="html-5.0">
+    <!--<apex:composition template="{! $Site.Template}">-->
+    <apex:composition template="v_template">
+        <apex:define name="title">
+            <title>
+                Order confirmation | {! $Organization.Name}
+            </title>
+        </apex:define>
+        <apex:define name="content">
+            <div class="alert alert-success" role="alert">
+                Thank you for your order. 
+                <apex:outputPanel rendered="{! $CurrentPage.parameters.method != 'check' }" layout="none">
+                    Credit card payment message...
+                </apex:outputPanel>
+                <apex:outputPanel rendered="{! $CurrentPage.parameters.method == 'check' }" layout="none">
+                    Check payment message...
+                </apex:outputPanel>
+            </div> <!--/.alert-->
+        </apex:define> <!--/content-->
+    </apex:composition>
+</apex:page>

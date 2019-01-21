@@ -1,0 +1,43 @@
+<apex:component >
+
+<apex:actionStatus id="LoadingStatusSpinner">
+     <apex:facet name="start">
+          <div id="loadingDiv" class="loadingDiv" >
+               <span id="loadingHolder" class="loadingHolder">
+                    <img class="loadingImage" title="Loading..." alt="Loading..." src="{!$Resource.SFDC_Loading}"/>
+                    <span class="loadingDescription">Processing...</span>
+               </span>
+          </div>
+     </apex:facet>
+</apex:actionStatus>
+
+<style>
+	.loadingImage { vertical-align:bottom; }.loadingDescription { padding:0 1.5em 0 0.5em; }
+	.loadingHolder {
+	     background-color: #FFFFCC;
+	     border: 1px solid #333333;
+	     font-size: 1.2em;
+	     font-weight: bold;
+	     padding: 0.5em;
+	     position: relative;
+	     top: 200px; /*45%;*/
+	     white-space: nowrap;
+	}
+	.loadingDiv {
+	     background-color: #FFFFDD;
+	     opacity: .75;
+	     filter: alpha(opacity=75); /* IE's opacity*/
+	     text-align: center;
+	     /*margin: 25% 30% 0 20%;*/
+	     top:0px;
+	     left:0px;
+	     right:0px;
+	     bottom:0px;
+	     /*width: 400px;*/
+	     /*height: 100px;*/
+	     position: fixed;
+	     z-index: 100;
+	}
+</style>
+
+</apex:component>

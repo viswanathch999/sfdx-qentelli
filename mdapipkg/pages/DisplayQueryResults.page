@@ -1,0 +1,37 @@
+<apex:page standardController="Contact" extensions="AccountAffiliationRLContactContExt">
+    <style>
+        .linkDecor
+        {
+            text-decoration:none;
+            color:#015ba7;
+        }
+        .linkDecor:hover
+        {
+            text-decoration:underline;
+        }
+    </style>
+    <script>
+        function confirmDelete(){
+            if(confirm('Are you sure?'))
+                return true;
+            return false;
+        }        
+    </script>
+    <apex:pageBlock title="Account Affiliations">
+                    <apex:pageBlockTable id="results" value="{!filteredRecords}" var="index">   
+                    <apex:column headerValue="Action" >
+                        <apex:outputLink value="{!URLFOR($Action.Account_Affiliation__c.Edit, index.id,[retURL=index.Contact__c],true)}" target="_parent" styleclass="linkDecor" >Edit</apex:outputLink> |&nbsp;
+                        <apex:outputLink value="{!URLFOR($Action.Account_Affiliation__c.Delete, index.Id,[retURL=index.Contact__c])}" target="_parent" styleclass="linkDecor" onclick="return confirmDelete()">Del</apex:outputLink>                    
+                    </apex:column>
+                    <apex:column headerValue="{!$ObjectType.Account_Affiliation__c.Fields.Name.Label}">
+                            <apex:outputLink value="{!URLFOR($Action.Account_Affiliation__c.View, index.Id)}" target="_parent">{!index.Name}</apex:outputLink>
+                    </apex:column>
+                    <apex:repeat value="{!$ObjectType.Account_Affiliation__c.FieldSets.Related_List_Fields}" var="f"> 
+                            <apex:column headerValue="{!f.Label}">
+                                <apex:outputField value="{!index[f]}" />
+                            </apex:column>
+                    </apex:repeat>  
+                </apex:pageblocktable>
+    </apex:pageBlock>
+
+</apex:page>

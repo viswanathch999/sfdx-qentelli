@@ -1,0 +1,3 @@
+<apex:page standardController="Contact" extensions="RenewalEntryController" sidebar="false" action="{!toNextPage}" showHeader="false">
+	
+</apex:page>

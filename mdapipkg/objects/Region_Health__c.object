@@ -1,0 +1,3326 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomObject xmlns="http://soap.sforce.com/2006/04/metadata">
+    <actionOverrides>
+        <actionName>Accept</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>CancelEdit</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Clone</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Delete</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Edit</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>List</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>New</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>SaveEdit</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Tab</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>View</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <allowInChatterGroups>false</allowInChatterGroups>
+    <compactLayoutAssignment>SYSTEM</compactLayoutAssignment>
+    <deploymentStatus>Deployed</deploymentStatus>
+    <description>This houses Regional Health Metrics</description>
+    <enableActivities>true</enableActivities>
+    <enableBulkApi>true</enableBulkApi>
+    <enableChangeDataCapture>false</enableChangeDataCapture>
+    <enableEnhancedLookup>true</enableEnhancedLookup>
+    <enableFeeds>false</enableFeeds>
+    <enableHistory>true</enableHistory>
+    <enableReports>true</enableReports>
+    <enableSearch>true</enableSearch>
+    <enableSharing>true</enableSharing>
+    <enableStreamingApi>true</enableStreamingApi>
+    <externalSharingModel>ReadWrite</externalSharingModel>
+    <fields>
+        <fullName>Account__c</fullName>
+        <deleteConstraint>SetNull</deleteConstraint>
+        <description>Looks up to Region</description>
+        <externalId>false</externalId>
+        <label>Account</label>
+        <referenceTo>Account</referenceTo>
+        <relationshipLabel>Region Health</relationshipLabel>
+        <relationshipName>Region_Health</relationshipName>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Lookup</type>
+    </fields>
+    <fields>
+        <fullName>AnnualDueslocalcurrency__c</fullName>
+        <externalId>false</externalId>
+        <label>Annual Dues (local currency)</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>2</scale>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Annual_Chapter_Dues_US_Avg__c</fullName>
+        <externalId>false</externalId>
+        <formula>IF(No_of_Chapters__c = 0, 0, Annual_Regional_Dues__c / No_of_Chapters__c)</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>Annual Chapter Dues (US$) - Avg</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>2</scale>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Currency</type>
+    </fields>
+    <fields>
+        <fullName>Annual_Chapter_Learning_Budget_US_Avg__c</fullName>
+        <externalId>false</externalId>
+        <formula>IF(No_of_Chapters__c = 0, 0, Annual_Chapter_Learning_Budget__c / No_of_Chapters__c)</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>Annual Chapter Learning Budget US$ - Avg</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>2</scale>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Currency</type>
+    </fields>
+    <fields>
+        <fullName>Annual_Chapter_Learning_Budget__c</fullName>
+        <externalId>false</externalId>
+        <label>Annual Chapter Learning Budget Total US$</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>2</scale>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Currency</type>
+    </fields>
+    <fields>
+        <fullName>Annual_Dues_local_currency_Avg__c</fullName>
+        <externalId>false</externalId>
+        <formula>AnnualDueslocalcurrency__c / No_of_Chapters__c</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>Annual Dues (local currency) - Avg</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>2</scale>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Currency</type>
+    </fields>
+    <fields>
+        <fullName>Annual_Education_Rating_Previous__c</fullName>
+        <externalId>false</externalId>
+        <inlineHelpText>For Previous Fiscal Year</inlineHelpText>
+        <label>Annual Learning Rating (Prev FY)</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Annual_Learning_Rating_current_FY__c</fullName>
+        <externalId>false</externalId>
+        <inlineHelpText>Average Annual Learning Rating (current fiscal year-to-date)</inlineHelpText>
+        <label>Annual Learning Rating (current FY)</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Annual_Region_Education_Budget__c</fullName>
+        <externalId>false</externalId>
+        <label>Annual Region Education Budget</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>2</scale>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Currency</type>
+    </fields>
+    <fields>
+        <fullName>Annual_Region_Forum_Budget__c</fullName>
+        <externalId>false</externalId>
+        <label>Annual Region Forum Budget</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>2</scale>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Currency</type>
+    </fields>
+    <fields>
+        <fullName>Annual_Region_Learning_Budget__c</fullName>
+        <externalId>false</externalId>
+        <label>Annual Region Learning Budget US $</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>2</scale>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Currency</type>
+    </fields>
+    <fields>
+        <fullName>Annual_Regional_Dues__c</fullName>
+        <externalId>false</externalId>
+        <label>Annual Chapter Dues (US$)</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>2</scale>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Currency</type>
+    </fields>
+    <fields>
+        <fullName>Av_Annual_Education_Rating_Previous__c</fullName>
+        <externalId>false</externalId>
+        <inlineHelpText>For Previous Fiscal Year</inlineHelpText>
+        <label>Av. Annual Education Rating (Previous)</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Av_Member_Event_Attendance_Current__c</fullName>
+        <externalId>false</externalId>
+        <label>Av. Member Event Attendance (Current)</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>2</scale>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Percent</type>
+    </fields>
+    <fields>
+        <fullName>Av_Member_Event_Attendance_Previous__c</fullName>
+        <externalId>false</externalId>
+        <inlineHelpText>Previous Fiscal Year</inlineHelpText>
+        <label>Av. Member Event Attendance (Previous)</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>2</scale>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Percent</type>
+    </fields>
+    <fields>
+        <fullName>Average_Age__c</fullName>
+        <externalId>false</externalId>
+        <inlineHelpText>Average Age of Members</inlineHelpText>
+        <label>Average Age</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Avg_Annual_Learning_Rating_Current_FY__c</fullName>
+        <externalId>false</externalId>
+        <formula>IF(No_of_Chapters__c = 0, 0, Annual_Learning_Rating_current_FY__c  / No_of_Chapters__c)</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>Avg Annual Learning Rating (Current FY)</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>2</scale>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Avg_Annual_Learning_Rating_Prev_FY__c</fullName>
+        <externalId>false</externalId>
+        <formula>IF(No_of_Chapters__c = 0, 0,  Annual_Education_Rating_Previous__c / No_of_Chapters__c)</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>Avg Annual Learning Rating (Prev FY)</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>2</scale>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Avg_Event_Participation_Current__c</fullName>
+        <externalId>false</externalId>
+        <formula>IF(No_of_Chapters__c = 0, 0, Member_Event_Attendance_Current__c / No_of_Chapters__c)</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>Chapter Event Participation (Current FY)</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>2</scale>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Percent</type>
+    </fields>
+    <fields>
+        <fullName>Avg_Members_attended_FMLD_since_1_July__c</fullName>
+        <externalId>false</externalId>
+        <formula>IF(No_of_Chapters__c = 0, 0, of_Members_attended_FMLD_since_1_July__c / No_of_Chapters__c)</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <inlineHelpText>Average number of members who have attended a FMLD program since 1 July</inlineHelpText>
+        <label>Avg Members attended FMLD since 1 July</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>2</scale>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Avg_Tenure__c</fullName>
+        <externalId>false</externalId>
+        <label>Average Tenure</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>CAW_Attendance_in_past_2_yrs__c</fullName>
+        <externalId>false</externalId>
+        <inlineHelpText>Chapter Administrator Workshop attendance in past two years</inlineHelpText>
+        <label>CAW Attendance in past 2 yrs</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Chapter_Admin_FT_PT_None__c</fullName>
+        <externalId>false</externalId>
+        <inlineHelpText>Chapter Administrator Status</inlineHelpText>
+        <label>Chapter Admin (FT,PT, None)</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Chapter_Admin_FT__c</fullName>
+        <externalId>false</externalId>
+        <inlineHelpText>Chapter Administrator Status</inlineHelpText>
+        <label>Chapter Admin - FT</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Chapter_Admin_None__c</fullName>
+        <externalId>false</externalId>
+        <formula>No_of_Chapters__c -  Chapter_Admin_FT__c -  Chapter_Admin_PT__c</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>Chapter Admin - None</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Chapter_Admin_PT__c</fullName>
+        <externalId>false</externalId>
+        <inlineHelpText>Chapter Administrator Status</inlineHelpText>
+        <label>Chapter Admin - PT</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Chapter_Chair_3_Officer_Electby_1_Oct__c</fullName>
+        <externalId>false</externalId>
+        <inlineHelpText>Chapter Chair and 3 or more Officer-Elects identified by 1 November</inlineHelpText>
+        <label>Chapter Chair/3+ Officer-Elect by 1 Nov</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Chapter_Event_Participation_Previous__c</fullName>
+        <externalId>false</externalId>
+        <formula>IF(No_of_Chapters__c = 0, 0,  Member_Event_Attendance_Previous__c / No_of_Chapters__c)</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>Chapter Event Participation (Prev FY)</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>2</scale>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Percent</type>
+    </fields>
+    <fields>
+        <fullName>Chapter_Officer_trained_at_GLC_CLW_Avg__c</fullName>
+        <externalId>false</externalId>
+        <formula>Chapter_Officers_trained_at_GLC_CLW__c / No_of_Chapters__c</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <inlineHelpText>Avg number of current Chapter Officers trained at GLC or Regional Training</inlineHelpText>
+        <label># Chapter Officer trained at GLC/CLW Avg</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>2</scale>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Chapter_Officers_trained_at_GLC_CLW__c</fullName>
+        <externalId>false</externalId>
+        <inlineHelpText>Number of current Chapter Officers trained at GLC or Regional Training</inlineHelpText>
+        <label># Chapter Officers trained at GLC/CLW</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Chapter_Rep_at_RBM_in_the_past_year__c</fullName>
+        <externalId>false</externalId>
+        <inlineHelpText>Chapter representation at a Regional Board Meeting in the past year</inlineHelpText>
+        <label>Chapter Rep at RBM in the past year</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Chapter_and_Ed_Chair_by_1_July__c</fullName>
+        <externalId>false</externalId>
+        <inlineHelpText>Chapter Chair and Learning Chair identified by 1 July</inlineHelpText>
+        <label>Chapter and Ed Chair by 1 July</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Chapter_have_a_Member_Transition_Plan__c</fullName>
+        <defaultValue>0</defaultValue>
+        <externalId>false</externalId>
+        <inlineHelpText>Does your Chapter have a Transition Plan?</inlineHelpText>
+        <label>Chapter have a Member Transition Plan?</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Chapter_have_an_Integration_Plan__c</fullName>
+        <defaultValue>0</defaultValue>
+        <externalId>false</externalId>
+        <inlineHelpText>Does your Chapter have an Integration Plan?</inlineHelpText>
+        <label>Chapter have an Integration Plan?</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Completed_a_Network_Event_Current_Year__c</fullName>
+        <externalId>false</externalId>
+        <inlineHelpText>Completed a Chapter Network Event in the Current Year</inlineHelpText>
+        <label>Completed a Network Event Current Year</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Current_Chapter_Strategic_Plan_posted__c</fullName>
+        <externalId>false</externalId>
+        <inlineHelpText>Current Chapter Strategic Plan Posted</inlineHelpText>
+        <label>Current Chapter Strategic Plan posted</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Current_of_Primary_Members_Avg__c</fullName>
+        <externalId>false</externalId>
+        <formula>Number_Primary_Members_Current__c / No_of_Chapters__c</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <inlineHelpText>Average number of Current Primary Members</inlineHelpText>
+        <label>Current # of Primary Members Avg</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>2</scale>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Current_of_Secondary_members_Avg__c</fullName>
+        <externalId>false</externalId>
+        <formula>Number_Secondary_Members_Current__c / No_of_Chapters__c</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <inlineHelpText>Average number of Current Secondary Members</inlineHelpText>
+        <label>Current # of Secondary members Avg</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>2</scale>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Does_Chapter_hold_moderator_meetings__c</fullName>
+        <defaultValue>0</defaultValue>
+        <externalId>false</externalId>
+        <inlineHelpText>Does your Chapter hold moderator meetings?</inlineHelpText>
+        <label>Does Chapter hold moderator meetings?</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Does_your_Chapter_have_a_Diversity_Plan__c</fullName>
+        <externalId>false</externalId>
+        <inlineHelpText>Does your Chapter have a Diversity Plan?</inlineHelpText>
+        <label>Does your Chapter have a Diversity Plan?</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Fiscal_Quarter__c</fullName>
+        <externalId>false</externalId>
+        <formula>CASE(MONTH( Today() + 1), 
+7, &quot;Q1&quot;, 
+8, &quot;Q1&quot;, 
+9, &quot;Q1&quot;, 
+10, &quot;Q2&quot;, 
+11, &quot;Q2&quot;, 
+12, &quot;Q2&quot;, 
+1, &quot;Q3&quot;, 
+2, &quot;Q3&quot;, 
+3, &quot;Q3&quot;, 
+4, &quot;Q4&quot;, 
+5, &quot;Q4&quot;, 
+6, &quot;Q4&quot;, 
+&quot;NA&quot;)</formula>
+        <label>Fiscal Quarter</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Forum_Status__c</fullName>
+        <externalId>false</externalId>
+        <label>Forum Status</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Picklist</type>
+        <valueSet>
+            <valueSetDefinition>
+                <sorted>false</sorted>
+                <value>
+                    <fullName>Active</fullName>
+                    <default>false</default>
+                    <label>Active</label>
+                </value>
+                <value>
+                    <fullName>Pending Placement</fullName>
+                    <default>false</default>
+                    <label>Pending Placement</label>
+                </value>
+                <value>
+                    <fullName>Declined</fullName>
+                    <default>false</default>
+                    <label>Declined</label>
+                </value>
+            </valueSetDefinition>
+        </valueSet>
+    </fields>
+    <fields>
+        <fullName>Forum_Transition_Policy_Identified__c</fullName>
+        <externalId>false</externalId>
+        <inlineHelpText>Chapter has a Chapter Forum Transition Policy</inlineHelpText>
+        <label>Forum Transition Policy Identified</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Forums_w_FMLD_trained_moderator_Avg__c</fullName>
+        <externalId>false</externalId>
+        <formula>IF(No_of_Chapters__c = 0, 0, Forums_w_FMLD_trained_moderator__c / No_of_Chapters__c)</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label># Forums w/ FMLD trained moderator - Avg</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>2</scale>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Forums_w_FMLD_trained_moderator__c</fullName>
+        <externalId>false</externalId>
+        <inlineHelpText>Number of Member Forums with a moderator who has been trained in a FMLD program</inlineHelpText>
+        <label># Forums w/ FMLD trained moderator</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Fundamentals_Vouchers_Redeemed__c</fullName>
+        <externalId>false</externalId>
+        <inlineHelpText>Percentage of Forum Fundamentals Vouchers redeemed (new members/spouses)</inlineHelpText>
+        <label>Fundamentals Vouchers Redeemed</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>4</scale>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>GUID__c</fullName>
+        <caseSensitive>false</caseSensitive>
+        <externalId>true</externalId>
+        <label>GUID</label>
+        <length>50</length>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>true</unique>
+    </fields>
+    <fields>
+        <fullName>Initial_Dues__c</fullName>
+        <externalId>false</externalId>
+        <label>Initiation Fees (US$)</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>2</scale>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Currency</type>
+    </fields>
+    <fields>
+        <fullName>Initiation_Fee_US_Avg__c</fullName>
+        <externalId>false</externalId>
+        <formula>IF(No_of_Chapters__c = 0, 0, Initial_Dues__c / No_of_Chapters__c)</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>Initiation Fee (US$) - Avg</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>2</scale>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Currency</type>
+    </fields>
+    <fields>
+        <fullName>Is_Forum_Policy__c</fullName>
+        <defaultValue>0</defaultValue>
+        <externalId>false</externalId>
+        <inlineHelpText>Chapter has a Chapter Forum Policy (check box)</inlineHelpText>
+        <label>Chapter has a Chapter Forum Policy</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Is_Opt_Out_Prospect_Applications_1__c</fullName>
+        <externalId>false</externalId>
+        <label>Opt-Out Prospect Applications?</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Is_Opt_Out_Prospect_Applications__c</fullName>
+        <defaultValue>0</defaultValue>
+        <externalId>false</externalId>
+        <inlineHelpText>Opt-out of receiving YPO prospect applications</inlineHelpText>
+        <label>Opt-out of YPO prospect applications</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Is_REX_Visit_1__c</fullName>
+        <externalId>false</externalId>
+        <label>REX Visit?</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Is_REX_Visit__c</fullName>
+        <defaultValue>0</defaultValue>
+        <externalId>false</externalId>
+        <inlineHelpText>Chapter has received visit from Regional Management, Regional Chair, or REX Member in past year</inlineHelpText>
+        <label>Chapt Visit-Reg Mgt, RC, REX in Past Yr</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Is_Region_Ed_Chair_Identified__c</fullName>
+        <defaultValue>0</defaultValue>
+        <externalId>false</externalId>
+        <inlineHelpText>Have these been identified by July 1st.</inlineHelpText>
+        <label>Region &amp; Ed. Chair Identified?</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Max_Membership_Limit__c</fullName>
+        <externalId>false</externalId>
+        <label>Maximum Membership Limit</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Maximum_Membership_Limit_Avg__c</fullName>
+        <externalId>false</externalId>
+        <formula>Max_Membership_Limit__c / No_of_Chapters__c</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <inlineHelpText>Average Maximum Membership Limit</inlineHelpText>
+        <label>Maximum Membership Limit Avg</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>2</scale>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Member_Age_Average__c</fullName>
+        <externalId>false</externalId>
+        <formula>IF(No_of_Chapters__c = 0, 0, Member_Age_Total__c / No_of_Chapters__c)</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>Average Member Age</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>2</scale>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Member_Age_Total__c</fullName>
+        <externalId>false</externalId>
+        <label>Member Age Total</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Member_Event_Attendance_Current__c</fullName>
+        <externalId>false</externalId>
+        <label>Member Event Attendance (Current)</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>2</scale>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Percent</type>
+    </fields>
+    <fields>
+        <fullName>Member_Event_Attendance_Previous__c</fullName>
+        <externalId>false</externalId>
+        <inlineHelpText>Previous Fiscal Year</inlineHelpText>
+        <label>Member Event Attendance (Previous)</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>2</scale>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Percent</type>
+    </fields>
+    <fields>
+        <fullName>Member_Participation_in_Network_Event__c</fullName>
+        <externalId>false</externalId>
+        <inlineHelpText>Percentage of Chapter Members Participating in Network Event</inlineHelpText>
+        <label>% Member Participation in Network Event</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>2</scale>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Percent</type>
+    </fields>
+    <fields>
+        <fullName>Member_Tenure_Average__c</fullName>
+        <externalId>false</externalId>
+        <formula>IF(No_of_Chapters__c = 0, 0, Member_Tenure_Total__c / No_of_Chapters__c)</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>Average Member Tenure</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>2</scale>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Member_Tenure_Total__c</fullName>
+        <externalId>false</externalId>
+        <label>Member Tenure Total</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Members_Participate_in_Network_Event__c</fullName>
+        <externalId>false</externalId>
+        <inlineHelpText>Number of Chapter Members Participating in Network Events</inlineHelpText>
+        <label># Members Participate in Network Event</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Members_attended_FF_since_1_July_Avg__c</fullName>
+        <externalId>false</externalId>
+        <formula>IF(No_of_Chapters__c = 0, 0, Members_attended_FF_since_1_July__c / No_of_Chapters__c)</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label># Members attended FF since 1 July - Avg</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>2</scale>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Members_attended_FF_since_1_July__c</fullName>
+        <externalId>false</externalId>
+        <inlineHelpText>Number of members who have attended a Forum Fundamentals program since 1 July (enter zero for YPO Gold Chapters unless this applies)</inlineHelpText>
+        <label># Members attended FF since 1 July</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Members_attending_YPO_Event_Avg__c</fullName>
+        <externalId>false</externalId>
+        <formula>IF(No_of_Chapters__c = 0, 0, Members_attending_YPO_Event__c / No_of_Chapters__c)</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label># of Members attending YPO Event Avg</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>2</scale>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Members_attending_YPO_Event__c</fullName>
+        <externalId>false</externalId>
+        <inlineHelpText>Number of Members attending non-chapter YPO Events</inlineHelpText>
+        <label># of Members attending YPO Event</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Members_eligible_to_graduate_30_June_Avg__c</fullName>
+        <externalId>false</externalId>
+        <formula>Number_Can_Graduate_June_30__c / No_of_Chapters__c</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <inlineHelpText>Average number of members eligible to graduate on 30 June</inlineHelpText>
+        <label>Members eligible to graduate-30 June Avg</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>2</scale>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Members_with_a_Complete_Profile__c</fullName>
+        <externalId>false</externalId>
+        <inlineHelpText>Percentage of Members with a &quot;Complete&quot; Profile (8 of 12 factors)</inlineHelpText>
+        <label>% Members with a Complete Profile</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>2</scale>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Percent</type>
+    </fields>
+    <fields>
+        <fullName>New_Member_GOAL_for_current_fiscal_Y_Avg__c</fullName>
+        <externalId>false</externalId>
+        <formula>New_Member_GOAL_for_current_fiscal_year__c / No_of_Chapters__c</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <inlineHelpText>Average New Member GOAL for current fiscal year</inlineHelpText>
+        <label>New Member GOAL for current fiscal Y Avg</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>New_Member_GOAL_for_current_fiscal_year__c</fullName>
+        <externalId>false</externalId>
+        <inlineHelpText>New Member GOAL for current fiscal year</inlineHelpText>
+        <label>New Member GOAL for current fiscal year</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>New_SP_in_Forum_within_6_months_Avg__c</fullName>
+        <externalId>false</externalId>
+        <formula>IF(No_of_Chapters__c = 0, 0, New_S_P_in_Forum_within_6_months__c / No_of_Chapters__c)</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <inlineHelpText>Average number of new spouse/partners placed in Forum within 6 months of joining YPO</inlineHelpText>
+        <label>New S/P in Forum (within 6 months) - Avg</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>2</scale>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>New_S_P_in_Forum_within_6_months__c</fullName>
+        <externalId>false</externalId>
+        <inlineHelpText>Number of new spouse/partners placed in Forum within 6 months of joining YPO</inlineHelpText>
+        <label>New S/P in Forum (within 6 months)</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>New_members_in_Forum_within_6_months_Avg__c</fullName>
+        <externalId>false</externalId>
+        <formula>IF(No_of_Chapters__c = 0, 0, New_members_in_Forum_within_6_months__c / No_of_Chapters__c)</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <inlineHelpText>Average number of new members placed in Forum within 6 months of joining YPO</inlineHelpText>
+        <label>New members in Forum within 6 months Avg</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>2</scale>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>New_members_in_Forum_within_6_months__c</fullName>
+        <externalId>false</externalId>
+        <inlineHelpText>Number of new members placed in Forum within 6 months of joining YPO</inlineHelpText>
+        <label>New members in Forum (within 6 months)</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>No_Forum_Mod_Dev_Attendees__c</fullName>
+        <externalId>false</externalId>
+        <inlineHelpText>Since July 1st</inlineHelpText>
+        <label>Number Forum Mod. Dev. Attendees</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>No_of_Chapters__c</fullName>
+        <externalId>false</externalId>
+        <label>Number of Chapters</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Non_dues_paying_grandfathered_Members_Av__c</fullName>
+        <externalId>false</externalId>
+        <formula>Non_dues_paying_grandfathered_Members__c / No_of_Chapters__c</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <inlineHelpText>Average number of current non-dues paying grandfathered members</inlineHelpText>
+        <label>Non-dues paying grandfathered Members Av</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>2</scale>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Non_dues_paying_grandfathered_Members__c</fullName>
+        <externalId>false</externalId>
+        <inlineHelpText>Current number of non-dues paying grandfathered members</inlineHelpText>
+        <label>Non-dues paying grandfathered Members</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Number_Can_Graduate_June_30__c</fullName>
+        <externalId>false</externalId>
+        <label>Members eligible to graduate-June 30</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Number_Members_Grace_Period__c</fullName>
+        <externalId>false</externalId>
+        <inlineHelpText>Current Fiscal Year</inlineHelpText>
+        <label># of members on Grace Period</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Number_Pri_Sec_Members__c</fullName>
+        <externalId>false</externalId>
+        <formula>of_Primary_and_Secondary_Members__c</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>Number Pri/Sec Members</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Number_Primary_Members_Current__c</fullName>
+        <externalId>false</externalId>
+        <label>Current # of Primary members</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Number_Primary_Members_June_30__c</fullName>
+        <externalId>false</externalId>
+        <inlineHelpText>Previous Fiscal Year</inlineHelpText>
+        <label># of primary members June 30</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Number_Resignations_Involuntary__c</fullName>
+        <externalId>false</externalId>
+        <inlineHelpText>For Current Fiscal Year</inlineHelpText>
+        <label># involuntary resignations current FY</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Number_Resignations_Voluntary__c</fullName>
+        <externalId>false</externalId>
+        <label># of voluntary resignations current FY</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Number_Secondary_Members_Current__c</fullName>
+        <externalId>false</externalId>
+        <label>Current # of Secondary members</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Number_YPO_Cross_Chapter_Events__c</fullName>
+        <externalId>false</externalId>
+        <inlineHelpText>Not YPO-WPO joint events</inlineHelpText>
+        <label>Number YPO Cross-Chapter Events</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Number_YPO_Cross_Region_Events__c</fullName>
+        <externalId>false</externalId>
+        <inlineHelpText>Not YPO-WPO joint events</inlineHelpText>
+        <label>Number YPO Cross-Region Events</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Pct_Chapter_Officers_trained_GLC_CLW__c</fullName>
+        <externalId>false</externalId>
+        <formula>IF(No_of_Chapters__c = 0, 0, Total_Pct_Officers_Trained_GLC_CLW__c / No_of_Chapters__c )</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>% Chapter Officers trained GLC/CLW</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>2</scale>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Percent</type>
+    </fields>
+    <fields>
+        <fullName>Pct_Forum_Fundamentals_Vouchers_redeemed__c</fullName>
+        <externalId>false</externalId>
+        <formula>IF(No_of_Chapters__c = 0, 0, (Fundamentals_Vouchers_Redeemed__c / No_of_Chapters__c) / 100 )</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>% Forum Fundamentals Vouchers redeemed</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>2</scale>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Percent</type>
+    </fields>
+    <fields>
+        <fullName>Pct_Member_M2MX_Profile__c</fullName>
+        <externalId>false</externalId>
+        <inlineHelpText>Percentage of members with M2Mx profile completion.</inlineHelpText>
+        <label>% of Members M2Mx profile</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>2</scale>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Percent</type>
+    </fields>
+    <fields>
+        <fullName>Pct_Members_Participating_in_a_GCC__c</fullName>
+        <externalId>false</externalId>
+        <formula>IF(Number_Primary_Members_Current__c = 0, 0, of_Members_Participating_in_a_GCC__c / Number_Primary_Members_Current__c)</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>% of Members Participating in a GCC</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>2</scale>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Percent</type>
+    </fields>
+    <fields>
+        <fullName>Pct_Members_attending_YPO_Event__c</fullName>
+        <externalId>false</externalId>
+        <formula>IF(of_Primary_and_Secondary_Members__c = 0, 0, Members_attending_YPO_Event__c / of_Primary_and_Secondary_Members__c )</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>% Members attending YPO Event</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>2</scale>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Percent</type>
+    </fields>
+    <fields>
+        <fullName>Pct_Members_in_Forums__c</fullName>
+        <externalId>false</externalId>
+        <formula>IF(of_Primary_and_Secondary_Members__c = 0, 0,  Total_of_members_in_Forum__c / of_Primary_and_Secondary_Members__c)</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>% Members Participating in Forums</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>2</scale>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Percent</type>
+    </fields>
+    <fields>
+        <fullName>Pct_Members_with_Complete_Profile__c</fullName>
+        <externalId>false</externalId>
+        <formula>IF(No_of_Chapters__c = 0, 0, Total_Pct_Members_with_Complete_Profile__c / No_of_Chapters__c )</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>% Members with Complete Profile</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>2</scale>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Percent</type>
+    </fields>
+    <fields>
+        <fullName>Pct_New_Member_Vouchers_Used_SUM__c</fullName>
+        <externalId>false</externalId>
+        <label>% of New Member Vouchers used SUM</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>2</scale>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Percent</type>
+    </fields>
+    <fields>
+        <fullName>Pct_New_Member_Vouchers_used__c</fullName>
+        <externalId>false</externalId>
+        <formula>IF(No_of_Chapters__c = 0, 0, Pct_New_Member_Vouchers_Used_SUM__c / No_of_Chapters__c)</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>% of New Member Vouchers used</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>2</scale>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Percent</type>
+    </fields>
+    <fields>
+        <fullName>Pct_SP_Participating_in_Forums__c</fullName>
+        <externalId>false</externalId>
+        <formula>IF( of_spouse_partners__c = 0, 0, Total_of_spouse_partners_in_Forum__c / of_spouse_partners__c)</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>%Spouse/Partners Participating in Forums</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>2</scale>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Percent</type>
+    </fields>
+    <fields>
+        <fullName>Pct_Spouse_Partners_w_Complete_Profile__c</fullName>
+        <externalId>false</externalId>
+        <formula>IF(No_of_Chapters__c = 0, 0, Total_Pct_S_P_Complete_Profile__c / No_of_Chapters__c )</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>% Spouse/Partners w/ Complete Profile</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>2</scale>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Percent</type>
+    </fields>
+    <fields>
+        <fullName>Pct_chapter_growth_past_FY_SUM__c</fullName>
+        <externalId>false</externalId>
+        <label>% of chapter growth (past FY) SUM</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>2</scale>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Percent</type>
+    </fields>
+    <fields>
+        <fullName>Pct_chapter_growth_past_FY__c</fullName>
+        <externalId>false</externalId>
+        <formula>IF(No_of_Chapters__c = 0, 0, Pct_chapter_growth_past_FY_SUM__c / No_of_Chapters__c)</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>% of chapter growth (past FY)</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>2</scale>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Percent</type>
+    </fields>
+    <fields>
+        <fullName>Pct_chapter_retention_SUM__c</fullName>
+        <externalId>false</externalId>
+        <label>% chapter retention SUM</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>2</scale>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Percent</type>
+    </fields>
+    <fields>
+        <fullName>Pct_chapter_retention__c</fullName>
+        <externalId>false</externalId>
+        <formula>IF(No_of_Chapters__c = 0, 0, Pct_chapter_retention_SUM__c / No_of_Chapters__c)</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>% chapter retention</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>2</scale>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Percent</type>
+    </fields>
+    <fields>
+        <fullName>Pct_chapter_retention_plus_grad_SUM__c</fullName>
+        <externalId>false</externalId>
+        <label>% chapter retention plus grad class SUM</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>2</scale>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Percent</type>
+    </fields>
+    <fields>
+        <fullName>Pct_chapter_retention_plus_grad__c</fullName>
+        <externalId>false</externalId>
+        <formula>IF(No_of_Chapters__c = 0, 0, Pct_chapter_retention_plus_grad_SUM__c / No_of_Chapters__c)</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>% chapter retention plus graduate class</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>2</scale>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Percent</type>
+    </fields>
+    <fields>
+        <fullName>Pct_of_Forum_Budget_backend__c</fullName>
+        <externalId>false</externalId>
+        <label>% of Forum Budget backend</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>4</scale>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Pct_of_Forum_Budget_to_Chapter_Budget__c</fullName>
+        <externalId>false</externalId>
+        <formula>IF(No_of_Chapters__c = 0, 0,  Pct_of_Forum_Budget_backend__c / No_of_Chapters__c)</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>% of Forum Budget to Chapter Budget</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>2</scale>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Percent</type>
+    </fields>
+    <fields>
+        <fullName>Pct_of_Members_in_Networks__c</fullName>
+        <externalId>false</externalId>
+        <formula>IF(No_of_Chapters__c = 0, 0,  Total_Members_in_Networks__c / No_of_Chapters__c )</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>% of Members in Networks</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>2</scale>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Percent</type>
+    </fields>
+    <fields>
+        <fullName>Pct_of_Spouse_Partners_in_Networks__c</fullName>
+        <externalId>false</externalId>
+        <formula>IF(No_of_Chapters__c = 0, 0,  Total_S_P_in_Networks__c / No_of_Chapters__c )</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>% of Spouse/Partners in Networks</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>2</scale>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Percent</type>
+    </fields>
+    <fields>
+        <fullName>Percentage_Can_Graduate_June_30__c</fullName>
+        <externalId>false</externalId>
+        <formula>IF(Number_Primary_Members_Current__c = 0, 0, Number_Can_Graduate_June_30__c / Number_Primary_Members_Current__c)</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>% members eligible to graduate-June 30</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>2</scale>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Percent</type>
+    </fields>
+    <fields>
+        <fullName>Percentage_Involuntary_Resignations__c</fullName>
+        <externalId>false</externalId>
+        <formula>Number_Resignations_Involuntary__c / ( Number_Primary_Members_June_30__c + Number_Secondary_Members_Current__c )</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <inlineHelpText>Current Year</inlineHelpText>
+        <label>% involuntary resignations current FY</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>2</scale>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Percent</type>
+    </fields>
+    <fields>
+        <fullName>Percentage_M2MX_Profile__c</fullName>
+        <externalId>false</externalId>
+        <inlineHelpText>Logic to be determined</inlineHelpText>
+        <label>Percentage M2MX Profile</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>2</scale>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Percent</type>
+    </fields>
+    <fields>
+        <fullName>Percentage_Members_Grace_Period__c</fullName>
+        <externalId>false</externalId>
+        <formula>IF(of_Primary_and_Secondary_Members__c = 0, 0, Number_Members_Grace_Period__c /of_Primary_and_Secondary_Members__c)</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>% of members on Grace Period</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>2</scale>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Percent</type>
+    </fields>
+    <fields>
+        <fullName>Percentage_Members_in_Forums_Total__c</fullName>
+        <externalId>false</externalId>
+        <inlineHelpText>Percentage of Region Members in Forums/Region Members</inlineHelpText>
+        <label>Percentage Members in Forums Total</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>2</scale>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Percent</type>
+    </fields>
+    <fields>
+        <fullName>Percentage_Members_in_Forums__c</fullName>
+        <externalId>false</externalId>
+        <inlineHelpText>Percentage of Region Members in Forums/Region Members</inlineHelpText>
+        <label>Percentage Members in Forums</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>2</scale>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Percent</type>
+    </fields>
+    <fields>
+        <fullName>Percentage_Members_in_Groups__c</fullName>
+        <externalId>false</externalId>
+        <label>Percentage Members in Groups</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>2</scale>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Percent</type>
+    </fields>
+    <fields>
+        <fullName>Percentage_Network_Members__c</fullName>
+        <externalId>false</externalId>
+        <inlineHelpText>% of Region members in a network</inlineHelpText>
+        <label>Percentage Network Members</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>2</scale>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Percent</type>
+    </fields>
+    <fields>
+        <fullName>Percentage_Network_Spouses__c</fullName>
+        <externalId>false</externalId>
+        <inlineHelpText>% Spouses/Partners in networks</inlineHelpText>
+        <label>Percentage Network Spouses</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>2</scale>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Percent</type>
+    </fields>
+    <fields>
+        <fullName>Percentage_New_Member_Vouchers_Used__c</fullName>
+        <externalId>false</externalId>
+        <label>Percentage New Member Vouchers Used</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>2</scale>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Percent</type>
+    </fields>
+    <fields>
+        <fullName>Percentage_Participants_YPO_WPO_Events__c</fullName>
+        <externalId>false</externalId>
+        <label>Percentage Participants YPO/WPO Events</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>2</scale>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Percent</type>
+    </fields>
+    <fields>
+        <fullName>Percentage_Region_Growth_Prev__c</fullName>
+        <externalId>false</externalId>
+        <inlineHelpText>% Region Growth in Past Fiscal Year.</inlineHelpText>
+        <label>Percentage Region Growth (Previous)</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>2</scale>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Percent</type>
+    </fields>
+    <fields>
+        <fullName>Percentage_Region_Retention__c</fullName>
+        <externalId>false</externalId>
+        <inlineHelpText>Including Graduating Members</inlineHelpText>
+        <label>Percentage Region Retention</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>2</scale>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Percent</type>
+    </fields>
+    <fields>
+        <fullName>Percentage_Spouse_Exchange_Access__c</fullName>
+        <externalId>false</externalId>
+        <label>Percentage Spouse Exchange Access</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>2</scale>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Percent</type>
+    </fields>
+    <fields>
+        <fullName>Percentage_Spouses_in_Groups__c</fullName>
+        <externalId>false</externalId>
+        <label>Percentage Spouses in Groups</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>2</scale>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Percent</type>
+    </fields>
+    <fields>
+        <fullName>Percentage_Total_Resignations__c</fullName>
+        <externalId>false</externalId>
+        <formula>(Number_Resignations_Involuntary__c + Number_Resignations_Voluntary__c  )/ (Number_Primary_Members_Current__c + Number_Secondary_Members_Current__c )</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <inlineHelpText>Current Year</inlineHelpText>
+        <label>% of total resignations</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>2</scale>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Percent</type>
+    </fields>
+    <fields>
+        <fullName>Percentage_Trained_Officers__c</fullName>
+        <externalId>false</externalId>
+        <inlineHelpText>Percentage of Current Region Officers trained at a GLC or Regional Training.</inlineHelpText>
+        <label>Percentage Trained Officers</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>2</scale>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Percent</type>
+    </fields>
+    <fields>
+        <fullName>Percentage_Voluntary_Resignations__c</fullName>
+        <externalId>false</externalId>
+        <formula>Number_Resignations_Voluntary__c /(Number_Primary_Members_Current__c  + Number_Secondary_Members_Current__c  )</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <inlineHelpText>Current Year</inlineHelpText>
+        <label>% voluntary resignations current FY</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>2</scale>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Percent</type>
+    </fields>
+    <fields>
+        <fullName>Region_Admin_Status__c</fullName>
+        <externalId>false</externalId>
+        <label>Region Admin Status</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Picklist</type>
+        <valueSet>
+            <valueSetDefinition>
+                <sorted>false</sorted>
+                <value>
+                    <fullName>None</fullName>
+                    <default>false</default>
+                    <label>None</label>
+                </value>
+                <value>
+                    <fullName>Full-time</fullName>
+                    <default>false</default>
+                    <label>Full-time</label>
+                </value>
+                <value>
+                    <fullName>Part-time</fullName>
+                    <default>false</default>
+                    <label>Part-time</label>
+                </value>
+            </valueSetDefinition>
+        </valueSet>
+    </fields>
+    <fields>
+        <fullName>Report_Quarter__c</fullName>
+        <externalId>false</externalId>
+        <inlineHelpText>Q1 = September 30th
+Q2 = December 31st
+Q3 = March 31st
+Q4 = June 30th</inlineHelpText>
+        <label>Report Quarter</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Picklist</type>
+        <valueSet>
+            <valueSetDefinition>
+                <sorted>false</sorted>
+                <value>
+                    <fullName>Q-1</fullName>
+                    <default>false</default>
+                    <label>Q-1</label>
+                </value>
+                <value>
+                    <fullName>Q-2</fullName>
+                    <default>false</default>
+                    <label>Q-2</label>
+                </value>
+                <value>
+                    <fullName>Q-3</fullName>
+                    <default>false</default>
+                    <label>Q-3</label>
+                </value>
+                <value>
+                    <fullName>Q-4</fullName>
+                    <default>false</default>
+                    <label>Q-4</label>
+                </value>
+            </valueSetDefinition>
+        </valueSet>
+    </fields>
+    <fields>
+        <fullName>Report_Year_Text__c</fullName>
+        <externalId>false</externalId>
+        <formula>TEXT(Report_Year__c)</formula>
+        <label>Report Year</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Report_Year__c</fullName>
+        <externalId>false</externalId>
+        <label>Report Year</label>
+        <precision>4</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>SP_Forums_w_FMLD_trained_mod_Avg__c</fullName>
+        <externalId>false</externalId>
+        <formula>IF(No_of_Chapters__c = 0, 0, S_P_Forums_w_FMLD_trained_moderator__c / No_of_Chapters__c)</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <inlineHelpText>Number of Spouse/Partners Forums with a moderator who has been trained in a FMLD program</inlineHelpText>
+        <label># S/P Forums w/ FMLD trained mod - Avg</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>2</scale>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>S_P_Forums_w_FMLD_trained_moderator__c</fullName>
+        <externalId>false</externalId>
+        <inlineHelpText>Number of Spouse/Partners Forums with a moderator who has been trained in a FMLD program</inlineHelpText>
+        <label># S/P Forums w/ FMLD trained moderator</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>S_P_at_International_Family_Event__c</fullName>
+        <externalId>false</externalId>
+        <inlineHelpText>Percentag of Spouse/Partners attending an International Family Event</inlineHelpText>
+        <label>% S/P at International Family Event</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>2</scale>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Percent</type>
+    </fields>
+    <fields>
+        <fullName>S_P_s_attended_FMLD_since_1_July_Avg__c</fullName>
+        <externalId>false</externalId>
+        <formula>IF(No_of_Chapters__c = 0, 0, S_Ps_attended_FMLD_since_1_July__c / No_of_Chapters__c)</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <inlineHelpText>Average number of Spouse/Partners who have attended a FMLD program since 1 July</inlineHelpText>
+        <label>Av S/Ps attended FMLD since 1 July - Avg</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>2</scale>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>S_P_sattended_FF_since_1_July_Avg__c</fullName>
+        <externalId>false</externalId>
+        <formula>IF(No_of_Chapters__c = 0, 0, S_Ps_attended_FF_since_1_July__c / No_of_Chapters__c)</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <inlineHelpText>Average number of Spouse/Partners who have attended a Forum Fundamentals program since 1 July  (enter zero for YPO Gold Chapters unless this applies)</inlineHelpText>
+        <label># S/Ps attended FF since 1 July - Avg</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>2</scale>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>S_Ps_attended_FF_since_1_July__c</fullName>
+        <externalId>false</externalId>
+        <inlineHelpText>Number of Spouse/Partners who have attended a Forum Fundamentals program since 1 July (enter zero for YPO Gold Chapters unless this applies)</inlineHelpText>
+        <label># S/Ps attended FF since 1 July</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>S_Ps_attended_FMLD_since_1_July__c</fullName>
+        <externalId>false</externalId>
+        <inlineHelpText>Number of Spouse/Partners who have attended a FMLD program since 1 July</inlineHelpText>
+        <label># S/Ps attended FMLD since 1 July</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Spouse_Partner_Forum_Participation__c</fullName>
+        <externalId>false</externalId>
+        <label>Spouse/Partner Forum Participation</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>2</scale>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Percent</type>
+    </fields>
+    <fields>
+        <fullName>Spouse_Partners_attending_YPO_Event__c</fullName>
+        <externalId>false</externalId>
+        <inlineHelpText>Percentage of Spouse/Partners attending in YPO Event</inlineHelpText>
+        <label>% Spouse/Partners attending YPO Event</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>2</scale>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Percent</type>
+    </fields>
+    <fields>
+        <fullName>Spouse_Partners_w_Access_to_Exchange__c</fullName>
+        <externalId>false</externalId>
+        <formula>IF(No_of_Chapters__c = 0, 0, Total_Pct_S_P_Exchange_Access__c / No_of_Chapters__c )</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>% Spouse/Partners w/ Access to Exchange</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>2</scale>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Percent</type>
+    </fields>
+    <fields>
+        <fullName>Spouse_Partners_w_Complete_Profile__c</fullName>
+        <externalId>false</externalId>
+        <inlineHelpText>Percentage of Spouse/Partners with a &quot;Complete&quot; Profile</inlineHelpText>
+        <label>% Spouse/Partners w/Complete Profile</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>2</scale>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Percent</type>
+    </fields>
+    <fields>
+        <fullName>Total_Annual_Chapter_Budget_Forum__c</fullName>
+        <externalId>false</externalId>
+        <label>Total Annual Chapter Budget-Forum (US$)</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>2</scale>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Currency</type>
+    </fields>
+    <fields>
+        <fullName>Total_Annual_Chapter_budget_Forum_US_Av__c</fullName>
+        <externalId>false</externalId>
+        <formula>IF(No_of_Chapters__c = 0, 0, Total_Annual_Chapter_Budget_Forum__c / No_of_Chapters__c)</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <inlineHelpText>Average Annual Chapter budget for Forum (US$)</inlineHelpText>
+        <label>Total Annual Chapter budget-Forum US$-Av</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Total_Members_in_Networks__c</fullName>
+        <externalId>false</externalId>
+        <label>Total % Members in Networks</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>2</scale>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Percent</type>
+    </fields>
+    <fields>
+        <fullName>Total_Number_Chapter_Events__c</fullName>
+        <externalId>false</externalId>
+        <label>Total Number Chapter Events</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Total_Number_Resignations__c</fullName>
+        <externalId>false</externalId>
+        <formula>Number_Resignations_Involuntary__c + Number_Resignations_Voluntary__c</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>Total # of resignations</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Total_Pct_Members_with_Complete_Profile__c</fullName>
+        <externalId>false</externalId>
+        <inlineHelpText>Percentage of Members with a &quot;Complete&quot; Profile (8 of 12 factors)</inlineHelpText>
+        <label>Total % Members with a Complete Profile</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>2</scale>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Percent</type>
+    </fields>
+    <fields>
+        <fullName>Total_Pct_Officers_Trained_GLC_CLW__c</fullName>
+        <externalId>false</externalId>
+        <inlineHelpText>Percentage of Current Region Officers trained at a GLC or Regional Training.</inlineHelpText>
+        <label>Total % Chapter Officers trained GLC/CLW</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>2</scale>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Percent</type>
+    </fields>
+    <fields>
+        <fullName>Total_Pct_S_P_Complete_Profile__c</fullName>
+        <externalId>false</externalId>
+        <inlineHelpText>Percentage of Spouse/Partners with a &quot;Complete&quot; Profile</inlineHelpText>
+        <label>Total% S/P Complete Profiles</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>2</scale>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Percent</type>
+    </fields>
+    <fields>
+        <fullName>Total_Pct_S_P_Exchange_Access__c</fullName>
+        <externalId>false</externalId>
+        <label>Total % S/P Exchange Access</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>2</scale>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Percent</type>
+    </fields>
+    <fields>
+        <fullName>Total_S_P_in_Networks__c</fullName>
+        <externalId>false</externalId>
+        <label>Total % S/P in Networks</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>2</scale>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Percent</type>
+    </fields>
+    <fields>
+        <fullName>Total_of_Chapter_Events_Avg__c</fullName>
+        <externalId>false</externalId>
+        <formula>IF(No_of_Chapters__c = 0, 0, Total_Number_Chapter_Events__c / No_of_Chapters__c)</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <inlineHelpText>Average number of Chapter Events</inlineHelpText>
+        <label>Total # of Chapter Events Avg</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>2</scale>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Total_of_members_in_Forum_Avg__c</fullName>
+        <externalId>false</externalId>
+        <formula>IF(No_of_Chapters__c = 0, 0, Total_of_members_in_Forum__c / No_of_Chapters__c)</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <inlineHelpText>Average number of members in Forum</inlineHelpText>
+        <label>Total # of members in Forum - Avg</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>2</scale>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Total_of_members_in_Forum__c</fullName>
+        <externalId>false</externalId>
+        <inlineHelpText>Total number of members in Forum</inlineHelpText>
+        <label>Total # of members in Forum</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Total_of_resignations_Avg__c</fullName>
+        <externalId>false</externalId>
+        <formula>Total_Number_Resignations__c / No_of_Chapters__c</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <inlineHelpText>Average Number of Resignations</inlineHelpText>
+        <label>Total # of resignations Avg</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>2</scale>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Total_of_spouse_partners_in_Forum_Avg__c</fullName>
+        <externalId>false</externalId>
+        <formula>IF(No_of_Chapters__c = 0, 0, Total_of_spouse_partners_in_Forum__c / No_of_Chapters__c)</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <inlineHelpText>Average number of spouse/partners in Forum</inlineHelpText>
+        <label>Total # of spouse/partners in Forum - Av</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>2</scale>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Total_of_spouse_partners_in_Forum__c</fullName>
+        <externalId>false</externalId>
+        <inlineHelpText>Total number of spouse/partners in Forum</inlineHelpText>
+        <label>Total # of spouse/partners in Forum</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Validation_Check__c</fullName>
+        <defaultValue>false</defaultValue>
+        <externalId>false</externalId>
+        <label>Validation Check</label>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>ofMembersattendingYPOEventAvg__c</fullName>
+        <externalId>false</externalId>
+        <formula>of_Members_attending_YPO_Event__c / No_of_Chapters__c</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label># of Members attending YPO Event Avg</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>2</scale>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>of_Cross_Chapter_Events_Avg__c</fullName>
+        <externalId>false</externalId>
+        <formula>IF(No_of_Chapters__c = 0, 0, Number_YPO_Cross_Chapter_Events__c / No_of_Chapters__c)</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <inlineHelpText>Average number of Cross-Chapter Events (not YPO-YPO Gold joint events)</inlineHelpText>
+        <label># of Cross-Chapter Events - Avg</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>2</scale>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>of_Entrepreneurs__c</fullName>
+        <externalId>false</externalId>
+        <inlineHelpText>% of Entrepreneurs</inlineHelpText>
+        <label>% of Entrepreneurs</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>2</scale>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Percent</type>
+    </fields>
+    <fields>
+        <fullName>of_FF_workshops_since_1_July_Avg__c</fullName>
+        <externalId>false</externalId>
+        <formula>IF(No_of_Chapters__c = 0, 0, of_FF_workshops_since_1_July__c / No_of_Chapters__c)</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <inlineHelpText>Average number of Forum Fundamentals workshops held since 1 July</inlineHelpText>
+        <label># of FF workshops since 1 July - Avg</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>2</scale>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>of_FF_workshops_since_1_July__c</fullName>
+        <externalId>false</externalId>
+        <inlineHelpText>Number of Forum Fundamentals workshops held since 1 July (enter zero for YPO Gold Chapters unless this applies)</inlineHelpText>
+        <label># of FF workshops since 1 July</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>of_FMLD_workshops_since_1_July_Avg__c</fullName>
+        <externalId>false</externalId>
+        <formula>of_FMLD_workshops_since_1_July__c / No_of_Chapters__c</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <inlineHelpText>Average number of Forum Moderator &amp; Leadership Development (FMLD) workshops held since 1 July</inlineHelpText>
+        <label># of FMLD workshops since 1 July - Avg</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>of_FMLD_workshops_since_1_July__c</fullName>
+        <externalId>false</externalId>
+        <inlineHelpText>Number of Forum Moderator &amp; Leadership Development (FMLD) workshops held since 1 July</inlineHelpText>
+        <label># of FMLD workshops since 1 July</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>of_Family_Business_Operators__c</fullName>
+        <externalId>false</externalId>
+        <inlineHelpText>% of Family Business Operators</inlineHelpText>
+        <label>% of Family Business Operators</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>2</scale>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Percent</type>
+    </fields>
+    <fields>
+        <fullName>of_Female_members_Avg__c</fullName>
+        <externalId>false</externalId>
+        <formula>of_Female_members__c / No_of_Chapters__c</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <inlineHelpText>Average # of Female members</inlineHelpText>
+        <label># of Female members Avg</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>2</scale>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>of_Female_members__c</fullName>
+        <externalId>false</externalId>
+        <inlineHelpText># of Female members</inlineHelpText>
+        <label># of Female members</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>of_Forum_Budget_to_Chapter_Budget__c</fullName>
+        <externalId>false</externalId>
+        <inlineHelpText>Percentage of Forum Budget to Total Chapter Budget</inlineHelpText>
+        <label>% of Forum Budget to Chapter Budget</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>2</scale>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Percent</type>
+    </fields>
+    <fields>
+        <fullName>of_Male_members_Avg__c</fullName>
+        <externalId>false</externalId>
+        <formula>of_Male_members__c / No_of_Chapters__c</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <inlineHelpText>Average # of Male members</inlineHelpText>
+        <label># of Male members Avg</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>2</scale>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>of_Male_members__c</fullName>
+        <externalId>false</externalId>
+        <inlineHelpText># of Male members</inlineHelpText>
+        <label># of Male members</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>of_Member_Children_Registered_for_YNG__c</fullName>
+        <externalId>false</externalId>
+        <inlineHelpText>Number of Members Children who have registered for YNG+</inlineHelpText>
+        <label># of Member Children Registered for YNG+</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>of_Member_Forums_Avg__c</fullName>
+        <externalId>false</externalId>
+        <formula>IF(No_of_Chapters__c = 0, 0, of_Member_Forums__c / No_of_Chapters__c)</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <inlineHelpText>Average number of Member Forums</inlineHelpText>
+        <label># of Member Forums - Avg</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>2</scale>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>of_Member_Forums__c</fullName>
+        <externalId>false</externalId>
+        <inlineHelpText>Number of Member Forums</inlineHelpText>
+        <label># of Member Forums</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>of_Members_Participating_in_a_GCC__c</fullName>
+        <externalId>false</externalId>
+        <inlineHelpText>Number of Chapter Members Participating in a Global Conference Call (GCC)</inlineHelpText>
+        <label># of Members Participating in a GCC</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>of_Members_Post_to_Network_Community__c</fullName>
+        <externalId>false</externalId>
+        <inlineHelpText>Number of Chapter Members Posting to a Network Community</inlineHelpText>
+        <label># of Members Post to Network Community</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>of_Members_attended_FMLD_since_1_July__c</fullName>
+        <externalId>false</externalId>
+        <inlineHelpText>Number of members who have attended a FMLD program since 1 July</inlineHelpText>
+        <label># of Members attended FMLD since 1 July</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>of_Members_attending_YPO_Event__c</fullName>
+        <externalId>false</externalId>
+        <inlineHelpText>Number of Members attending non-chapter YPO Events</inlineHelpText>
+        <label># of Members attending YPO Event</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>of_Primary_and_Secondary_Members_Avg__c</fullName>
+        <externalId>false</externalId>
+        <formula>of_Primary_and_Secondary_Members__c / No_of_Chapters__c</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <inlineHelpText>Average number of Current Primary and Secondary Members</inlineHelpText>
+        <label># of Primary and Secondary Members Avg</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>2</scale>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>of_Primary_and_Secondary_Members__c</fullName>
+        <externalId>false</externalId>
+        <inlineHelpText>Current Number of Primary and Secondary Members</inlineHelpText>
+        <label># of Primary and Secondary Members</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>of_Professional_Managers__c</fullName>
+        <externalId>false</externalId>
+        <inlineHelpText>% of Professional Managers</inlineHelpText>
+        <label>% of Professional Managers</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>2</scale>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Percent</type>
+    </fields>
+    <fields>
+        <fullName>of_S_P_at_International_Family_Event__c</fullName>
+        <externalId>false</externalId>
+        <inlineHelpText>Number of Spouse/Partners attending an International Family Event</inlineHelpText>
+        <label># of S/P at International Family Event</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>of_Spouse_Partner_Forums_Avg__c</fullName>
+        <externalId>false</externalId>
+        <formula>IF(No_of_Chapters__c = 0, 0, of_Spouse_Partner_Forums__c / No_of_Chapters__c)</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <inlineHelpText>Average number of Spouse/Partner Forums</inlineHelpText>
+        <label># of Spouse/Partner Forums - Avg</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>2</scale>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>of_Spouse_Partner_Forums__c</fullName>
+        <externalId>false</externalId>
+        <inlineHelpText>Number of Spouse/Partner Forums</inlineHelpText>
+        <label># of Spouse/Partner Forums</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>of_Spouse_Partners_M2Mx_profile__c</fullName>
+        <externalId>false</externalId>
+        <inlineHelpText>Percentage of Spouse/Partners w/M2MX profile completion</inlineHelpText>
+        <label>% of Spouse/Partners M2Mx profile</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>2</scale>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Percent</type>
+    </fields>
+    <fields>
+        <fullName>of_Spouse_Partners_attending_YPO_Event__c</fullName>
+        <externalId>false</externalId>
+        <inlineHelpText>Number of Spouse/Partners attending non-chapter YPO Events</inlineHelpText>
+        <label># of Spouse/Partners attending YPO Event</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>of_YPO_Gold_members_Avg__c</fullName>
+        <externalId>false</externalId>
+        <formula>of_YPO_Gold_members__c / No_of_Chapters__c</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <inlineHelpText>Average # of YPO Gold members</inlineHelpText>
+        <label># of YPO Gold members Avg</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>of_YPO_Gold_members__c</fullName>
+        <externalId>false</externalId>
+        <inlineHelpText># of YPO Gold members</inlineHelpText>
+        <label># of YPO Gold members</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>of_YPO_members_Avg__c</fullName>
+        <externalId>false</externalId>
+        <formula>of_YPO_members__c / No_of_Chapters__c</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <inlineHelpText>Average # of YPO members</inlineHelpText>
+        <label># of YPO members Avg</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>of_YPO_members__c</fullName>
+        <externalId>false</externalId>
+        <inlineHelpText># of YPO members</inlineHelpText>
+        <label># of YPO members</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>of_chapter_officer_elects_Avg__c</fullName>
+        <externalId>false</externalId>
+        <formula>IF(No_of_Chapters__c = 0, 0, of_chapter_officer_elects__c /  No_of_Chapters__c)</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <inlineHelpText>Average number of chapter officer-elects identified</inlineHelpText>
+        <label># of chapter officer-elects - Avg</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>2</scale>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>of_chapter_officer_elects__c</fullName>
+        <externalId>false</externalId>
+        <inlineHelpText>Number of chapter officer-elects identified</inlineHelpText>
+        <label># of chapter officer-elects</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>of_chapter_retention_incl_grad_class__c</fullName>
+        <externalId>false</externalId>
+        <inlineHelpText>Percentage of chapter retention (including graduating class)</inlineHelpText>
+        <label>% of chapter retention (incl grad class)</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>2</scale>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Percent</type>
+    </fields>
+    <fields>
+        <fullName>of_children_age_29_under_Avg__c</fullName>
+        <externalId>false</externalId>
+        <formula>of_children_age_29_under__c / No_of_Chapters__c</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <inlineHelpText>Average number of children (age 29 &amp; under)</inlineHelpText>
+        <label># of children (age 29 &amp; under)-Avg</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>of_children_age_29_under__c</fullName>
+        <externalId>false</externalId>
+        <inlineHelpText>Number of children (age 29 &amp; under)</inlineHelpText>
+        <label># of children (age 29 &amp; under)</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>of_involuntary_resignations_cur_FY_Avg__c</fullName>
+        <externalId>false</externalId>
+        <formula>Number_Resignations_Involuntary__c / No_of_Chapters__c</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <inlineHelpText>Average number of Involuntary Resignations for current fiscal year</inlineHelpText>
+        <label># of involuntary resignations cur FY Avg</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>2</scale>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>of_joint_YPO_YPO_Gold_chapter_event_Av__c</fullName>
+        <externalId>false</externalId>
+        <formula>IF(No_of_Chapters__c = 0, 0, of_joint_YPO_YPO_Gold_chapter_events__c / No_of_Chapters__c)</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label># of joint YPO-YPO Gold chapter event Av</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>2</scale>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>of_joint_YPO_YPO_Gold_chapter_events__c</fullName>
+        <externalId>false</externalId>
+        <label># of joint YPO-YPO Gold chapter events</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>of_members_35_and_Under_Avg__c</fullName>
+        <externalId>false</externalId>
+        <formula>of_members_35_and_Under__c / No_of_Chapters__c</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <inlineHelpText>Average number of members 35 and Under</inlineHelpText>
+        <label># of members 35 and Under Avg</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>2</scale>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>of_members_35_and_Under__c</fullName>
+        <externalId>false</externalId>
+        <inlineHelpText>Number of members 35 and Under</inlineHelpText>
+        <label># of members 35 and Under</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>of_members_36_40_Avg__c</fullName>
+        <externalId>false</externalId>
+        <formula>of_members_36_40__c / No_of_Chapters__c</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <inlineHelpText>Average number of members 36-40</inlineHelpText>
+        <label># of members 36-40 Avg</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>2</scale>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>of_members_36_40__c</fullName>
+        <externalId>false</externalId>
+        <inlineHelpText>Number of members 36-40</inlineHelpText>
+        <label># of members 36-40</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>of_members_41_45_Avg__c</fullName>
+        <externalId>false</externalId>
+        <formula>of_members_41_45__c / No_of_Chapters__c</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <inlineHelpText>Average number of members 41-45</inlineHelpText>
+        <label># of members 41-45 Avg</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>2</scale>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>of_members_41_45__c</fullName>
+        <externalId>false</externalId>
+        <inlineHelpText>Number of members 41-45</inlineHelpText>
+        <label># of members 41-45</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>of_members_46_49_Avg__c</fullName>
+        <externalId>false</externalId>
+        <formula>of_members_46_49__c / No_of_Chapters__c</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <inlineHelpText>Average number of members 46-49</inlineHelpText>
+        <label># of members 46-49 Avg</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>2</scale>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>of_members_46_49__c</fullName>
+        <externalId>false</externalId>
+        <inlineHelpText>Number of members 46-49</inlineHelpText>
+        <label># of members 46-49</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>of_members_50_59_Avg__c</fullName>
+        <externalId>false</externalId>
+        <formula>of_members_50_59__c / No_of_Chapters__c</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <inlineHelpText>Average number of members 50-59</inlineHelpText>
+        <label># of members 50-59 Avg</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>2</scale>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>of_members_50_59__c</fullName>
+        <externalId>false</externalId>
+        <inlineHelpText>Number of members 50-59</inlineHelpText>
+        <label># of members 50-59</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>of_members_60_69_Avg__c</fullName>
+        <externalId>false</externalId>
+        <formula>of_members_60_69__c / No_of_Chapters__c</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <inlineHelpText>Average number of members 60-69</inlineHelpText>
+        <label># of members 60-69 Avg</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>2</scale>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>of_members_60_69__c</fullName>
+        <externalId>false</externalId>
+        <inlineHelpText>Number of members 60-69</inlineHelpText>
+        <label># of members 60-69</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>of_members_70_Avg__c</fullName>
+        <externalId>false</externalId>
+        <formula>of_members_70__c / No_of_Chapters__c</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <inlineHelpText>Average number of members 70+</inlineHelpText>
+        <label># of members 70+ Avg</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>2</scale>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>of_members_70__c</fullName>
+        <externalId>false</externalId>
+        <inlineHelpText>Number of members 70+</inlineHelpText>
+        <label># of members 70+</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>of_members_involved_in_Mentoring_Avg__c</fullName>
+        <externalId>false</externalId>
+        <formula>IF(No_of_Chapters__c = 0, 0, of_members_involved_in_Mentoring__c / No_of_Chapters__c)</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <inlineHelpText>Average number of chapter members involved in Mentoring</inlineHelpText>
+        <label># of members involved in Mentoring Avg</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>2</scale>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>of_members_involved_in_Mentoring__c</fullName>
+        <externalId>false</externalId>
+        <inlineHelpText>Number of chapter members involved in Mentoring</inlineHelpText>
+        <label># of members involved in Mentoring</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>of_members_on_Grace_Period_Avg__c</fullName>
+        <externalId>false</externalId>
+        <formula>Number_Members_Grace_Period__c / No_of_Chapters__c</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <inlineHelpText>Average number of members on Grace Period</inlineHelpText>
+        <label># of members on Grace Period Avg</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>2</scale>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>of_new_members_since_1_July_Avg__c</fullName>
+        <externalId>false</externalId>
+        <formula>of_new_members_since_1_July__c / No_of_Chapters__c</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <inlineHelpText>Average number of new members since 1 July (new to the chapter and/or to the organization)</inlineHelpText>
+        <label># of new members since 1 July Avg</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>2</scale>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>of_new_members_since_1_July__c</fullName>
+        <externalId>false</externalId>
+        <inlineHelpText>Number of new members since 1 July (new to the chapter and/or to the organization)</inlineHelpText>
+        <label># of new members since 1 July</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>of_new_spouse_partners_1_July_Avg__c</fullName>
+        <externalId>false</externalId>
+        <formula>of_new_spouse_partners_1_July__c / No_of_Chapters__c</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label># of new spouse/partners-1 July Avg</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>2</scale>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>of_new_spouse_partners_1_July__c</fullName>
+        <externalId>false</externalId>
+        <label># of new spouse/partners-1 July</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>of_primary_members_30_June_Avg__c</fullName>
+        <externalId>false</externalId>
+        <formula>Number_Primary_Members_June_30__c / No_of_Chapters__c</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label># of primary members 30 June Avg</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>2</scale>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>of_secondary_members_30_June_Avg__c</fullName>
+        <externalId>false</externalId>
+        <formula>of_secondary_members_30_June__c / No_of_Chapters__c</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label># of secondary members 30 June Avg</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>2</scale>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>of_secondary_members_30_June__c</fullName>
+        <externalId>false</externalId>
+        <label># of secondary members 30 June</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>of_spouse_partners_Avg__c</fullName>
+        <externalId>false</externalId>
+        <formula>of_spouse_partners__c / No_of_Chapters__c</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <inlineHelpText>Average number of spouse/partners (excluding secondary members&apos; - Spouse/Partners)</inlineHelpText>
+        <label># of spouse/partners Avg</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>2</scale>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>of_spouse_partners__c</fullName>
+        <externalId>false</externalId>
+        <inlineHelpText>Number of spouse/partners (excluding secondary members&apos; - Spouse/Partners)</inlineHelpText>
+        <label># of spouse/partners</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>of_voluntary_resignation_current_FY_Av__c</fullName>
+        <externalId>false</externalId>
+        <formula>Number_Resignations_Voluntary__c / No_of_Chapters__c</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <inlineHelpText>Average number of Voluntary Resignations for current fiscal year</inlineHelpText>
+        <label># of voluntary resignation current FY Av</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>2</scale>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>per_of_Members_Participating_in_a_GCC__c</fullName>
+        <externalId>false</externalId>
+        <inlineHelpText>Percentage of Chapter Members Participating in a Global Conference Call (GCC)</inlineHelpText>
+        <label>% of Members Participating in a GCC</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>2</scale>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>per_of_Members_Post_to_Network_Community__c</fullName>
+        <externalId>false</externalId>
+        <inlineHelpText>Percentage of Chapter Members Posting to a Network Community</inlineHelpText>
+        <label>% of Members Post to Network Community</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>2</scale>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Percent</type>
+    </fields>
+    <fields>
+        <fullName>perof_Member_Children_Registered_for_YNG__c</fullName>
+        <externalId>false</externalId>
+        <inlineHelpText>Percentage of Members Children who have registered for YNG+</inlineHelpText>
+        <label>% of Member Children Registered for YNG+</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>2</scale>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Percent</type>
+    </fields>
+    <label>Region Health</label>
+    <listViews>
+        <fullName>All_Region_Data</fullName>
+        <columns>NAME</columns>
+        <columns>Account__c</columns>
+        <columns>RECORDTYPE</columns>
+        <columns>Report_Year_Text__c</columns>
+        <columns>Report_Quarter__c</columns>
+        <columns>Fiscal_Quarter__c</columns>
+        <filterScope>Everything</filterScope>
+        <label>All Region Data</label>
+    </listViews>
+    <listViews>
+        <fullName>All_Region_Health</fullName>
+        <columns>NAME</columns>
+        <columns>Account__c</columns>
+        <columns>RECORDTYPE</columns>
+        <columns>Fiscal_Quarter__c</columns>
+        <columns>Report_Year_Text__c</columns>
+        <filterScope>Everything</filterScope>
+        <filters>
+            <field>RECORDTYPE</field>
+            <operation>equals</operation>
+            <value>Region_Health__c.Current,Region_Health__c.History</value>
+        </filters>
+        <label>All Region Health</label>
+    </listViews>
+    <listViews>
+        <fullName>Current_Region_Data</fullName>
+        <columns>NAME</columns>
+        <columns>Account__c</columns>
+        <columns>RECORDTYPE</columns>
+        <columns>Report_Year_Text__c</columns>
+        <columns>Fiscal_Quarter__c</columns>
+        <filterScope>Everything</filterScope>
+        <filters>
+            <field>RECORDTYPE</field>
+            <operation>equals</operation>
+            <value>Region_Health__c.Current</value>
+        </filters>
+        <label>Current Region Data</label>
+    </listViews>
+    <nameField>
+        <displayFormat>RH-{0000}</displayFormat>
+        <label>Region Health Name</label>
+        <trackHistory>false</trackHistory>
+        <type>AutoNumber</type>
+    </nameField>
+    <pluralLabel>Region Health</pluralLabel>
+    <recordTypeTrackHistory>false</recordTypeTrackHistory>
+    <recordTypes>
+        <fullName>Current</fullName>
+        <active>true</active>
+        <description>Currently open Fiscal Quarter</description>
+        <label>Current</label>
+        <picklistValues>
+            <picklist>Forum_Status__c</picklist>
+            <values>
+                <fullName>Active</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Declined</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Pending Placement</fullName>
+                <default>false</default>
+            </values>
+        </picklistValues>
+        <picklistValues>
+            <picklist>Region_Admin_Status__c</picklist>
+            <values>
+                <fullName>Full-time</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>None</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Part-time</fullName>
+                <default>false</default>
+            </values>
+        </picklistValues>
+        <picklistValues>
+            <picklist>Report_Quarter__c</picklist>
+            <values>
+                <fullName>Q-1</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Q-2</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Q-3</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Q-4</fullName>
+                <default>false</default>
+            </values>
+        </picklistValues>
+    </recordTypes>
+    <recordTypes>
+        <fullName>History</fullName>
+        <active>true</active>
+        <description>Holds information for previous Fiscal Quarters</description>
+        <label>History</label>
+        <picklistValues>
+            <picklist>Forum_Status__c</picklist>
+            <values>
+                <fullName>Active</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Declined</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Pending Placement</fullName>
+                <default>false</default>
+            </values>
+        </picklistValues>
+        <picklistValues>
+            <picklist>Region_Admin_Status__c</picklist>
+            <values>
+                <fullName>Full-time</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>None</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Part-time</fullName>
+                <default>false</default>
+            </values>
+        </picklistValues>
+        <picklistValues>
+            <picklist>Report_Quarter__c</picklist>
+            <values>
+                <fullName>Q-1</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Q-2</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Q-3</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Q-4</fullName>
+                <default>false</default>
+            </values>
+        </picklistValues>
+    </recordTypes>
+    <searchLayouts>
+        <lookupDialogsAdditionalFields>Account__c</lookupDialogsAdditionalFields>
+        <lookupDialogsAdditionalFields>Report_Quarter__c</lookupDialogsAdditionalFields>
+        <lookupDialogsAdditionalFields>Report_Year_Text__c</lookupDialogsAdditionalFields>
+        <lookupDialogsAdditionalFields>OWNER.LAST_NAME</lookupDialogsAdditionalFields>
+    </searchLayouts>
+    <sharingModel>ReadWrite</sharingModel>
+    <visibility>Public</visibility>
+</CustomObject>

@@ -1,0 +1,191 @@
+<apex:page standardcontroller="KGRenewal__Invoice__c" extensions="v_PayInvoiceControllerExt" title="Pay invoice {! KGRenewal__Invoice__c.Name}" showHeader="false" sidebar="false" standardStylesheets="false" doctype="html-5.0">
+  <apex:styleSheet value="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" />
+    
+  <div class="container">
+    <div class="row">
+      <div class="col-sm-10 col-sm-offset-2">
+        <div class="page-header">
+<!--
+          <span class="pull-right">
+            <a class="btn btn-default" href="#">Download PDF</a>
+          </span>
+-->
+          <h1>Pay invoice {! KGRenewal__Invoice__c.Name} </h1>
+
+        </div>
+      </div> <!-- /.col-sm-10 -->
+    </div> <!-- /.row -->
+
+    <div class="row">
+<!--
+      <div class="col-sm-2">
+        <ul class="nav nav-pills nav-stacked">
+          <li role="presentation">
+            <a href="{! $Page.v_orders}">Past Orders</a>
+          </li>
+          <li class="active" role="presentation">
+            <a href="{! $Page.v_invoices}">Open Invoices</a>
+          </li>
+          <li role="presentation">
+            <a href="#">Paid Invoices</a>
+          </li>
+        </ul>
+        <!-- /.nav -|->
+      </div>
+-->
+      <div class="col-sm-10 col-sm-offset-2">
+
+        <apex:variable var="v_columns" value="{! 4}" />
+            <apex:outputPanel rendered="{! ctrl.isPaymentSuccessful}" layout="none">
+              <div class="alert alert-success">
+                Thank you for your payment, your invoice is now fully paid.</div> <!--alert-->
+              <a class="btn btn-primary" role="button" href="{! URLFOR($Page.v_invoices)}">Back to invoices</a>
+            </apex:outputPanel>
+
+            <apex:outputPanel rendered="{! NOT(ctrl.isPaymentSuccessful)}" layout="none">
+
+              <apex:outputPanel rendered="{! NOT(ISBLANK(ctrl.paymentResultMessage))}" layout="none">
+                <div class="alert alert-danger">{!paymentErrorMsgYPO}</div> <!--alert-->
+              </apex:outputPanel>
+
+              <div class="row">
+                <div class="col-md-4">
+
+                  <apex:outputPanel rendered="{! KGRenewal__Invoice__c.KGRenewal__AmountDue__c <= 0}" layout="none">
+                    <div class="alert alert-info">This invoice is already paid</div>
+                  </apex:outputPanel>
+
+                  <apex:form id="paymentForm" styleClass="form" rendered="{! KGRenewal__Invoice__c.KGRenewal__AmountDue__c > 0}">
+                    <h2>Payment details</h2>
+                    <!-- <h3>Credit card</h3> -->
+                    <div class="row">
+                      <c:v_CreditCardInputComponent id="cardInput" paymentCard="{! ctrl.paymentCard}"/>
+                    </div><!--/.row-->
+
+                    <h3>Billing address</h3>
+                    <div class="row">
+                      <apex:outputPanel layout="none" rendered="{! billingAddressOptions.size > 1}">
+                          <div class="col-xs-12 form-group">
+                            <apex:outputLabel for="billing_select" styleClass="control-label" value="Saved addresses" />
+                                <apex:selectList id="billing_select" value="{! selectedOption}" size="1" styleClass="form-control">
+                                    <apex:selectOptions value="{! billingAddressOptions}" />
+                                    <apex:actionSupport event="onchange" action="{! setBillingAddress}" rerender="billingAddressInput"/>
+                                </apex:selectList>
+                          </div> <!--/.form-group-->
+                          <hr />
+                      </apex:outputPanel> <!--/Saved billing addresses select list-->
+
+                      <c:v_AddressInputComponent address="{! billingAddress}" id="billingAddressInput"/>
+                    </div> <!--/.row-->
+                    <apex:commandButton action="{!newPay}"
+                      onclick="if(!kg.forms.validate()){return false;} if(!confirm('Submit your payment for ${! KGRenewal__Invoice__c.KGRenewal__AmountDue__c}?')) {return false;}"
+                      styleClass="btn btn-primary btn-block"
+                      value="Submit Payment"/>
+                    <br/><br/><br/>
+                  </apex:form> <!--/.form-->
+                </div> <!--/.col-->
+
+                <div class="col-md-7 col-md-offset-1">
+                  <h2>Invoice details</h2>
+
+                  <table class="table">
+                    <thead>
+                      <tr>
+                        <th>Invoice</th>
+                        <th>Due</th>
+                        <th>Status</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr>
+                        <td>{! KGRenewal__Invoice__c.Name}</td>
+                        <td><apex:outputField value="{! KGRenewal__Invoice__c.KGRenewal__DueDate__c}"/></td>
+                        <td>{! KGRenewal__Invoice__c.KGRenewal__Status__c}</td>
+                      </tr>
+                    </tbody>
+                  </table>
+
+                  <!-- <div class="page-header"><h3>Items</h3></div> -->
+                  <table class="table table-striped">
+                    <thead>
+                      <tr>
+                        <th colspan="2">Item</th> <!--image and name-->
+                        <!-- <th style="text-align:right;">Unit price</th> -->
+                        <th style="text-align:right;">Quantity</th>
+                        <th style="text-align:right;">Amount</th>
+                      <!--
+                        <th style="text-align:right;">Tax</th>
+                        <th style="text-align:right;">Total Price</th>
+                      -->
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <apex:repeat value="{! KGRenewal__Invoice__c.KGRenewal__InvoiceItems__r}" var="invoiceItem">
+                        <tr>
+                          <td></td> <!--Image-->
+                          <td style="text-align:left;">{! invoiceItem.Name}</td>
+<!--
+                          <td style="text-align:right;"><apex:outputField value="{! invoiceItem.KGRenewal__UnitPriceDisplay__c}"/></td>
+-->
+                          <td style="text-align:right;">{! TEXT(invoiceItem.KGRenewal__QuantityDisplay__c)}</td>
+                          <td style="text-align:right;"><apex:outputField value="{! invoiceItem.KGRenewal__Amount__c}"/></td>
+      <!--
+                          <td>
+                            <apex:outputField value="{! invoiceItem.KGRenewal__TaxAmount__c}"/>
+                          </td>
+                          <td>
+                            <apex:outputField value="{! invoiceItem.KGRenewal__Amount__c}"/>
+                          </td>
+      -->
+                        </tr>
+                      </apex:repeat>
+                      <apex:outputPanel rendered="{! KGRenewal__Invoice__c.KGRenewal__Tax__c != null && KGRenewal__Invoice__c.KGRenewal__Tax__c > 0}" layout="none">
+                        <tr style="text-align:right;">
+                          <td colspan="{! v_columns - 1}">Subtotal</td>
+                          <td>
+                          <!--
+                            <apex:outputText value="{0,number,currency}">
+                              <apex:param value="{! KGRenewal__Invoice__c.KGRenewal__ItemSubtotal__c}"/>
+                            </apex:outputText>
+                          -->
+                            <apex:outputField value="{! KGRenewal__Invoice__c.KGRenewal__ItemSubtotal__c}"/>
+                          </td>
+                        </tr>
+                        <tr style="text-align:right;">
+                          <td colspan="{! v_columns - 1}">Tax</td>
+                          <td>
+                            <apex:outputField value="{! KGRenewal__Invoice__c.KGRenewal__Tax__c}"/>
+                          </td>
+                        </tr>
+                      </apex:outputPanel>
+                      <tr style="text-align:right;">
+                        <td colspan="{! v_columns - 1}">Total</td>
+                        <td><!--
+                          <apex:outputText value="{0,number,currency}">
+                            <apex:param value="{! KGRenewal__Invoice__c.KGRenewal__TotalAmount__c}"/>
+                          </apex:outputText>
+                        -->
+                        <apex:outputField value="{! KGRenewal__Invoice__c.KGRenewal__TotalAmount__c}"/>
+                        </td>
+                      </tr>
+                      <tr style="text-align:right;">
+                        <td colspan="{! v_columns - 1}">Amount paid</td>
+                        <td><apex:outputField value="{! KGRenewal__Invoice__c.KGRenewal__AmountPaid__c}"/></td>
+                      </tr>
+                      <tr style="text-align:right;">
+                        <td colspan="{! v_columns - 1}">Amount due</td>
+                        <td><apex:outputField value="{! KGRenewal__Invoice__c.KGRenewal__AmountDue__c}"/></td>
+                      </tr>
+                    </tbody>
+                  </table>
+
+                </div> <!--/.col-->
+              </div> <!-- /.row -->
+            </apex:outputPanel>
+            <div style= "display:none" >
+              {!KGRenewal__Invoice__c.KGRenewal__Contact__c}
+            </div>
+      </div> <!-- /.col-sm-10 -->
+    </div> <!-- /.row -->
+  </div> <!-- /.container -->
+</apex:page>

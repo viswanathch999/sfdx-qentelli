@@ -1,0 +1,522 @@
+<apex:page controller="AwardsBioPdfCtrl" renderAs="{!$CurrentPage.parameters.renderAs}" applyBodyTag="false" sidebar="false" showHeader="false">
+    
+    <head>
+        
+        <title>Membership Bio</title>
+
+        <style>
+            
+            body {
+                font-family: "Trebuchet MS", Arial, Helvetica, sans-serif;
+                font-size: 10pt;
+            }
+            
+            @media print {
+                table {
+                    page-break-inside: auto;
+                }
+                
+                tr { 
+                    page-break-inside: avoid;
+                    page-break-after: auto;
+                }
+                
+                thead { 
+                    display: table-header-group;
+                }
+            }
+            
+            @page {
+                size: letter;
+                
+                @bottom-center {
+                    font-family: Arial, Helvetica, sans-serif;
+                    content: "Page " counter(page);
+                    font-size: 10pt;
+                }
+            }
+            
+            #pageHeader {
+                vertical-align: top;
+            }
+            
+            table {
+                width: 100%;
+            }
+            
+            .bottom-spacing  {
+                margin-bottom: 30px;
+            }
+            
+            .evenRow {
+                background-color: #DDD;
+            }
+            
+            .bottom-border {
+                border-bottom: 2px solid black;
+            }
+            
+            .td-9 {
+                width: 75%;
+            }
+            
+            .td-8 {
+                width: 66.6%;
+            }
+            
+            .td-6 {
+                width: 50%;
+            }
+            
+            .td-4 {
+                width: 33.3%;
+            }
+            
+            .td-3 {
+                width: 25%;
+            }
+            
+            .td-2 {
+                width: 16.6%;
+            }
+            
+        </style>
+        
+    </head>
+    
+    <body>
+        
+        <apex:form >
+            
+            <div id="pageHeader">
+                <table>
+                    <tr>
+                        <td class="td-2"><img src="{!URLFOR($Resource.YPOLogo2)}" height="100" width="110" /></td>
+                        <td style="vertical-align:top;"><h1>Membership Bio</h1></td>
+                    </tr>
+                </table>
+            </div>
+            
+            <div id="memberHeader" class="bottom-spacing">
+                <table>
+                    <tr>
+                        <th class="td-4" style="font-size:1.5em;">{!member.LastName}, {!member.FirstName} {!member.Middle_Name__c}</th>
+                        <th class="td-4" style="font-size:1.5em; text-align:center;">{!chapter.Name}</th>
+                        <th class="td-4" style="font-size:1.5em; text-align:right;">{!region.Name}</th>
+                    </tr>
+                    <tr>
+                        <th class="td-4">Birthdate:&nbsp;<apex:outputField value="{!member.Birthdate}"/></th>
+                        <th class="td-4" style="text-align:center;">Age (Current): {!member.Age_Current__c}</th>
+                        <th class="td-4" style="text-align:right;">Join Date:&nbsp;<apex:outputField value="{!member.Join_Date__c}"/></th>
+                    </tr>
+                </table>
+            </div>
+            
+            <div id="businessContact" class="bottom-spacing">
+                <h2>Business Contact Details</h2>
+                <table>
+                    <apex:repeat value="{!businessInfo}" var="item">
+                        <tr>
+                            <th class="td-3" style="vertical-align:top;"><apex:outputLabel value="{!RIGHT(item, LEN(item)-3)}"></apex:outputLabel></th>
+                            <td class="td-9"><apex:outputText value="{!businessInfo[item]}" escape="false"></apex:outputText></td>
+                        </tr>
+                    </apex:repeat>
+                </table>
+            </div>
+            
+            <div id="personalContact" class="bottom-spacing">
+                <h2>Personal Contact Details</h2>
+                <table>
+                    <apex:repeat value="{!personalInfo}" var="item">
+                        <tr>
+                            <th class="td-3" style="vertical-align:top;"><apex:outputLabel value="{!RIGHT(item, LEN(item)-3)}"></apex:outputLabel></th>
+                            <td class="td-9"><apex:outputText value="{!personalInfo[item]}" escape="false"></apex:outputText></td>
+                        </tr>
+                    </apex:repeat>
+                </table>
+            </div>
+            
+            <div id="familyMembers" class="bottom-spacing">
+                <h2>Family</h2>
+                <table>
+                    <apex:repeat value="{!familyMembers}" var="fm">
+                        <tr>
+                            <th class="td-3">{!fm.Relationship_Type__c}</th>
+                            <td class="td-9">{!fm.Contact__r.Name}</td>
+                        </tr>
+                    </apex:repeat>
+                </table>
+            </div>
+            
+            <div id="memberBio" class="bottom-spacing">
+                <h2>Biography</h2>
+                {!member.Biography__c}
+            </div>
+            
+            <div id="awards" class="bottom-spacing">
+                <table class='table-striped' cellspacing="0">
+                    <thead>
+                        <tr>
+                            <th class="td-6 bottom-border">Awards</th>
+                            <th class="td-4 bottom-border">YPO Award Year</th>
+                            <th class="td-2 bottom-border">Type</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <apex:variable value="{!1}" var="rowNum"/>
+                        <apex:repeat value="{!awards}" var="aw">
+                            <apex:variable value="{!IF(MOD(rowNum, 2) = 0, 'evenRow', 'oddRow')}" var="rowColor"/>
+                            <tr class="{!rowColor}">
+                                <td>{!aw.Achievement_Name__c}</td>
+                                <td><apex:outputField value="{!aw.YPO_Award_Year__c}"></apex:outputField></td>
+                                <td><apex:outputField value="{!aw.Achievement_Category__c}"></apex:outputField></td>
+                            </tr>
+                            <apex:variable var="rowNum" value="{!rowNum + 1}"/>
+                        </apex:repeat>
+                        <tr style="{!IF(awards.size == 0, '', 'display:none;')}"><td>No results.</td></tr>
+                    </tbody>
+                </table>
+            </div>
+
+
+            <div id="committeePositions" class="bottom-spacing">
+                <table class='table-striped' cellspacing="0">
+                    <thead>
+                        <tr>
+                            <th class="td-6 bottom-border">Committee Positions</th>
+                            <th class="td-2 bottom-border">Position Title</th>
+                            <th class="td-2 bottom-border">Begin Date</th>
+                            <th class="td-2 bottom-border">End Date</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <apex:variable value="{!1}" var="rowNum"/>
+                        <apex:repeat value="{!committeePositions}" var="cp">
+                            <apex:variable value="{!IF(MOD(rowNum, 2) = 0, 'evenRow', 'oddRow')}" var="rowColor"/>
+                            <tr class="{!rowColor}">
+                                <td>{!cp.Account__r.Name}</td>
+                                <td>{!cp.Position_Title__c}</td>
+                                <td><apex:outputField value="{!cp.Start_Date__c}"></apex:outputField></td>
+                                <td><apex:outputField value="{!cp.End_Date__c}"></apex:outputField></td>
+                            </tr>
+                            <apex:variable var="rowNum" value="{!rowNum + 1}"/>
+                        </apex:repeat>
+                        <tr style="{!IF(committeePositions.size == 0, '', 'display:none;')}"><td>No results.</td></tr>
+                    </tbody>
+                </table>
+            </div>
+            
+            <div id="committeeMemberships" class="bottom-spacing">
+                <table class='table-striped' cellspacing="0">
+                    <thead>
+                        <tr>
+                            <th class="td-8 bottom-border">Committee Memberships</th>
+                            <th class="td-2 bottom-border">Begin Date</th>
+                            <th class="td-2 bottom-border">End Date</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <apex:variable value="{!1}" var="rowNum"/>
+                        <apex:repeat value="{!committeeMemberships}" var="cm">
+                            <apex:variable value="{!IF(MOD(rowNum, 2) = 0, 'evenRow', 'oddRow')}" var="rowColor"/>
+                            <tr class="{!rowColor}">
+                                <td>{!cm.AccountName__c}</td>
+                                <td><apex:outputField value="{!cm.Start_Date__c}"></apex:outputField></td>
+                                <td><apex:outputField value="{!cm.End_Date__c}"></apex:outputField></td>
+                            </tr>
+                            <apex:variable var="rowNum" value="{!rowNum + 1}"/>
+                        </apex:repeat>
+                        <tr style="{!IF(committeeMemberships.size == 0, '', 'display:none;')}"><td>No results.</td></tr>
+                    </tbody>
+                </table>
+            </div>
+            
+            <div id="chapterOfficers" class="bottom-spacing">
+                <table class='table-striped' cellspacing="0">
+                    <thead>
+                        <tr>
+                            <th class="td-6 bottom-border">Chapter Officers</th>
+                            <th class="td-2 bottom-border">Position Title</th>
+                            <th class="td-2 bottom-border">Begin Date</th>
+                            <th class="td-2 bottom-border">End Date</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <apex:variable value="{!1}" var="rowNum"/>
+                        <apex:repeat value="{!chapterOfficers}" var="co">
+                            <apex:variable value="{!IF(MOD(rowNum, 2) = 0, 'evenRow', 'oddRow')}" var="rowColor"/>
+                            <tr class="{!rowColor}">
+                                <td>{!co.Account__r.Name}</td>
+                                <td>{!co.Position_Title__c}</td>
+                                <td><apex:outputField value="{!co.Start_Date__c}"></apex:outputField></td>
+                                <td><apex:outputField value="{!co.End_Date__c}"></apex:outputField></td>
+                            </tr>
+                            <apex:variable var="rowNum" value="{!rowNum + 1}"/>
+                        </apex:repeat>
+                        <tr style="{!IF(chapterOfficers.size == 0, '', 'display:none;')}"><td>No results.</td></tr>
+                    </tbody>
+                </table>
+            </div>
+            
+            <div id="regionOfficers" class="bottom-spacing">
+                <table class='table-striped' cellspacing="0">
+                    <thead>
+                        <tr>
+                            <th class="td-6 bottom-border">Region Officers</th>
+                            <th class="td-2 bottom-border">Position Title</th>
+                            <th class="td-2 bottom-border">Begin Date</th>
+                            <th class="td-2 bottom-border">End Date</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <apex:variable value="{!1}" var="rowNum"/>
+                        <apex:repeat value="{!regionOfficers}" var="ro">
+                            <apex:variable value="{!IF(MOD(rowNum, 2) = 0, 'evenRow', 'oddRow')}" var="rowColor"/>
+                            <tr class="{!rowColor}">
+                                <td>{!ro.Account__r.Name}</td>
+                                <td>{!ro.Position_Title__c}</td>
+                                <td><apex:outputField value="{!ro.Start_Date__c}"></apex:outputField></td>
+                                <td><apex:outputField value="{!ro.End_Date__c}"></apex:outputField></td>
+                            </tr>
+                            <apex:variable var="rowNum" value="{!rowNum + 1}"/>
+                        </apex:repeat>
+                        <tr style="{!IF(regionOfficers.size == 0, '', 'display:none;')}"><td>No results.</td></tr>
+                    </tbody>
+                </table>
+            </div>
+            
+            <div id="networkOfficers" class="bottom-spacing">
+                <table class='table-striped' cellspacing="0">
+                    <thead>
+                        <tr>
+                            <th class="td-6 bottom-border">Network Officers</th>
+                            <th class="td-2 bottom-border">Position Title</th>
+                            <th class="td-2 bottom-border">Begin Date</th>
+                            <th class="td-2 bottom-border">End Date</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <apex:variable value="{!1}" var="rowNum"/>
+                        <apex:repeat value="{!networkOfficers}" var="no">
+                            <apex:variable value="{!IF(MOD(rowNum, 2) = 0, 'evenRow', 'oddRow')}" var="rowColor"/>
+                            <tr class="{!rowColor}">
+                                <td>{!no.Account__r.Name}</td>
+                                <td>{!no.Position_Title__c}</td>
+                                <td><apex:outputField value="{!no.Start_Date__c}"></apex:outputField></td>
+                                <td><apex:outputField value="{!no.End_Date__c}"></apex:outputField></td>
+                            </tr>
+                            <apex:variable var="rowNum" value="{!rowNum + 1}"/>
+                        </apex:repeat>
+                        <tr style="{!IF(networkOfficers.size == 0, '', 'display:none;')}"><td>No results.</td></tr>
+                    </tbody>
+                </table>
+            </div>
+            
+            <div id="meetingsChampioned" class="bottom-spacing">
+                <table class='table-striped' cellspacing="0">
+                    <thead>
+                        <tr>
+                            <th class="td-6 bottom-border">Meetings Championed</th>
+                            <th class="td-2 bottom-border">Position Title</th>
+                            <th class="td-2 bottom-border">Begin Date</th>
+                            <th class="td-2 bottom-border">End Date</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <apex:variable value="{!1}" var="rowNum"/>
+                        <apex:repeat value="{!meetingsChampioned}" var="mc">
+                            <apex:variable value="{!IF(MOD(rowNum, 2) = 0, 'evenRow', 'oddRow')}" var="rowColor"/>
+                            <tr class="{!rowColor}">
+                                <td>{!mc.Event_text__c}</td>
+                                <td>{!mc.Position_Title__c}</td>
+                                <td><apex:outputField value="{!mc.Start_Date__c}"></apex:outputField></td>
+                                <td><apex:outputField value="{!mc.End_Date__c}"></apex:outputField></td>
+                            </tr>
+                            <apex:variable var="rowNum" value="{!rowNum + 1}"/>
+                        </apex:repeat>
+                        <tr style="{!IF(meetingsChampioned.size == 0, '', 'display:none;')}"><td>No results.</td></tr>
+                    </tbody>
+                </table>
+            </div>
+            
+            <div id="glcClwEvents" class="bottom-spacing">
+                <table class='table-striped' cellspacing="0">
+                    <thead>
+                        <tr>
+                            <th class="td-8 bottom-border">GLC/CLW</th>
+                            <th class="td-2 bottom-border">Meeting Begin Date</th>
+                            <th class="td-2 bottom-border">Meeting End Date</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <apex:variable value="{!1}" var="rowNum"/>
+                        <apex:repeat value="{!glcClwEvents}" var="gc">
+                            <apex:variable value="{!IF(MOD(rowNum, 2) = 0, 'evenRow', 'oddRow')}" var="rowColor"/>
+                            <tr class="{!rowColor}">
+                                <td>{!gc.Event_Name__c}</td>
+                                <td><apex:outputField value="{!gc.Event__r.Start_Date__c}"></apex:outputField></td>
+                                <td><apex:outputField value="{!gc.Event__r.End_Date__c}"></apex:outputField></td>
+                            </tr>
+                            <apex:variable var="rowNum" value="{!rowNum + 1}"/>
+                        </apex:repeat>
+                        <tr style="{!IF(glcClwEvents.size == 0, '', 'display:none;')}"><td>No results.</td></tr>
+                    </tbody>
+                </table>
+            </div>
+            
+            <div id="nonChapterEvents" class="bottom-spacing">
+                <table class='table-striped' cellspacing="0">
+                    <thead>
+                        <tr>
+                            <th class="td-8 bottom-border">Non-Chapter Events</th>
+                            <th class="td-2 bottom-border">Meeting Begin Date</th>
+                            <th class="td-2 bottom-border">Meeting End Date</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <apex:variable value="{!1}" var="rowNum"/>
+                        <apex:repeat value="{!nonChapterEvents}" var="nc">
+                            <apex:variable value="{!IF(MOD(rowNum, 2) = 0, 'evenRow', 'oddRow')}" var="rowColor"/>
+                            <tr class="{!rowColor}">
+                                <td>{!nc.Event_Name__c}</td>
+                                <td><apex:outputField value="{!nc.Event__r.Start_Date__c}"></apex:outputField></td>
+                                <td><apex:outputField value="{!nc.Event__r.End_Date__c}"></apex:outputField></td>
+                            </tr>
+                            <apex:variable var="rowNum" value="{!rowNum + 1}"/>
+                        </apex:repeat>
+                        <tr style="{!IF(nonChapterEvents.size == 0, '', 'display:none;')}"><td>No results.</td></tr>
+                    </tbody>
+                </table>
+            </div>
+            
+            <div id="fastTrackEvents" class="bottom-spacing">
+                <table class='table-striped' cellspacing="0">
+                    <thead>
+                        <tr>
+                            <th class="td-8 bottom-border">Fast Track Events</th>
+                            <th class="td-2 bottom-border">Meeting Begin Date</th>
+                            <th class="td-2 bottom-border">Meeting End Date</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <apex:variable value="{!1}" var="rowNum"/>
+                        <apex:repeat value="{!fastTrackEvents}" var="ft">
+                            <apex:variable value="{!IF(MOD(rowNum, 2) = 0, 'evenRow', 'oddRow')}" var="rowColor"/>
+                            <tr class="{!rowColor}">
+                                <td>{!ft.Event_Name__c}</td>
+                                <td><apex:outputField value="{!ft.Event__r.Start_Date__c}"></apex:outputField></td>
+                                <td><apex:outputField value="{!ft.Event__r.End_Date__c}"></apex:outputField></td>
+                            </tr>
+                            <apex:variable var="rowNum" value="{!rowNum + 1}"/>
+                        </apex:repeat>
+                        <tr style="{!IF(fastTrackEvents.size == 0, '', 'display:none;')}"><td>No results.</td></tr>
+                    </tbody>
+                </table>
+            </div>
+            
+            <div id="gccEvents" class="bottom-spacing">
+                <table class='table-striped' cellspacing="0">
+                    <thead>
+                        <tr>
+                            <th class="td-8 bottom-border">Global Conference Calls (GCC)</th>
+                            <th class="td-2 bottom-border">Meeting Begin Date</th>
+                            <th class="td-2 bottom-border">Meeting End Date</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <apex:variable value="{!1}" var="rowNum"/>
+                        <apex:repeat value="{!gccEvents}" var="gcc">
+                            <apex:variable value="{!IF(MOD(rowNum, 2) = 0, 'evenRow', 'oddRow')}" var="rowColor"/>
+                            <tr class="{!rowColor}">
+                                <td>{!gcc.Event_Name__c}</td>
+                                <td><apex:outputField value="{!gcc.Event__r.Start_Date__c}"></apex:outputField></td>
+                                <td><apex:outputField value="{!gcc.Event__r.End_Date__c}"></apex:outputField></td>
+                            </tr>
+                            <apex:variable var="rowNum" value="{!rowNum + 1}"/>
+                        </apex:repeat>
+                        <tr style="{!IF(gccEvents.size == 0, '', 'display:none;')}"><td>No results.</td></tr>
+                    </tbody>
+                </table>
+            </div>
+            
+            <div id="nonChapterComplexEvents" class="bottom-spacing">
+                <table class='table-striped' cellspacing="0">
+                    <thead>
+                        <tr>
+                            <th class="td-8 bottom-border">Non-Chapter Events Complex</th>
+                            <th class="td-2 bottom-border">Meeting Begin Date</th>
+                            <th class="td-2 bottom-border">Meeting End Date</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <apex:variable value="{!1}" var="rowNum"/>
+                        <apex:repeat value="{!nonChapterComplexEvents}" var="ncc">
+                            <apex:variable value="{!IF(MOD(rowNum, 2) = 0, 'evenRow', 'oddRow')}" var="rowColor"/>
+                            <tr class="{!rowColor}">
+                                <td>{!ncc.Event_Name__c}</td>
+                                <td><apex:outputField value="{!ncc.Event__r.Start_Date__c}"></apex:outputField></td>
+                                <td><apex:outputField value="{!ncc.Event__r.End_Date__c}"></apex:outputField></td>
+                            </tr>
+                            <apex:variable var="rowNum" value="{!rowNum + 1}"/>
+                        </apex:repeat>
+                        <tr style="{!IF(nonChapterComplexEvents.size == 0, '', 'display:none;')}"><td>No results.</td></tr>
+                    </tbody>
+                </table>
+            </div>
+            
+            <div id="regBoardMeetingEvents" class="bottom-spacing">
+                <table class='table-striped' cellspacing="0">
+                    <thead>
+                        <tr>
+                            <th class="td-8 bottom-border">Regional Board Meetings</th>
+                            <th class="td-2 bottom-border">Meeting Begin Date</th>
+                            <th class="td-2 bottom-border">Meeting End Date</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <apex:variable value="{!1}" var="rowNum"/>
+                        <apex:repeat value="{!regBoardMeetingEvents}" var="rbm">
+                            <apex:variable value="{!IF(MOD(rowNum, 2) = 0, 'evenRow', 'oddRow')}" var="rowColor"/>
+                            <tr class="{!rowColor}">
+                                <td>{!rbm.Event_Name__c}</td>
+                                <td><apex:outputField value="{!rbm.Event__r.Start_Date__c}"></apex:outputField></td>
+                                <td><apex:outputField value="{!rbm.Event__r.End_Date__c}"></apex:outputField></td>
+                            </tr>
+                            <apex:variable var="rowNum" value="{!rowNum + 1}"/>
+                        </apex:repeat>
+                        <tr style="{!IF(regBoardMeetingEvents.size == 0, '', 'display:none;')}"><td>No results.</td></tr>
+                    </tbody>
+                </table>
+            </div>
+            
+            <div id="networkMemberships" class="bottom-spacing">
+                <table class='table-striped' cellspacing="0">
+                    <thead>
+                        <tr>
+                            <th class="td-8 bottom-border">Network Memberships</th>
+                            <th class="td-2 bottom-border">Begin Date</th>
+                            <th class="td-2 bottom-border">End Date</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <apex:variable value="{!1}" var="rowNum"/>
+                        <apex:repeat value="{!networkMemberships}" var="nm">
+                            <apex:variable value="{!IF(MOD(rowNum, 2) = 0, 'evenRow', 'oddRow')}" var="rowColor"/>
+                            <tr class="{!rowColor}">
+                                <td>{!nm.AccountName__c}</td>
+                                <td><apex:outputField value="{!nm.Start_Date__c}"></apex:outputField></td>
+                                <td><apex:outputField value="{!nm.End_Date__c}"></apex:outputField></td>
+                            </tr>
+                            <apex:variable var="rowNum" value="{!rowNum + 1}"/>
+                        </apex:repeat>
+                        <tr style="{!IF(networkMemberships.size == 0, '', 'display:none;')}"><td>No results.</td></tr>
+                    </tbody>
+                </table>
+            </div>
+            
+            
+        </apex:form>
+            
+    </body>
+    
+</apex:page>

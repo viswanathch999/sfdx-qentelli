@@ -1,0 +1,152 @@
+<!--COPYRIGHT KINETIC GROWTH INC-->
+<apex:page controller="KGRenewal.VenueCartController" extensions="v_CartControllerExt" action="{! updateQuantity}" showHeader="false" sidebar="false" standardStylesheets="false" applyHtmlTag="false" doctype="html-5.0">
+<!--<apex:composition template="{! $Site.Template}">-->
+<apex:composition template="v_template">
+<apex:define name="title"><title>Cart | {! $Organization.Name}</title></apex:define>
+<apex:define name="content">
+<div class="row">
+    <div class="col-sm-8 col-sm-offset-2">
+
+        <!--cart is empty-->
+        <apex:outputPanel layout="none" rendered="{! lineItems.size == 0}">
+          <div class="alert alert-info" role="alert">
+            <b>Your shopping cart is empty</b>
+          </div> <!--/.alert-->
+        </apex:outputPanel>
+        
+        <!--error messages from cart controller-->
+        <apex:outputPanel layout="none" rendered="{! hasError}">
+          <apex:repeat var="errorMessage" value="{! errorMessages}">
+            <div class="alert alert-warning" role="alert">
+              <b>{! errorMessage}</b>
+            </div> <!--/.alert-->
+          </apex:repeat>
+        </apex:outputPanel>
+        
+        <!--shopping cart has lineItems-->
+        <apex:outputPanel id="order_summary" layout="block" styleClass="panel panel-default" rendered="{! lineItems.size > 0}"> <!--Order Summary panel-->
+          <div class="panel-heading">
+            <h3 class="panel-title">Your shopping cart</h3>
+          </div> <!--/.panel-heading-->
+          <ul class="list-group text-right">
+        
+            <apex:repeat value="{! lineItems}" var="item">
+              <li class="list-group-item">
+
+                <!-- item in Catalog -->
+                <apex:outputPanel rendered="{! NOT(item.isLocked)}" layout="none">
+                  <div class="row">
+                    <div class="col-xs-3"> <!--Item image-->
+                      <apex:outputPanel layout="none" rendered="{! NOT(ISBLANK(item.pricebookEntry.product2.KGRenewal__MainImageSmall__c))}">
+                        <p class="form-control-static">
+                          <a href="{! URLFOR($Page.v_detail, null, ['id'=item.pricebookEntry.product2])}">
+                            <apex:image styleClass="img-responsive" value="{! item.pricebookEntry.product2.KGRenewal__MainImageSmall__c}" alt="{! item.name}" />
+                          </a>
+                        </p>
+                      </apex:outputPanel>
+                    </div> <!--/.col--> <!--/Item image-->
+          
+                    <div class="text-left col-xs-6"> <!--Item name-->
+                      <p class="form-control-static">
+                        <a href="{! URLFOR($Page.v_detail, null, ['id'=item.pricebookEntry.product2])}">
+                          <b><span class="text-primary">
+                            {! item.name}
+                          </span></b>
+                        </a>
+                        <br/>
+                        {! item.description}
+                      </p>
+                      <p>
+                        <a style="width:6em;" class="pull-left btn btn-sm btn-link" role="button" onclick="window.location=('{! URLFOR($Page.v_cart, null,['q'=item.recordId])}'+':0');">
+                          Remove
+                        </a>
+                      </p>
+                    </div> <!--/.col--> <!--/Item name-->
+          
+                    <div class="col-xs-3"> <!--Extended price-->
+                      <p class="form-control-static">
+                        <apex:outputText value="{0, number, currency}">
+                          <apex:param value="{! item.totalPrice}"/>
+                        </apex:outputText>
+                      </p>
+                    </div> <!--/.col--> <!--/Extended price-->
+                  </div> <!--/.row-->
+                </apex:outputPanel>
+
+                <!-- item NOT in Catalog (eg dues products) (no links to detail page, non-removable) -->
+                <apex:outputPanel rendered="{! item.isLocked}" layout="none">
+                  <div class="row">
+                    <div class="col-xs-3"> <!--Item image-->
+                      <apex:outputPanel layout="none" rendered="{! NOT(ISBLANK(item.pricebookEntry.product2.KGRenewal__MainImageSmall__c))}">
+                        <p class="form-control-static">
+                            <apex:image styleClass="img-responsive" value="{! item.pricebookEntry.product2.KGRenewal__MainImageSmall__c}" alt="{! item.name}" />
+                        </p>
+                      </apex:outputPanel>
+                    </div> <!--/.col--> <!--/Item image-->
+          
+                    <div class="text-left col-xs-6"> <!--Item name-->
+                      <p class="form-control-static">
+                          <b><span class="text-primary">
+                            {! item.name}
+                          </span></b>
+                        <br/>
+                        {! item.description}
+                      </p>
+                    </div> <!--/.col--> <!--/Item name-->
+          
+                    <div class="col-xs-3"> <!--Extended price-->
+                      <p class="form-control-static">
+                        <apex:outputText value="{0, number, currency}">
+                          <apex:param value="{! item.totalPrice}"/>
+                        </apex:outputText>
+                      </p>
+                    </div> <!--/.col--> <!--/Extended price-->
+                  </div> <!--/.row-->
+                </apex:outputPanel>
+
+                <!--error message from line item-->
+                <apex:outputPanel layout="none" rendered="{! item.hasError}">
+                  <div class="alert alert-warning" role="alert">
+                    {! item.errorMessage}
+                  </div> <!--/.alert-->
+                </apex:outputPanel>
+        
+              </li> <!--/table row-->
+            </apex:repeat>
+        
+            <li class="list-group-item"> <!--Subtotal table row-->
+              <div class="row"><b>
+                <div class="col-xs-9">
+                  Subtotal
+                </div> <!--/.col-->
+                <div class="col-xs-3">
+                  <apex:outputText value="{0, number, currency}">
+                    <apex:param value="{! summary['subtotal']}" />
+                  </apex:outputText>
+                </div> <!--/.col-->
+              </b></div> <!--/.row-->
+            </li> <!--/Subtotal table row-->
+          </ul> <!--/.list-group .text-right-->
+        
+        </apex:outputPanel> <!--/.panel--> <!--/Order Summary panel-->
+        
+        
+        <center> <!--buttons along the bottom of page-->
+          <!--Return to shopping button-->
+          <a href="{! URLFOR($Page.v_catalog, null)}" class="btn {! IF(lineItems.size > 0,' btn-default',' btn-primary')}" role="button">
+            <span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span> Continue shopping
+          </a>
+          <!--Checkout button-->
+          <apex:outputPanel layout="none" rendered="{! lineItems.size > 0}">
+            &nbsp;
+            <a href="{! URLFOR($Page.v_checkout, null)}" class="btn btn-primary" role="button">
+              Checkout <span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span>
+            </a>
+          </apex:outputPanel>
+        </center> <!--/buttons along the bottom of page-->
+        
+    </div>
+</div>
+</apex:define>
+</apex:composition>
+</apex:page>

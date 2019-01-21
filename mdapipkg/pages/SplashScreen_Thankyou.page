@@ -1,0 +1,142 @@
+﻿<apex:page standardcontroller="Contact" extensions="SplashScreenController_YPO" sidebar="false" showheader="false" standardstylesheets="false" title="THANK YOU">
+    <link rel="stylesheet" type="text/css" href="{!URLFOR($Resource.YPORenew, 'ypo-renewals/assets/css/bootstrap.min.css')}" />
+    <link rel="stylesheet" type="text/css" href="{!URLFOR($Resource.YPORenew, 'ypo-renewals/assets/css/styles.css')}" />
+
+    <head>
+        
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" />
+        <title>YPO Renewals</title>
+    </head>
+
+    <body>
+       
+        <!-- Global site tag (gtag.js) - Google Analytics -->
+        <script async="true" src="https://www.googletagmanager.com/gtag/js?id={!$Label.Google_Analytics_ID}"></script>
+        <script>
+            window.dataLayer = window.dataLayer || [];
+            function gtag(){dataLayer.push(arguments);}
+            gtag('js', new Date());
+            gtag('config', '{!$Label.Google_Analytics_ID}');
+        </script>
+        <!-- End Google Analytics code -->
+        
+        <!--   <apex:composition template="V_Template_ProspectFlow_YPO_WelcomePage">
+              <apex:define name="content">-->
+    
+        <nav class="navbar navbar-default navbar-fixed-top">
+            <div class="container">
+                <img class="logo" src="{!URLFOR($Resource.YPORenew, 'ypo-renewals/assets/img/ypo.svg')}" />
+            </div>
+        </nav>
+        <apex:form >
+            <apex:outputpanel >
+                <div class="welcome-screen">
+                    <div class="content-title thank-you">
+                        <div class="container">
+                            <div style="color:black"> <apex:pagemessages id="messagesStart" /> <br /></div>
+                            <div class="v-center">
+                                <h1>Thank You</h1>
+                                <div class="hidden pleaseCall" style="font-size:22px;">
+                                    <h4>
+                                        Please call member services to complete your membership renewal.
+                                        <br /><br />
+                                        +1 800 773 7976 &nbsp; | +1 972 587 1618 &nbsp; | +1 972 587 1500
+                                    </h4>
+                                </div>
+    
+                                <div class="RenewYourMem hidden checkWire"><h4>YPO Member Services will contact you upon<br /> completion of your membership renewal. </h4></div>
+    
+                                <div class="RenewYourMem hidden creditCard"><h4>Your membership renewal is complete.</h4></div>
+    
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- Site Content -->
+                <div class="container">
+                    <div class="content thank-you">
+                        <h2 class="text-center">The power of YPO connections is in your hands</h2>
+                        <div class="row">
+                            <div class="col-md-4">
+                                <img src="{!URLFOR($Resource.YPORenew, 'ypo-renewals/assets/img/complete-profile.jpg')}" class="img-responsive" />
+                                <h3>Complete your Exchange Profile</h3>
+                                <p>
+                                    Unlock the power of YPO connections by <a href="https://www.ypowpo.org/portal/profile " target="_blank">completing your full member profile.</a>  
+                                    It is quick, easy, and opens a world of opportunity.
+                                </p>
+                            </div>
+                            <div class="col-md-4">
+                                <img src="{!URLFOR($Resource.YPORenew, 'ypo-renewals/assets/img/download-apps.jpg')}" class="img-responsive" />
+                                <h3>Download the YPO Forum app</h3>
+                                <p>
+                                    Access the best forum tools, resources and content right from your mobile device.  
+                                    <a href="https://videos.ypo.org/ypo-forum-app" target="_blank">Use the YPO Forum app</a> to build robust agendas and lead more effective meetings.
+                                </p>
+                            </div>
+                            <div class="col-md-4">
+                                <img src="{!URLFOR($Resource.YPORenew, 'ypo-renewals/assets/img/source.jpg')}" class="img-responsive" />
+                                <h3>Tap into YPO's exclusive online learning resources</h3>
+                                <p>
+                                    Discover the power of YPO connections through on demand learning.  <a href="https://videos.ypo.org/home" target="_blank">The Source</a> is our online
+                                    destination for more than 1,300 videos and podcasts curated for lifelong learning.
+                                </p>
+                                <p>
+                                    <a href="https://videos.ypo.org/channel/for-presidents-by-presidents" target="_blank">For Presidents by Presidents</a> was created by members for members, to provide actionable insights and idea
+                                    exchange in 180 seconds.
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+    
+                <!-- <div style="color:black"> <apex:pagemessages id="messagesStart" /> <br /></div> -->
+    
+                <footer>
+                    <div class="container">
+                        <div class="row">
+                            <div class="col-md-4"><img class="logo" style="margin-top: 10px;" src="{!URLFOR($Resource.YPORenew, 'ypo-renewals/assets/img/ypo-white.svg')}" /></div>
+                            <div class="col-md-4 text-center"><a href="https://media.ypowpo.org/libraries/publicLegal/exchange/TOU.pdf" target="_blank" style="color: #fdfeff;">{!$Label.Copyright_TOU}</a></div>
+                            <div class="col-md-4 text-right">&copy; {!$Label.Copyright_YPO}</div>
+                        </div>
+                    </div>
+                </footer>
+            </apex:outputpanel>
+        </apex:form>
+    </body>
+    
+        
+    <script src="{!URLFOR($Resource.YPORenew, 'ypo-renewals/assets/js/jquery-3.2.1.min.js')}"></script>
+    <script src="{!URLFOR($Resource.YPORenew, 'ypo-renewals/assets/js/bootstrap.min.js')}"></script>
+
+    <script>
+        $(document).ready(function(){
+            if({!displayGraceModal} === true)
+                alert('{!$Label.Catalog_YPO_BackNoGrace}')
+            else if({!displayTransitionModal} === true)
+                alert('{!$Label.Catalog_YPO_BackTransitioned}');
+
+            console.log("Interested in Lifetime" +{!isLifetime});
+            console.log("Third-Party Certify" + {!isThirdPartyCertify});
+            console.log("CheckWire" +{!isCheckWire});
+            console.log("CreditCard" +{!isCreditCard});
+        });
+//      if(({!isLifetime} || {!isThirdPartyCertify})){
+//          $(".pleaseCall").removeClass("hidden");
+//            $(".creditCard").addClass("hidden");
+//          $(".checkWire").addClass("hidden");
+//      }
+//      else
+        if({!isCheckWire} || {!isLifetime} || {!isThirdPartyCertify}){
+            $(".pleaseCall").addClass("hidden");
+            $(".checkWire").removeClass("hidden");
+            $(".creditCard").addClass("hidden");
+        }
+        else if({!isCreditCard}){
+            $(".pleaseCall").addClass("hidden");
+            $(".creditCard").removeClass("hidden");
+            $(".checkWire").addClass("hidden");
+        }
+
+    </script>
+</apex:page>

@@ -1,0 +1,156 @@
+<apex:page standardController="Contact" 
+    extensions="RenewalContactContExt" 
+    sidebar="false" 
+    showHeader="false"
+    standardStylesheets="false" 
+    title="{!$Label.Recertification}"
+    action="{!init}">
+
+	<link rel="stylesheet" type="text/css" href="https://mte-www.ypowpo.org/stylesheets/app.css"/>
+    
+    <apex:form >
+        <!-- <apex:pageMessages id="messagesStart"></apex:pageMessages> -->
+        <apex:outputPanel id="opanelIsNotMember" rendered="{!NOT(isMember)}">You are currently not a member and cannot proceed with Renewals</apex:outputPanel>
+        
+            <apex:pageBlock rendered="{!isMember}">
+                <main role="main">
+                    <div class="row">
+                        <div class="small-24 medium-16 large-18 columns">
+                            <div class="tile">
+                                <div class="tile-header">    {!$Label.Recertification}   </div>
+                                <div class="tile-body">
+                                    <p>
+                                        Your member credentials must be certified by a third party this year. As outlined in the 
+                                        Policy &amp; Procedures manual, YPO members must third party certify every third year, until members reach 47 years of age.
+                                    </p>
+                                </div>
+                            </div>
+                            
+                            <div class="tile">
+                                <div class="tile-header">  Your Membership Information  </div>
+								<apex:outputPanel id="oPanel">
+								<div class="tile-body">
+                                    <span class="input is-not-empty" >
+						                <apex:outputText value="{!oOpp.Qualifying_Company__c}" styleClass="input-field" id="qualifyingcompany" rendered="{!(isQualifyingCompanyEditable)}" />
+						                <label class="input-label" for="qualifyingcompany">    {!$ObjectType.Opportunity.Fields.Qualifying_Company__c.Label}    </label>
+						            </span>
+									<span class="input">
+						                <apex:inputField value="{!oOpp.Qualifying_Company__c}" styleClass="input-field" id="qualifyingcompany1" rendered="{!NOT(isQualifyingCompanyEditable)}"/>
+						                <label class="input-label is-required" for="qualifyingcompany1">    {!$ObjectType.Opportunity.Fields.Qualifying_Company__c.Label}    </label>
+					               </span>								               
+									<span class="input is-not-empty">
+						                <apex:inputField value="{!oAcc.BillingStreet}" styleClass="input-field" id="billingstreet" />
+						                <label class="input-label" for="billingstreet">    {!$ObjectType.Account.Fields.BillingStreet.Label}    </label>
+					               </span>		
+									<span class="input is-not-empty">
+						                <apex:inputField value="{!oAcc.BillingCity}" styleClass="input-field" id="BillingCity"/>
+						                <label class="input-label" for="BillingCity">    {!$ObjectType.Account.Fields.BillingCity.Label}    </label>
+					               </span>								               
+									<span class="input is-not-empty">
+						                <apex:inputField value="{!oAcc.BillingState}" styleClass="input-field" id="BillingState"/>
+						                <label class="input-label" for="BillingState">    {!$ObjectType.Account.Fields.BillingState.Label}    </label>
+					               </span>
+									<span class="input is-not-empty">
+						                <apex:inputField value="{!oAcc.BillingPostalCode}" styleClass="input-field" id="BillingPostalCode"/>
+						                <label class="input-label" for="BillingPostalCode">    {!$ObjectType.Account.Fields.BillingPostalCode.Label}    </label>
+					               </span>								               
+									<span class="input is-not-empty">
+						                <apex:inputField value="{!oAcc.BillingCountry}" styleClass="input-field" id="BillingCountry"/>
+						                <label class="input-label" for="BillingCountry">    {!$ObjectType.Account.Fields.BillingCountry.Label}    </label>
+					               </span>								               
+                                </div>
+                                 </apex:outputPanel>
+                                 <div class="tile-footer_toolbar">
+					            	<!--apex:commandButton value="{!$Label.Request_Grace}" title="{!$Label.Request_Grace}" styleclass="button button-footer right" action="{!requestGrace}" rendered="{!isGraceAvailable}" status="status1"  /-->
+                    				<!--apex:commandButton value="{!$Label.Request_Transition}" title="{!$Label.Request_Transition}" styleclass="button button-footer right" action="{!requestTransition}" rendered="{!isTransitionAvailable}" status="status1" /-->
+                    				<apex:commandButton value="{!$Label.Change_Qualifying_Company}" title="{!$Label.Change_Qualifying_Company}" styleclass="button button-footer right" action="{!makeQualifyingCompanyEditable}" status="status1" rerender="oPanel"/>
+					            </div>
+                            </div>
+                            <div class="tile">
+                                <div class="tile-header">   {!$Label.Main_Membership_Criteria}  </div>
+                                    <div class="tile-body">
+                                              <span class="input">
+                                                <apex:inputField value="{!oOpp.President_Type__c}" styleClass="input-field" id="presidenttype"/>
+                                                <label class="input-label is-required" for="presidenttype">    {!$ObjectType.Opportunity.Fields.President_Type__c.Label}    </label>
+                                               </span>
+                                               <span class="input">
+                                                <apex:inputField value="{!oAcc.Firm_Type__c}" styleClass="input-field" id="firmtype"/>
+                                                <label class="input-label is-required" for="firmtype">    {!$ObjectType.Account.Fields.Firm_Type__c.Label}    </label>
+                                               </span>
+                                               <span class="input">
+                                                <apex:inputField value="{!oOpp.Organization_Type__c}" styleClass="input-field" id="corporationtype"/>
+                                                <label class="input-label is-required" for="corporationtype">    {!$ObjectType.Opportunity.Fields.Organization_Type__c.Label}    </label>
+                                               </span>
+                                               <span class="input">
+                                                <apex:inputField value="{!oOpp.Title__c}" styleClass="input-field" id="title"/>
+                                                <label class="input-label is-required" for="title">    {!$ObjectType.Opportunity.Fields.Title__c.Label}    </label>
+                                               </span>
+                                	</div>
+	                                <div class="tile-footer_toolbar">
+						            	<apex:commandButton value="Request Grace" title="{!$Label.Request_Grace}" styleclass="button button-footer right" action="{!requestGrace}" rendered="{!isGraceAvailable}" status="status1"  />
+	                    				<apex:commandButton value="{!$Label.Request_Transition}" title="{!$Label.Request_Transition}" styleclass="button button-footer right" action="{!requestTransition}" rendered="{!isTransitionAvailable}" status="status1" />
+						            </div>
+                            </div>
+                            
+                            <div class="tile">
+                                <div class="tile-header"><h5>Complete Requirement A &amp; B</h5></div>
+                                    <div class="tile-body">
+                                    <div><h3>Requirement A</h3></div>
+                                    <br/>
+                                	<div><h5>Which figure would you prefer to provide?  </h5></div>
+                                	<br/>
+                                              <span class="input">
+                                                <apex:inputField value="{!oOpp.NumberOfEmployees__c}" styleClass="input-field" id="numberofemployee"/>
+                                                <label class="input-label is-required" for="numberofemployee">    {!$ObjectType.Opportunity.Fields.NumberOfEmployees__c.Label}    </label>
+                                               </span>
+                                               <span class="input is-not-empty">
+                                                <apex:inputField value="{!oOpp.Total_Employee_Compensation__c}" styleClass="input-field" id="employeecompensation"/>
+                                                <label class="input-label" for="employeecompensation">    {!$ObjectType.Opportunity.Fields.Total_Employee_Compensation__c.Label}    </label>
+                                               </span>
+                                               <br/>
+									<div><h3>Requirement B  </h3></div>
+									<br/>
+                                	<div><h5>Which US$ value would you prefer to provide?  </h5></div>
+                                    <br/>                                           
+                                               <span class="input is-not-empty">
+                                                <apex:inputField value="{!oOpp.AnnualRevenue__c}" styleClass="input-field" id="annualrevenue"/>
+                                                <label class="input-label" for="annualrevenue">    {!$ObjectType.Opportunity.Fields.AnnualRevenue__c.Label}    </label>
+                                               </span>
+                                               <span class="input is-not-empty">
+                                                <apex:inputField value="{!oOpp.Enterprise_Value__c}" styleClass="input-field" id="enterprisevalue"/>
+                                                <label class="input-label" for="enterprisevalue">    {!$ObjectType.Opportunity.Fields.Enterprise_Value__c.Label}    </label>
+                                               </span>
+                                               <!-- <span class="input is-not-empty">
+                                                <apex:inputField value="{!oOpp.Id}" styleClass="input-field" id="id1"/>
+                                                <label class="input-label" for="id1">    {!$ObjectType.Opportunity.Fields.Id.Label}    </label>
+                                               </span> -->
+                                               <p><i>
+                                               	The member must have <b>at least 50 regular, full-time employees</b> 
+                                               	or the equivalent under the control of the member. Persons 
+                                               	engaged on a commission basis rather than straight salary are 
+                                               	considered employees if they are permanently connected with 
+                                               	the corporation and receive their principal livelihood there from.
+                                               	Seasonal employees are not included in YPO's employee 
+                                               	definition.
+                                               	<br/><br/>
+                                               	The total employee compensation of all regular, full-time employees 
+                                               	in the corporation under the member's control, excluding the 
+                                               	member must <b>exceed US$1,000,000</b> 
+                                               </i></p>
+	                                </div>
+                            </div>
+                        </div>    
+                    </div>
+                </main>
+                
+	        	<div class="row">
+	        		<apex:pageMessages id="messagesRel"/>
+	            	<apex:commandButton value="{!$Label.Back}" title="{!$Label.Back}" styleclass="button_raised" action="{!toMemberBio}" status="status2"/>
+	            	<apex:commandButton value="{!$Label.Save}" title="{!$Label.Save}" styleclass="button_raised" action="{!saveOnRecertification}" status="status2" rerender="oPanel,messagesRel"/>
+	                <apex:commandButton value="{!$Label.Continue}" title="{!$Label.Continue}" id="continueEnabled" styleclass="button_raised"  action="{!checkQualificationCriteria}" status="status2" />
+	                <apex:actionStatus layout="inline" startText="{!$Label.Processing}" stopText="" id="status2" startStyleClass="statusStyle"/>
+	            </div>
+            </apex:pageBlock>
+        
+    </apex:form>
+</apex:page>

@@ -1,0 +1,870 @@
+<apex:page standardController="Contact" extensions="ThirdPartyCertificationExt_YPO" action="{!init}" sidebar="false" showHeader="false" standardStylesheets="false" doctype="html-5.0">
+  
+   <script type="text/javascript">
+      var __sfdcSessionId = '{!GETSESSIONID()}';
+   </script>
+   <script src="/soap/ajax/34.0/connection.js" type="text/javascript"></script>
+   <apex:stylesheet value="{!URLFOR($Resource.Styles)}"/>
+   <apex:stylesheet value="{!$Resource.InvisionAppStyle_YPO}"/>
+   <apex:composition template="V_Template_ProspectFlow_YPO">
+      <apex:define name="title">
+         <title>
+            Third Party Certification | {! $Organization.Name}
+         </title>
+      </apex:define>
+      <apex:define name="content">
+         <div class="row tPartyCertSec">
+            <div class="col-md-10 col-md-offset-1 col-lg-8 col-lg-offset-2">
+               <h2 class="title">{!$Label.ThirdPartyCertification_YPO_ThirdPartyCertification}</h2>
+               <p>
+                  <apex:outputText value="{!$Label.ThirdPartyCertification_YPO_ThirdPartyCertificationrequires}" escape="false" />
+               </p>
+               <apex:form >
+                  <section>
+                  <h5>Third-Party certification</h5>
+                  
+                    <div class="selectDrop input-select">
+                        <div class="selectArw input" data-bind="validationElement1: requiredTextInputSelect, css: {'is-not-empty': requiredTextInputSelect}">
+                        <apex:selectList value="{!selectdCertificate}" size="1" html-data-bind="textInput: requiredTextInputSelect" id="EnterpriseTypeInputTextId" styleClass="input-field" onChange="toggleSelectMode(this)">
+                            <apex:selectOptions value="{!CertificateOptions}"/>
+                        </apex:selectList>
+                        <label class="input-label is-required" for="countryInputTextId">Select your option</label>
+                        <span class="validationMessage" data-bind="validationMessage: requiredTextInputSelect"></span> 
+                        </div>
+                    </div>
+                  
+                  <!-- ****************************** Email Criteria to a Verifier showing section **************************** -->
+                     <div class="ecvLink" id="emailCriteriaDiv" style="display:none">
+                        <h5>Third-Party certification <span class="glyphicon glyphicon-pencil"></span></h5>
+                        <div class="innerCont">
+                           <ul class="ecvUl">
+                              <li id="thirdpartyfullnameId"></li>
+                              <li id="thirdpartycompanynameId"></li>
+                              <li id="thirdpartyphonenumberId"></li>
+                              <li id="thirdpartyemailId"></li>
+                           </ul>
+                        </div>
+                     </div>
+                     
+                     <!-- ****************************** Email Criteria to a Verifier Hide section **************************** -->
+                     <div class="emailCriteriaToVeriferBlock"  style="display:none">
+                        <div class="certificationsBlock">
+                           <div class="hidebg-blue">
+                              <small class="back">
+                                 <a href="javascript:void(0)">
+                                    <svg id="" style="width:15px; height:20px; fill: #fff;" viewBox="0 0 32 32">
+                                       <path class="path1" d="M14 29.8l2.8-3-8.8-9h24v-4h-24l8.8-9-2.8-3-14 14z"/>
+                                    </svg>
+                                 </a>
+                                 <span id="">BACK TO THIRD-PARTY CERTIFICATION</span> 
+                              </small>
+                              <span class="pull-right">
+                                 <button class="btn" id="emailCrtiteriaUpSaveId" disabled="disabled" role="button" type="button">Save<svg id="" style="width:15px; height:20px; fill: #fff;" viewBox="0 0 32 32">
+                                       <path class="path1" d="M14 29.8l2.8-3-8.8-9h24v-4h-24l8.8-9-2.8-3-14 14z"/>
+                                    </svg>
+                                 </button>
+                              </span>
+                           </div>
+                           <div class="input-select coselect">
+                              <div class="input selectArw" data-bind="validationElement: requiredTextInput5, css: {'is-not-empty': requiredTextInput5}" >
+                                 <select id="EnterpriseTypeInputTextId" class="input-field" size="1" onchange="toggleselectMode(this)" data-bind="textInput: requiredTextInput5 ">
+                                    <option value="Email Criteria To Verifier1">Email Criteria To Verifier</option>
+                                 </select>
+                                 <label class="input-label is-required" for="EnterpriseTypeInputTextId">Certification Options</label>
+                                 <span class="validationMessage" data-bind="validationMessage: requiredTextInput5"></span> 
+                              </div>
+                           </div>
+                           <div class="innerBlock emailCretBlock" id="emailCriteriaToVerifer">
+                              <div class="whiteBg new">
+                                 <p>{!$Label.ThirdPartyCertification_YPO_Aftercompleting}</p>
+                                 <div class="fieldsCont">
+                                    <div class="input" data-bind="validationElement1: requiredTextInput1, css: {'is-not-empty': requiredTextInput1}">
+                                       <input value="" id="thridPartyFullname" Class="input-field" data-bind="textInput: requiredTextInput1" onkeyup="thirdPartyvalidateSelection()"/>
+                                       <label class="input-label is-required" for="thridPartyFullname">{!$Label.ThirdPartyCertification_YPO_ThridPartyFullname}</label>
+                                       <span class="validationMessage" data-bind="validationMessage: requiredTextInput1"></span>
+                                    </div>
+                                    <div class="input" data-bind="validationElement2: requiredTextInput2, css: {'is-not-empty': requiredTextInput2}">
+                                       <input value="" id="thridPartyCompnayName" Class="input-field" data-bind="textInput: requiredTextInput2" onkeyup="thirdPartyvalidateSelection()" />
+                                       <label class="input-label is-required" for="thridPartyCompnayName">{!$Label.ThirdPartyCertification_YPO_ThridPartyCompnayName}</label>
+                                       <span class="validationMessage" data-bind="validationMessage: requiredTextInput2"></span>
+                                    </div>
+                                    <div class="input" data-bind="validationElement3: requiredTextInput3, css: {'is-not-empty': requiredTextInput3}">
+                                       <input value="" id="thridPartyPhoneNumber" Class="input-field" data-bind="textInput: requiredTextInput3" onkeyup="thirdPartyvalidateSelection()" />
+                                       <label class="input-label is-required" for="thridPartyPhoneNumber">{!$Label.ThirdPartyCertification_YPO_ThridPartyPhoneNumber}</label>
+                                       <span class="validationMessage" data-bind="validationMessage: requiredTextInput3"></span>
+                                    </div>
+                                    <div class="input" data-bind="validationElement4: requiredTextInput4, css: {'is-not-empty': requiredTextInput4}">
+                                       <input value="" id="thridPartyEmail" Class="input-field" data-bind="textInput: requiredTextInput4" onkeyup="thirdPartyvalidateSelection()" />
+                                       <label class="input-label is-required" for="thridPartyEmail">{!$Label.ThirdPartyCertification_YPO_ThridPartyEmail} </label>
+                                       <span class="validationMessage" data-bind="validationMessage: requiredTextInput4"></span>
+                                    </div>
+                                 </div>
+                              </div>
+                           </div>
+                           <div class="hidebg-blue white">
+                              <small class="back">
+                                 <a href="javascript:void(0)">
+                                    <svg id="" style="width:15px; height:20px; fill: #3d7099;" viewBox="0 0 32 32">
+                                       <path class="path1" d="M14 29.8l2.8-3-8.8-9h24v-4h-24l8.8-9-2.8-3-14 14z"/>
+                                    </svg>
+                                 </a>
+                                 <span id="">BACK TO THIRD-PARTY CERTIFICATION</span> 
+                              </small>
+                              <span class="pull-right">
+                                 <button class="btn" id="emailCrtiteriaDownSaveId" disabled="disabled" role="button" type="button">SAVE<svg id="" style="width:15px; height:20px; fill: #3d7099;" viewBox="0 0 32 32">
+                                       <path class="path1" d="M14 29.8l2.8-3-8.8-9h24v-4h-24l8.8-9-2.8-3-14 14z"/>
+                                    </svg>
+                                 </button>
+                              </span>
+                           </div>
+                        </div>
+                     </div>
+                     
+                     <!-- ****************************** Link To Documentation Show section **************************** -->
+                     <div class="ldLink" id="linkToDocumenDiv" style="display:none">
+                        <h5>Third-Party certification <span class="glyphicon glyphicon-pencil"></span></h5>
+                        <div class="innerCont">
+                           <ul class="ecvUl linkToDoc">
+                              <li>Third-Party certification</li>
+                              <li id="linktodocmentationId"></li>
+                           </ul>
+                        </div>
+                     </div>
+                     
+                     <!-- ****************************** Link To Documentation Hide section **************************** -->
+                     <div class="linkToDocumentationBlock" style="display:none">
+                        <div class="certificationsBlock">
+                           <div class="hidebg-blue">
+                              <small class="back">
+                                 <a href="javascript:void(0)">
+                                    <svg id="" style="width:15px; height:20px; fill: #fff;" viewBox="0 0 32 32">
+                                       <path class="path1" d="M14 29.8l2.8-3-8.8-9h24v-4h-24l8.8-9-2.8-3-14 14z"/>
+                                    </svg>
+                                 </a>
+                                 <span id="">BACK TO THIRD-PARTY CERTIFICATION</span> 
+                              </small>
+                              <span class="pull-right">
+                                 <button class="btn" id="linkdocumentationUpSaveId" disabled="disabled" role="button" type="button">Save<svg id="" style="width:15px; height:20px; fill: #fff;" viewBox="0 0 32 32">
+                                       <path class="path1" d="M14 29.8l2.8-3-8.8-9h24v-4h-24l8.8-9-2.8-3-14 14z"/>
+                                    </svg>
+                                 </button>
+                              </span>
+                           </div>
+                           <div class="input-select coselect">
+                              <div class="input selectArw" data-bind="validationElement: linkdocrequiredTextInput1, css: {'is-not-empty': linkdocrequiredTextInput1}" >
+                                 <select id="linkdocInputTextId" class="input-field" size="1" onchange="toggleselectMode(this)" data-bind="textInput: linkdocrequiredTextInput1 ">
+                                    <option value="Link To Documentation">Link To Documentation</option>
+                                 </select>
+                                 <label class="input-label is-required" for="linkdocInputTextId">Certification Options</label>
+                                 <span class="validationMessage" data-bind="validationMessage: linkdocrequiredTextInput1"></span> 
+                              </div>
+                           </div>
+                           <div class="innerBlock linkDocBlock"  id="linkDocumnets">
+                              <div class="whiteBg new">
+                                 <!-- <p>{!$Label.ThirdPartyCertification_YPO_Pleaseprovide}</p>-->
+                                 <div class="fieldsCont">
+                                    <div class="input" data-bind="validationElement5: linkdocrequiredTextInput2, css: {'is-not-empty': linkdocrequiredTextInput2}">
+                                       <input value="" id="linkdocurlInputTextId" Class="input-field" data-bind="textInput: linkdocrequiredTextInput2" onkeyup="thirdPartyLinkDocvalidate()" />
+                                       <label class="input-label is-required" for="linkdocurlInputTextId">
+                                          DOCUMENTATION URL 
+                                          <elm>(paste link to your company’s documentation)</elm>
+                                       </label>
+                                       <span class="validationMessage" data-bind="validationMessage: linkdocrequiredTextInput2"></span>
+                                    </div>
+                                 </div>
+                              </div>
+                           </div>
+                           <div class="hidebg-blue white">
+                              <small class="back">
+                                 <a href="javascript:void(0)">
+                                    <svg id="" style="width:15px; height:20px; fill: #3d7099;" viewBox="0 0 32 32">
+                                       <path class="path1" d="M14 29.8l2.8-3-8.8-9h24v-4h-24l8.8-9-2.8-3-14 14z"/>
+                                    </svg>
+                                 </a>
+                                 <span id="">BACK TO THIRD-PARTY CERTIFICATION</span> 
+                              </small>
+                              <span class="pull-right">
+                                 <button class="btn" id="linkdocumentationDownSaveId" disabled="disabled" role="button" type="button">SAVE<svg id="" style="width:15px; height:20px; fill: #3d7099;" viewBox="0 0 32 32">
+                                       <path class="path1" d="M14 29.8l2.8-3-8.8-9h24v-4h-24l8.8-9-2.8-3-14 14z"/>
+                                    </svg>
+                                 </button>
+                              </span>
+                           </div>
+                        </div>
+                     </div>
+                     
+                     <!-- ****************************** Print Documentation Show section **************************** -->
+
+                     <div class="printDocLink" id="printDocumentDiv" style="display:none">
+                        <h5>Third-Party certification <span class="glyphicon glyphicon-pencil"></span></h5>
+                        <div class="innerCont headTxt">
+                           <ul class="ecvUl linkToDoc">
+                              <li>Certification documetns were printed</li>
+                           </ul>
+                        </div>
+                     </div>
+                     
+                     <!-- ****************************** Print Documentation hide section **************************** -->
+                     <div class="printDocumentationBlock" style="display:none">
+                        <div class="certificationsBlock">
+                           <div class="hidebg-blue">
+                              <small class="back">
+                              
+                                 <a href="javascript:void(0)">
+                                    <svg id="" style="width:15px; height:20px; fill: #fff;" viewBox="0 0 32 32">
+                                       <path class="path1" d="M14 29.8l2.8-3-8.8-9h24v-4h-24l8.8-9-2.8-3-14 14z"/>
+                                    </svg>
+                                 </a>
+                                 <span id="">BACK TO THIRD-PARTY CERTIFICATION</span>
+                              </small>
+                              <span class="pull-right">
+                                 <button class="btn" id="" role="button" type="button">Save<svg id="" style="width:15px; height:20px; fill: #fff;" viewBox="0 0 32 32">
+                                       <path class="path1" d="M14 29.8l2.8-3-8.8-9h24v-4h-24l8.8-9-2.8-3-14 14z"/>
+                                    </svg>
+                                 </button>
+                              </span>
+                           </div>
+                           <div class="input-select coselect">
+                              <div class="input selectArw" data-bind="validationElement: printdocrequiredTextInput1, css: {'is-not-empty': printdocrequiredTextInput1}" >
+                                 <select id="printdocInputTextId" class="input-field" size="1" onchange="toggleselectMode(this)" data-bind="textInput: printdocrequiredTextInput1 ">
+                                    <option value="Print Documentation">Print Documentation</option>
+                                 </select>
+                                 
+                                 <label class="input-label is-required" for="printdocInputTextId">Certification Options</label>
+                                 <span class="validationMessage" data-bind="validationMessage: printdocrequiredTextInput1"></span> 
+                              </div>
+                           </div>
+                           <div class="printDoc" id="printDocument">
+                           <em>If not automatically started</em>
+                              <a href="javascript:void(0)">Print Documents</a>
+                           </div>
+                           <div class="hidebg-blue white">
+                              <small class="back">
+                                 <a href="javascript:void(0)">
+                                    <svg id="" style="width:15px; height:20px; fill: #3d7099;" viewBox="0 0 32 32">
+                                       <path class="path1" d="M14 29.8l2.8-3-8.8-9h24v-4h-24l8.8-9-2.8-3-14 14z"/>
+                                    </svg>
+                                 </a>
+                                 <span id="">BACK TO THIRD-PARTY CERTIFICATION</span> 
+                              </small>
+                              <span class="pull-right">
+                                 <button class="btn" id="" role="button" type="button">SAVE<svg id="" style="width:15px; height:20px; fill: #3d7099;" viewBox="0 0 32 32">
+                                       <path class="path1" d="M14 29.8l2.8-3-8.8-9h24v-4h-24l8.8-9-2.8-3-14 14z"/>
+                                    </svg>
+                                 </button>
+                              </span>
+                           </div>
+                        </div>
+                     </div>
+                     
+                     <!-- ****************************** Upload Documents Show section **************************** -->
+                     <div class="uploadDocLink" id="uploadDocumentDiv" style="display:none">
+                        <h5>Third-Party certification <span class="glyphicon glyphicon-pencil"></span></h5>
+                        <div class="innerCont headTxt">
+                           <small>Link to Uploaded Certification `Documetns</small>
+                           <ul id="uploaddocumentULId" class="ecvUl linkToDoc">                              
+                     
+                           </ul>
+                        </div>
+                     </div>
+                     
+                     <!-- ****************************** Upload Documents hide section **************************** -->
+                     <div class="uploadDocumentsBlock" style="display:none">
+                        <div class="certificationsBlock">
+                           <div class="hidebg-blue">
+                              <small class="back">
+                                 <a href="javascript:void(0)">
+                                    <svg id="" style="width:15px; height:20px; fill: #fff;" viewBox="0 0 32 32">
+                                       <path class="path1" d="M14 29.8l2.8-3-8.8-9h24v-4h-24l8.8-9-2.8-3-14 14z"/>
+                                    </svg>
+                                 </a>
+                                 <span id="">BACK TO THIRD-PARTY CERTIFICATION</span> 
+                              </small>
+                              <span class="pull-right">
+                                 <button class="btn" id="uploadDocumeationDownSaveId" role="button" type="button">Save<svg id="" style="width:15px; height:20px; fill: #fff;" viewBox="0 0 32 32">
+                                       <path class="path1" d="M14 29.8l2.8-3-8.8-9h24v-4h-24l8.8-9-2.8-3-14 14z"/>
+                                    </svg>
+                                 </button>
+                              </span>
+                           </div>
+                           <div class="input-select coselect">
+                              <div class="input selectArw" data-bind="validationElement: uploaddocrequiredTextInput1, css: {'is-not-empty': uploaddocrequiredTextInput1}" >
+                                 <select id="uploaddocInputTextId" class="input-field" size="1" onchange="toggleselectMode(this)" data-bind="textInput: uploaddocrequiredTextInput1 ">
+                                    <option value="Upload Documents">Upload Documents</option>
+                                 </select>
+                                
+                                 <label class="input-label is-required" for="uploaddocInputTextId">Certification Options</label>
+                                 <span class="validationMessage" data-bind="validationMessage: uploaddocrequiredTextInput1"></span> 
+                              </div>
+                           </div>
+                           <div class="innerBlock uploadDocBlock" id="uploadDocuments">
+                              <div class="whiteBg new">
+                                 <div>
+                                    <div class="input selectArw is-not-empty" data-bind="validationElement: uploaddocrequiredTextInput2, css: {'is-not-empty': uploaddocrequiredTextInput2}" >
+                                       <select id="uploaddoctypeInputTextId"  class="input-field" size="1" onchange="toggleselectMode(this)" data-bind="textInput: uploaddocrequiredTextInput2 ">
+                                          <option value="Select One">Select One</option>
+                                       </select>
+                                      
+                                       <label class="input-label is-required" for="uploaddoctypeInputTextId">DOCUMENT TYPE</label>
+                                       <span class="validationMessage" data-bind="validationMessage: uploaddocrequiredTextInput2"></span> 
+                                    </div>
+                                 </div>
+                                     
+                                 <!-- The bewlow div is for the to display all attachments in 4th Edit Section i.e UPLOAD DOCUMENTATION section -->
+                                 <div id="attachmentreportId">                                                               
+                                    
+                                 </div>
+                                     
+                                     
+                                 <div class="browseFile">
+                                    <input type="file" id="newAttFiles" /> <span id='val'></span>
+                                    <span id='button'>
+                                       <img src="https://ypo--bwrenew--c.cs60.visual.force.com/resource/1487856623000/attachIcon" />
+                                       Attach a File <strong>(&lt; 25mb in .pdf, .doc, .xls, .jpg , .gif, or .png formats)</strong>
+                                       <elm>
+                                    <img src="https://ypo--bwrenew--c.cs60.visual.force.com/resource/1487855382000/pdfIcon" />
+                                    <img src="https://ypo--bwrenew--c.cs60.visual.force.com/resource/1487856517000/wordIcon" />
+                                    
+                                    <img src="https://ypo--bwrenew--c.cs60.visual.force.com/resource/1487856591000/pictureIcon" />
+                                    <img src="https://ypo--bwrenew--c.cs60.visual.force.com/resource/1487856556000/excelIcon" />
+                                    </elm>                                 
+                                    </span>
+                                 </div>
+                              </div>
+                           </div>
+                           <div class="hidebg-blue white">
+                              <small class="back">
+                                 <a href="javascript:void(0)">
+                                    <svg id="" style="width:15px; height:20px; fill: #3d7099;" viewBox="0 0 32 32">
+                                       <path class="path1" d="M14 29.8l2.8-3-8.8-9h24v-4h-24l8.8-9-2.8-3-14 14z"/>
+                                    </svg>
+                                 </a>
+                                 <span id="">BACK TO THIRD-PARTY CERTIFICATION</span> 
+                              </small>
+                              <span class="pull-right">
+                                 <button class="btn" id="uploadDocumeationUpSaveId"  role="button" type="button">SAVE<svg id="" style="width:15px; height:20px; fill: #3d7099;" viewBox="0 0 32 32">
+                                       <path class="path1" d="M14 29.8l2.8-3-8.8-9h24v-4h-24l8.8-9-2.8-3-14 14z"/>
+                                    </svg>
+                                 </button>
+                              </span>
+                           </div>
+                        </div>
+                     </div>
+                     
+                     <!-- ****************************** Bottom Buttons section **************************** -->
+                     <div class="btm-btns whiteBox pageBtns">
+                        <div class="text-center">
+                           <a class="btn btn-gray" href="{! URLFOR($Page.Recertification_Screen, null)}">{!$Label.UpdateProfileInfo_YPO_Back} </a>  
+                           <button class="btn btn-blue" id=""  role="button" type="button" >{!$Label.Welcome_YPO_Continue}</button>                                     
+                        </div>
+                     </div>
+                  </section>
+               </apex:form>
+            </div>
+         </div>
+         <apex:includeScript value="https://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js" />
+         <apex:includeScript value="{!URLFOR($Resource.KGQuickstart_dist, '/js/detail.min.js')}" />
+         <apex:includeScript value="{!URLFOR($Resource.knockout)}"/>
+         <apex:includeScript value="{!URLFOR($Resource.knockoutvalidation)}"/>
+         <script>
+            var opportunityResut;
+            var opportunityattachments;
+            var attachment;
+            var attachmentName;
+            var attachmentType='';                                        
+            getThirdPartyOppInfo();
+            getOpportunityAttachments();
+            $(document).ready(function(){
+                
+                //This is the pencil icon on 1st View Section (EMAIL CRITERIA TO VERIFIER ) 
+                $(".ecvLink .glyphicon-pencil").click(function(){
+                    displayEmailCriteriatoVerifierinEditSec(opportunityResut);
+                    $(".emailCriteriaToVeriferBlock").show();
+                    $(".ecvLink").hide();
+                });
+                // Ths is the BACK button on EMAIL CRITERIA TO VERIFIER in Edit Section
+                $(".emailCriteriaToVeriferBlock .back").click(function(){                    
+                    $(".emailCriteriaToVeriferBlock").hide();
+                    $(".ecvLink").show();
+                });                
+                // This is for UP SAVE button on EMAIL CRITERIA TO VERIFIER in Edit Section to Save it.
+                $("#emailCrtiteriaUpSaveId").click(function(){
+                    mapAndupdateemailCriteriaInfo();
+                    getThirdPartyOppInfo();
+                    $(".emailCriteriaToVeriferBlock").hide();
+                    $(".ecvLink").show();
+                });
+                // This is for DOWN SAVE button on EMAIL CRITERIA TO VERIFIER in Edit Section to Save it.
+                $("#emailCrtiteriaDownSaveId").click(function(){
+                    mapAndupdateemailCriteriaInfo();
+                    getThirdPartyOppInfo();
+                    $(".emailCriteriaToVeriferBlock").hide();
+                    $(".ecvLink").show();
+                });
+                
+                
+                
+                
+                //This is the pencil icon on 2nd View Section (LINK TO DOCUMENTATION )             
+                $(".ldLink .glyphicon-pencil").click(function(){
+                    displayLinkToDocumetationinEditSec(opportunityResut);
+                    $(".linkToDocumentationBlock").show();
+                    $(".ldLink").hide();
+                });             
+                 // Ths is the BACK button on LINK TO DOCUMENTATION Edit Section
+                $(".linkToDocumentationBlock .back").click(function(){
+                    $(".linkToDocumentationBlock").hide();
+                    $(".ldLink").show();
+                });
+                // This is for UP SAVE button on LINK TO DOCUMENTATION in Edit Section to Save it.
+                $("#linkdocumentationUpSaveId").click(function(){
+                    mapAndupdateLinkDocumentationInfo();
+                    getThirdPartyOppInfo();
+                    $(".linkToDocumentationBlock").hide();
+                    $(".ldLink").show();
+
+                });
+                // This is for DOWN SAVE button on LINK TO DOCUMENTATION in Edit Section to Save it.
+                $("#linkdocumentationDownSaveId").click(function(){
+                    mapAndupdateLinkDocumentationInfo();
+                    getThirdPartyOppInfo();
+                    $(".linkToDocumentationBlock").hide();
+                    $(".ldLink").show();
+                });
+
+                
+                //This is the pencil icon on 3rd View Section (PRINT DOCUMENTATION )
+                $(".printDocLink .glyphicon-pencil").click(function(){
+                    displayPrintDocumetationinEditSec(opportunityResut);
+                    $(".printDocumentationBlock").show();
+                    $(".printDocLink").hide();
+                });
+                // Ths is the BACK button on PRINT DOCUMENTATION Edit Section
+                $(".printDocumentationBlock .back").click(function(){
+                    $(".printDocumentationBlock").hide();
+                    $(".printDocLink").show();
+                });
+
+                
+                //This is the pencil icon on 4th View Section (UPLOAD DOCUMENTATION )
+                $(".uploadDocLink .glyphicon-pencil").click(function(){
+                    
+                    self.uploaddocrequiredTextInput1('Upload Documents');
+                    self.uploaddocrequiredTextInput2('Select One');
+                    
+                    loadAllAttachments(opportunityattachments);
+                    $(".uploadDocumentsBlock").show();
+                    $(".uploadDocLink").hide();
+                });
+                // Ths is the BACK button on UPLOAD DOCUMENTATION Edit Section
+                $(".uploadDocumentsBlock .back").click(function(){
+                    $(".uploadDocumentsBlock").hide();
+                    $(".uploadDocLink").show();
+                });
+                // This is for UP SAVE button on UPLOAD DOCUMENTATION in Edit Section to Save it.
+                $("#uploadDocumeationUpSaveId").click(function(){
+                    addAttachment();
+                    //$(".uploadDocumentsBlock").hide();
+                    //$(".uploadDocLink").show();
+                });
+                // This is for DOWN SAVE button on UPLOAD DOCUMENTATION in Edit Section to Save it.
+                $("#uploadDocumeationDownSaveId").click(function(){
+                    addAttachment();
+                    // $(".uploadDocumentsBlock").hide();
+                    // $(".uploadDocLink").show();
+                });
+                
+                
+                
+                ko.applyBindings(new thirdPartyTextInputModel());
+            
+            });
+            
+    
+            //Dispaly EMAIL CRITERIA TO VERIFIER Info in Edit Section
+            function displayEmailCriteriatoVerifierinEditSec(oppEmailCriteriaResult){
+                //alert('--Successfull--'+oppEmailCriteriaResult.Third_Party_Phone__c);
+                self.requiredTextInput1(oppEmailCriteriaResult.Third_Party_Name__c);
+                self.requiredTextInput2(oppEmailCriteriaResult.Third_Party_Firm__c);
+                self.requiredTextInput3(oppEmailCriteriaResult.Third_Party_Phone__c);
+                self.requiredTextInput4(oppEmailCriteriaResult.Third_Party_Email__c);
+                self.requiredTextInput5('Email Criteria To Verifier'); 
+            }
+            // map EMAIL CRITERIA TO VERIFIER fields with Opportunity in JSON
+            function mapAndupdateemailCriteriaInfo(){
+                //alert('Updating Third Party Opportunity:');
+                var JOppId = '{!OpportunityId}';
+                var JThridPartyFullName =  $('#thridPartyFullname').val();
+                var JThridPartyCompnayName = $('#thridPartyCompnayName').val();
+                var JThridPartyPhoneNumber = $('#thridPartyPhoneNumber').val();
+                var JThridPartyEmail = $('#thridPartyEmail').val();
+                var jsonemailCriteriaOpportunity = '{ "Id" : \"'+ JOppId
+                + '\" , "Third_Party_Name__c"   : \"'+ JThridPartyFullName
+                + '\" , "Third_Party_Firm__c"    : \"'+ JThridPartyCompnayName
+                + '\" , "Third_Party_Phone__c"       : \"'+ JThridPartyPhoneNumber
+                + '\" , "Third_Party_Email__c" : \"'+JThridPartyEmail
+                + '\" }';
+
+                updateThirdPartyOpp(jsonemailCriteriaOpportunity);
+            }
+            
+            //Dispaly LINK TO DOCUMENTATION Info in Edit Section
+            function displayLinkToDocumetationinEditSec(opplinktodocResut){
+                self.linkdocrequiredTextInput1('Link To Documentation');
+                self.linkdocrequiredTextInput2(opplinktodocResut.Third_Party_Firm_Website__c);
+            }
+            // map LINK TO DOCUMENTATION fields with Opportunity in JSON
+            function mapAndupdateLinkDocumentationInfo(){
+                var JOppId = '{!OpportunityId}';
+                var JThridPartyDocURL =  $('#linkdocurlInputTextId').val();
+                
+                var jsonlinkdocOpportunity = '{ "Id" : \"'+ JOppId
+                + '\" , "Third_Party_Firm_Website__c"   : \"'+ JThridPartyDocURL 
+                + '\" }';
+                updateThirdPartyOpp(jsonlinkdocOpportunity);
+            }
+    
+            //Dispaly PRINT DOCUMENTATION Info in Edit Section
+            function displayPrintDocumetationinEditSec(oppprintdocResut){
+                self.printdocrequiredTextInput1('Print Documentation');
+            }    
+    
+            // This is for to get the Thrid Party Info from the Opportynity through Remote Action
+            function getThirdPartyOppInfo(){
+                var JId = '{!oContact.Id}';
+                var jsonContact = '{ "Id" : \"'+ JId + '\" }';
+                Visualforce.remoting.Manager.invokeAction(
+                    '{!$RemoteAction.ThirdPartyCertificationExt_YPO.getAnOpportunity}',
+                    jsonContact,
+                    function(result, event){
+                        if (event.status){
+                            if(result != null ){
+                                opportunityResut = result;                        
+                                $('#thirdpartyfullnameId').text(result.Third_Party_Name__c);
+                                $('#thirdpartycompanynameId').text(result.Third_Party_Firm__c);
+                                $('#thirdpartyphonenumberId').text(result.Third_Party_Phone__c);
+                                $('#thirdpartyemailId').text(result.Third_Party_Email__c);                                
+                                $('#linktodocmentationId').text('https://'+result.Third_Party_Firm_Website__c);
+                            }
+                        }else{
+                             window.console.log('Error in updating Opportunity');
+                        }
+                    },
+                    {escape: true}
+                 );
+            }
+            
+            function updateThirdPartyOpp(jsonOpportunity){
+                
+                Visualforce.remoting.Manager.invokeAction(
+                    '{!$RemoteAction.ThirdPartyCertificationExt_YPO.updateAnOpportunity}',
+                    jsonOpportunity,
+                    function(result, event){
+                        if (event.status){
+
+                        }else{
+                             window.console.log('Error in updating Opportunity');
+                        }
+                    },
+                    {escape: true}
+                 );                
+            }
+            
+            
+            //----------------------------------------------------------------------------
+            
+            function addAttachment(){
+                var reader = new FileReader();
+                var attachFile = document.getElementById('newAttFiles').files[0];                 
+                if(attachFile == undefined){
+                    alert('Attachment required to proceed');
+                    return;
+                }
+                
+                if(attachFile.size > 26214400 ){  //Where 26214400 is byte equivalent of 25MB , Written to 10MB bcz SFDC limit
+                    alert('Attachment size not supported');
+                }
+            
+                reader.onload = function(e) {
+                    // alert(attachFile.size);
+                    // alert('onloadend - uploadAttachment');
+                    attachment = window.btoa(this.result);  //Base 64 encode the file before sending it
+                    if(attachFile != null && attachFile != '' ){
+                        attachmentName = attachFile.name;
+                        attachmentType = attachFile.type;
+                        //alert(attachmentType);
+                        var validExts = new Array(".xlsx", ".xls", ".csv",".docx,doc");
+                        var fileExt = attachmentName.substring(attachmentName.lastIndexOf('.'));
+                        if(attachmentType.length == 0){
+                            if(fileExt == '.doc'){                                
+                                attachmentType = 'application/msword';
+                            }
+                            else if(fileExt == '.docx'){
+                                attachmentType = 'application/vnd.openxmlformats-officedocument.wordprocessingml.document';
+                            }
+                            else if(fileExt == '.xls' ){
+                                attachmentType = 'application/vnd.ms-excel';
+                            }
+                            else if(fileExt == '.xlsx' ){
+                                attachmentType = 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet';
+                            }
+                        }
+                        uploadAttachment(null);
+                    }else{
+                        alert('Attach a File through Browse Button');
+                    }
+                }
+                reader.readAsBinaryString(attachFile);
+            
+            }
+            
+            function uploadAttachment(fileId) {
+                //alert('uploadAttachment');
+                var attachmentBody = "";
+                attachmentBody = attachment;
+                
+                Visualforce.remoting.Manager.invokeAction(
+                    '{!$RemoteAction.ThirdPartyCertificationExt_YPO.doUploadAttachment}',
+                    '{!OpportunityId}',attachmentBody,attachmentName,fileId,attachmentType,
+                    function(result, event){
+                        if (event.status){
+                            //alert('Success');
+                            getOpportunityAttachments();
+                        }else{
+                            window.console.log('Error in updating Opportunity');
+                        }
+                    },
+                    {escape: true}
+                ); 
+             }
+                        
+            function getOpportunityAttachments() {
+                Visualforce.remoting.Manager.invokeAction(
+                    '{!$RemoteAction.ThirdPartyCertificationExt_YPO.getAllAttachmentstoOpp}',
+                    '{!OpportunityId}',
+                    function(result, event){
+                        if (event.status){
+                            opportunityattachments = result;
+                            displayUploadDocuments(result);
+                            loadAllAttachments(result);                            
+                        }else{
+                            window.console.log('Error in updating Opportunity');
+                        }
+                    },
+                    {escape: true}
+                );           
+            }
+            // This is to be display all attachments in 4th Edit Section (UPLOAD DOCUMENTS)
+            function loadAllAttachments(docuresult){
+                if(docuresult != null ){
+                    //alert('Loaded Attachments Success');
+                    $('#attachmentreportId').empty();
+                    for(var i=0;i<docuresult.length;i++){
+                        var contentTypeIcon;
+                        if(docuresult[i].ContentType == 'application/pdf'){
+                           contentTypeIcon = '<img src={!URLFOR($Resource.ypoIcons,"pdfIcon.png")} />';  
+                        }
+                        if(docuresult[i].ContentType == 'text/plain'){
+                           contentTypeIcon = '<img src={!URLFOR($Resource.DocumentIcons, "txt-icon.png")} />';  
+                        }
+                        else if(docuresult[i].ContentType == 'image/jpeg'){
+                           contentTypeIcon = '<img src={!URLFOR($Resource.ypoIcons,"pictureIcon.png")} />';  
+                        }
+                        else if(docuresult[i].ContentType == 'image/png'){
+                           contentTypeIcon = '<img src={!URLFOR($Resource.ypoIcons,"pictureIcon.png")} />';  
+                        }
+                        else if(docuresult[i].ContentType == 'application/msword' || docuresult[i].ContentType == 'application/vnd.openxmlformats-officedocument.wordprocessingml.document'){
+                           contentTypeIcon = '<img src={!URLFOR($Resource.ypoIcons,"wordIcon.png")} />';
+                        }
+                        else if(docuresult[i].ContentType == 'application/vnd.ms-excel' || docuresult[i].ContentType == 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet' ){
+                           contentTypeIcon = '<img src={!URLFOR($Resource.ypoIcons,"excelIcon.png")} />';
+                        }
+                        else if(docuresult[i].ContentType == 'image/gif'){
+                           contentTypeIcon = '<img src={!URLFOR($Resource.ypoIcons,"pictureIcon.png")} />';
+                        }
+                        
+                        var validExts = new Array(".xlsx", ".xls", ".csv",".docx,doc");
+                        var fileExt = docuresult[i].Name.substring(docuresult[i].Name.lastIndexOf('.'));
+                        if(fileExt == '.doc' || fileExt == '.docx'){
+                            contentTypeIcon = '<img src={!URLFOR($Resource.ypoIcons,"wordIcon.png")} />';
+                        }else if(fileExt == '.xls' || fileExt == '.xlsx' ){
+                             contentTypeIcon = '<img src={!URLFOR($Resource.ypoIcons,"excelIcon.png")} />';
+                        }
+                        
+                        if(contentTypeIcon == '' || contentTypeIcon == null || contentTypeIcon == undefined){
+                            contentTypeIcon ='';
+                        }
+                        var DocuName = $('<i>'+ contentTypeIcon +docuresult[i].Name +'</i>');
+                        var DocuRemove = $('<a id="'+docuresult[i].Id+'">'+'<span>'+ '{!$Label.ThirdPartyCertification_YPO_Remove} x' +' </span> </a>' );
+                        DocuRemove.click(function(e){
+                            e.preventDefault();
+                            var removeAttachId = this.id;
+                            //alert(removeAttachId);
+                            removeOpAttachments(removeAttachId);
+                        } );
+                        
+                        $("<div class='removeBlk'></div>").append(DocuName).append(DocuRemove).appendTo($('#attachmentreportId'));
+                        $('.browseFile #val').text('');
+                        document.getElementById('newAttFiles').value="";
+                    }
+                }
+            }
+            function removeOpAttachments(removeAttachIdVar){                
+                // alert(removeAttachIdVar);
+                Visualforce.remoting.Manager.invokeAction(
+                    '{!$RemoteAction.ThirdPartyCertificationExt_YPO.removeAttachment}',
+                    removeAttachIdVar,
+                    function(result, event){
+                        if (event.status){
+                            // alert(result);
+                            getOpportunityAttachments();
+                            // loadAllAttachments(opportunityattachments);
+                            window.console.log('Delete Success Full');             
+                        }else{
+                            window.console.log('Error in delete Attachment');
+                        }
+                    },
+                    {escape: true}
+                );  
+            }
+            
+            // This is to be display all attachments in 4th View Section (UPLOAD DOCUMENTS)
+            function displayUploadDocuments(oppAttachmentsResult){
+                $('#uploaddocumentULId').empty();
+                if(oppAttachmentsResult != null ){
+                    for(var i=0;i<oppAttachmentsResult.length;i++){
+                        $('<li>'+ oppAttachmentsResult[i].Name +'</li>').appendTo($('#uploaddocumentULId'));
+                        
+                    }
+                }
+            }
+    
+            //---------------------------------------------------------------------------------------------------------------------
+                
+            var self;
+            var thirdPartyTextInputModel = function() {
+                self = this;
+                self.requiredTextInput1 = ko.observable().extend({ required: true })        
+                self.requiredTextInput2 = ko.observable().extend({ required: true })
+                self.requiredTextInput3 = ko.observable().extend({ required: true })
+                self.requiredTextInput4 = ko.observable().extend({ required: true,email: true })
+                self.requiredTextInput5 = ko.observable().extend({ required: true })     
+                
+                self.linkdocrequiredTextInput1 = ko.observable().extend({ required: true })        
+                self.linkdocrequiredTextInput2 = ko.observable().extend({ required: true })
+                
+                self.printdocrequiredTextInput1 = ko.observable().extend({ required: true })
+                
+                self.uploaddocrequiredTextInput1 = ko.observable().extend({ required: true })
+                self.uploaddocrequiredTextInput2 = ko.observable().extend({ required: true })
+                self.requiredTextInputSelect = ko.observable().extend({ required: true })
+                
+                
+            }
+            
+            ko.validation.init({
+                registerExtenders: true,
+                messagesOnModified: true,
+                insertMessages: false,
+                parseInputAttributes: true,
+                messageTemplate: null,
+                decorateInputElement: false,
+                grouping: {
+                    deep: true, observable: false
+                }
+            },
+            true);    
+            
+            function thirdPartyvalidateSelection(){
+                //alert($j('.validationMessage').text().length);
+                var toEnable=true;            
+                if($('.validationMessage').text() != '' ){
+                    toEnable=false;
+                }
+                if($('#thridPartyFullname').val().length==0 || $('#thridPartyCompnayName').val().length==0 || $('#thridPartyEmail').val().length==0 || $('#thridPartyPhoneNumber').val().length==0 ){ 
+                    toEnable=false;
+                }
+                
+                document.getElementById('emailCrtiteriaUpSaveId').disabled=!toEnable;
+                document.getElementById('emailCrtiteriaDownSaveId').disabled=!toEnable;
+            }
+    
+            function thirdPartyLinkDocvalidate(){
+                var toEnable=true;            
+                if($('.validationMessage').text() != '' ){
+                    toEnable=false;
+                }
+                if($('#linkdocurlInputTextId').val().length==0 ){ 
+                    toEnable=false;
+                }
+                
+                document.getElementById('linkdocumentationUpSaveId').disabled=!toEnable;
+                document.getElementById('linkdocumentationDownSaveId').disabled=!toEnable;
+            }
+            
+            $('.browseFile #button').click(function () {
+            $(".browseFile input[type='file']").trigger('click');
+            })
+            
+            $(".browseFile input[type='file']").change(function () {
+            $('.browseFile #val').text(this.value.replace(/C:\\fakepath\\/i, ''))
+            });    
+            
+            
+            function toggleSelectMode(currentMode){
+             if (currentMode.value == 'Email Criteria To Verifier'){
+                    $(".ecvLink").show();
+                    $(".emailCriteriaToVeriferBlock").hide();
+                    $(".linkToDocumentationBlock").hide();
+                    $(".ldLink").hide();
+                    $(".printDocumentationBlock").hide();
+                    $(".printDocLink").hide();
+                    $(".uploadDocumentsBlock").hide();
+                    $(".uploadDocLink").hide(); 
+                 
+             } else if (currentMode.value == 'Link To Documentation') {
+                    $(".ecvLink").hide();
+                    $(".emailCriteriaToVeriferBlock").hide();
+                    $(".linkToDocumentationBlock").hide();
+                    $(".ldLink").show();
+                    $(".printDocumentationBlock").hide();
+                    $(".printDocLink").hide();
+                    $(".uploadDocumentsBlock").hide();
+                    $(".uploadDocLink").hide();                  
+             }             
+             else if (currentMode.value == 'Upload Documents') {
+                    $(".ecvLink").hide();
+                    $(".emailCriteriaToVeriferBlock").hide();
+                    $(".linkToDocumentationBlock").hide();
+                    $(".ldLink").hide();
+                    $(".printDocumentationBlock").hide();
+                    $(".printDocLink").hide();
+                    $(".uploadDocumentsBlock").hide();
+                    $(".uploadDocLink").show();                 
+             }             
+             else if (currentMode.value == 'Print Documents') {
+                    $(".ecvLink").hide();
+                    $(".emailCriteriaToVeriferBlock").hide();
+                    $(".linkToDocumentationBlock").hide();
+                    $(".ldLink").hide();
+                    $(".printDocumentationBlock").hide();
+                    $(".printDocLink").show();
+                    $(".uploadDocumentsBlock").hide();
+                    $(".uploadDocLink").hide();   
+             }
+             else{
+                    $(".ecvLink").hide();
+                    $(".emailCriteriaToVeriferBlock").hide();
+                    $(".linkToDocumentationBlock").hide();
+                    $(".ldLink").hide();
+                    $(".printDocumentationBlock").hide();
+                    $(".printDocLink").hide();
+                    $(".uploadDocumentsBlock").hide();
+                    $(".uploadDocLink").hide();
+             }
+         }           
+            
+         </script>
+      </apex:define>
+   </apex:composition>
+</apex:page>

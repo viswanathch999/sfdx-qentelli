@@ -1,0 +1,49 @@
+<apex:page standardController="Contact" 
+    extensions="RenewalContactContExt" 
+    sidebar="false" 
+    id="contactMemberServices"
+    showHeader="false"
+    standardStylesheets="false" 
+    title="{!$Label.Contact_Member_Services}"
+    action="{!init}">
+    
+    <link rel="stylesheet" type="text/css" href="https://mte-www.ypowpo.org/stylesheets/app.css"/>
+    
+    <apex:form id="contactMemberServicesInfo">
+        
+        <apex:pageMessages id="messagesStart"></apex:pageMessages>
+        <apex:outputPanel id="opanelIsNotMember" rendered="{!NOT(isMember)}">You are currently not a member and cannot proceed with Renewals</apex:outputPanel>
+        <apex:outputPanel id="opanel">
+            <apex:pageBlock rendered="{!isYPO && isMember}" id="pb1">
+                <main role="main">
+                    
+                    <div class="row">
+                        
+                        <div class="small-24 medium-16 large-18 columns">
+                            <div class="tile">
+                                <div class="tile-header">    {!$Label.Contact_Member_Services}   </div>
+                                <div class="tile-body">
+                                    Thank you for your membership.
+                                    
+                                    The information you provided does not appear to meet the minimum eligibility requirements for renewal.  Please click Back if you need to make adjustments to your renewal information.
+                                    
+                                    If you believe there is an error, please contact Member Services: membership@ypowpo.org, or by phone: United States and Canada: +1.972.587.1618 or +1.972.587.1500 or 1.800.773.7976; China: +86.1381.8916059; South Africa: +27.768.994.117.
+                                </div>    
+                            </div>    
+                        </div>
+                    </div>
+                </main>
+                <div class="row">
+                    <apex:pageMessages id="messagesRel"/>
+                    <apex:commandButton value="{!$Label.Back}" title="{!$Label.Back}" styleclass="button_raised" action="{!changeQualifyingCompany}" status="status2"/>
+                    <apex:commandButton value="{!$Label.Request_Grace}" title="{!$Label.Request_Grace}" styleclass="button_raised" action="{!requestGrace}" rendered="{!isGraceAvailable}" status="status2"  />
+                    <apex:commandButton value="{!$Label.Request_Transition}" title="{!$Label.Request_Transition}" styleclass="button_raised" action="{!requestTransition}" rendered="{!isTransitionAvailable}" status="status2"  />
+                    <apex:commandButton value="{!$Label.Exit}" title="{!$Label.Exit}" styleClass="button_raised" action="{!toMemberPortal}"/>
+                    <apex:actionStatus layout="inline" startText="{!$Label.Processing}" stopText="" id="status2" startStyleClass="statusStyle"/>
+                </div>
+            </apex:pageBlock>
+        </apex:outputPanel>   
+        
+    </apex:form>
+ 
+</apex:page>

@@ -1,0 +1,53 @@
+<apex:page standardcontroller="Account_Affiliation__c" extensions="CustomAddressExtension" standardstylesheets="true">
+	<apex:form >
+		<apex:pageblock title="Account Affiliation Edit" mode="edit">
+			<apex:pageMessages ></apex:pageMessages>
+			<apex:pageblockbuttons >
+				<apex:commandbutton action="{!saveRecord}" value="Save" />
+				<apex:commandbutton action="{!cancel}" value="Cancel" />
+			</apex:pageblockbuttons>
+			<apex:pageblocksection title="Information" columns="2">
+				<apex:inputfield value="{!AA.Account__c}" id="Account" />
+				<apex:inputfield value="{!AA.Job_Title__c}" id="Title" />
+				<apex:inputfield value="{!AA.Contact__c}" id="contact" />
+				<apex:inputfield value="{!AA.Title_Other__c}" id="titleOther" />
+				<apex:inputfield value="{!AA.Company_Name__c}" id="companyName" />
+				<apex:inputfield value="{!AA.Description__c}" id="description" />
+				<apex:inputfield value="{!AA.Is_Primary__c}" id="isPrimary" />
+				<apex:inputfield value="{!AA.Founded_In__c}" id="foundedIn" />
+				<apex:inputfield value="{!AA.Order__c}" id="order" />
+				<apex:inputfield value="{!AA.Company_Size__c}" id="companySize" />
+				<apex:inputfield value="{!AA.IsPublic__c}" id="isPublic" />
+				<apex:inputfield value="{!AA.Organization_Type__c}" id="organizationType" />
+				<apex:inputfield value="{!AA.IsActive__c}" id="isActive" />
+				<apex:inputfield value="{!AA.Business_Role__c}" id="businessRole" />
+				<apex:inputfield value="{!AA.Start_Date__c}" id="startDate" required="true"/>
+				<apex:inputfield value="{!AA.Scope_of_Business__c}" id="scopeOfBusiness" />
+				<apex:inputfield value="{!AA.End_Date__c}" id="endDate" />
+				<apex:pageblocksectionitem ></apex:pageblocksectionitem>
+				<apex:inputfield value="{!AA.Reason_for_Leaving__c}" id="reasonForLeaving" />
+				<apex:pageblocksectionitem ></apex:pageblocksectionitem>
+				<apex:inputfield value="{!AA.Website__c}" id="website" />
+				<apex:pageblocksectionitem ></apex:pageblocksectionitem>
+				<apex:inputfield value="{!AA.Is_Youth_Internship__c}" id="isYouthInternShip" />
+			</apex:pageblocksection>
+			<apex:pageblocksection title="Industry" columns="2">
+				<apex:inputfield value="{!AA.Industry_Category_1__c}" id="industryCategory1" />
+				<apex:inputfield value="{!AA.Industry_Category_3__c}" id="industryCategory3" />
+				<apex:inputfield value="{!AA.Industry_Sub_Category_1__c}" id="industrySubCategory1" />
+				<apex:inputfield value="{!AA.Industry_Sub_Category_3__c}" id="industrySubCategory3" />
+				<apex:inputfield value="{!AA.Industry_Category_2__c}" id="industryCategory2" />
+				<apex:pageblocksectionitem ></apex:pageblocksectionitem>
+				<apex:inputfield value="{!AA.Industry_Sub_Category_2__c}" id="industrySubCategory2" />
+			</apex:pageblocksection>
+			<apex:pageblocksection title="Address" columns="2">
+				<apex:inputfield value="{!AA.Street__c}" id="street" />
+				<apex:inputfield value="{!dummyAcct.BillingCountryCode}" id="countyCode" label="{!$ObjectType.Account_Affiliation__c.fields.Country__c.Label}" />
+				<apex:inputfield value="{!AA.City__c}" id="city" />
+				<apex:inputfield value="{!dummyAcct.BillingStateCode}" id="stateCode" label="{!$ObjectType.Account_Affiliation__c.fields.State__c.Label}" />
+				<apex:inputfield value="{!AA.Postal_Code__c}" id="postalCode" />
+			</apex:pageblocksection>
+		</apex:pageblock>
+	</apex:form>
+
+</apex:page>

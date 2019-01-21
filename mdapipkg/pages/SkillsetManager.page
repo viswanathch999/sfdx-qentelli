@@ -1,0 +1,100 @@
+<apex:page standardController="M2MX_Skillsets__c" extensions="SkillsetManagerM2MXSkillsetsContExt" title="{!$Label.M2MX_Skillset_Manager}">
+  <style>
+        .linkDecor
+        {
+            text-decoration:none;
+            color:#015ba7;
+        }
+        .linkDecor:hover
+        {
+            text-decoration:underline;
+        }
+        
+        .statusStyle{
+            background:url({!URLFOR($Resource.ProcessingImage)}) no-repeat 0 0; 
+            padding-left:20px; 
+            margin-left:10px; 
+            padding-bottom:5px; 
+        }
+    </style>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
+     <script>
+                  function confirmDelete(){
+                  if(confirm('Are you sure?'))
+                      return true;
+                  return false;
+              }
+     
+        function changed(element){
+            if(element.value == 'Other (Free Text)')
+                toggle();
+        }
+        function categoryChanged(){
+            var val = $("[id$='subCategory']").val();
+            if(val == 'Other (Free Text)') {
+                $("[id$='subCategory']").val('');
+                toggle();
+            }
+        }
+        function toggle(){
+            $(".showWhenOther").toggle();
+            $(".hideWhenOther").toggle();
+        }
+    	function onLoad(){
+            var val = $("[id$='subCategory']").val();
+            if(val == 'Other (Free Text)')
+            {
+                $(".hideWhenOther").hide();
+            }
+            else{
+                $(".showWhenOther").hide(); 
+            }            
+        }
+        $(document).ready(function() {   
+            onLoad();
+        });
+        </script>
+        
+  <apex:form >
+      <apex:pagemessages />
+      <apex:sectionHeader title="{!$ObjectType.M2MX_Skillsets__c.LabelPlural} Edit" subtitle="{!$Label.Add_Remove_Skillsets}"/>
+      <apex:pageBlock title="{!$Label.Add_Remove_Skillsets}" id="skillsetBlock" mode="edit">
+          <apex:pageBlockSection columns="1" >
+              <apex:inputField onchange="categoryChanged();" value="{!oSkillset.Category__c}"/>
+              <apex:inputField id="subCategory" onchange="changed(this)" value="{!oSkillset.Sub_Category__c}"/>
+              <apex:pageBlockSectionItem >
+                    <apex:outputLabel styleClass="showWhenOther" value="Expertise" style="font-weight:bold;" />
+                    <apex:inputField styleClass="showWhenOther" value="{!oSkillset.Expertise__c}"/>
+                </apex:pageBlockSectionItem>
+          </apex:pageBlockSection>
+          <apex:pageBlockTable id="skillsetExpertise" value="{!oSkillsetExpertise}" var="eachSkillsetExpertise">
+              <apex:column headerValue="" >
+                  <apex:inputCheckbox value="{!eachSkillsetExpertise.isChecked}" />
+              </apex:column>
+              <apex:column headerValue="Skillset" value="{!eachSkillsetExpertise.record.Expertise__c}" />
+          </apex:pageBlockTable>
+          <apex:pageblockButtons >
+              <apex:commandButton value="Search" styleClass="hideWhenOther" action="{!filterExpertise}" reRender="skillsetBlock" oncomplete="onLoad();"/>
+              <apex:commandButton value="{!$Label.Add}" styleClass="hideWhenOther" action="{!saveSkillset}" reRender="skillsetBlock, skills" disabled="{!NOT(oSkillsetExpertise.size > 0)}" oncomplete="onLoad();"/>
+              <apex:commandButton value="Add" styleClass="showWhenOther" action="{!saveOtherSkillset}" reRender="skillsetBlock, skills" oncomplete="onLoad();"/>
+              <apex:commandButton value="Cancel" action="{!cancel}" immediate="true" />
+          </apex:pageblockButtons>
+      </apex:pageBlock>      
+      <apex:pageBlock title="{!$ObjectType.M2MX_Skillsets__c.LabelPlural} ({!lstSkillsets.size})" id="skills" >
+          <apex:pageBlockTable value="{!lstSkillsets}" var="oSkillsetNew" rows="5"> 
+              <apex:column headerValue="{!$Label.Action}" >
+                  <apex:outputLink value="{!URLFOR($Action.M2MX_Skillsets__c.Edit, oSkillsetNew.id,[retURL=oSkillsetNew.id],true)}" target="_parent" styleclass="linkDecor" >Edit</apex:outputLink> |&nbsp;
+                  <!-- Add Contact__c id of Interest field -->
+                  <apex:outputLink value="{!URLFOR($Action.M2MX_Skillsets__c.Delete, oSkillsetNew.Id,[retURL=oSkillsetNew.Contact__c])}" 
+                                                            target="_parent" styleclass="linkDecor" onclick="return confirmDelete()">Del</apex:outputLink>
+              </apex:column>    
+              <apex:column headerValue="{!$ObjectType.M2MX_Skillsets__c.fields.Category__c.Label}" value="{!oSkillsetNew.Category__c}" />
+              <apex:column headerValue="{!$ObjectType.M2MX_Skillsets__c.fields.Sub_Category__c.Label}" value="{!oSkillsetNew.Sub_Category__c}" />
+              <apex:column headerValue="Skillset" value="{!oSkillsetNew.Expertise__c}" />
+          </apex:pageBlockTable>
+          
+          <apex:outputLink id="showall" value="/a0j?rlid=00N61000007Nncf?Id=={!oSkillset.Contact__c}" target="_blank">Show All</apex:outputLink>
+
+              </apex:pageBlock>
+  </apex:form>  
+</apex:page>

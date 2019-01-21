@@ -1,0 +1,71 @@
+<apex:page standardController="Contact" 
+    extensions="RenewalContactContExt" 
+    sidebar="false" 
+    id="requestgrace"
+    showHeader="false" 
+    standardStylesheets="false" 
+    title="{!$Label.Request_Grace}" 
+    action="{!init}">
+
+    <link rel="stylesheet" type="text/css" href="https://mte-www.ypowpo.org/stylesheets/app.css"/>
+
+    <apex:form >
+    <apex:pageMessages id="messagesStart"></apex:pageMessages>
+     <apex:outputPanel id="opanelIsNotMember" rendered="{!NOT(isMember)}">You are currently not a member and cannot proceed with Renewals</apex:outputPanel>
+        
+    <apex:outputPanel >
+        <apex:pageBlock rendered="{!isMember}">
+            <main role="main">
+                <div class="row">
+                    <div class="small-24 medium-16 large-18 columns">
+                        <div class="tile">
+                            <div class="tile-header">     We're sorry, but your company does not meet the minimum membership requirements as set by the YPO-WPO International Board.  </div>
+                                <div class="tile-body">
+                                    <p>
+                                        You may be eligible for grace. Grace is not automatic and must be approved by your chapter.
+                                    </p>
+                                    
+                                    What is Grace?<br/>                                                                            
+                                    <span style="color: blue">Grace offers flexibility for membership for a limited period of time.</span>
+                                    <p>
+                                        A YPO member in good standing who has been a member for (1) at least one year if they were a member prior to 1 July
+                                        2013, or (2) at least two years if they became a member 1 July 2013 or later, but who temporarily does not meet the membership qualification,
+                                        qualifies for grace.
+                                    </p>
+                                    <span style="color: blue">To start the approval process, contact your chapter chair or chapter membership chair now.</span>
+                                    <p>
+                                        The granting of grace is not automatic. The chapter requests grace from YPO-WPO on behalf of its members if 
+                                        chapter leadership believes the member will re-qualify within a reasonable time-frame. International and chapter dues payments are required
+                                        for all members who request grace.       
+                                    </p>
+                                    <span style="color: blue">Note: </span><span>If you're interested in options other than grace, please contact Member Services.</span>
+                            	</div>
+                        </div>
+                        <div class="tile">
+                            <div class="tile-header"> {!$Label.Request_Grace}</div>
+                                <div class="tile-body">
+                                    
+                                	<!-- <span class="input is-not-empty">
+                						<apex:inputField value="{!oException.Exception_Category__c}" rendered="false" styleClass="input-field" id="gracereason"/>
+					                <label class="input-label" for="gracereason">    Grace Reason    </label>					                
+				                	</span> -->
+				                	<span class="input input-select">
+					                	<apex:selectList styleClass="input-field" value="{!graceReasonSelected}" size="1" required="true">
+								            <apex:selectOptions value="{!graceReasons2}"/>
+								        </apex:selectList>
+								        <label class="input-label is-required" for="gracereason">    Reason    </label>
+				                	</span>
+								</div>
+                        </div> 
+                    </div>
+                </div> 
+            </main>
+            <div class="row">
+				<apex:pageMessages id="messagesRel"></apex:pageMessages>
+				<apex:commandButton value="{!$Label.Back}" title="{!$Label.Back}" styleclass="button_raised" action="{!redirectTo}" />  
+                <apex:commandButton value="{!$Label.Save_And_Continue}" title="{!$Label.Save_And_Continue}" styleclass="button_raised" action="{!createGracecase}" reRender="messagesRel" />
+            </div>
+        </apex:pageBlock>
+    </apex:outputPanel>
+</apex:form>
+</apex:page>

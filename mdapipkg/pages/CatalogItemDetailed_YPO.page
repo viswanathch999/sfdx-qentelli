@@ -1,0 +1,1220 @@
+﻿<apex:page controller="KGRenewal.VenueDetailController" extensions="CatalogItemDetailed_Extension" action="{!setProspectOppAsCart}" sidebar="false" showheader="false" standardstylesheets="false" applyhtmltag="false" applybodytag="false" doctype="html-5.0">
+    <head>
+        <!-- Google Tag Manager -->
+        <script>
+            (function(w,d,s,l,i){w[l]=w[l]||[];
+                w[l].push({
+                    'gtm.start' : new Date().getTime(),
+                    event : 'gtm.js'
+                });
+                var f=d.getElementsByTagName(s)[0], j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';
+                j.async=true;j.src='https://www.googletagmanager.com/gtm.js?id='+i+dl;
+                f.parentNode.insertBefore(j,f);
+            })(window,document,'script','dataLayer','GTM-M6PDGWG');
+        </script>
+        <!-- End Google Tag Manager -->
+
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" />
+        <title>YPO Renewals</title>
+        <!-- SCRIPTS -->
+        <apex:includescript value="{!URLFOR($Resource.knockout)}" />
+        <apex:includescript value="{!URLFOR($Resource.knockoutvalidation)}" />
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+        <script src="https://momentjs.com/downloads/moment.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-confirm/3.1.1/jquery-confirm.min.js"></script>
+        <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+        <!-- STYLE SHEETS -->
+        <link rel="stylesheet" type="text/css" href="{!URLFOR($Resource.YPORenew, 'ypo-renewals/assets/css/bootstrap.min.css')}" />
+        <link rel="stylesheet" type="text/css" href="{!URLFOR($Resource.YPORenew, 'ypo-renewals/assets/css/styles.css')}" />
+        <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css" />
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jquery-confirm/3.1.1/jquery-confirm.min.css" />
+        <style>
+            @media only screen and (max-width: 1200px) and (min-width: 992px) {
+                .condensed.row .col-xs-4, .condensed.row .col-xs-3, .condensed.row .col-xs-6, .condensed.row .col-md-3, .condensed.row .col-md-6 {
+                    padding-left: 2px;
+                    padding-right: 2px;
+                }
+
+                .condensed.row {
+                    margin-left: -2px;
+                    margin-right: -2px;
+                }
+            }
+
+            @keyframes spinner {
+                to {
+                    transform: rotate(360deg);
+                }
+            }
+
+            .spinner {
+                content: '';
+                box-sizing: border-box;
+                position: absolute;
+                top: 50%;
+                left: 50%;
+                width: 60px;
+                height: 60px;
+                margin-top: -10px;
+                margin-left: -10px;
+                border-radius: 50%;
+                border: 2px solid #ccc;
+                border-top-color: #333;
+                animation: spinner .6s linear infinite;
+            }
+
+            .fullpageModal {
+                display: none;
+                position: fixed !important;
+                z-index: 1000 !important;
+                top: 0 !important;
+                left: 0 !important;
+                height: 100% !important;
+                width: 100% !important;
+                background: rgba( 255, 255, 255, .8 ) !important;
+                font-size: 18px;
+                font-family: 'Gentona-Book';
+            }
+
+            .radioset {
+                padding-left: 20px !important;
+            }
+
+            body.loading {
+                overflow: hidden;
+            }
+
+            body.loading .fullpageModal {
+                display: block;
+            }
+
+            .input input[type="text"], textarea {
+                -webkit-appearance: none;
+                border-radius: 0;
+                color: #3D7099;
+                font-family: "FFTisaWebPro";
+                font-size: 14px;
+                padding-bottom: 0 !important;
+                width: 100%;
+            }
+
+            button.close {
+                color: white;
+                font-size: 28px;
+                line-height: 1.8rem;
+                opacity: 1;
+                text-shadow: none;
+            }
+
+            .addFamily, .familyMember {
+                margin-left: 20px;
+            }
+
+            .radioset {
+                padding-left: 0px !important;
+            }
+            .alert-danger {
+            	display: none;
+            }
+        </style>
+    </head>
+    <body>
+    <!-- Google Tag Manager (noscript) -->
+    <noscript>
+        <iframe src="https://www.googletagmanager.com/ns.html?id=GTMM6PDGWG" height="0" width="0" style="display:none;visibility:hidden"></iframe>
+    </noscript>
+    <!-- End Google Tag Manager (noscript) -->
+
+    <apex:define name="nav_links">
+        <li style="display: none;">
+            <apex:outputpanel id="kgrencartcompId">
+                <KGRenewal:CartComponent mode="link" includebootstrapmodalresources="false" />
+            </apex:outputpanel>
+        </li>
+    </apex:define>
+    <apex:define name="content">
+        <nav class="navbar navbar-default navbar-fixed-top">
+            <div class="container">
+                <img class="logo" src="{!URLFOR($Resource.YPORenew, 'ypo-renewals/assets/img/ypo.svg')}" />
+            </div>
+        </nav>
+        <apex:form >
+            <apex:pageblock id="pageBlockId">
+                <div class="col-md-6 col-xs-12 col-md-offset-3" id="{! item.record.Id}" data-venue-define="product" data-venue-id="{! item.record.Id}" data-venue-name="{! item.name}">
+                    <div class="modal-content">
+                        <!-- ******************* BACK TO CATALOG START ******************* -->
+                        <div class="modal-header">
+                            <a href="{! URLFOR($Page.Catalog_YPO, null, [lifetime=cameFromLifetimePage])}">
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                            </a>
+                            <h4 class="modal-title">Select Beneficiary</h4>
+                        </div>
+                        <!-- ******************* BACK TO CATALOG END ******************* -->
+                        <!-- ******************* CATALOGITEMDETAILS INFO START ******************* -->
+                        <div class="modal-body">
+                            <!-- ******************* PRODUCT IMAGE/DISCOUNT PRICE START ******************* -->
+                            <div class="select-benficiary-modal-header member-catalog-item">
+                                <div class="row">
+                                    <div class="col-md-2">
+                                        <img id="j_id0:j_id1:j_id9:theImage" src="{! $Site.prefix}{!item.record.KGRenewal__MainImageSmall__c}" alt="{! IF(NOT(ISNULL(item.record.KGRenewal__MainImageSmall__c)), item.name, '')}" class="img-responsive" style="width:75px;height:75px;" />
+                                    </div>
+                                    <div class="col-md-7">
+                                        <div>
+                                            <h3><div class="benefitCancel kgvenue name">{! item.name}</div></h3>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-3">
+                                        <h3 class="price">
+                                            <apex:outputtext value="{!CurrencyCode}{0, number,###,###,###,##0}">
+                                                <apex:param value="{! ROUND(item.discountedPrice, 2)}" />
+                                            </apex:outputtext>
+                                        </h3>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- ******************* PRODUCT IMAGE/DISCOUNT PRICE END ******************* -->
+                            <div class="form-group">
+                                <label>Select a family member to add</label>
+                                
+                                <!-- ******************* FAMILY MEMBER DROPDOWN START ******************* -->
+                                <div class="indent select-family">
+                                    <div class="radio radioset" style="margin-top: 0px;">
+                                        <apex:outputpanel rendered="{! item.record.family == 'Member Benefit'}" layout="none">
+                                            <apex:repeat value="{!contactOptions}" var="contact">
+                                                <div class="radio {! IF(contact.disabled, 'hidden', '')}">
+                                                    <label style="font-weight:400;">
+                                                        <input type="radio" name="selectFamilyMember" id="selectFamilyid" data-contact="{!contact.value}" onchange="ShowFamily()" />
+                                                        <span class="familyMember"><apex:outputtext value="{!contact.Label}" escape="false" /></span>
+                                                    </label>
+                                                </div>
+                                            </apex:repeat>
+                                            <label id="AddFamilySpanid">
+                                                <input type="radio" name="selectFamilyMember" id="selectFamilyid" />
+                                                <span class="addFamily">
+                                                    <b>{! IF(item.record.Exclusive__c == 'YNG', 'Add a Child', 'Add a family member')}</b>
+                                                </span>
+                                            </label>
+                                        </apex:outputpanel>
+                                    </div>
+                                </div>
+                                <!-- ******************* FAMILY MEMBER DROPDOWN END ******************* -->
+
+                                <div class="col-md-12 col-xs-12 col-sm-8 familyaddnew pd mrg-bt padding-right" />
+                                <div class="clearfix" />
+
+                                <!-- ******************* ADD NEW FAMILY MEMBER START ******************* -->
+                                <div class="cartMemberDiv" style="display:none">
+                                <div id="error-message" class="alert alert-danger" style="display:none;">
+                                    <i class="icon-caution"></i> <span>All of the required fields have not been completed.</span>
+								</div>
+                                    <apex:outputpanel id="formaddmemberpanelId">
+                                        <apex:outputpanel rendered="{! IF(item.record.Exclusive__c == 'YNG' &&  selectedContactId == null, true, false)}">
+                                            <p id="ToAddANewFamilyMembP">
+                                                <!--<apex:outputText value="{!$Label.CatalogItemDetailed_Toaddanewfamilymember}" escape="false" />-->
+                                            </p>
+                                        </apex:outputpanel>
+
+                                        <!-- ******************* FORM ADD MEMBER STRT ******************* -->
+                                        <!-- <span class="input-select">-->
+                                        <div class="row">
+                                            <div class="col-md-6">
+                                                <div class="form-group" >
+                                                    <label class="required" for="SCRelationToYouId">Relation To You</label>
+                                                    <select class="form-control" id="SCRelationToYouId" data-bind="options: selectOptions, optionsCaption: 'Choose',value: requiredSelect" onchange="validateSelection()" required="true"></select>
+                                                    <span class="validationMessage" data-bind="validationMessage: requiredSelect"></span>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-6">
+                                                <div class="form-group" id="GenderFormGroup">
+                                                    <label class="{! IF(item.record.Exclusive__c == 'YNG', 'input-label required', 'input-label')}" for="GenderTextid">Gender</label>
+                                                    <apex:inputfield value="{!con.Gender__c}" id="GenderTextid" styleclass="form-control" />
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <!--    </span> -->
+                                        <div class="row">
+                                            <div class="col-md-6">
+                                                <div class="form-group" >
+                                                    <label class="required" for="firstNameInputTextId">First Name</label>
+                                                    <apex:inputtext value="{!con.FirstName}" id="firstNameInputTextId" styleclass="form-control" required="true" html-data-bind="textInput: requiredTextInput2" onkeyup="validateSelection()" />
+                                                    <span id="errorFirstNameInputTextId" class="validationMessage" data-bind="validationMessage: requiredTextInput2"></span>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-6">
+                                                <div class="form-group" style="padding-bottom:0">
+                                                    <label class="required" for="lastNameInputTextId" style="padding-bottom:0">Last Name</label>
+                                                    <apex:inputtext value="{!con.LastName}" id="lastNameInputTextId" styleclass="form-control" required="true" html-data-bind="textInput: requiredTextInput3" onkeyup="validateSelection()" />
+                                                    <span id="errorLastNameInputTextId" class="validationMessage" data-bind="validationMessage: requiredTextInput3"></span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-md-6">
+                                                <!-- RT (05/03/2017, Item: 6520): Add required field validation only if the product is YNG+ -->
+                                                <div class="form-group" id="EmailFormGroup" >
+                                                    <label class="{! IF(item.record.Exclusive__c == 'YNG', 'input-label required', 'input-label')}" for="emailInputTextId">Email Address</label>
+                                                    <apex:inputtext value="{!con.Email}" id="emailInputTextId" styleclass="form-control" html-data-bind="textInput: requiredTextInput4" />
+                                                    <span class="validationMessage" data-bind="validationMessage: requiredTextInput4"></span>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-6" >
+                                                <div class="form-group" id="PhoneFormGroup">
+                                                <!-- RT (05/03/2017, Item: 6520): Add required field validation only if the product is YNG+ -->
+                                                    <label class="{! IF(item.record.Exclusive__c == 'YNG', 'input-label required', 'input-label')}" for="phoneInputTextId">Mobile Number</label>
+                                                    <div class="row condensed">
+                                                        <div class="col-xs-3">
+                                                        	<div class="form-group" data-bind="validationElement6: requiredTextInput6, css: {'is-not-empty': requiredTextInput6}">
+                                                            	<apex:inputtext value="{!con.Country_Code_Map__c}" id="PCountryCodeInputTextId" styleclass="form-control" />
+	                                                        </div>
+                                                        </div>
+                                                        <div class="col-xs-9">
+                                                            <div class="form-group" data-bind="validationElement7: requiredTextInput7, css: {'is-not-empty': requiredTextInput7}">
+                                                                <apex:inputtext value="{!con.Phone_Map__c}" id="phoneInputTextId" styleclass="form-control" />
+                                                            </div>
+                                                    	</div>
+                                                  	</div>
+                                                </div>
+                                            </div>
+
+                                            <!--<div class="col-md-6" style="display:none">
+                                                <!-- field is hide (Used for calculation of Birthdaty from below drop down fields -->
+                                                <!--<div class="form-group" data-bind="validationElement5: requiredTextInput5, css: {'is-not-empty': requiredTextInput5}">
+                                                    <label id="birthdayLabelId" class="input-label required" for="birthdayInputTextId">Birthday DD/MM/YYYY</label>
+                                                    <apex:inputtext value="{!con.Birthdate}" id="birthdayInputTextId" styleclass="form-control" required="" onkeyup="validateSelection();displayBDayAlert();" />-->
+                                                    <!-- RT (05/04/2017): Error message for invalid birth date -->
+                                                    <!-- <span id="errorBirthdayInputTextId" class="validationMessage" data-bind="validationMessage: requiredTextInput5"></span> -->
+                                                <!--</div>
+                                            </div>-->
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-md-6">
+                                                <div id="dob-form-group" class="form-group">
+                                                    <label class="required">Birthdate (DD/MM/YYYY)</label>
+                                                    <div class="row condensed">
+                                                        <div class="col-xs-4">
+                                                            <select class="form-control" id="dobddTextid" onchange="validateSelection();" required="true">
+                                                                <option value="">DD</option>
+                                                                <option value="01">01</option>
+                                                                <option value="02">02</option>
+                                                                <option value="03">03</option>
+                                                                <option value="04">04</option>
+                                                                <option value="05">05</option>
+                                                                <option value="06">06</option>
+                                                                <option value="07">07</option>
+                                                                <option value="08">08</option>
+                                                                <option value="09">09</option>
+                                                                <option value="10">10</option>
+                                                                <option value="11">11</option>
+                                                                <option value="12">12</option>
+                                                                <option value="13">13</option>
+                                                                <option value="14">14</option>
+                                                                <option value="15">15</option>
+                                                                <option value="16">16</option>
+                                                                <option value="17">17</option>
+                                                                <option value="18">18</option>
+                                                                <option value="19">19</option>
+                                                                <option value="20">20</option>
+                                                                <option value="21">21</option>
+                                                                <option value="22">22</option>
+                                                                <option value="23">23</option>
+                                                                <option value="24">24</option>
+                                                                <option value="25">25</option>
+                                                                <option value="26">26</option>
+                                                                <option value="27">27</option>
+                                                                <option value="28">28</option>
+                                                                <option value="29">29</option>
+                                                                <option value="30">30</option>
+                                                                <option value="31">31</option>
+                                                            </select>
+                                                        </div>
+                                                        <div class="col-xs-4">
+                                                            <!-- data-bind="textInput: requiredTextInput5"  -->
+                                                            <select class="form-control" id="dobmmTextid" onchange="validateSelection();">
+                                                                <option value="">MM</option>
+                                                                <option value="01">01</option>
+                                                                <option value="02">02</option>
+                                                                <option value="03">03</option>
+                                                                <option value="04">04</option>
+                                                                <option value="05">05</option>
+                                                                <option value="06">06</option>
+                                                                <option value="07">07</option>
+                                                                <option value="08">08</option>
+                                                                <option value="09">09</option>
+                                                                <option value="10">10</option>
+                                                                <option value="11">11</option>
+                                                                <option value="12">12</option>
+                                                            </select>
+                                                        </div>
+                                                        <div class="col-xs-4">
+                                                            <select class="form-control" id="dobyyTextid" onchange="validateSelection();"></select>
+                                                        </div>
+                                                    </div>
+                                                    <span id="errorBirthdayInputTextId" class="validationMessage {! IF(item.record.Exclusive__c != 'YNG', 'hidden', '')}" data-bind="validationMessage: requiredTextInput5"></span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="modal-footer">
+                                            <apex:outputpanel >
+                                                <button type="button" onclick="validate()" class="btn btn-primary" id="ATCButton">Add to Cart</button>
+                                            </apex:outputpanel>
+                                        </div>
+
+                                        <div style="display: none;">
+                                            <input type="number" class="form-control" data-venue-field-input="quantity" data-venue-field-type="integer" min="1" step="1" value="1" required="true" />
+                                            <input type="text" class="form-control" id="contact-{! item.productId}" data-venue-field-input="Contact__c" />
+                                            <a class="kgvenue add single" data-venue-action="add-and-navigate" role="button" href="{! URLFOR($Page.CatalogItemDetailed_YPO, null, ['id'=item.productId])}" id="hiddenadd" />
+                                        </div>
+
+                                        <apex:outputpanel id="addtocartop" style="display: none;">
+                                            <script>
+                                                function clickAddToCart() {
+                                                    var test = '{!con.Id}';
+                                                    $("#contact-{!item.productId}").val(test);
+                                                    if(test !== null)
+                                                        $('#hiddenadd').click();
+                                                }
+                                            </script>
+                                        </apex:outputpanel>
+
+                                        <div class="col-md-12 col-xs-12 col-sm-8 pd" style="display: none;">
+                                                <span class="input-select">
+                                                    <!-- RT (05/03/2017, Item: 6520): Add required field validation only if the product is YNG+ -->
+                                                    <div class="input selectArw" data-bind="validationElement61: phonetyperequiredTextInput, css: {'is-not-empty': phonetyperequiredTextInput}">
+                                                        <apex:inputfield value="{!con.Preferred_Phone__c}" id="PphonetypeInputTextId" styleclass="input-field" required="" html-data-bind="{! IF(item.record.Exclusive__c == 'YNG', 'textInput: phonetyperequiredTextInput', '')}" />
+                                                        <label for="PphonetypeInputTextId">PHONE TYPE</label>
+                                                    </div>
+                                                </span>
+                                        </div>
+                                        <!--<apex:actionfunction name="callUpdateContact" action="{!getselContact}" rerender="formaddmemeberpanleId" status="status" oncomplete="validateSelection();" />-->
+                                        <!-- ******************* FORM ADD MEMBER END ******************* -->
+                                        <!--<div class="col-md-8 col-xs-12 col-sm-8 addMem"> + Add a Secondary Address </div> -->
+                                    </apex:outputpanel>
+                                    <!--/apex:outputPanel-->
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </apex:pageblock>
+
+            <div class="fullpageModal"><div class="spinner"></div><span style="position:relative;top:58%;left:49%;margin-top: -10px; margin-left: -10px;">Processing..</span></div>
+
+            <apex:inputhidden value="{!con.Id}" id="theHiddenIdInput" />
+            <apex:inputhidden value="{!selectedContactId}" id="theHiddenselConInput" />
+            <apex:inputhidden value="{!SpousePartnerChildRecordTypeId}" id="theHiddenSpouseChildRecordType" />
+            <apex:inputhidden value="{!Birthdate_Month}" id="Month_Birthdate" />
+            <apex:inputhidden value="{!Birthdate_Day}" id="Day_Birthdate" />
+            <apex:inputhidden value="{!Birthdate_Year}" id="Year_Birthdate" />
+            <apex:actionfunction name="updateContactFunction" action="{!updateContactRecord}" rerender="addtocartop" oncomplete="clickAddToCart()" />
+        </apex:form>
+    </apex:define>
+    </body>
+    <!-- SCRIPTS -->
+    <apex:includescript value="https://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js" />
+    <apex:includescript value="https://storage.googleapis.com/google-code-archive-downloads/v2/code.google.com/datejs/date.js" />
+    <script src="{!URLFOR($Resource.YPORenew, 'ypo-renewals/assets/js/validator.min.js')}"></script>
+    <script>
+        /**
+         *  ERROR_VALIDATION_WITH_VALIDATOR
+         *  using bootstrap validator to validate forms.
+         $("#ATCButton").click(function(e){
+            // activate validator
+            $('form').validator('validate');
+
+            // Show the alert box when there is a error in the form
+            if ($('form').data('bs.validator').validate().hasErrors()) {
+                // handle the invalid form...
+                $('#safe-travel-benefit-alert').removeClass('hide').addClass('show');
+                //window.setTimeout(function () {
+                    $('html, body').animate({ scrollTop: $('#update-profile-alert').offset().top - 90 }, 500);
+                }, 0);
+            } else {
+                // everything looks good!
+                $('#safe-travel-benefit-alert').removeClass('show').addClass('hide');
+                //saveConfirmProfileDeskMobole(e);
+            }
+        });         **/
+
+
+
+        var eitherNewExistingContactId;
+        var firstNameError = $('#errorFirstNameInputTextId');
+        var lastNameError = $('#errorLastNameInputTextId');
+        //var birthdateError = $("#errorBirthdayInputTextId");
+        //var emailError = $('#errorEmailInputTextId');
+        //var countryCodeError = $('#errorPCountryCodeInputTextId');
+        //var phoneError = $('#errorPhoneInputTextId');
+        //var phoneTypeError = $('#errorPphonetypeInputTextId');
+
+
+
+        $(document).ready(function(){
+            var name = "{! item.name}";
+            $("#dobddTextid").prop("required", true);
+            $("#dobmmTextid").prop("required", true);
+            $("#dobyyTextid").prop("required", true);
+            if('{! item.record.Exclusive__c}' == 'YNG') {
+                $('[id*=emailInputTextId]').prop('required', true);
+                //$('#EmailFormGroup>label').addClass('required');
+                $('[id*=PCountryCodeInputTextId]').prop('required', true);
+                //$('#MobileFormGroup>label').addClass('required');
+                $('[id*=phoneInputTextId]').prop('required', true);
+                $('[id*=GenderTextid]').prop('required', true);
+            }
+
+            // RT (05/05/2017): Don't submit the form on enter key press.
+            $('input').on('keypress keydown keyup', function(event){
+                if(event.keyCode === 13) {
+                    event.preventDefault();
+                    return false;
+                }
+            });
+
+            PopulateYear();
+
+            $("[id*=AddFamilySpanid]").click(function(){
+				$("#error-message").hide();
+                //callUpdateContact(this.dataset.contact);
+                addremoveSpouseBasedONYNG(true);
+                eitherNewExistingContactId = '';
+                self.requiredSelect('Child');
+                $("[id*=theHiddenselConInput]").val('');
+                $("[id*=theHiddenIdInput]").val('');
+                $("[id*=firstNameInputTextId]").val('');
+                $("[id*=lastNameInputTextId]").val('');
+                $("[id*=emailInputTextId]").val('');
+                //$("[id*=birthdayInputTextId]").val('');
+                $("[id*=PphonetypeInputTextId]").val('');
+                $("[id*=phoneInputTextId]").val('');
+                $("#SCRelationToYouId").val('Child');
+
+                $('select#dobmmTextid').val(null);
+                $('select#dobyyTextid').val(null);
+                $('select#dobddTextid').val(null);
+
+
+                $(".cartMemberDiv").show();
+                //$("#check").show();
+                //$("#contact-{! item.productId}").val(eitherNewExistingContactId);
+                //$(".catalogDropDwon").slideUp();
+
+                emptyViewModel('Child','','','','','','','');
+                validateSelection();
+                //validate2();
+            });
+
+            $('input[type=radio][name=selectFamilyMember]').click(function() {
+                console.log('selectFamilyMember clicked');
+                $("#dob-form-group").removeClass("has-error");
+                $("[id*=firstNameInputTextId]").removeClass("has-error");
+                $("[id*=lastNameInputTextId]").removeClass("has-error");
+                $("[id*=EmailFormGroup]").removeClass("has-error");
+                if(!this.classList.contains('disabled'))
+                {
+                    var catalogItemContactId = this.dataset.contact;
+                    if(catalogItemContactId != undefined) {
+                        eitherNewExistingContactId = catalogItemContactId;
+                        Visualforce.remoting.Manager.invokeAction(
+                            '{!$RemoteAction.CatalogItemDetailed_Extension.updateCatalogItemContact}',
+                            catalogItemContactId,
+                            function(result, event){
+                                if(event.status){
+                                    window.console.log('---Contact Result---'+result);
+                                    var ContactObject = JSON.parse(result);
+                                    addremoveSpouseBasedONYNG(false);
+                                    window.console.log('---result.RecordType.Name---'+ContactObject.RecordType.Name);
+                                    //alert(normalizeDate(result.Birthdate));
+                                    $("[id*=theHiddenIdInput]").val(ContactObject.Id);
+                                    //$("[id*=theHiddenName]").val(result.name);
+                                    $("[id*=firstNameInputTextId]").val(ContactObject.FirstName);
+                                    $("[id*=lastNameInputTextId]").val(ContactObject.LastName);
+                                    $("[id*=GenderTextid]").val(ContactObject.Gender__c);
+                                    $("[id*=emailInputTextId]").val(ContactObject.Email);
+                                    $("[id*=PphonetypeInputTextId]").val(ContactObject.Preferred_Phone__c);
+                                    $("[id*=PCountryCodeInputTextId]").val(ContactObject.Country_Code_Map__c);
+                                    $("[id*=phoneInputTextId]").val(ContactObject.Phone_Map__c);
+                                    $("#SCRelationToYouId").val(ContactObject.RecordType.Name);
+                                    if(ContactObject.Birthdate != undefined || ContactObject.Birthdate != '') {
+                                        $('select#dobmmTextid').val(ContactObject.Birthdate.substr(5,2));
+                                        $('select#dobyyTextid').val(ContactObject.Birthdate.substr(0,4));
+                                        $('select#dobddTextid').val(ContactObject.Birthdate.substr(8,2));
+                                    } else {
+                                        console.log('Birthdate is blank');
+                                        $("[id*=dobmmTextid]").prop('selectedIndex',0);
+                                        $("[id*=dobyyTextid]").prop('selectedIndex',0);
+                                        $("[id*=dobddTextid]").prop('selectedIndex',0);
+                                    }
+                                    //Ramneek 5/1/2017 6817 Added validateSelection()
+                                    validateSelection();
+                                }else{
+                                    //window.console.log(result.message)
+                                }
+                            }, {escape: false}
+                        )
+                    }
+                    validateSelection();
+                }
+            });
+
+
+
+            //$(".familyMember a").click(function(){
+            //    $(".catalogDropDwon").slideToggle();
+            //});
+
+
+
+            //$(".addFamily, #selectFamilyid").click(function(){
+
+            //callUpdateContact(this.dataset.contact);
+            //addremoveSpouseBasedONYNG('');
+            //eitherNewExistingContactId = '';
+            //self.requiredSelect('Child');
+            //$("[id*=theHiddenselConInput]").val('');
+            //$("[id*=theHiddenIdInput]").val('');
+            //$("[id*=firstNameInputTextId]").val('');
+            //$("[id*=lastNameInputTextId]").val('');
+            //$("[id*=emailInputTextId]").val('');
+            //$("[id*=birthdayInputTextId]").val('');
+            //$("[id*=PphonetypeInputTextId]").val('');
+            //$("[id*=phoneInputTextId]").val('');
+            //$("#SCRelationToYouId").val('Child');
+            //$("[id*=dobmmTextid]").prop('selectedIndex',0);
+            //$("[id*=dobyyTextid]").prop('selectedIndex',0);
+            //$("[id*=dobddTextid]").prop('selectedIndex',0);
+
+            //$(".cartMemberDiv").slideDown();
+            //$("#contact-{! item.productId}").val(this.dataset.contact);
+            //$(".catalogDropDwon").slideUp();
+
+            //emptyViewModel('Child','','','','','','','');
+            //validateSelection();
+
+            //});
+            ko.applyBindings(new textInputModel(), $('#ui-text-inputs')[0]);
+
+        });
+
+        function addremoveSpouseBasedONYNG(isAddFamilyMember){
+            if('{! item.record.Exclusive__c}' != 'YNG'){
+                console.log('add family member selected = ' + isAddFamilyMember);
+                $('#SCRelationToYouId').empty();
+                $('#SCRelationToYouId').append('<option value="">Choose</option>');
+                if('{! hasAspouse}' == 'true' && isAddFamilyMember == true){
+                    console.log('disable spouse/partner option');
+                    $('#SCRelationToYouId').append('<option value="Spouse/Partner" disabled>Spouse/Partner</option>');
+                } else {
+                    console.log('enable spouse/partner option');
+                    $('#SCRelationToYouId').append('<option value="Spouse/Partner">Spouse/Partner</option>');
+                }
+                $('#SCRelationToYouId').append('<option value="Child">Child</option>');
+            }else{
+                $('#SCRelationToYouId').empty();
+                $('#SCRelationToYouId').append('<option value="">Choose</option>');
+                $('#SCRelationToYouId').append('<option value="Child">Child</option>');
+            }
+        }
+
+        function duplicateEmailCheckANDUpdateContact(){
+
+            //if($('.validationMessage').length == 0) {
+                document.getElementById('ATCButton').disabled=false;
+                var JDupId = eitherNewExistingContactId;
+                var JDupEmail = $("[id*=emailInputTextId]").val();
+                //alert('eitherNewExistingContactId' + eitherNewExistingContactId)
+                //alert('JDupEmail ' + JDupEmail )
+                Visualforce.remoting.Manager.invokeAction(
+                    '{!$RemoteAction.CatalogItemDetailed_Extension.isDuplicataEMail}',
+                    JDupEmail,JDupId,
+                    function(result, event){
+                        if (event.status) {
+                            if(result == true){
+                                $.alert({
+                                    title: 'Duplicate Email!',
+                                    content: 'Please enter another email!',
+                                });
+                            }else{
+                                $('body.ext-webkit.ext-chrome').addClass("loading");
+                                $('div.fullpageModal').show();
+                                window.console.log('In update contact function');
+                                updateContactFunction();
+                            }
+
+                        }else{
+                            window.console.log('Error');
+                        }
+                    },
+                    {escape: false}
+                );
+            //}
+        }
+
+        function normalizeDate(dateVal){
+            mydate = new Date(dateVal);
+            mydate.setDate(mydate.getDate()+1);
+
+            var d = mydate.getDate();
+            var m = mydate.getMonth()+1;
+            var y = mydate.getFullYear();
+            return (d<=9?'0'+m:m)+'/' + (m<=9?'0'+d:d) +'/' +  y;
+        }
+        var self;
+        var textInputModel = function() {
+            self = this;
+            self.textInput = ko.observable();
+
+            self.selectOptions = ['Spouse/Partner','Child'];
+            self.select = ko.observable();
+            self.requiredSelect = ko.observable('Child').extend({required: true})
+
+            self.requiredTextInput2 = ko.observable().extend({required: true})
+            self.requiredTextInput3 = ko.observable().extend({required: true})
+            self.requiredTextInput4 = ko.observable().extend({required: true , email: true  })
+            self.requiredTextInput5 = ko.observable().extend({required: { onlyIf: function () { return self.requiredSelect() == 'Child';} }, simpleDate: true })
+
+            self.requiredTextInput6 = ko.observable().extend({required: true}).extend({ pattern: { params:  /^[0-9 ()+]*$/, message: "Invalid data."} });
+            self.requiredTextInput7 = ko.observable().extend({required: true }).extend({ pattern: { params:  /^[0-9 ()+-]*$/, message: "Invalid data."} });
+
+            self.countryCodeInputValidation = ko.observable().extend({required: false}).extend({ pattern: { params:  /^[0-9 ()+]*$/, message: "Invalid data."} });
+            self.phoneNumberInputValidation = ko.observable().extend({required: false}).extend({ pattern: { params:  /^[0-9 ()+-]*$/, message: "Invalid data."} });
+            self.phonetyperequiredTextInput = ko.observable().extend({required: true, message: "Please select a option."});
+
+
+
+            validateSelection();
+        }
+        ko.validation.registerExtenders();
+
+        ko.validation.rules['simpleDate'] = {
+            validator: function (val, validate) {
+                return ko.validation.utils.isEmptyVal(val) || moment(val, 'DD/MM/YYYY').isValid();
+            },
+            message: 'Invalid Date.'
+        };
+
+        var emptyViewModel =  function(relationtoYou, rfname,rflname,remail,rbob,rphoneType,rphcountrycode, rphone){
+            self.requiredSelect(relationtoYou);
+            self.requiredTextInput2(rfname);
+            self.requiredTextInput3(rflname);
+            self.requiredTextInput4(remail);
+            self.requiredTextInput5(rbob);
+            self.phonetyperequiredTextInput(rphoneType);
+            self.requiredTextInput6(rphcountrycode);
+            self.requiredTextInput7(rphone);
+            $('.validationMessage').text('');
+        }
+
+        ko.validation.init({
+            registerExtenders: true,
+            messagesOnModified: true,
+            insertMessages: false,
+            parseInputAttributes: true,
+            messageTemplate: null,
+            decorateInputElement: false,
+            grouping: {
+                deep: true, observable: false
+            }
+        }, true);
+        function kgCartAddPrecall(event) {
+            kg.catalog.kgCartAddPrecall(event);
+        }
+
+        function kgCartAddCallback() {
+            window.location.href='{! URLFOR($Page.Catalog_YPO)}'
+            kg.catalog.kgCartAddCallback();
+        }
+        function displayBDayAlert()
+        {
+            var maxAge='{!$Setup.YNGAge__c.YNG_Max__c}';
+            var minAge='{!$Setup.YNGAge__c.YNG_Min__c}';
+
+            var strdd = $("#dobddTextid").find(":selected").text();
+            var strmm = $("#dobmmTextid").find(":selected").text();
+            var stryy = $("#dobyyTextid").find(":selected").text();
+
+            //var datearr = $("[id*=birthdayInputTextId]").val().split('/');
+
+            /*if('{! item.record.Exclusive__c}' == 'YNG'){
+                var jsDate = Date.parse(strmm+'/'+strdd+'/'+stryy);
+
+                //date and age validations
+                //alert(jsDate);
+                if(jsDate != null && (!(jsDate <= Date.today().addYears(minAge*-1))  || !(jsDate >= Date.today().addYears(maxAge*-1))))
+                {
+                    // RT (05/04/2017): Error message for invalid age.
+                    $(birthdateError).text("Child's age must be 18-30.");
+                    $(birthdateError).show();
+                    //document.getElementById('ATCButton').disabled=true;
+                    // alert(validateBday +'Please enter correct Birthdate. Birthday as entered is outside the permissible range.');
+                }
+                else
+                {
+                    $(birthdateError).hide();
+                    //document.getElementById('ATCButton').disabled=false;
+                }
+            }*/
+        }
+
+        function validateSelection() {
+			$("#error-message").hide();
+			$("#dob-form-group").removeClass("has-error");
+            $("[id*=firstNameInputTextId]").parent().removeClass("has-error");
+            $("[id*=lastNameInputTextId]").parent().removeClass("has-error");
+            $('.validationMessage').text('');
+            $(firstNameError).hide();
+            $(lastNameError).hide();
+            //$(birthdateError).hide();
+            //$(emailError).hide();
+            //$(countryCodeError).hide();
+            // $(phoneError).hide();
+            // $(phoneTypeError).hide();
+
+            ko.validationMessage = false;
+            var maxAge='{!$Setup.YNGAge__c.YNG_Max__c}';
+            var minAge='{!$Setup.YNGAge__c.YNG_Min__c}';
+            //var datearr = $("[id*=birthdayInputTextId]").val().split('/');
+
+            //var strdd = $("#dobddTextid").find(":selected").text();
+            //var strmm = $("#dobmmTextid").find(":selected").text();
+            //var stryy = $("#dobyyTextid").find(":selected").text();
+            //var jsDate = Date.parse(strdd+'/'+strmm+'/'+stryy);
+            //var jsDate = Date.parse(datearr[0]+'/'+datearr[1]+'/'+datearr[2]);
+
+            if( $('#SCRelationToYouId').val() == "Child"){
+
+                $('[id*=theHiddenSpouseChildRecordType]').val('{!childRecordTypeId}');
+
+                if($("#birthdayLabelId").hasClass("is-required")){
+                } else{
+                    $("#birthdayLabelId").addClass("required");
+                }
+            } else {
+                $("#birthdayLabelId").removeClass("required");
+
+                if($('#SCRelationToYouId').val() == "Spouse/Partner"){
+                    $('[id*=theHiddenSpouseChildRecordType]').val('{!spouseRecordTypeId}');
+                }else{
+                    $('[id*=theHiddenSpouseChildRecordType]').val('');
+                }
+            }
+
+            var toEnable=true;
+            if($("[id*=firstNameInputTextId]").val().length==0) {
+                toEnable=false;
+                //$(errorFirstNameInputTextId).text('First Name is Required.');
+                //$(errorFirstNameInputTextId).show();
+            }
+
+            if($("[id*=lastNameInputTextId]").val().length==0) {
+                toEnable=false;
+                //$(errorLastNameInputTextId).text('Last Name is Required.');
+                //$(errorLastNameInputTextId).show();
+            }
+
+            if($('#SCRelationToYouId').val()==null || $('#SCRelationToYouId').val() =='' ) {
+                toEnable=false;
+            }
+
+            //Phone validation
+            if('{! item.record.Exclusive__c}' === 'YNG' && $("[id*=phoneInputTextId]").val().length==0) {
+                toEnable=false;
+                //$(errorPhoneInputTextId).text('Phone Number is Required.');
+                //$(errorPhoneInputTextId).show();
+            }
+
+            //date and age validations
+            /*if($("[id*=birthdayInputTextId]").val().length<9) {
+                toEnable=false;
+                $(errorBirthdayInputTextId).text('Birthday is Required.');
+                $(errorBirthdayInputTextId).show();
+                //alert('Please enter correct Birthdate');
+            }*/
+
+            //YNG Specific validation
+            //alert('YNG -  {! item.record.Exclusive__c}');
+            //if('{! item.record.Exclusive__c}' == 'YNG'){
+            //if(jsDate != null && (!(jsDate <= Date.today().addYears(minAge*-1))  || !(jsDate >= Date.today().addYears(maxAge*-1))))
+            //{
+                    // RT (05/04/2017): Error message for invalid age.
+            //$(birthdateError).text("Child's age must be 18-30.");
+            //$(birthdateError).show();
+            //toEnable=false;
+                    //alert(validateBday +'Please enter correct Birthdate. Birthday as entered is outside the permissible range.');
+            //}
+            //else
+            //{
+            //$(birthdateError).hide();
+            //document.getElementById('ATCButton').disabled=false;
+            //}
+                //email validation
+                // if($("[id*=emailInputTextId]").val().length<4)
+                // {
+                //    toEnable=false;
+                //    $(errorEmailInputTextId).text("Email is required.");
+                //   $(errorEmailInputTextId).show();
+                // }
+            //}
+
+            //Date length/format validation
+            //if( ($('#SCRelationToYouId').val() == "Child"  &&   $("[id*=birthdayInputTextId]").val().length>=0) || $("[id*=birthdayInputTextId]").val().length>=1 )
+            //{
+            //    if($("[id*=birthdayInputTextId]").val().length<8)
+            //    {
+            //        toEnable=false;
+            //    }
+            //    if(jsDate==null)
+            //    {
+            //        toEnable=false;
+            //    }
+            //    else
+            //    {
+            //        if(datearr[2].length!=4)
+            //        {
+            //            toEnable=false;
+            //        }
+            //        if(datearr[1].valueOf()>12)
+            //        {
+            //            toEnable=false;
+            //        }
+            //    }
+            //}
+
+            // RT (05/08/2017): To show birthday error message
+            //if($("[id*=birthdayInputTextId]").val().length > 0) {
+            //    displayBDayAlert();
+            //}
+
+            // <!-- RT (05/03/2017, Item: 6520): Add required field validation only if the product is YNG+ -->
+            if('{! item.record.Exclusive__c}' === 'YNG' && $("[id*=emailInputTextId]").val().length>=0)
+            {
+                if($("[id*=emailInputTextId]").val().length<4)
+                {
+                    toEnable=false;
+                }
+                if(!($("[id*=emailInputTextId]").val().includes('@')))
+                {
+                    toEnable=false;
+                }
+                else if(!($("[id*=emailInputTextId]").val().split('@')[1].includes('.')))
+                {
+                    toEnable=false;
+                }
+            }
+
+            // <!-- RT (05/03/2017, Item: 6520): Add required field validation only if the product is YNG+ -->
+            if('{! item.record.Exclusive__c}' === 'YNG' && $("[id*=PphonetypeInputTextId]").val().length ==0 ){
+                toEnable=false;
+                // $(errorPphonetypeInputTextId).text('Phone Type is Required.');
+                // $(errorPphonetypeInputTextId).show();
+            }
+
+
+            //if($("[id*=phoneInputTextId]").val().length>=0)
+            //{
+            //    if($("[id*=phoneInputTextId]").val().length<8)
+            //    {
+            //        toEnable=false;
+            //    }
+            //}
+            // <!-- RT (05/03/2017, Item: 6520): Add required field validation only if the product is YNG+ -->
+            if('{! item.record.Exclusive__c}' === 'YNG' && $("[id*=PCountryCodeInputTextId]").val().length ==0)
+            {
+                toEnable=false;
+                //$(errorPCountryCodeInputTextId).text('Country Code is Required.');
+                //$(errorPCountryCodeInputTextId).show();
+            }
+
+            // RT (05/08/2017): For sanity, adding a new validation block when product is 'Safe Travels' and the non-required fields have invalid data.
+            // Email field
+            var emailFld = $("[id*=emailInputTextId]");
+            if($(emailFld).val() != null && $(emailFld).val() != '') {
+                var emailValidationFailed = false;
+                if($("[id*=emailInputTextId]").val().length<4)
+                {
+                    toEnable=false;
+                    emailValidationFailed  = true;
+                }
+                if(!($("[id*=emailInputTextId]").val().includes('@')))
+                {
+                    toEnable=false;
+                    emailValidationFailed = true;
+                }
+                else if(!($("[id*=emailInputTextId]").val().split('@')[1].includes('.')))
+                {
+                    toEnable=false;
+                    emailValidationFailed = true;
+                }
+                if(emailValidationFailed === true) {
+                    //  $(errorEmailInputTextId).html('Please enter a proper email address.');
+                    //  $(errorEmailInputTextId).show();
+                }
+            }
+
+            // Country Code field
+            var countryCodeFld =  $("[id*=PCountryCodeInputTextId]");
+            if($(countryCodeFld).val() != null && $(countryCodeFld).val() != '') {
+                var testCountryCode = /^[0-9 ()+]*$/;
+                if(testCountryCode.test($(countryCodeFld).val()) === false) {
+                    toEnable = false;
+                    //$(errorPCountryCodeInputTextId).html('Invalid data.');
+                    //$(errorPCountryCodeInputTextId).show();
+                }
+            }
+
+            // Phone Num field
+            var phoneFld = $("[id*=phoneInputTextId]");
+            if($(phoneFld).val() != null && $(phoneFld).val() != '') {
+                var testPhoneNum = /^[0-9 ()+-]*$/;
+                if(testPhoneNum.test($(phoneFld).val()) === false) {
+                    toEnable = false;
+                    //$(errorPhoneInputTextId).html('Invalid data.');
+                    //$(errorPhoneInputTextId).show();
+                }
+            }
+
+            document.getElementById('ATCButton').disabled=false;
+        }
+
+        $(document).mouseup(function(e)
+        {
+            var container = $(".catalogDropDwon");
+            if (container.has(e.target).length === 0)
+            {
+                //container.hide();
+            }
+        });
+
+        function PopulateYear()
+        {
+            var currentYear = (new Date).getFullYear();
+            addOption(document.getElementById('dobyyTextid'),'YYYY','YYYY');
+            for (var p=currentYear; p >= currentYear - 100 ;--p)
+            {
+                addOption(document.getElementById('dobyyTextid'),p,p);
+            }
+        }
+
+        function addOption(selectbox, text, value)
+        {
+            var optn = document.createElement("option");
+            optn.text = text;
+            optn.value = value;
+            selectbox.options.add(optn);
+        }
+
+        function ShowFamily()
+        {
+            $(".cartMemberDiv").show();
+        }
+
+		function isValidDate(someDateArray) {
+            var day,month, year, monthConfig, validDate = false;
+
+            if (Array.isArray(someDateArray)) {
+            	day = parseInt(someDateArray[1]);
+                month = parseInt(someDateArray[0]);
+                year = parseInt(someDateArray[2]);
+
+                if (day !== NaN && month !== NaN && year !== NaN) {
+                    monthConfig = findMonth(month-1);
+
+                    if (monthConfig !== undefined) {
+                        if (day <= monthConfig.totalDays) {
+                            validDate = isValidDayOfMonth(day, year, monthConfig);;
+                        }
+                    }
+                }
+            }
+
+            return validDate;
+        }
+
+		function isMonthFebruary(monthConfig){
+            return (monthConfig && monthConfig.name === "February");
+        }
+
+		function isValidDayOfMonth(someDay, someYear, someMonthConfig) {
+            var validDayOfMonth = false;
+
+            if (someDay > -1 && someYear > 1900 && someMonthConfig !== undefined && someMonthConfig !== null) {
+                if (isMonthFebruary(someMonthConfig) && someDay === someMonthConfig.totalDays) {
+                    if (isLeapYear(someYear)) {
+                        validDayOfMonth = true;
+                    }
+                } else if (someDay <= someMonthConfig.totalDays) {
+                    validDayOfMonth = true;
+                }
+            }
+
+            return validDayOfMonth;
+        }
+
+		function isLeapYear(someYear) {
+            var isYearDivisibleBy4 = false,
+                divisibleBy4 = (someYear / 4),
+                isYearDivisibleBy100 = false,
+                divisibleBy100 = (someYear / 100),
+                isYearDivisibleBy400 = false,
+                divisibleBy400 = (someYear / 400),
+                leapYear = false;
+
+            isYearDivisibleBy4 = isInteger(divisibleBy4);
+            //Logic #2 - is the year divisible by 100 ?
+            isYearDivisibleBy100 = isInteger(divisibleBy100);
+
+            //Logic #3 - is the year divisible by 400 ?
+            isYearDivisibleBy400 = isInteger(divisibleBy400);
+
+            if(isYearDivisibleBy4) {
+				if (isYearDivisibleBy100) {
+                    if (isYearDivisibleBy400) {
+                        leapYear = true;
+                    }
+                } else {
+                    leapYear = true;
+                }
+            }
+
+            return leapYear
+        }
+
+        function isInteger(someInteger) {
+          	var integerAnswer = someInteger % 1 === 0;
+          	return integerAnswer;
+        }
+
+		function findMonth(monthIndex) {
+            var month, months = [
+                {name: "January", totalDays: 31},
+                {name: "February", totalDays: 29},
+                {name: "March", totalDays: 31},
+                {name: "April", totalDays: 30},
+                {name: "May", totalDays: 31},
+                {name: "June", totalDays: 30},
+                {name: "July", totalDays: 31},
+                {name: "August", totalDays: 31},
+                {name: "September", totalDays: 30},
+                {name: "October", totalDays: 31},
+                {name: "November", totalDays: 30},
+                {name: "December", totalDays: 31}
+            ];
+
+            if ( monthIndex > -1 && monthIndex < months.length) {
+                month = months[monthIndex];
+            }
+
+            return month;
+        }
+
+		function pad(n) {
+            return n < 10 ? '0' + n : n;
+        }
+
+        function isValidateEmailAddress(email) {
+            var re = /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+            return re.test(email);
+        }
+
+        function isValidatePhoneEntry(ctrlCountry,ctrlPhone) {
+            var re = /^[0-9 ()+-]*$/
+
+            if (re.test(ctrlCountry.val())) {
+                window.console.log('Country Code passed');
+                if (re.test(ctrlPhone.val())) {
+                    window.console.log('Phone passed');
+                    return true;
+                }
+            }
+            return false;
+        }
+
+		function checkFiscalAgeConstraintForYNG(someBirthdate){
+        	//YNG Specific validation
+            //yyyy-mm-dd hh:nn:ss
+            var someBirthdateString = someBirthdate[2] + "-" + someBirthdate[0] + "-" + someBirthdate[1] + " 00:00:00";
+            $("[id*=Month_Birthdate]").val(someBirthdate[0]);
+            $("[id*=Day_Birthdate]").val(someBirthdate[1]);
+            $("[id*=Year_Birthdate]").val(someBirthdate[2]);
+            console.log("someBirthdate: " + someBirthdateString);
+            if ('{! item.record.Exclusive__c}' == 'YNG') {
+                //TODO call remote
+                Visualforce.remoting.Manager.invokeAction(
+                    '{!$RemoteAction.CatalogItemDetailed_Extension.isFiscalAge}',
+                    someBirthdateString,
+                    function(result, event) {
+                        console.log("isFiscalAge: " + result);
+
+                        if (result === false) {
+                            var errorMessage = "The beneficiary must be 18 to 30 years of age at the start of the contract.";
+                        	displayFieldError($('#dob-form-group'),errorMessage);
+                        } else {
+                            duplicateEmailCheckANDUpdateContact();
+                        }
+                    }, {escape: false}
+                );
+            } else {
+                duplicateEmailCheckANDUpdateContact();
+            }
+        }
+
+		function displayFieldError(ctrl,errorMessage) {
+         	ctrl.addClass('has-error');
+            $("#error-message").find("span:first").text(errorMessage);
+            $("#error-message").show();
+        }
+
+        function clearFieldError(ctrl) {
+            ctrl.removeClass('has-error');
+            $("#error-message").hide();
+        }
+
+        function validate() {
+            var hasErrors = false;
+
+            $("#error-message").hide();
+            $('form').validator('validate');
+
+            //Check Birthdate selections have been completed
+            if($('#dobddTextid').find(":selected").val() === 'DD' || $('#dobmmTextid').find(":selected").val() === 'MM' || $('#dobyyTextid').find(":selected").val() === 'YYYY') {
+                displayFieldError($('#dob-form-group'),'Please complete the Birthdate selections!');
+                hasErrors = true;
+            } else {
+                clearFieldError($('#dob-form-group'));
+            }
+
+            //Check on email format
+            if(!isValidateEmailAddress($("[id*=emailInputTextId]").val())) {
+                displayFieldError($('#EmailFormGroup'),'Email format is invalid! Please correct and try again.');
+                hasErrors = true;
+            } else {
+                clearFieldError($('#EmailFormGroup'));
+            }
+
+            if(!isValidatePhoneEntry($('[id*=PCountryCodeInputTextId]'),$('[id*=phoneInputTextId]'))) {
+                displayFieldError($('#PhoneFormGroup'),'Phone entry is invalid! Please correct and try again.');
+                hasErrors = true;
+            } else {
+                clearFieldError($('#PhoneFormGroup'));
+            }
+
+            // Show the alert box when there is a error in the form
+            if (hasErrors || $('form').data('bs.validator').validate().hasErrors()) {
+                $("#error-message").show();
+            } else {
+                var dateArray = [$("[id*=dobmmTextid]").val(),$("[id*=dobddTextid]").val(),$("[id*=dobyyTextid]").val()]; // $("[id*=birthdayInputTextId]").val().split('/');
+                console.log('Dataarray: mm/dd/yyyy: ' + dateArray[0]+"/"+dateArray[1] +"/" + dateArray[2]);
+				if (!isValidDate(dateArray)) {
+                    var errorMessage = "Please enter a valid date for birthdate.";
+                    displayFieldError($('#dob-form-group'),errorMessage);
+                } else {
+                    checkFiscalAgeConstraintForYNG(dateArray);
+                }
+            }
+        }
+
+
+    </script>
+
+    <apex:includescript value="{!URLFOR($Resource.KGQuickstart_dist, '/js/detail.min.js')}" />
+</apex:page>

@@ -1,0 +1,145 @@
+<!-- This Page is marked for Deletion as it is getting replaced by page.CodeOfConduct_YPO -->
+<apex:page standardController="Contact" extensions="TnCExt" sidebar="false" showHeader="false">
+  <apex:stylesheet value="{!$Resource.InvisionAppStyle_YPO}"/> 
+<apex:composition template="V_Template_ProspectFlow_YPO">
+<apex:define name="title"><title>Code of Conduct | {! $Organization.Name}</title></apex:define>
+<apex:define name="content">
+<style>
+.navbar-default {
+    background-color: #FFF;
+    border-color: #fff;
+    border:0px;
+}
+.navbar-header a img {
+    height: 50px;
+}
+h3.title{
+font-size: 3em;
+padding: 15px;
+}
+.price{ font-size:1.1em;}
+
+.panel-body{ margin:0px; padding:0px;}
+
+.panel-body .row{ margin:5px 0px; padding:10px; border-bottom: #eee solid 1px;}
+
+.panel-padding{padding-top:15px;padding-bottom:15px;}
+
+.codeofcText {top: -3px;position: relative;}
+
+label{
+    color: #333;
+    font-family: sans-serif; 
+    font-size: 14px; 
+   text-transform: none; 
+   cursor:pointer;
+   
+}
+
+label > input[type="checkbox"] {
+    display: block;
+    position: absolute; /* remove it from the flow */
+    width: 100%;
+    height: 100%;
+    margin: -.5rem; /* negative the padding of label to cover the "button" */
+    cursor: pointer;
+    opacity: 0; /* make it transparent */
+    z-index: 666; /* place it on top of everything else */
+}
+
+label > input[type="checkbox"] + span {
+    display: inline-block;
+    width: 1rem;
+    height: 1rem;
+    border: 2px solid #3D7099;
+    margin-right: -0.5rem;
+}
+
+label > input[type="checkbox"]:checked + span {
+    background-color: #3D7099;
+}
+
+
+</style>
+
+<apex:form >
+<div class="row">
+<div class="panel-padding col-md-8 col-md-offset-2">
+<h3 class="title">Code Of Conduct</h3>
+</div>
+</div>
+
+<div class="panel panel-padding col-md-8 col-md-offset-2">
+<br/>
+ <iframe width="100%" height="280px" src="{!URLFOR($Resource.CodeofConduct)}" style="overflow-y:scroll;"/>  
+
+
+<br/><br/>
+
+
+</div>
+<br/><br/>
+
+<div class="panel panel-padding col-md-8 col-md-offset-2">
+           <apex:outputPanel id="codeBlock">
+            <apex:pageMessages />
+        </apex:outputPanel>
+         <label>
+             <apex:inputcheckbox value="{!con.Accept_Code_Conduct__c}" styleclass="check"/>
+             <span>&nbsp;</span> <span class="codeofcText"> &nbsp; &nbsp; Accept <a href="#">Code of Conduct</a></span>
+         </label>
+</div>
+
+
+ <!--buttons along the bottom of page-->
+ <div class="panel col-md-8 col-md-offset-2 text-center">
+                             <div class="btns-div btm-btns whiteBox">
+                              
+                                    <button type="button" onclick="goBack()" class="btn btn-gray">Back</button>
+                                    <button type="button" onclick="savecont()" class="btn btn-blue saveConfirm" disabled="disabled" id="continueBTN">Save and Confirm</button>
+                               
+                            </div>
+                            </div>
+                <apex:actionFunction name="goBack" action="{!goBack}"></apex:actionFunction> 
+                <apex:actionFunction name="savecont"  action="{!save}" reRender="none" status="status"/>
+<!--
+<div class="panel panel-padding col-md-8 col-md-offset-2 text-center">
+  <a href="{! URLFOR($Page.v_cart_ypo, null)}" class="button_raised--secondary " role="button">
+     Back
+  </a>
+    &nbsp;  
+
+        <a class="button_raised btn1-primary saveConfirm is-disabled" >Save and Confirm</a>
+ 
+
+
+</div> <!--/.text-center--> <!--/buttons along the bottom of page-->
+</apex:form>
+
+<div class="clearfix"></div>
+
+<script src="https://code.jquery.com/jquery-2.2.4.min.js" />
+<script type="text/javascript">
+jQuery(function ($) {
+    $(".check").on('click', function (e) {
+         if ($(this).is(':checked')) {
+            console.log("Checked");
+            document.getElementById('continueBTN').disabled = false;
+        }
+        else{
+        document.getElementById('continueBTN').disabled = true;
+        }
+    });
+ 
+});
+$(document).ready(function(){
+if($(".check").is(':checked'))
+{
+            document.getElementById('continueBTN').disabled = false;
+}
+});
+</script>
+
+</apex:define>
+</apex:composition>
+</apex:page>

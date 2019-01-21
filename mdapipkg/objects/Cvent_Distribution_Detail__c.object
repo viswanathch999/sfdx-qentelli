@@ -1,0 +1,525 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomObject xmlns="http://soap.sforce.com/2006/04/metadata">
+    <actionOverrides>
+        <actionName>Accept</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>CancelEdit</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Clone</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Delete</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Edit</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>List</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>New</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>SaveEdit</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Tab</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>View</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <allowInChatterGroups>true</allowInChatterGroups>
+    <compactLayoutAssignment>SYSTEM</compactLayoutAssignment>
+    <deploymentStatus>Deployed</deploymentStatus>
+    <enableActivities>true</enableActivities>
+    <enableBulkApi>true</enableBulkApi>
+    <enableChangeDataCapture>false</enableChangeDataCapture>
+    <enableFeeds>false</enableFeeds>
+    <enableHistory>true</enableHistory>
+    <enableReports>true</enableReports>
+    <enableSearch>true</enableSearch>
+    <enableSharing>true</enableSharing>
+    <enableStreamingApi>true</enableStreamingApi>
+    <externalSharingModel>ReadWrite</externalSharingModel>
+    <fields>
+        <fullName>Amount_Applied__c</fullName>
+        <externalId>false</externalId>
+        <label>Amount Applied</label>
+        <precision>9</precision>
+        <required>false</required>
+        <scale>2</scale>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Currency</type>
+    </fields>
+    <fields>
+        <fullName>Amount_Credit_Formula__c</fullName>
+        <externalId>false</externalId>
+        <formula>Amount_Applied__c  * (-1)</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>Amount Credit Formula</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>2</scale>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Amount_Greater_Than_Zero__c</fullName>
+        <externalId>false</externalId>
+        <formula>If ( Amount_Applied__c  &gt; 0, 1, 0)</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>Amount Greater Than Zero</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>2</scale>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Budget_Currency__c</fullName>
+        <externalId>false</externalId>
+        <formula>Event__r.Budget_Currency__r.Name</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>Budget Currency</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Contact__c</fullName>
+        <deleteConstraint>SetNull</deleteConstraint>
+        <externalId>false</externalId>
+        <label>Contact</label>
+        <referenceTo>Contact</referenceTo>
+        <relationshipLabel>Cvent Distribution Details</relationshipLabel>
+        <relationshipName>Cvent_Distribution_Details</relationshipName>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Lookup</type>
+    </fields>
+    <fields>
+        <fullName>Converted_To_Journal__c</fullName>
+        <defaultValue>false</defaultValue>
+        <externalId>false</externalId>
+        <label>Converted To Journal</label>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>Converted_To_Refund_Journal__c</fullName>
+        <defaultValue>false</defaultValue>
+        <externalId>false</externalId>
+        <label>Converted To Refund Journal</label>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>Credit_General_Ledger_Account__c</fullName>
+        <externalId>false</externalId>
+        <formula>Case (Product_Type__c,
+&quot;Session&quot;, &quot;24 - Def Rev Offsites&quot;,
+&quot;Tax&quot;, &quot;21 - VAT/GST Payable&quot;,
+&quot;Admission Item&quot;, &quot;24 - Def Rev Registration&quot;, &quot;Other&quot;)</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>Credit General Ledger Account</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Cvent_Transaction__c</fullName>
+        <deleteConstraint>SetNull</deleteConstraint>
+        <externalId>false</externalId>
+        <label>Cvent Transaction</label>
+        <referenceTo>Cvent_Transaction__c</referenceTo>
+        <relationshipLabel>Cvent Distribution Details</relationshipLabel>
+        <relationshipName>Cvent_Distribution_Details</relationshipName>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Lookup</type>
+    </fields>
+    <fields>
+        <fullName>Debit_General_Ledger_Account__c</fullName>
+        <externalId>false</externalId>
+        <formula>If ( Product_Type__c = &quot;Session&quot;, &quot;12 - A/R Events&quot;, &quot;12 - A/R Events&quot;)</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>Debit General Ledger Account</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Distribution_Detail_Id__c</fullName>
+        <externalId>true</externalId>
+        <label>Distribution Detail Id</label>
+        <length>72</length>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>End_Date_FFA__c</fullName>
+        <externalId>false</externalId>
+        <formula>(Event__r.End_Date__c)</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>End Date</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Date</type>
+    </fields>
+    <fields>
+        <fullName>Event__c</fullName>
+        <deleteConstraint>SetNull</deleteConstraint>
+        <externalId>false</externalId>
+        <label>Event</label>
+        <referenceTo>Event__c</referenceTo>
+        <relationshipLabel>Cvent Distribution Details</relationshipLabel>
+        <relationshipName>Cvent_Distribution_Details</relationshipName>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Lookup</type>
+    </fields>
+    <fields>
+        <fullName>GL_Code__c</fullName>
+        <externalId>false</externalId>
+        <label>GL Code</label>
+        <length>100</length>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>GL_Description__c</fullName>
+        <externalId>false</externalId>
+        <label>GL Description</label>
+        <length>100</length>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Journal_Number__c</fullName>
+        <deleteConstraint>SetNull</deleteConstraint>
+        <externalId>false</externalId>
+        <label>Journal Number</label>
+        <referenceTo>c2g__codaJournal__c</referenceTo>
+        <relationshipLabel>Cvent Distribution Details</relationshipLabel>
+        <relationshipName>Cvent_Distribution_Details</relationshipName>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Lookup</type>
+    </fields>
+    <fields>
+        <fullName>Order_Price__c</fullName>
+        <externalId>false</externalId>
+        <label>Order Price</label>
+        <precision>9</precision>
+        <required>false</required>
+        <scale>2</scale>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Currency</type>
+    </fields>
+    <fields>
+        <fullName>Passthrough_Formula__c</fullName>
+        <externalId>false</externalId>
+        <formula>If (Passthrough__c&lt;&gt;&quot;Yes&quot;, True, False)</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>Passthrough Formula</label>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>Passthrough_No_Amount_Greater_Than_0__c</fullName>
+        <externalId>false</externalId>
+        <formula>If ( Passthrough_Formula__c = True &amp;&amp; Amount_Greater_Than_Zero__c = 1, 1, 0)</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>Passthrough No &amp; Amount Greater Than 0</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>2</scale>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Passthrough_No_Amount_Less_Than_0__c</fullName>
+        <externalId>false</externalId>
+        <formula>If ( Passthrough_Formula__c = True &amp;&amp; Amount_Greater_Than_Zero__c = 0, 1, 0)</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>Passthrough No &amp; Amount Less Than 0</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>2</scale>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Passthrough__c</fullName>
+        <externalId>false</externalId>
+        <formula>TEXT( Event__r.Passthrough__c )</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>Passthrough</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Product_Code__c</fullName>
+        <externalId>false</externalId>
+        <label>Product Code</label>
+        <length>30</length>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Product_Id__c</fullName>
+        <externalId>false</externalId>
+        <label>Product Id</label>
+        <length>36</length>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Product_Name__c</fullName>
+        <externalId>false</externalId>
+        <label>Product Name</label>
+        <length>100</length>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Product_Type__c</fullName>
+        <externalId>false</externalId>
+        <label>Product Type</label>
+        <length>30</length>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Program_Format_Formula__c</fullName>
+        <externalId>false</externalId>
+        <formula>If (ISPICKVAL( Event__r.Program_Format__c , &quot;Chapter Event&quot;), False, True)</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>Program Format Formula</label>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>Program_Format__c</fullName>
+        <externalId>false</externalId>
+        <formula>TEXT( Event__r.Program_Format__c )</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>Program Format</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Refund_Journal_Number__c</fullName>
+        <deleteConstraint>SetNull</deleteConstraint>
+        <externalId>false</externalId>
+        <label>Refund Journal Number</label>
+        <referenceTo>c2g__codaJournal__c</referenceTo>
+        <relationshipLabel>Cvent Distribution Details (Refund Journal Number)</relationshipLabel>
+        <relationshipName>Cvent_Distribution_Details1</relationshipName>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Lookup</type>
+    </fields>
+    <fields>
+        <fullName>Registration_Currency__c</fullName>
+        <externalId>false</externalId>
+        <formula>Event__r.Registration_Currency_Mapping__c</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>Registration Currency</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Transaction_Date__c</fullName>
+        <description>This is the transaction date from the Cvent System</description>
+        <externalId>false</externalId>
+        <label>Transaction Date</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>DateTime</type>
+    </fields>
+    <label>Cvent Distribution Detail</label>
+    <listViews>
+        <fullName>All</fullName>
+        <columns>NAME</columns>
+        <columns>Amount_Applied__c</columns>
+        <columns>Budget_Currency__c</columns>
+        <columns>Contact__c</columns>
+        <columns>Event__c</columns>
+        <columns>Order_Price__c</columns>
+        <columns>Passthrough__c</columns>
+        <columns>Transaction_Date__c</columns>
+        <columns>CREATED_DATE</columns>
+        <filterScope>Everything</filterScope>
+        <label>All</label>
+    </listViews>
+    <listViews>
+        <fullName>Convert_Distribution_Detail_To_Journal</fullName>
+        <columns>NAME</columns>
+        <columns>Event__c</columns>
+        <columns>Registration_Currency__c</columns>
+        <columns>Amount_Applied__c</columns>
+        <columns>Order_Price__c</columns>
+        <columns>Passthrough_Formula__c</columns>
+        <filterScope>Everything</filterScope>
+        <filters>
+            <field>Converted_To_Journal__c</field>
+            <operation>equals</operation>
+            <value>0</value>
+        </filters>
+        <filters>
+            <field>Passthrough_No_Amount_Greater_Than_0__c</field>
+            <operation>greaterOrEqual</operation>
+            <value>1</value>
+        </filters>
+        <label>Convert Distribution Detail To Journal</label>
+    </listViews>
+    <listViews>
+        <fullName>Convert_Distribution_Detail_To_Refund</fullName>
+        <columns>NAME</columns>
+        <columns>Event__c</columns>
+        <columns>Registration_Currency__c</columns>
+        <columns>Amount_Applied__c</columns>
+        <columns>Order_Price__c</columns>
+        <columns>Passthrough_Formula__c</columns>
+        <filterScope>Everything</filterScope>
+        <filters>
+            <field>Converted_To_Journal__c</field>
+            <operation>equals</operation>
+            <value>0</value>
+        </filters>
+        <filters>
+            <field>Passthrough_No_Amount_Less_Than_0__c</field>
+            <operation>greaterOrEqual</operation>
+            <value>1</value>
+        </filters>
+        <label>Convert Distribution Detail To Refund</label>
+    </listViews>
+    <nameField>
+        <label>Order Number</label>
+        <trackHistory>false</trackHistory>
+        <type>Text</type>
+    </nameField>
+    <pluralLabel>Cvent Distribution Details</pluralLabel>
+    <searchLayouts>
+        <listViewButtons>Convert_Cvent_Distribution_Detail_To_Journal_List_View</listViewButtons>
+        <listViewButtons>Convert_Cvent_Distribution_Detail_To_Refund_Journal_List_View</listViewButtons>
+    </searchLayouts>
+    <sharingModel>ReadWrite</sharingModel>
+    <visibility>Public</visibility>
+    <webLinks>
+        <fullName>Convert_Cvent_Distribution_Detail_To_Journal</fullName>
+        <availability>online</availability>
+        <displayType>button</displayType>
+        <height>600</height>
+        <linkType>page</linkType>
+        <masterLabel>Convert Cvent Distribution Detail To Journal</masterLabel>
+        <openType>noSidebar</openType>
+        <page>Convert_Cvent_Distribution_Details_Journ</page>
+        <protected>false</protected>
+    </webLinks>
+    <webLinks>
+        <fullName>Convert_Cvent_Distribution_Detail_To_Journal_List_View</fullName>
+        <availability>online</availability>
+        <displayType>massActionButton</displayType>
+        <height>600</height>
+        <linkType>page</linkType>
+        <masterLabel>Convert Cvent Distribution Detail To Journal List View</masterLabel>
+        <openType>noSidebar</openType>
+        <page>Convert_Cvent_Distrib_Details_To_JourLV</page>
+        <protected>false</protected>
+        <requireRowSelection>true</requireRowSelection>
+    </webLinks>
+    <webLinks>
+        <fullName>Convert_Cvent_Distribution_Detail_To_Refund_Journal</fullName>
+        <availability>online</availability>
+        <displayType>button</displayType>
+        <height>600</height>
+        <linkType>page</linkType>
+        <masterLabel>Convert Cvent Distribution Detail To Refund Journal</masterLabel>
+        <openType>noSidebar</openType>
+        <page>Convert_Distribution_Details_To_RefJour</page>
+        <protected>false</protected>
+    </webLinks>
+    <webLinks>
+        <fullName>Convert_Cvent_Distribution_Detail_To_Refund_Journal_List_View</fullName>
+        <availability>online</availability>
+        <displayType>massActionButton</displayType>
+        <height>600</height>
+        <linkType>page</linkType>
+        <masterLabel>Convert Cvent Distribution Detail To Refund Journal List View</masterLabel>
+        <openType>noSidebar</openType>
+        <page>Convert_Distribution_Detail_To_RefJourLV</page>
+        <protected>false</protected>
+        <requireRowSelection>true</requireRowSelection>
+    </webLinks>
+</CustomObject>

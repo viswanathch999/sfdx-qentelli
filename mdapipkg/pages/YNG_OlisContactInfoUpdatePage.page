@@ -1,0 +1,30 @@
+<apex:page standardController="Contact" extensions="YNG_OlisContactInfoUpdatePageExt" action="{!onLoad}" sidebar="false">
+    <apex:form >
+        <apex:pageBlock title="YNG+ Contact Update Page">
+            <apex:pageMessages />
+            <apex:pageBlockSection rendered="{!NOT(ISBLANK(yngOLIs))}">
+                <apex:pageBlockTable value="{!yngOLIs}" var="aOLI">
+                    <apex:column value="{!aOLI.product2.name}"/>
+                    <apex:column value="{!aOLI.contact__r.firstname}"/>
+                    <apex:column >
+                        <apex:inputField value="{!aOLI.contact__r.firstname}" label="FirstName"/>
+                    </apex:column>
+                    <apex:column value="{!aOLI.contact__r.lastname}"/>
+                    <apex:column >
+                        <apex:inputField value="{!aOLI.contact__r.lastname}" label="LastName"/>
+                    </apex:column>
+                    <apex:repeat value="{!$ObjectType.opportunitylineitem.FieldSets.OliProductContactsAdditionalInfo}" var="contactFields"> 
+                        
+                        <apex:column headerValue="{!contactFields.Label}">
+                            
+                            <apex:inputField value="{!aOLI[contactFields]}"/>
+                        </apex:column>
+                    </apex:repeat>
+                </apex:pageBlockTable>
+            </apex:pageBlockSection>
+            <apex:pageBlockButtons rendered="{!NOT(ISBLANK(yngOLIs))}" location="bottom">
+                <apex:commandButton action="{!saveProductsContact}" value="Submit"/>
+            </apex:pageBlockButtons>
+        </apex:pageBlock>
+    </apex:form>
+</apex:page>

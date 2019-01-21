@@ -1,0 +1,1899 @@
+﻿<apex:page standardcontroller="Contact" extensions="UpdateProfileInfoController_YPO" id="pageId" sidebar="false" action="{!updateLastProfileUpdatedOnContact}" showheader="false" standardstylesheets="false" doctype="html-5.0">
+
+    <head>
+        
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" />
+        <title>YPO Renewals</title>
+
+        <style>
+            input::-webkit-outer-spin-button,
+            input::-webkit-inner-spin-button {
+                display: none;
+                -webkit-appearance: none;
+                margin: 0;
+            }
+            input[type=number]::-webkit-outer-spin-button,
+            input[type=number]::-webkit-inner-spin-button {
+                -webkit-appearance: none;
+                margin: 0;
+            }
+            input[type=number] {
+                -moz-appearance:textfield;
+            }
+            .panel h4 {
+                font-weight: 600;
+            }
+        </style>
+    </head>
+
+    <body>
+    
+        <!-- Global site tag (gtag.js) - Google Analytics -->
+        <script async="true" src="https://www.googletagmanager.com/gtag/js?id={!$Label.Google_Analytics_ID}"></script>
+        <script>
+            window.dataLayer = window.dataLayer || [];
+            function gtag(){dataLayer.push(arguments);}
+            gtag('js', new Date());
+            gtag('config', '{!$Label.Google_Analytics_ID}');
+        </script>
+        <!-- End Google Analytics code -->
+        
+    <link rel="stylesheet" type="text/css" href="{!URLFOR($Resource.YPORenew, 'ypo-renewals/assets/css/bootstrap.min.css')}" />
+    <link rel="stylesheet" type="text/css" href="{!URLFOR($Resource.YPORenew, 'ypo-renewals/assets/css/styles.css')}" />
+
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-confirm/3.1.1/jquery-confirm.min.js"></script>
+
+
+    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+
+    <script>
+        var childTags = 0;
+
+        $(document).ready(function()
+            {
+                showSpouse();
+
+                var ArrSize = {!Childcontact.size}
+
+                childTags = ArrSize;
+                var ChildIDlist = new Array();
+                var ChildGenderlist = new Array();
+                var ChildPrefixlist = new Array();
+                var ChildFNamelist = new Array();
+                var ChildMNamelist = new Array();
+                var ChildLNamelist = new Array();
+                var ChildSuffixlist = new Array();
+                var ChildEmaillist = new Array();
+                var ChildPhonelist = new Array();
+                var ChildPhoneCClist = new Array();
+                var ChildPhoneExtlist = new Array();
+                var ChildDOBlist = new Array();
+
+            <apex:repeat value="{!Childcontact}" var="Childcontacts">
+                ChildIDlist.push("{!Childcontacts.id}");
+                ChildGenderlist.push("{!Childcontacts.Gender__c}");
+                ChildPrefixlist.push("{!Childcontacts.salutation}");
+                ChildFNamelist.push("{!Childcontacts.firstname}");
+                ChildMNamelist.push("{!Childcontacts.Middle_Name__c}");
+                ChildLNamelist.push("{!Childcontacts.lastname}");
+                ChildSuffixlist.push("{!Childcontacts.Suffix__c}");
+                ChildEmaillist.push("{!Childcontacts.Email}");
+                ChildPhonelist.push("{!Childcontacts.HomePhone}");
+                ChildPhoneCClist.push("{!Childcontacts.Home_Phone_Country_Code__c}");
+                ChildPhoneExtlist.push("{!Childcontacts.Home_Phone_Extension__c}");
+                ChildDOBlist.push("{!Childcontacts.Birthdate}");
+            </apex:repeat>
+
+                var j=0;
+
+                for(var i=0;i<ArrSize;i++)
+                {
+                    j++;
+                    addChild();
+
+                    document.getElementById('ChildID'+j).value=ChildIDlist[i];
+                    document.getElementById('ChildGNID'+j).value=ChildGenderlist[i];
+                    document.getElementById('ChildPFID'+j).value=ChildPrefixlist[i];
+                    document.getElementById('ChildFNID'+j).value=ChildFNamelist[i];
+                    document.getElementById('ChildMNID'+j).value=ChildMNamelist[i];
+                    document.getElementById('ChildLNID'+j).value=ChildLNamelist[i];
+                    document.getElementById('ChildSFXID'+j).value=ChildSuffixlist[i];
+                    document.getElementById('ChildEMLID'+j).value=ChildEmaillist[i];
+                    document.getElementById('ChildPHID'+j).value=ChildPhonelist[i];
+                    document.getElementById('ChildPHCCID'+j).value=ChildPhoneCClist[i];
+                    document.getElementById('ChildPHEXTID'+j).value=ChildPhoneExtlist[i];
+                    document.getElementById('ChildBirthDateID'+j).value=ChildDOBlist[i];
+                    document.getElementById('ChildRemoveID'+j).style.display= "none";
+
+                    document.getElementById('ChildEMLID'+j).setAttribute('data-contact-id', ChildIDlist[i]);
+
+                    PopulateYear(j);
+                    showDOB(j);
+
+                }
+
+            }
+        );
+
+        function addOption(selectbox, text, value)
+        {
+            var optn = document.createElement("option");
+            optn.text = text;
+            optn.value = value;
+            selectbox.options.add(optn);
+        }
+
+        function showDOB(i)
+        {
+
+            var birthdt= document.getElementById('ChildBirthDateID'+i).value;
+            if(birthdt !="")
+            {
+
+                //alert(birthdt);
+
+                if(birthdt !=null && birthdt!= '' && birthdt != undefined)
+                {
+                    var birthdtsplitted = birthdt.split(" ");
+                    birthdt = birthdtsplitted[2]+'-'+birthdtsplitted[1]+'-'+birthdtsplitted[5];
+                    //alert(birthdt)
+                    var day= birthdtsplitted[2]
+                    var month = birthdtsplitted[1];
+                    var year = birthdtsplitted[5];
+                    //alert(day+month+year);
+                    $('#dobmmTextid'+i+' option[value="'+month+'"]').attr("selected", "selected");
+                    $('#dobyyTextid'+i+' option[value="'+year+'"]').attr("selected", "selected");
+                    $('#dobddTextid'+i+' option[value="'+day+'"]').attr("selected", "selected");
+
+                }
+            }
+
+        }
+
+        function addChildTags()
+        {
+            childTags++;
+            addChild();
+            PopulateYear(childTags);
+            childvalidateSelection();
+        }
+
+        function PopulateYear(i)
+        {
+            var currentYear = (new Date).getFullYear();
+            for (var p=1900; p <= currentYear ;++p)
+            {
+                addOption(document.getElementById('dobyyTextid'+i),p,p);
+            }
+        }
+
+
+    </script>
+
+    <!-- Remote Objects declaration -->
+    <apex:remoteobjects jsnamespace="RemoteObjectModel">
+        <apex:remoteobjectmodel name="Contact" fields="Id,AccountId,recordTypeId,FirstName,LastName,Email,MobilePhone,Phone,MailingStreet,MailingCity,MailingStateCode,MailingCountryCode,MailingPostalCode,Mobile_Phone_Country_Code__c,Country_Code__c">
+            <!-- <apex:remoteObjectField name="Mobile_Phone_Country_Code__c" jsShorthand="MobilePhoneCCode"/> -->
+        </apex:remoteobjectmodel>
+    </apex:remoteobjects>
+
+    <apex:remoteobjects jsnamespace="RemoteObjectModelRelationship">
+        <apex:remoteobjectmodel name="Relationship__c" jsshorthand="Relationship" fields="Id,Name,Account__c,Is_Active__c,Contact__c">
+        </apex:remoteobjectmodel>
+    </apex:remoteobjects>
+    
+    <!--<apex:composition template="V_Template_ProspectFlow_YPO">-->
+    <!--   <apex:define name="content">            -->
+    <apex:form >
+        <nav class="navbar navbar-default navbar-fixed-top">
+            <div class="container">
+                <img class="logo" src="{!URLFOR($Resource.YPORenew, 'ypo-renewals/assets/img/ypo.svg')}" />
+
+            </div>
+        </nav>
+        <div class="content-title">
+            <div class="container">
+                <h1 class="v-center">{!$Label.UpdateProfileInfo_UpdateProfile}</h1>
+            </div>
+        </div>
+        <div style="color:black"><apex:pagemessages /><br /></div>
+        <div class="container">
+            <div class="content">
+                <p class="desc">{!$Label.UpdateProfileInfo_Beforeleveraging}</p>
+                <div class="row">
+                    <div class="col-md-9">
+                        <form class="update-profile-form" role="form">
+                            <!-- data-toggle="validator" -->
+                            <div id="update-profile-alert" class="alert alert-danger help-block with-errors hide" role="alert">
+                                <i class="icon-caution"></i> <span>All of the required fields have not been completed.</span> <!--<apex:pageMessages />-->
+                            </div>
+                            <!-- panel -->
+                            <div class="panel">
+                                <div class="panel-header">
+                                    <h3 class="pull-left">Contact Information</h3>
+                                    <div class="pull-right"><span class="required"></span> &nbsp;Indicates required field</div>
+                                    <div class="clearfix"></div>
+                                </div>
+                                <!-- contact info -->
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <label for="salutationInputTextId">Prefix</label>
+                                            <apex:inputfield value="{!con.Salutation}" id="salutationInputTextId" styleclass="form-control" html-data-bind="textInput: salutationrquiredTextInput " onchange="validateSelection()" />
+                                            <span class="validationMessage" data-bind="validationMessage: salutationrquiredTextInput"></span>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <label for="firstNameInputTextId" class="required">First Name</label>
+                                            <input class="form-control" value="{!con.FirstName}" id="firstNameInputTextId" data-bind="textInput: FirstnameTextInput" onkeyup="validateSelection()" type="text" required="true" />
+                                            <span class="validationMessage" data-bind="validationMessage: FirstnameTextInput"></span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <label for="middleNameInputTextId">Middle Name</label>
+                                            <input class="form-control" value="{!con.Middle_Name__c}" id="middleNameInputTextId" data-bind="textInput: middleNamerrquiredTextInput" onkeyup="validateSelection()" />
+                                            <span class="validationMessage" data-bind="validationMessage: middleNamerrquiredTextInput"></span>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <label for="lastNameInputTextId" class="required">Last Name</label>
+                                            <input class="form-control" value="{!con.LastName}" id="lastNameInputTextId" onkeyup="validateSelection()" data-bind="textInput: LastnameTextInput" type="text" required="true" />
+                                            <span class="validationMessage" data-bind="validationMessage: LastnameTextInput"></span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <label for="suffixInputTextId">Suffix</label>
+                                            <apex:inputfield value="{!con.Suffix__c}" id="suffixInputTextId" styleclass="form-control" html-data-bind="textInput: suffixrquiredTextInput " onchange="validateSelection()" />
+                                            <span class="validationMessage" data-bind="validationMessage: suffixrquiredTextInput"></span>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <label for="emailInputTextId" class="required">Email</label>
+                                            <input class="form-control" value="{!con.Email}" id="emailInputTextId" onkeyup="validateSelection()" data-validate="false" data-bind="textInput: MemberEmailTextInput" type="email" required="true" data-contact-id="{!con.id}" onchange="validateEmail(this)" />
+                                            <span class="validationMessage" data-bind="validationMessage: MemberEmailTextInput"></span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <label for="homePhoneInputTextId">Home Phone</label>
+                                            <div class="row condensed">
+                                                <div class="col-xs-3" >
+                                                    <input class="form-control" type="text" value="{!con.Home_Phone_Country_Code__c}" id="homePhoneCCInputTextId" onkeyup="validateSelection()" pattern="[0-9 +]*" data-bind="textInput: homePhoneCCrequiredTextInput" />
+                                                    <span class="validationMessage" data-bind="validationMessage: homePhoneCCrequiredTextInput"></span>
+                                                </div>
+                                                <div class="col-xs-6" >
+                                                    <input class="form-control" type="text" value="{!con.HomePhone}" id="homePhoneInputTextId" onkeyup="validateSelection()" pattern="[0-9 ()+-]*" data-bind="textInput: homePhonerequiredTextInput" />
+                                                    <span class="validationMessage" data-bind="validationMessage: homePhonerequiredTextInput"></span>
+                                                </div>
+                                                <div class="col-xs-3" >
+                                                    <input class="form-control" type="text" placeholder="Ext" value="{!con.Home_Phone_Extension__c}" id="homePhoneExtInputTextId" onkeyup="validateSelection()" pattern="[0-9]*" data-bind="textInput: homePhoneExtRequiredTextInput" />
+                                                    <span class="validationMessage" data-bind="validationMessage: homePhoneExtRequiredTextInput"></span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <label for="personalmobileInputTextId">Mobile Phone</label>
+                                            <div class="row condensed">
+                                                <div class="col-xs-3" >
+                                                    <input class="form-control" type="text" value="{!con.Mobile_Phone_Country_Code__c}" id="personalmobileCCInputTextId" onkeyup="validateSelection()" pattern="[0-9 +]*" data-bind="textInput: mobileCCInputTextId" />
+                                                    <span class="validationMessage" data-bind="validationMessage: mobileCCInputTextId"></span>
+                                                </div>
+                                                <div class="col-xs-9" >
+                                                    <input class="form-control" type="text" value="{!con.MobilePhone}" id="personalmobileInputTextId" onkeyup="validateSelection()" pattern="[0-9 ()+-]*" data-bind="textInput: mobilePhoneInput" />
+                                                    <span class="validationMessage" data-bind="validationMessage: mobilePhoneInput"></span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <label for="businessphoneInputTextId">Business Phone</label>
+                                            <div class="row condensed">
+                                                <div class="col-xs-3" >
+                                                    <input class="form-control" type="text" value="{!con.Country_Code__c}" id="businessphoneCCInputTextId" pattern="[0-9 +]*" data-bind="textInput: businessCCPhoneInput" onkeyup="validateSelection()" />
+                                                    <span class="validationMessage" data-bind="validationMessage: businessCCPhoneInput"></span>
+                                                </div>
+                                                <div class="col-xs-6" >
+                                                    <input class="form-control" type="text" value="{!con.Phone}" id="businessphoneInputTextId" pattern="[0-9 ()+-]*" data-bind="textInput: businessPhoneInput" onkeyup="validateSelection()" />
+                                                    <span class="validationMessage" data-bind="validationMessage: businessPhoneInput"></span>
+                                                </div>
+                                                <div class="col-xs-3" >
+                                                    <input class="form-control" type="text" value="{!con.Business_Phone_Ext__c}" id="businessphoneExtInputTextId" pattern="[0-9]*" data-bind="textInput: businessPhExtrequiredTextInput" onkeyup="validateSelection()" placeholder="Ext" />
+                                                    <span class="validationMessage" data-bind="validationMessage: businessPhExtrequiredTextInput"></span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <!-- end contact info -->
+                                <hr class="visible-sm visible-xs" />
+
+                                <div class="panel-header">
+                                    <h3>Primary Address</h3>
+                                </div>
+                                <!-- contact info -->
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <div class="form-group" >
+                                            <label class="required" for="addressTypeInputTextId">Address Type</label>
+                                            <apex:inputfield value="{!StateCountryContact.Address1_Type__c}" id="addressTypeInputTextId" styleclass="form-control" required="true" />
+                                            <!--(html-data-bind="textInput: addressTyperequiredTextInput" onchange="validateSelection()")-->
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="form-group" >
+                                            <label for="countryInputTextId" class="required">Country</label>
+                                            <apex:inputfield value="{!StateCountryContact.MailingCountryCode}" id="countryInputTextId" styleclass="form-control" html-data-bind="textInput: requiredTextInput11" onchange="validateSelection()" onmouseout="validateSelection()" required="true" />
+                                            <script> var countryInputTextIdVar = document.getElementById("{!$Component.countryInputTextId}"); </script>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <label for="streetInputTextId" class="required">Line 1</label>
+                                            <input class="form-control" value="{!AddressLine1}" id="streetInputTextId" onkeyup="validateSelection()" type="text" required="true" />
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <label>Line 2</label>
+                                            <input class="form-control" value="{!AddressLine2}" id="streetInputTextId2" onkeyup="validateSelection()" type="text" />
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <label for="cityInputTextId" class="required">City</label>
+                                            <input class="form-control" value="{!StateCountryContact.MailingCity}" type="text" id="cityInputTextId" data-bind="textInput: requiredTextInput9" onkeyup="validateSelection()" required="true" />
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="form-group" id="stateDIV">
+                                            <label id="stateLabelreqId" for="stateInputTextId">State / Province / Region</label>
+                                            <apex:inputfield value="{!StateCountryContact.MailingStateCode}" id="stateInputTextId" styleclass="form-control" html-data-bind="textInput: requiredTextInput10 " onchange="validateSelection()" />
+                                            <script> var StateInputTextIdVar = document.getElementById("{!$Component.stateInputTextId}"); </script>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="form-group" >
+                                            <label for="PostalInputTextId">Zip Code</label>
+                                            <input class="form-control" value="{!StateCountryContact.MailingPostalCode}" id="PostalInputTextId" type="text" />
+                                        </div>
+                                    </div>
+                                    <div class="col-md-12">
+                                        <div class="checkbox">
+                                            <label for="PrivateAddressInputId">
+                                                <input type="checkbox" value="{!StateCountryContact.Is_Address1_Private__c}" id="PrivateAddressInputId" name="PrivateAddressInputName" onchange="validateSelection()" /> Mark address as private
+                                                <script> document.getElementById("PrivateAddressInputId").checked = {!con.Is_Address1_Private__c}; </script>
+                                            </label>
+                                        </div>
+                                    </div>
+                                </div>
+                                <!-- end contact info -->
+
+                                <hr class="visible-sm visible-xs" />
+                                <div class="panel-header">
+                                    <h3>Family</h3>
+                                </div>
+                                <div id="spouse-partner">
+                                </div>
+                                <div id="spouse-partner-item" class="panel-alt">
+                                    <h4 class="pull-left">Spouse / Partner</h4>
+
+                                    <a class="pull-right" id="spouse-partner-remove" onclick="RemoveSpouse()"><i class="icon-close"></i> Clear <span class='visible-md-inline visible-lg-inline'>Information</span></a>
+
+
+                                    <div class="row clearfix">
+                                        <div class="col-md-6">
+
+                                            <div class="form-group">
+                                                <label for="genderInputTextId">Gender</label>
+                                                <apex:inputfield value="{!Spousecontact.Gender__c}" id="genderInputTextId" styleclass="form-control" />
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <div class="form-group">
+                                                <label>Prefix</label>
+                                                <apex:inputfield value="{!Spousecontact.salutation}" id="SCprefixInputTextId" styleclass="form-control" />
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6">
+
+                                            <div class="form-group">
+                                                <label class="required">First Name</label>
+                                                <input class="form-control" value="{!Spousecontact.firstname}" id="SCFirstNameId" onkeyup="familyvalidateSelection()" />
+                                                <input type="hidden" style="display:none" value="{!Spousecontact.id}" id="SCId" />
+                                                <input type="hidden" style="display:none" value="{!Spousecontact.Birthdate}" id="SCDOBId" />
+                                                <input type="hidden" style="display:none" value="Spouse/Partner" id="RelationTypeSpID" />
+                                                <input type="hidden" style="display:none" value="true" id="SpouseActiveID" />
+                                            </div>
+
+                                        </div>
+
+                                        <div class="col-md-6">
+                                            <div class="form-group">
+                                                <label>Middle Name</label>
+                                                <input class="form-control" type="text" value="{!Spousecontact.Middle_Name__c}" id="SCMiddleNameId" />
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <div class="form-group">
+                                                <label class="required">Last Name</label>
+                                                <input class="form-control" type="text" value="{!Spousecontact.Lastname}" id="SCLastNameId" onkeyup="familyvalidateSelection()" />
+                                            </div>
+
+
+                                        </div>
+                                        <div class="col-md-6">
+                                            <div class="form-group">
+                                                <label>Suffix</label>
+                                                <apex:inputfield styleclass="form-control" value="{!Spousecontact.Suffix__c}" id="SCSuffixId" />
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6">
+
+
+                                            <div class="form-group">
+                                                <label class="required">Email</label>
+                                                <input class="form-control" type="email" value="{!Spousecontact.Email}" id="SCEmailId" onkeyup="familyvalidateSelection()" data-contact-id="{!Spousecontact.id}" onchange="validateEmail(this)" />
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <div class="form-group">
+                                                <label>Phone Number</label>
+                                                <div class="row condensed">
+                                                    <div class="col-xs-3">
+                                                        <input class="form-control" type="text" value="{!Spousecontact.Home_Phone_Country_Code__c}" id="SCPhoneCCId" data-bind="textInput: SpouseCCPhoneTextInput"/>
+                                                        <span class="validationMessage" data-bind="validationMessage: SpouseCCPhoneTextInput"></span>
+                                                    </div>
+                                                    <div class="col-xs-6">
+                                                        <input class="form-control" type="text" value="{!Spousecontact.HomePhone}" id="SCPhoneId" data-bind="textInput: SpousePhoneTextInput" />
+                                                        <span class="validationMessage" data-bind="validationMessage: SpousePhoneTextInput"></span>
+                                                    </div>
+                                                    <div class="col-xs-3">
+                                                        <input class="form-control" type="text" value="{!Spousecontact.Home_Phone_Extension__c}" id="SCPhoneEXTId" placeholder="Ext" data-bind="textInput: SpousePhoneExtTextInput"/>
+                                                        <span class="validationMessage" data-bind="validationMessage: SpousePhoneExtTextInput"></span>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <div class="form-group">
+                                                <label class="input-label" id="portalacclevelLabelId" for="portalacclevelInputTextId"> Permission to Access Exchange </label>
+                                                <apex:inputfield value="{!Spousecontact.Portal_Access_Level__c}" id="portalacclevelInputTextId" styleclass="form-control" />
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <button id="add-spouse-partner" class="section-button" type="button" onclick="AddSpouse()">
+                                    <i class="icon-plus"></i> Add a spouse/partner
+                                </button>
+                                <div id="children">
+                                    <!-- child -->
+                                    <!-- end child -->
+                                </div>
+                                <button id="add-child" class="section-button" type="button" onclick="addChildTags()">
+                                    <i class="icon-plus"></i> Add a child
+                                </button>
+                            </div>
+                            <!-- end panel -->
+                            <div class="action-panel">
+                                <button id="saveConfirmProfileButtonMobileId" class="btn btn-primary pull-right action-button" type="button" role="button">Continue</button>
+
+                            </div>
+                        </form>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="panel help visible-md visible-lg">
+                            <div class="panel-header text-center">
+                                <img class="panel-header-img" src="{!URLFOR($Resource.YPORenew, 'ypo-renewals/assets/img/help.svg')}" />
+                                <h3 class="help">{!$Label.Help_NeedHelp}</h3>
+                            </div>
+                            <p>{!$Label.Help_ifYouNeed} </p>
+                            <p class="clearfix need-help-phone">
+                                <!--<img class="pull-left need-help-phone" src="{!URLFOR($Resource.YPORenew, 'ypo-renewals/assets/img/phone.png')}"/> -->
+                                <i class="icon-phone"></i>
+                                <span class="pull-left">{!$Label.Help_Phone1}<br />{!$Label.Help_Phone2} </span>
+                            </p>
+                            <p class="clearfix need-help-email">
+                                <!--<img class="pull-left" src="{!URLFOR($Resource.YPORenew, 'ypo-renewals/assets/img/email.png')}"/>-->
+                                <i class="icon-email"></i>
+                                <span class="pull-left need-help-email">{!$Label.Help_Email} </span>
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- <div style="color:black"><apex:pagemessages /><br /></div> -->
+        <footer>
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-4"><img class="logo" src="{!URLFOR($Resource.YPORenew, 'ypo-renewals/assets/img/ypo-white.png')}" /></div>
+                    <div class="col-md-4 text-center"><a href="https://media.ypowpo.org/libraries/publicLegal/exchange/TOU.pdf" target="_blank" style="color: #fdfeff;">{!$Label.Copyright_TOU}</a></div>
+                    <div class="col-md-4 text-right">&copy; {!$Label.Copyright_YPO}</div>
+                </div>
+            </div>
+        </footer>
+
+
+
+        <apex:actionfunction action="{!saveOpportunity}" name="saveConfirmProfileActionFunc" />
+
+    </apex:form>
+    </body>
+
+
+    <!--  </apex:define>
+    </apex:composition>-->
+    <apex:includescript value="https://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js" />
+    <apex:includescript value="{!URLFOR($Resource.KGQuickstart_dist, '/js/detail.min.js')}" />
+    <apex:includescript value="{!URLFOR($Resource.knockout)}" />
+    <apex:includescript value="{!URLFOR($Resource.knockoutvalidation)}" />
+    <script>
+
+        var isAddAFamilyEdit = 'No';
+        var isContactProfileEdit = 'No';
+        var spouseChildContactResult;
+        var relationYouselectedVal='';
+        var profileContactResult;
+
+
+        var $j = jQuery.noConflict();
+
+
+        // ----------------------------------  JQuery Document Ready START ------------------
+        $j(document).ready(function() {
+
+            // load the member's current record
+            getAProfileContact();
+            // This is the pencil icon on Contact Information Page.
+            $j("#ContactDetailSpanlId").click(function(){
+                getAProfileContact();
+
+                $j("#ContactDetailDivPanelId").hide();
+                $j("#contactDetailDivId").hide();
+                $j("#contactEditDivId").show();
+                isContactProfileEdit = 'Yes';
+//                document.getElementById('saveId').disabled=true;
+//                document.getElementById('ProfileDownSaveId').disabled=true;
+//                document.getElementById('saveConfirmProfileButtonId').disabled=true;
+            });
+
+            // The below clicks for the Back to Update Profile View page
+            $j("#ContactEditSpanId").click(function(){
+                CancelToBackProfile();
+            });
+            $j("#ContactEditsvgId").click(function(){
+                CancelToBackProfile();
+            });
+            $j("#ContactEditBackProfileId").click(function(){
+                CancelToBackProfile();
+            });
+
+            // Update the Contact record when a save button clicked on Contact Information Sec.
+//            $j("#saveId").click(function(e){
+//                UpDownSaveButtonsONContactInfo(e,'ProfileSave');
+//            });
+            // Update the Contact record when a down save button clicked on Contact Information Sec.
+//            $j("#ProfileDownSaveId").click(function(e){
+//                UpDownSaveButtonsONContactInfo(e,'ProfileSave');
+//            });
+
+
+
+
+            // -----------------FAMILY MEMBER CLICK FUNCS STARTS-----------
+
+            // Update the Spouse/Child Contact record when a save button clicked at Family Section.
+//            $j("#FamilySaveId").click(function(e){
+//                //alert($j('#dobInputTextId').val());
+//                UpDownSaveButtonONFamilymember(e,'SpouseChildSave');
+//            });
+            // Update the Spouse/Child Contact record when a down save button clicked at Family Section.
+//            $j("#FamilyDownSaveId").click(function(e){
+//                UpDownSaveButtonONFamilymember(e,'SpouseChildSave');
+//            });
+
+            // The below buttons used for the Cancel / Back To Family members on Family member Form Edit Page
+//            $j("#familyCancelSpanId").click(function(){
+//                CancelBackToFamilyEditSec();
+//            });
+//            $j("#CancelBackToFamilyDownId").click(function(){
+//                CancelBackToFamilyEditSec();
+//            });
+
+            // This is for the Back to Family Member 1st Edit Section
+//            $j("#BackToFamilyOnFamilyMember1STEdit").click(function(){
+//                $j.confirm( {
+//                    title: 'Confirm!',
+//                    content: '{!$Label.ConfirmMessage_BackButton}',
+//                    buttons: {
+//                        Yes:function(){
+//                            $j("#ChildConSpanId").empty();
+//                            $j("#FamilyInfoViewDivPanelId").show();
+//                            $j("#FamilyInfoViewDivId").show();
+//                            $j("#FamilyEditDivId").hide();
+//                        },
+//                        No: function () {},
+//                    }
+//                });
+//            });
+
+//            $j("#familyEditIcon").click(function(){
+//                $j("#FamilyInfoViewDivPanelId").hide();
+//                $j("#FamilyInfoViewDivId").hide();
+//                $j("#FamilyEditDivId").show();
+//            });
+
+//            $j("#AddAFamilyMemberId").click(function(e){
+//                    $j("#FamilyInfoViewDivPanelId").hide();
+//                    $j("#FamilyInfoViewDivId").hide();
+//                    $j("#FamilyEditDivId").hide();
+//                    $j("#FamilyIndvidualEditDivId").show();
+//                    $j('#SCFirstNameId').val(null);
+//                    $j('#SCLastNameId').val(null);
+//                    $j('#SCEmailId').val(null);
+//                    $j('#SCPhoneId').val(null);
+//                    $j('#spouseChildContactId').val('');
+//                    $j('#SCRelationToYouId').val('');
+//                    self.requiredSelect('');
+//                    self.genderRequiredTextInput('');
+//                    $j('#dobInputTextId').val('');
+//                    self.dobRequiredTextInput('');
+//                    if(contactProfilehasSpouse == 'Yes'){
+//                        $j("#SCRelationToYouId option[value='Spouse/Partner']").remove();
+//                        $j("#portalaccleveldicId").hide();
+//                    }
+//                    emptyViewModel();
+//                    document.getElementById('FamilySaveId').disabled = true;
+//                    document.getElementById('FamilyDownSaveId').disabled = true;
+//                    //document.getElementById('saveConfirmProfileButtonId').disabled=true;
+//                    isAddAFamilyEdit = 'Yes';
+//                }
+//            );
+
+            // This is for the Continue button
+            $j("#saveConfirmProfileButtonMobileId").click(function(e) {
+                var errors = [];
+                //validator form
+                $('form').validator('destroy');
+                $('form').validator('validate');
+
+                isFromContinue = true;
+
+                // Show the alert box when there is a error in the form
+                if ($('form').data('bs.validator').validate().hasErrors()) {
+                    // handle the invalid form...
+                    showUpdateProfileAlertBox();
+                    window.console.log('ProfileAlertBox window display');
+                    isFromContinue = false;
+                } else if( UpdateProfileAlertBoxSet()) {
+                    window.console.log('Holding for Page Logged Error');
+                    isFromContinue = false;
+                } else if( isRemoteprocessing ) {
+                    window.console.log('Remote process running. Killing the process.');
+                } else {
+                    isFromContinue = false;
+                    try {
+                        window.console.log('email input checking');
+                        checkRequiredField("emailInputTextId");
+                        // checkRequiredField("SCEmailId");
+                        validateChildrenBirthdates();
+    //                        try { validateEmailAddressFormat("#emailInputTextId");} catch (error) { window.console.log('Error trapping within emailInputTextId.'); errors.push(error);} // validates profile email
+    //                        try { validateEmailAddressFormat("#SCEmailId");} catch (error) { window.console.log('Error trapping within SCEmailId.'); errors.push(error);} // validates spouse email
+    //                        try { validateEmailAddressesFormat("input[id^='ChildEMLID']");} catch (error) { window.console.log('Error trapping within ChildEMLID.'); errors.push(error);} // validates children email addresses
+
+                        if(errors.length > 0 ) {
+                            window.console.log('Error trapping within Try.');
+                            errors.forEach(function(error) {
+                                error.decorate();
+                            });
+                        } else {
+                            window.console.log('everything looks good!');
+                            e.preventDefault();
+                            hideUpdateProfileAlertBox();
+                            saveConfirmProfileDeskMobole();
+                        }
+                    } catch(error) {
+                        window.console.log('Catch error trap');
+                        error.decorate();
+                    }
+                }
+            });
+
+            if($('[id*="stateInputTextId"]').val().length>0 ){
+                if(!$('#stateLabelreqId').hasClass('required') ){
+                    $("#stateLabelreqId").addClass("required");
+                }
+            }else{
+                $("#stateLabelreqId").removeClass("required");
+            }
+
+        });
+
+        // ----------------------------------  JQuery Document Ready END ------------------
+
+        var timefn;
+
+        function BaseError(name, showErrorMessage, message) {
+            var that = this;
+
+            this.name = (name !== undefined && name !== null)? name: null;
+            this.message = (message !== undefined && message !== null)? message : null;
+            this.formGroup;
+            this.errors = [];
+            this.stack = (new Error()).stack;
+
+            function decorateErrors() {
+                that.errors.forEach(function (error) {
+                    decorateError(error);
+                });
+            }
+
+            function decorateError(error) {
+                error = (error === undefined || error === null) ? that : error;
+                if (error.formGroup !== undefined && error.formGroup !== null) {
+                    doErrorDecoration(error);
+                }
+            }
+
+            function doErrorDecoration(error) {
+                window.setTimeout(function (obj) {
+                    if (obj.errors.length > 0) {
+                        obj.errors.forEach(function(error) {
+                            error.formGroup.addClass('has-error');
+                        });
+                    } else {
+                        obj.formGroup.addClass('has-error');
+                    }
+
+                }, 250, error);
+            }
+
+            this.decorate = function () {
+                if (typeof showErrorMessage === "function") {
+                    showErrorMessage(this.message);
+                }
+
+                decorateError();
+                decorateErrors();
+            }
+        }
+        BaseError.prototype = new Error();
+        BaseError.prototype.constructor = BaseError;
+
+        function BirthDateInvalidError(showErrorMessage, message) {
+            BaseError.apply(this, ['Birth Date Invalid Error', showErrorMessage, getMessage(message)]);
+
+            function getMessage(message) {
+                message = (message === undefined || message === null)? "Please enter a valid date for birth date.": message;
+                return message;
+            }
+        }
+        BirthDateInvalidError.prototype = new BaseError();
+        BirthDateInvalidError.prototype.constructor = BirthDateInvalidError;
+
+        function EmailAddressFormatInvalidError(showErrorMessage, message) {
+            BaseError.apply(this, ['Email Address Format Invalid Error', showErrorMessage, getMessage(message)]);
+
+            function getMessage(message) {
+                message = (message === undefined || message === null)? "The email address entered is not a valid address.  Please check and try again." : message;
+                return message;
+            }
+        }
+        EmailAddressFormatInvalidError.prototype = new BaseError();
+        EmailAddressFormatInvalidError.prototype.constructor = EmailAddressFormatInvalidError;
+
+        function RequiredFieldError(showErrorMessage, message) {
+            BaseError.apply(this, ['Required Field Error', showErrorMessage, getMessage(message)]);
+
+            function getMessage(message) {
+                message = (message === undefined || message === null)? "All of the required fields have not been completed." : message;
+                return message;
+            }
+        }
+        RequiredFieldError.prototype = new BaseError();
+        RequiredFieldError.prototype.constructor = RequiredFieldError;
+
+        function checkRequiredField(requiredFieldId, formGroupId) {
+            var $requiredField = (requiredFieldId !== undefined && requiredFieldId !== null) ? $("#"+requiredFieldId): null,
+                requiredFieldValue,
+                requiredFieldError,
+                throwRequiredFieldError = false;
+
+            if ($requiredField === null) throw new Error("Must define emailAddressId parameter.");
+
+            if ($requiredField.length > 0) {
+                requiredFieldValue = $requiredField.val();
+
+                if (requiredFieldValue === undefined || requiredFieldValue === null) {
+                    throwRequiredFieldError = true;
+                }
+
+                if (requiredFieldValue.trim().length == 0) {
+                    throwRequiredFieldError = true;
+                }
+
+                if (throwRequiredFieldError) {
+                    requiredFieldError = new RequiredFieldError(showUpdateProfileAlertBox);
+                    requiredFieldError.formGroup = (formGroupId !== undefined && formGroupId !== null)? $("#"+formGroupId) : $requiredField.parent();
+                    throw requiredFieldError;
+                }
+            }
+        }
+
+        function validateEmailAddressesFormat(addressIdSelector) {
+            var $targetElements = $("#children").find(addressIdSelector), //findElementsThatStartWith()
+                childrenEmailAddressFormatErrors = [],
+                emailAddressFieldFormatError,
+                childEmailAddressFieldError,
+                $targetElement,
+                emailAddress;
+
+            $targetElements.each(function() {
+                $targetElement = $(this);
+
+                if ($targetElement.length > 0) {
+                    emailAddress = $targetElement.val();
+
+                    if (emailAddress !== undefined && emailAddress !== null) {
+                        if (emailAddress.trim().length > 0) {
+                            if (!isvalidateEmailAddress(emailAddress)) {
+                                childEmailAddressFieldError = new EmailAddressFormatInvalidError(showUpdateProfileAlertBox);
+                                childEmailAddressFieldError.formGroup = $targetElement.parent();
+                                childrenEmailAddressFormatErrors.push(childEmailAddressFieldError);
+                            }
+                        }
+                    }
+                }
+            });
+
+            if (childrenEmailAddressFormatErrors.length > 0) {
+                emailAddressFieldFormatError = new EmailAddressFormatInvalidError(showUpdateProfileAlertBox);
+                emailAddressFieldFormatError.errors = childrenEmailAddressFormatErrors;
+                throw emailAddressFieldFormatError;
+            }
+        }
+
+        function validateEmailAddressFormat(emailAddressIdSelector, formGroupId) {
+            var emailAddress,
+                emailAddressFieldError,
+                $emailAddressElement = (emailAddressIdSelector !== undefined && emailAddressIdSelector !== null)? $(emailAddressIdSelector) : null;
+
+            if ($emailAddressElement === null) throw new Error("Must define emailAddressId parameter.");
+
+            if ($emailAddressElement.length > 0) {
+                emailAddress = $emailAddressElement.val();
+
+                if (emailAddress !== undefined && emailAddress !== null) {
+                    if (emailAddress.trim().length > 0) {
+                        if (!isvalidateEmailAddress(emailAddress)) {
+                            emailAddressFieldError = new EmailAddressFormatInvalidError(showUpdateProfileAlertBox);
+                            emailAddressFieldError.formGroup = (formGroupId !== undefined && formGroupId !== null)? $("#"+formGroupId) : $emailAddressElement.parent();
+                            throw emailAddressFieldError;
+                        }
+                    }
+                }
+            }
+        }
+
+        function showUpdateProfileAlertBox(errorMessage) {
+            var originalErrorMessage = "All of the required fields have not been completed.";
+
+            if (errorMessage === undefined || errorMessage === null) {
+                errorMessage = originalErrorMessage;
+            }
+
+            if (errorMessage !== undefined && errorMessage !== null) {
+                if (errorMessage.trim().length > 0) {
+                    $("#update-profile-alert").find("span:first").text(errorMessage);
+                    $('#update-profile-alert').removeClass('hide').addClass('show');
+                }
+            }
+
+            window.setTimeout(function () {
+                $('html, body').animate({ scrollTop: $('#update-profile-alert').offset().top - 90 }, 500);
+            }, 0);
+        }
+
+        function UpdateProfileAlertBoxSet() {
+            if (document.getElementById("update-profile-alert").classList.contains('show')) {
+                if(document.getElementById('update-profile-alert').hasAttribute('data-ctrl')) {
+                    var ctrl = document.getElementById('update-profile-alert').getAttribute('data-ctrl');
+                    $(ctrl).addClass("has-error");
+                }
+                window.setTimeout(function () {
+                    $('html, body').animate({ scrollTop: $('#update-profile-alert').offset().top - 90 }, 500);
+                }, 0);
+                return true;
+            } else {
+                return false;
+            }
+        }
+
+        function hideUpdateProfileAlertBox() {
+            var originalErrorMessage = "All of the required fields have not been completed.";
+            $("#update-profile-alert").find("span:first").text(originalErrorMessage);
+            $('#update-profile-alert').removeClass('show').addClass('hide');
+        }
+
+        function validateEmail(ctrl) {
+            var email = $(ctrl).val(),
+                contactid = $(ctrl).data("contact-id"),
+                localemailCopy = 0;
+
+            $(ctrl).parent().removeClass("has-error");
+            hideUpdateProfileAlertBox();
+            //$(ctrl).next().hide();
+            window.console.log(email);
+            window.console.log(contactid);
+            if (isvalidateEmailAddress(email)) {
+                if (memberEmailCheck(email)) {
+                    localemailCopy++
+                }
+                if (spouseEmailCheck(email)) {
+                    localemailCopy++
+                }
+                if(childrenEmailCheck(email)) {
+                    localemailCopy++
+                }
+
+                if(localemailCopy > 1) { //Then there is more than one instance with this email
+                    $(ctrl).parent().addClass("has-error");
+                    showUpdateProfileAlertBox('This Email is a duplicate with another Email. Please use another email address to continue.');
+                } else
+                    duplicateEmailCheck(email,UndefinedToEmptyStr(contactid),ctrl);
+            } else {
+                $(ctrl).parent().addClass("has-error");
+                showUpdateProfileAlertBox('Email format is not proper. Please correct to continue.');
+            }
+        }
+
+        function memberEmailCheck(email) {
+            if (email === $('#emailInputTextId').val())
+                return true;
+            else
+                return false;
+        }
+
+        function spouseEmailCheck(email) {
+            if (email === $('#SCEmailId').val())
+                return true;
+            else
+                return false;
+        }
+
+        function childrenEmailCheck(email) {
+            var childId,
+                childIndex,
+                emaildupcount = 0,
+                $childrenElements = findChildrenElements();
+
+            $childrenElements.each(function(childElementIndex, $childElement) {
+                childId = $(this).attr("id");
+                childIndex = childId.substring(6);
+
+                if ($("#ChildEMLID"+childIndex).val() === email) {
+                    emaildupcount++
+                }
+            });
+
+            if(emaildupcount > 0)
+                return true;
+            else
+                return false;
+        }
+
+        function findChildrenElements() {
+            return $("#children").find("div[id^='child-']");
+        }
+
+        function validateChildrenBirthdates() {
+            var childId,
+                childIndex,
+                $day,
+                day,
+                $month,
+                month,
+                $year,
+                year,
+                birthDateInvalidError,
+                $childrenElements = findChildrenElements();
+
+            $childrenElements.each(function(childElementIndex, $childElement) {
+                childId = $(this).attr("id");
+                childIndex = childId.substring(6);
+                $day = $(this).find("#dobddTextid"+childIndex);
+                day = $day.val();
+                $month = $(this).find("#dobmmTextid"+childIndex);
+                month = $(this).find("#dobmmTextid"+childIndex + " option:selected").text();
+                $year = $(this).find("#dobyyTextid"+childIndex);
+                year = $year.val();
+
+                if (day !== undefined && day !== null && month !== undefined && month !== null && year !== undefined && year !== null) {
+                    if (day.trim().length > 0 && month.trim().length > 0 && year.trim().length > 0) {
+                        if (!isValidDate([day, month, year])) {
+                            birthDateInvalidError = new BirthDateInvalidError(showUpdateProfileAlertBox);
+                            birthDateInvalidError.formGroup = $day.parent().parent().parent();
+                        }
+                    }
+                }
+            });
+
+            if (birthDateInvalidError !== undefined && birthDateInvalidError !== null) {
+                throw birthDateInvalidError;
+            }
+        }
+
+        /****** START OF ISVALIDDATE FUNCTIONS *****/
+        /****** THESE FUNCTIONS SHOULD BE PUT INTO A STATIC JS RESOURCE FILE TO PROMOTE REUSABILITY AND EASY MAINTAINANCE ******/
+        function isValidDate(someDateArray) {
+            var day,month, year, monthConfig, validDate = false;
+
+            if (Array.isArray(someDateArray)) {
+                day = parseInt(someDateArray[0]);
+                month = parseInt(someDateArray[1]);
+                year = parseInt(someDateArray[2]);
+
+                if (day !== NaN && month !== NaN && year !== NaN) {
+                    monthConfig = findMonth(month-1);
+
+                    if (monthConfig !== undefined) {
+                        if (day <= monthConfig.totalDays) {
+                            validDate = isValidDayOfMonth(day, year, monthConfig);;
+                        }
+                    }
+                }
+            }
+
+            return validDate;
+        }
+
+        function isMonthFebruary(monthConfig){
+            return (monthConfig && monthConfig.name === "February");
+        }
+
+        function isValidDayOfMonth(someDay, someYear, someMonthConfig) {
+            var validDayOfMonth = false;
+
+            if (someDay > -1 && someYear > 1900 && someMonthConfig !== undefined && someMonthConfig !== null) {
+                if (isMonthFebruary(someMonthConfig) && someDay === someMonthConfig.totalDays) {
+                    if (isLeapYear(someYear)) {
+                        validDayOfMonth = true;
+                    }
+                } else if (someDay <= someMonthConfig.totalDays) {
+                    validDayOfMonth = true;
+                }
+            }
+
+            return validDayOfMonth;
+        }
+
+        function isLeapYear(someYear) {
+            var isYearDivisibleBy4 = false,
+                divisibleBy4 = (someYear / 4),
+                isYearDivisibleBy100 = false,
+                divisibleBy100 = (someYear / 100),
+                isYearDivisibleBy400 = false,
+                divisibleBy400 = (someYear / 400),
+                leapYear = false;
+
+            isYearDivisibleBy4 = isInteger(divisibleBy4);
+            //Logic #2 - is the year divisible by 100 ?
+            isYearDivisibleBy100 = isInteger(divisibleBy100);
+
+            //Logic #3 - is the year divisible by 400 ?
+            isYearDivisibleBy400 = isInteger(divisibleBy400);
+
+            if(isYearDivisibleBy4) {
+                if (isYearDivisibleBy100) {
+                    if (isYearDivisibleBy400) {
+                        leapYear = true;
+                    }
+                } else {
+                    leapYear = true;
+                }
+            }
+
+            return leapYear
+        }
+
+        function isInteger(someInteger) {
+            var integerAnswer = someInteger % 1 === 0;
+            return integerAnswer;
+        }
+
+        function findMonth(monthIndex) {
+            var month, months = [
+                {name: "January", totalDays: 31},
+                {name: "February", totalDays: 29},
+                {name: "March", totalDays: 31},
+                {name: "April", totalDays: 30},
+                {name: "May", totalDays: 31},
+                {name: "June", totalDays: 30},
+                {name: "July", totalDays: 31},
+                {name: "August", totalDays: 31},
+                {name: "September", totalDays: 30},
+                {name: "October", totalDays: 31},
+                {name: "November", totalDays: 30},
+                {name: "December", totalDays: 31}
+            ];
+
+            if ( monthIndex > -1 && monthIndex < months.length) {
+                month = months[monthIndex];
+            }
+
+            return month;
+        }
+        /****** END OF ISVALIDDATE FUNCTIONS *****/
+
+        // The below method is used for the navigation when you click on save & confirm button either in Mobile/Desktop
+        function saveConfirmProfileDeskMobole(){
+            updateSpouseContactAdd();
+            updateChildContactAdd();
+            updateContactAdd();
+
+            //wait 3 seconds to let updates to finish.
+            setTimeout(function() {
+                window.console.log('Timer click for 3 secs');
+                saveConfirmProfileActionFunc(); // off to navigation
+            }, 3000);
+        }
+
+        // This is for the Cancel & Back to Profile on Contact Information Edit Section
+        function CancelToBackProfile(){
+            $j.confirm( {
+                title: 'Confirm!',
+                content: '{!$Label.ConfirmMessage_BackButton}',
+                buttons: {
+                    Yes:function(){
+                        $j("#ContactDetailDivPanelId").css({'display':'block'});
+                        $j("#contactDetailDivId").css({'display':'block'});
+                        $j("#contactEditDivId").css({'display':'none'});
+                        isContactProfileEdit = 'No';
+                        if( isContactProfileEdit == 'Yes' || isAddAFamilyEdit == 'Yes'){
+                            //document.getElementById('saveConfirmProfileButtonId').disabled= true;
+                        }else{
+                            //document.getElementById('saveConfirmProfileButtonId').disabled= false;
+                        }
+                    },
+                    No: function () {},
+                }
+            });
+        }
+
+        // This is for the Cancel and Back buttons on Family Members Form Edit Section , Goto Family Member Edit Sec
+        function CancelBackToFamilyEditSec(){
+            $j.confirm( {
+                title: 'Confirm!',
+                content: '{!$Label.ConfirmMessage_BackButton}',
+                buttons: {
+                    Yes:function(){
+                        isAddAFamilyEdit = 'No';
+                        $j("#FamilyInfoViewDivPanelId").hide();
+                        $j("#FamilyInfoViewDivId").hide();
+                        $j("#FamilyIndvidualEditDivId").hide();
+                        $j("#FamilyEditDivId").show();
+                        $j('#SCRelationToYouId').empty();
+                        $j('#SCRelationToYouId').append('<option value="">Choose</option>');
+                        $j('#SCRelationToYouId').append('<option value="Spouse/Partner">Spouse/Partner</option>');
+                        $j('#SCRelationToYouId').append('<option value="Child">Child</option>');
+
+                        if( isContactProfileEdit == 'Yes' || isAddAFamilyEdit == 'Yes'){
+                            //document.getElementById('saveConfirmProfileButtonId').disabled= true;
+                        }else{
+                            //document.getElementById('saveConfirmProfileButtonId').disabled= false;
+                        }
+                    },
+                    No: function () {},
+                }
+            });
+        }
+
+        function getAProfileContact(){
+            var profileconId = '{!con.Id}';
+            Visualforce.remoting.Manager.invokeAction(
+                '{!$RemoteAction.UpdateProfileInfoController_YPO.getAContact}',
+                profileconId,
+                function(result, event){
+                    //console.log(result);
+                    if (event.status) {
+                        profileContactResult = result;
+
+                        var psalutation = result.Salutation;
+                        var pfirstName = result.FirstName;
+                        var pmiddileName = result.Middle_Name__c
+                        var plastName = result.LastName;
+                        var pSuffix = result.Suffix__c;
+                        var pemail1 = result.Email;
+                        var phomephoneCC= result.Home_Phone_Country_Code__c;
+                        var phomephone= result.HomePhone;
+                        var phomephoneExt = result.Home_Phone_Extension__c;
+                        var pmpccode = result.Mobile_Phone_Country_Code__c;
+                        var pmobileph = result.MobilePhone;
+                        var pccode = result.Country_Code__c;
+                        var pphone = result.Phone;
+                        var pphoneExt = result.Business_Phone_Ext__c;
+
+                        var primaryAddress1 =  result.Is_Address1_Primary__c;
+                        var primaryAddress2 =  result.Is_Address2_Primary__c;
+
+                        var pMailingStreet;
+                        var pMailingCity;
+                        var pMailingStateCode;
+                        var pMailingCountryCode;
+                        var pMailingPostalCode;
+                        var pAddressType;
+                        var privateAddress;
+                        if(primaryAddress1 == true){
+                            pMailingStreet = result.MailingStreet;
+                            pMailingCity = result.MailingCity;
+                            pMailingStateCode = result.MailingStateCode;
+                            pMailingCountryCode = result.MailingCountryCode;
+                            pMailingPostalCode = result.MailingPostalCode;
+                            pAddressType = result.Address1_Type__c;
+                            privateAddress = result.Is_Address1_Private__c;
+                            if(privateAddress == true){
+                                $j('#PrivateAddressInputId').prop( "checked", true );
+                            }else {
+                                $j('#PrivateAddressInputId').prop( "checked", false );
+                            }
+
+                        }else if(primaryAddress2 == true){
+                            pMailingStreet = result.OtherStreet;
+                            pMailingCity = result.OtherCity;
+                            pMailingStateCode = result.OtherStateCode;
+                            pMailingCountryCode = result.OtherCountryCode;
+                            pMailingPostalCode = result.OtherPostalCode;
+                            pAddressType = result.Address2_Type__c;
+                            privateAddress = result.Is_Address2_Private__c;
+                            if(privateAddress == true){
+                                $j('#PrivateAddressInputId').prop( "checked", true );
+                            }else {
+                                $j('#PrivateAddressInputId').prop( "checked", false );
+                            }
+                        }else{
+                            pMailingStreet = result.MailingStreet;
+                            pMailingCity = result.MailingCity;
+                            pMailingStateCode = result.MailingStateCode;
+                            pMailingCountryCode = result.MailingCountryCode;
+                            pMailingPostalCode = result.MailingPostalCode;
+                            pAddressType = result.Address1_Type__c;
+                            privateAddress = result.Is_Address1_Private__c;
+                            if(privateAddress == true){
+                                $j('#PrivateAddressInputId').prop( "checked", true );
+                            }else {
+                                $j('#PrivateAddressInputId').prop( "checked", false );
+                            }
+                        }
+                        self.salutationrquiredTextInput(psalutation);
+                        self.middleNamerrquiredTextInput(pmiddileName);
+                        self.suffixrquiredTextInput(pSuffix);
+                        self.homePhoneCCrequiredTextInput(phomephoneCC);
+                        self.homePhonerequiredTextInput(phomephone);
+                        self.homePhoneExtRequiredTextInput(phomephoneExt);
+                        self.businessPhExtrequiredTextInput(pphoneExt);
+                        self.FirstnameTextInput(pfirstName);
+                        self.LastnameTextInput(plastName);
+                        self.MemberEmailTextInput(pemail1);
+                        self.mobileCCInputTextId(pmpccode);
+                        self.mobilePhoneInput(pmobileph);
+                        self.businessCCPhoneInput(pccode);
+                        self.businessPhoneInput(pphone);
+
+                        self.requiredTextInput11(pMailingCountryCode);
+                        self.requiredTextInput8(pMailingStreet);
+                        self.requiredTextInput9(pMailingCity);
+                        if(pMailingStateCode == undefined || pMailingStateCode == '' || pMailingStateCode == null){
+                            self.requiredTextInput10('');
+                        }else{
+                            self.requiredTextInput10(pMailingStateCode);
+                        }
+                        self.requiredTextInput12(pMailingPostalCode);
+                        self.addressTyperequiredTextInput(pAddressType);
+
+                        //Spouse load
+                        self.SpouseCCPhoneTextInput('{!Spousecontact.Home_Phone_Country_Code__c}');
+                        self.SpousePhoneTextInput('{!Spousecontact.HomePhone}');
+                        self.SpousePhoneExtTextInput('{!Spousecontact.Home_Phone_Extension__c}');
+                    }else{
+                        window.console.log('Error in Child Record While retrieving');
+                    }
+                },
+                {escape: false}
+            );
+        }
+
+        function isvalidateEmailAddress(email) {
+            var re = /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+            if (email !== undefined && email !== null) {
+                return re.test(email);
+            } else {
+                return true; //Blank is ok; let it go.
+            }
+        }
+
+        var isRemoteprocessing = false;
+        var isFromContinue = false;
+
+        // This is for the checking duplicate email in contacts
+        function duplicateEmailCheck(JDupEmail, JDupID, ctrl){
+            window.console.log('Checking for Duplicate Emails');
+            //Capture this running of this remote run - RMB
+            isRemoteprocessing = true;
+
+            Visualforce.remoting.Manager.invokeAction(
+                '{!$RemoteAction.UpdateProfileInfoController_YPO.isDuplicateEMail}',
+                JDupEmail, JDupID,
+                function(result, event){
+                    if (event.status) {
+                        // If result true then duplicate email found.
+                        if(result == true){
+                            window.console.log('duplicateEmailCheck - duplicate email found.');
+                            document.getElementById('update-profile-alert').setAttribute('data-ctrl', $(ctrl).parent().id);
+                            $(ctrl).parent().addClass("has-error");
+                            showUpdateProfileAlertBox('Duplicate email found. Please provide a different email.');
+                            isRemoteprocessing=false; //Remote processing has completed - RMB
+                        } else {
+                            window.console.log('duplicateEmailCheck - No duplicate email found.');
+                            hideUpdateProfileAlertBox();
+                            isRemoteprocessing=false; //Remote processing has completed - RMB
+                            if (isFromContinue) {
+                                $j("#saveConfirmProfileButtonMobileId").click();
+                            }
+                        }
+                    }else{
+                        window.console.log('duplicateEmailCheck - Action Error: ');
+                    }
+                },
+                {escape: false}
+            );
+        }
+
+
+
+        // This is out side ready functions: To Update the Contact Record
+        var indexcontactupdate;
+        function updateContactAdd(){
+
+            var JId = '{!con.Id}';
+            var JSalutation = $j('[id*="salutationInputTextId"]').val();
+            var JFirstName =  $j('#firstNameInputTextId').val().replace(/'/g, "\'");
+            var JMiddleName = $j('#middleNameInputTextId').val().replace(/'/g, "\'");
+            var JLastName = $j('#lastNameInputTextId').val().replace(/'/g, "\'");
+            var JSuffix = $j('[id*="suffixInputTextId"]').val().replace(/'/g, "\'");
+            var JEmail = $j('#emailInputTextId').val();
+            var JHomePhoneCC = $j('#homePhoneCCInputTextId').val();
+            var JHomePhone  = $j('#homePhoneInputTextId').val();
+            var JHomePhoneExt  = $j('#homePhoneExtInputTextId').val();
+            var JMobilePhoneCountryCode = $j('#personalmobileCCInputTextId').val();
+            var JMobilePhone = $j('#personalmobileInputTextId').val();
+            var JCountryCode = $j('#businessphoneCCInputTextId').val();
+            var JPhone = $j('#businessphoneInputTextId').val();
+            var JBuinessPhoneExt = $j('#businessphoneExtInputTextId').val();
+
+            var JAddressType = '';
+            var JMailingStreet = '';
+            var JMailingCity = '';
+            var JMailingStateCode = '';
+            var JMailingCountryCode ='';
+            var JMailingPostalCode ='';
+
+            JAddressType = $j('[id*="addressTypeInputTextId"]').val();
+            JMailingStreet = $j('#streetInputTextId').val().replace(/'/g, "\'") + '\\r\\n' + $j('#streetInputTextId2').val().replace(/'/g, "\'");
+            JMailingCity = $j('#cityInputTextId').val().replace(/'/g, "\'");
+            JMailingStateCode = $j("[id*=stateInputTextId]").val();
+
+            if ($j('[id*="stateInputTextId"]').val().length==3 ){
+                var state3chr = $j('[id*="stateInputTextId"]').val();
+                if(state3chr.substr(0, 1) == '_' && state3chr.substr(2,1) == '_' ){
+                    JMailingStateCode='';
+                }
+            }
+            JMailingCountryCode = countryInputTextIdVar.value;
+            JMailingPostalCode = $j('#PostalInputTextId').val();
+
+            var JPrivateAddress;
+            if($j('#PrivateAddressInputId').is(':checked') == true){
+                JPrivateAddress = true;
+            }else{
+                JPrivateAddress = false;
+            }
+
+            var JPrimaryAddrJson;
+            if(profileContactResult.Is_Address1_Primary__c == true){
+                JPrimaryAddrJson = '\" , "Address1_Type__c"   : \"'+ JAddressType
+                    + '\" , "Is_Address1_Private__c"   : \"'+ JPrivateAddress
+                    + '\" , "MailingStreet" : \"'+JMailingStreet
+                    + '\" , "MailingCity"   : \"'+JMailingCity
+                    + '\" , "MailingStateCode"   : \"'+JMailingStateCode
+                    + '\" , "MailingCountryCode" : \"'+JMailingCountryCode
+                    + '\" , "MailingPostalCode" : \"'+JMailingPostalCode;
+            }else if(profileContactResult.Is_Address2_Primary__c == true){
+                JPrimaryAddrJson = '\" , "Address2_Type__c"   : \"'+ JAddressType
+                    + '\" , "Is_Address2_Private__c"   : \"'+ JPrivateAddress
+                    + '\" , "OtherStreet" : \"'+JMailingStreet
+                    + '\" , "OtherCity"   : \"'+JMailingCity
+                    + '\" , "OtherStateCode"   : \"'+ JMailingStateCode
+                    + '\" , "OtherCountryCode" : \"'+JMailingCountryCode
+                    + '\" , "OtherPostalCode" : \"'+JMailingPostalCode;
+            }else{
+                JPrimaryAddrJson = '\" , "Address1_Type__c"   : \"'+ JAddressType
+                    + '\" , "Is_Address1_Private__c"   : \"'+ JPrivateAddress
+                    + '\" , "MailingStreet" : \"'+JMailingStreet
+                    + '\" , "MailingCity"   : \"'+JMailingCity
+                    + '\" , "MailingStateCode"   : \"'+JMailingStateCode
+                    + '\" , "MailingCountryCode" : \"'+JMailingCountryCode
+                    + '\" , "MailingPostalCode" : \"'+JMailingPostalCode;
+            }
+
+            var jsonContact = '{ "Id" : \"'+ JId
+                + '\" , "Salutation"   : \"'+ JSalutation
+                + '\" , "FirstName"   : \"'+ JFirstName
+                + '\" , "Middle_Name__c"   : \"'+ JMiddleName
+                + '\" , "LastName"    : \"'+ JLastName
+                + '\" , "Suffix__c"    : \"'+ JSuffix
+                + '\" , "Email"       : \"'+ JEmail
+
+                + '\" , "Home_Phone_Country_Code__c"       : \"'+ JHomePhoneCC
+                + '\" , "HomePhone"       : \"'+ JHomePhone
+                + '\" , "Home_Phone_Extension__c"       : \"'+ JHomePhoneExt
+
+                + '\" , "Mobile_Phone_Country_Code__c" : \"'+ JMobilePhoneCountryCode
+                + '\" , "MobilePhone" : \"'+JMobilePhone
+
+                + '\" , "Country_Code__c" : \"'+ JCountryCode
+                + '\" , "Phone"       : \"'+JPhone
+                + '\" , "Business_Phone_Ext__c"       : \"'+JBuinessPhoneExt
+
+                + JPrimaryAddrJson
+
+                + '\" }';
+
+            //window.console.log('Profile Contact JSON Str \n'+jsonContact);
+            //Capture this running of this remote run - RMB
+            //indexcontactupdate = Remoteprocessing.length;
+            //Remoteprocessing[indexcontactupdate] = 1;
+
+            Visualforce.remoting.Manager.invokeAction(
+                '{!$RemoteAction.UpdateProfileInfoController_YPO.updateContactProfile}',
+                jsonContact,
+                function(result, event){
+                    if (event.status) {
+                        //Remoteprocessing[indexcontactupdate] = 0; //Remote processing has completed - RMB
+                    }else{
+                        window.console.log('Error');
+                        //Remoteprocessing[indexcontactupdate] = 0; //Remote processing has completed - RMB
+                    }
+                },
+                {escape: false}
+            );
+        }
+
+        // Callback to handle DML Remote Objects calls
+        function updateCallback(err, ids){
+            if (err) {
+                //displayError(err);
+                window.console.log('This is bug in update Profile Contact\n'+err);
+            } else {
+                // Reload the contacts with current record
+                //getAContacts();
+            }
+        }
+
+        function UndefinedToEmptyStr(fieldValue){
+            var returnedFieldVal;
+            if( fieldValue == undefined || fieldValue == null ||  fieldValue == '--None--' ){
+                returnedFieldVal = '';
+                return returnedFieldVal;
+            }else{
+                return fieldValue;
+            }
+        }
+        function toPhoneFormat(phoneField){
+            var mobileformat ='';
+            if(phoneField != null && phoneField != '' && phoneField != undefined){
+                phoneField = phoneField.replace(/\D/g,'');
+                // phoneField = phoneField.replace(/\W/g,'');
+                mobileformat = phoneField.substr(0, 3) + '.' + phoneField.substr(3, 3) + '.' + phoneField.substr(6,4);
+                return mobileformat;
+            }else mobileformat;
+        }
+
+        function validateSelection() {
+            hideUpdateProfileAlertBox();
+            var optionslen = $('[id*="stateInputTextId"] option').length;
+            if(optionslen > 1 && $('[id*="stateInputTextId"]').val().length==0 ){
+                toEnable=false;
+                self.requiredTextInput10('--None--');
+                if(!$('#stateLabelreqId').hasClass('required') ){
+                    $("#stateLabelreqId").addClass("required");
+                }
+            }else{
+                $("#stateMessageSpanId").text('');
+                $("#stateLabelreqId").removeClass("required");
+            }
+        }
+
+        function validatepattern(ctrl,pattern) {
+
+            if (pattern.test(ctrl.value)) {
+                $(ctrl).parent().removeClass("has-error");
+                hideUpdateProfileAlertBox();
+            } else {
+                document.getElementById('update-profile-alert').setAttribute('data-ctrl', $(ctrl).parent().id);
+                $(ctrl).parent().addClass("has-error");
+                showUpdateProfileAlertBox('Phone format is not proper. Please correct to continue.');
+            }
+
+        }
+
+        function firstloadSaveConfirmEnable(){
+            familyvalidateSelection();
+            validateSelection();
+            childvalidateSelection();
+        }
+
+        function familyvalidateSelection(){
+            hideUpdateProfileAlertBox();
+        }
+
+        function childvalidateSelection(){
+            hideUpdateProfileAlertBox();
+            for (var k=1;k<=childTags;k++)
+            {
+                var toEnable=true;
+                var CheckChildID = document.getElementById('ChildActiveID'+k).value;
+
+                if(CheckChildID=="true")
+                {
+                    if($j('#ChildFNID'+k).val().length==0){
+                        toEnable=false;
+                    }
+                    if ( $j('#ChildLNID'+k).val().length==0){
+                        toEnable=false;
+                    }
+                    //alert(toEnable);
+                    //document.getElementById('saveConfirmProfileButtonMobileId').disabled=!toEnable;
+                }
+                //document.getElementById('saveConfirmProfileButtonMobileId').disabled=!toEnable;
+            }
+        }
+
+
+        function familyRelationYouSelect(relYouSelVal){
+            relationYouselectedVal = relYouSelVal;
+            if(relYouSelVal == 'Spouse/Partner'){
+                $j("#portalaccleveldicId").show();
+                $j("#dobdivId").hide();
+                if($j('#ChildEmailLabelId').hasClass('is-required')){
+                }else{
+                    $j("#ChildEmailLabelId").addClass("is-required");
+                }
+            }else{
+                $j("#portalaccleveldicId").hide();
+                $j("#dobdivId").show();
+                if($j('#ChildEmailLabelId').hasClass('is-required')){
+                    $j("#ChildEmailLabelId").removeClass("is-required");
+                }
+            }
+            familyvalidateSelection();
+        }
+
+        // THE BELOW CODE IS FOR SPOUSE & CHILD DETAILS: --- START---
+
+        function AddSpouse(){
+            $('#spouse-partner-item').show();
+            $('#add-spouse-partner').hide();
+            $('#SCFirstNameId ').prop('required', true);
+            $('#SCLastNameId').prop('required', true);
+            $('#SCEmailId  ').prop('required', true);
+            familyvalidateSelection();
+        }
+
+        <!------ New Spouse Hide Show Function -------->
+        function showSpouse(){
+            //var SPfirstName = $j('#SpouseFName').val();
+            var SPfirstName = '{!Spousecontact.firstname}';
+            if(SPfirstName =null || SPfirstName=="" ) {
+                document.getElementById('spouse-partner-item').style.display= "none";
+                document.getElementById('add-spouse-partner').style.display= "";
+                $('#SCFirstNameId ').prop('required', false);
+                $('#SCLastNameId').prop('required', false);
+                $('#SCEmailId  ').prop('required', false);
+            } else {
+                document.getElementById('spouse-partner-item').style.display= "";
+                document.getElementById('add-spouse-partner').style.display= "none";
+                document.getElementById('spouse-partner-remove').style.display= "none";
+                $('#SCFirstNameId ').prop('required', true);
+                $('#SCLastNameId').prop('required', true);
+                $('#SCEmailId  ').prop('required', true);
+            }
+        }
+        <!---- Function Ends  ----------------->
+
+        <!------ New Spouse Hide Show Function -------->
+        function RemoveSpouse(){
+            $('#SCFirstNameId').prop('required', false);
+            $('#SCLastNameId').prop('required', false);
+            $('#SCEmailId').prop('required', false);
+            $("#SCFirstNameId").val('');
+            $("#SCLastNameId").val('');
+            $("#SCEmailId").val('');
+            $("#SCMiddleNameId").val('');
+            $("#SCPhoneCCId").val('');
+            $("#SCPhoneId").val('');
+            $("#SCPhoneEXTId").val('');
+            $j('[id*="genderInputTextId"]').val('');
+            $j('[id*="genderInputTextId"]').val('');
+            $j('[id*="genderInputTextId"]').val('');
+            $j('[id*="portalacclevelInputTextId"]').val('');
+            $j('[id*="SCSuffixId"]').val('');
+            $j('[id*="SCprefixInputTextId"]').val('');
+
+            document.getElementById('SpouseActiveID').value='false';
+            $('#spouse-partner-item').hide();
+            $('#add-spouse-partner').show();
+            document.getElementById('spouse-partner-item').style.display= "none";
+            document.getElementById('add-spouse-partner').style.display= "";
+            familyvalidateSelection();
+        }
+        <!---- Function Ends  ----------------->
+
+
+        function updateSpouseContactAdd(e){
+
+            var ChkRelation = $j('#RelationTypeSpID').val();
+
+            if(ChkRelation=='Spouse/Partner')
+            {
+
+                var firstName = $j('#SCFirstNameId').val().replace(/'/g, "\'");
+                var SpouseActive = $j('#SpouseActiveID').val();
+                var lastName = $j('#SCLastNameId').val().replace(/'/g, "\'");
+
+                var SpPrefix = $j('[id*="SCprefixInputTextId"]').val();
+
+                var SpMiddleName = $j('#SCMiddleNameId').val().replace(/'/g, "\'");
+                var SpSuffix = $j('[id*="SCSuffixId"]').val();
+                var SpPhoneCC = $j('#SCPhoneCCId').val();
+                var SpPhoneExt = $j('#SCPhoneEXTId').val();
+
+                var gender =  $j('[id*="genderInputTextId"]').val();
+                var birthdt = $j('#SCDOBId').val();
+                var monthnames = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
+                var PortalAcclevel = $j('[id*="portalacclevelInputTextId"]').val();
+
+                // alert(birthdt);
+
+                if(birthdt !=null && birthdt!= '' && birthdt != undefined)
+                {
+                    var birthdtsplitted = birthdt.split(" ");
+
+                    var MonthNumber;
+                    for (var n=0;n<12;n++)
+                    {
+                        if(birthdtsplitted[1]==monthnames[n])
+                        {
+                            MonthNumber=n+1;
+                        }
+                    }
+                    birthdt = birthdtsplitted[5]+'-'+MonthNumber+'-'+birthdtsplitted[2];
+
+                }
+
+
+
+                //alert(birthdt);
+
+                var email =  $j('#SCEmailId').val();
+                var phone = $j('#SCPhoneId').val();
+                <!--            var relationType = $j('#SCRelationToYouId').val();-->
+                var relationType='Spouse/Partner';
+                var spouseChildId = $j('#SCId').val();
+                var spouseChildRecordType;
+
+                if(relationType == 'Child'){
+                    spouseChildRecordType = '{!childRecordTypeId}';
+                    PortalAcclevel = '';
+                }else if(relationType == 'Spouse/Partner'){
+                    spouseChildRecordType = '{!spouseRecordTypeId}';
+                }
+                var relationshipAccountId = '{!RelationshipAccId}';
+                var chapterAccountId = '{!con.Account}';
+                //alert('test11 '+'  '+firstName+' '+spouseChildId+' '+gender+' '+relationType+' SpouseOwn='+spouseChildRecordType+' Relation='+relationshipAccountId+' Chapter='+chapterAccountId+' '+SpouseActive+' '+SpPrefix+' '+SpMiddleName+' '+SpSuffix+' '+SpPhoneCC+' '+SpPhoneExt);
+                Visualforce.remoting.Manager.invokeAction(
+                    '{!$RemoteAction.UpdateProfileInfoController_YPO.updateSpouseChild}',
+                    firstName,lastName,gender,email,phone,PortalAcclevel,spouseChildId,spouseChildRecordType,relationType,relationshipAccountId,chapterAccountId,
+                    SpouseActive,SpPrefix,SpMiddleName,SpSuffix,SpPhoneCC,SpPhoneExt,birthdt,
+                    function(result, event){
+                        if(event.status){
+                        }else{
+                            window.console.log('Error in update Spouse Child record')
+                        }
+                    },
+                    //{escape: true}
+                    {buffer: false, escape: true, timeout: 30000}
+                );
+            }
+        }
+
+        function updateChildContactAdd(){
+            var ChkRelation = "Child";
+            var monthnames = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
+            //alert(ChkRelation);
+            //alert("Check"+childTags);
+            for (var k=1;k<=childTags;k++)
+            {//alert("loop");
+                var CfirstName = document.getElementById('ChildFNID'+k).value.replace(/'/g, "\'");
+                var ClastName = document.getElementById('ChildLNID'+k).value.replace(/'/g, "\'");
+                var Cgender =  document.getElementById('ChildGNID'+k).value;
+                var CActive =  document.getElementById('ChildActiveID'+k).value;
+                var Cemail =  document.getElementById('ChildEMLID'+k).value;
+                var Cphone = document.getElementById('ChildPHID'+k).value;
+                var Cprefix = document.getElementById('ChildPFID'+k).value;
+                var CMiddleName = document.getElementById('ChildMNID'+k).value.replace(/'/g, "\'");
+                var Csuffix = document.getElementById('ChildSFXID'+k).value;
+                var CphoneCC = document.getElementById('ChildPHCCID'+k).value;
+                var CphoneExt = document.getElementById('ChildPHEXTID'+k).value;
+                var CrelationType='Child';
+                var CspouseChildId = document.getElementById('ChildID'+k).value;
+
+                var MonthNumber="";
+                for (var n=0;n<12;n++)
+                {
+                    if(document.getElementById('dobmmTextid'+k).value==monthnames[n])
+                    {
+                        MonthNumber=n+1;
+                    }
+                }
+
+                if (document.getElementById('dobmmTextid'+k).value!="")
+                {
+                    var CDOBId = document.getElementById('dobyyTextid'+k).value+'-'+MonthNumber+'-'+document.getElementById('dobddTextid'+k).value;
+                }
+                else
+                {
+                    var CDOBId = "";
+                }
+                var CrelationshipAccountId = '{!RelationshipAccId}';
+                var CchapterAccountId = '{!con.Account}';
+                var CPortalAcclevel = "";
+                var CspouseChildRecordType = '{!childRecordTypeId}';
+
+                //alert('Child '+' '+CfirstName+' '+ClastName+'  '+CspouseChildId+' '+Cgender+' '+CrelationType+' CspouseChildRecordType-- '+CspouseChildRecordType+' CrelationshipAccountId--'+CrelationshipAccountId+' CchapterAccountId --'+CchapterAccountId+' '+CActive+' '+Cprefix+' '+CMiddleName+' '+Csuffix+' '+CphoneCC+' '+CphoneExt+' DOB'+CDOBId);
+                Visualforce.remoting.Manager.invokeAction(
+                    '{!$RemoteAction.UpdateProfileInfoController_YPO.updateSpouseChild}',
+                    CfirstName,ClastName,Cgender,Cemail,Cphone,CPortalAcclevel,CspouseChildId,CspouseChildRecordType,CrelationType,CrelationshipAccountId,CchapterAccountId,
+                    CActive,Cprefix,CMiddleName,Csuffix,CphoneCC,CphoneExt,CDOBId,
+                    function(result, event){
+                        if(event.status){
+                        }else{
+                            window.console.log('Error in update Spouse Child record')
+                        }
+                    },
+                    //{escape: true}
+                    {buffer: false, escape: true, timeout: 30000}
+                );
+            }
+
+        }
+        // THE ABOVE CODE IS FOR SPOUSE & CHILD DETAILS: --- END---
+
+
+        var self;
+        var textInputModel = function() {
+            self = this;
+
+            self.salutationrquiredTextInput = ko.observable().extend({ }) //'{!JSENCODE(con.Salutation)}'
+            self.FirstnameTextInput = ko.observable().extend({ required: true, pattern: { params: /^[a-zA-Z0-9 @$]*|[^&;\`]*$/, message: "Invalid entry." } }) //'{!JSENCODE(con.FirstName)}'
+            self.middleNamerrquiredTextInput = ko.observable().extend({ }) //'{!JSENCODE(con.Middle_Name__c)}'
+            self.LastnameTextInput = ko.observable().extend({ required: true, pattern: { params: /^[a-zA-Z0-9](.*[a-zA-Z0-9])?$/, message: "Invalid entry." } }) //"{!JSENCODE(con.LastName)}"
+            self.suffixrquiredTextInput = ko.observable().extend({}) //'{!JSENCODE(con.Suffix__c)}'
+            self.MemberEmailTextInput = ko.observable().extend({ required: true, email: true }) //'{!JSENCODE(con.Email)}'
+
+            self.homePhoneCCrequiredTextInput = ko.observable().extend({  pattern: { params:  /^[0-9+]*$/, message: "Invalid entry."} }) //'{!JSENCODE(con.Home_Phone_Country_Code__c)}'
+            self.homePhonerequiredTextInput = ko.observable().extend( {  pattern: { params:  /^[0-9 ()+-]*$/, message: "Invalid entry." }  }) //'{!JSENCODE(con.HomePhone)}'
+            self.homePhoneExtRequiredTextInput  = ko.observable().extend({ pattern: { params:  /^[0-9]*$/, message: "Invalid entry."} }) //'{!JSENCODE(con.Home_Phone_Extension__c)}'
+
+            self.mobileCCInputTextId = ko.observable().extend({ pattern: { params:  /^[0-9+]*$/, message: "Invalid entry."} }) //'{!JSENCODE(con.Mobile_Phone_Country_Code__c)}'
+            self.mobilePhoneInput = ko.observable().extend({ pattern: { params:  /^[0-9 ()+-]*$/, message: "Invalid entry." }  }) //'{!JSENCODE(con.MobilePhone)}'
+
+            self.businessPhoneInput = ko.observable().extend({ pattern: { params:  /^[0-9 ()+-]*$/, message: "Invalid entry." } }) //'{!JSENCODE(con.Phone)}'
+            self.businessCCPhoneInput = ko.observable().extend({ required: { //'{!JSENCODE(con.Country_Code__c)}'
+                    onlyIf: function() {
+                        return ( self.businessPhoneInput.length  > 0 );
+                    }
+                } , pattern: { params:  /^[0-9 ()+]*$/, message: "Invalid entry."} })
+            self.businessPhExtrequiredTextInput = ko.observable().extend({ pattern: { params:  /^[0-9]*$/, message: "Invalid entry."} }) //'{!JSENCODE(con.Business_Phone_Ext__c)}'
+
+
+            self.addressTyperequiredTextInput = ko.observable().extend({ required: true }) //''
+            self.requiredTextInput8 = ko.observable().extend({ required: true })
+            self.requiredTextInput9 = ko.observable().extend({ required: true }) //'{!JSENCODE(StateCountryContact.MailingCity)}'
+            self.requiredTextInput10 = ko.observable('{!JSENCODE(StateCountryContact.MailingStateCode)}').extend({ required: true }) //'{!JSENCODE(StateCountryContact.MailingStateCode)}'
+            self.requiredTextInput11 = ko.observable('{!JSENCODE(StateCountryContact.MailingCountryCode)}').extend({ required: true }) //'{!JSENCODE(StateCountryContact.MailingCountryCode)}'
+            self.requiredTextInput12 = ko.observable().extend({ required: true }) //'{!JSENCODE(StateCountryContact.MailingPostalCode)}'
+
+            self.selectOptions = ['Spouse/Partner','Child'];
+            self.select = ko.observable();
+            self.requiredSelect = ko.observable().extend({required: true})
+
+            // self.SpouseChildReqTextIn1 = ko.observable('first name').extend({ required: true,  pattern: { params:  /^[a-zA-Z0-9_ ]+$/g, message: "Invalid entry." }  })
+            // self.SpouseChildReqTextIn2 = ko.observable('last name').extend({ required: true,   pattern: { params:  /^[a-zA-Z0-9_ ]+$/g, message: "Invalid entry." }  })
+            //self.SpouseChildReqTextIn1 = ko.observable('first name').extend({ required: true,  pattern: { params:  /^[ a-zA-Z0-9](.*[a-zA-Z0-9 ])?$/, message: "Invalid entry." }  })
+            //self.SpouseChildReqTextIn2 = ko.observable('last name').extend({ required: true,   pattern: { params:  /^[ a-zA-Z0-9](.*[a-zA-Z0-9 ])?$/, message: "Invalid entry." }  })
+            self.SpouseChildReqTextIn3 = ko.observable().extend({ required:{ onlyIf: function () { return self.requiredSelect() == 'Spouse/Partner';} }, email: true  }) //'email'
+
+            self.SpouseCCPhoneTextInput = ko.observable().extend({ pattern: { params:  /^[0-9+]*$/, message: "Invalid entry." } })
+            self.SpousePhoneTextInput = ko.observable().extend({ pattern: { params:  /^[0-9 ()+-]*$/, message: "Invalid entry." } })
+            self.SpousePhoneExtTextInput = ko.observable().extend({ pattern: { params:  /^[0-9]*$/, message: "Invalid entry." } })
+
+            self.genderRequiredTextInput = ko.observable().extend({ })
+            self.dobRequiredTextInput = ko.observable().extend({ })
+            self.SpouseChildportalacclevelReqTextIn = ko.observable().extend({ })
+        }
+
+        ko.validation.rules['BusinessCountryCodeVal'] = {
+            validator: function (val, validate) {
+                var numbers = /^[-+]?[0-9]+$/;
+                if(val.match(numbers)) { return true; }else{return false;}
+            },
+            message: 'Invalid entry.'
+        };
+
+        ko.validation.rules['MobileCountryCodeVal'] = {
+            validator: function (val, validate) {
+                var numbers = /^[-+]?[0-9]+$/;
+                if(val.match(numbers)) { return true; }else{return false;}
+            },
+            message: 'Invalid entry.'
+        };
+        ko.validation.rules['DummyDOB'] = {
+            validator: function (val, validate) {
+                if(val == '') { return true; }else{return false;}
+            },
+            message: 'Invalid entry.'
+        };
+
+        ko.validation.registerExtenders();
+
+        ko.validation.init({
+                registerExtenders: true,
+                messagesOnModified: true,
+                insertMessages: false,
+                parseInputAttributes: true,
+                messageTemplate: null,
+                decorateInputElement: false,
+                grouping: {
+                    deep: true, observable: false
+                }
+            },
+            true);
+
+        ko.applyBindings(textInputModel());
+    </script>
+
+    <script src="{!URLFOR($Resource.YPORenew, 'ypo-renewals/assets/js/jquery-3.2.1.min.js')}"></script>
+    <script src="{!URLFOR($Resource.YPORenew, 'ypo-renewals/assets/js/bootstrap.min.js')}"></script>
+    <script src="{!URLFOR($Resource.YPORenew, 'ypo-renewals/assets/js/update-profile.js')}"></script>
+    <script src="{!URLFOR($Resource.YPORenew, 'ypo-renewals/assets/js/validator.min.js')}"></script>
+
+</apex:page>

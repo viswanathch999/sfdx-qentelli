@@ -1,0 +1,858 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomObject xmlns="http://soap.sforce.com/2006/04/metadata">
+    <actionOverrides>
+        <actionName>Accept</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>CancelEdit</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Clone</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Delete</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Edit</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>List</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>New</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>SaveEdit</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Tab</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>View</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <allowInChatterGroups>false</allowInChatterGroups>
+    <compactLayoutAssignment>SYSTEM</compactLayoutAssignment>
+    <deploymentStatus>Deployed</deploymentStatus>
+    <description>This object tracks all the expertise for a given M2MX Category &amp; Sub Category</description>
+    <enableActivities>false</enableActivities>
+    <enableBulkApi>true</enableBulkApi>
+    <enableChangeDataCapture>false</enableChangeDataCapture>
+    <enableEnhancedLookup>true</enableEnhancedLookup>
+    <enableFeeds>false</enableFeeds>
+    <enableHistory>true</enableHistory>
+    <enableReports>false</enableReports>
+    <enableSearch>true</enableSearch>
+    <enableSharing>true</enableSharing>
+    <enableStreamingApi>true</enableStreamingApi>
+    <externalSharingModel>ReadWrite</externalSharingModel>
+    <fields>
+        <fullName>Category__c</fullName>
+        <externalId>false</externalId>
+        <label>Category</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Picklist</type>
+        <valueSet>
+            <valueSetDefinition>
+                <sorted>false</sorted>
+                <value>
+                    <fullName>Adolescents and Children</fullName>
+                    <default>false</default>
+                    <label>Adolescents and Children</label>
+                </value>
+                <value>
+                    <fullName>Aviation</fullName>
+                    <default>false</default>
+                    <label>Aviation</label>
+                </value>
+                <value>
+                    <fullName>FINANCE</fullName>
+                    <default>false</default>
+                    <label>FINANCE</label>
+                </value>
+                <value>
+                    <fullName>Global Issues</fullName>
+                    <default>false</default>
+                    <label>Global Issues</label>
+                </value>
+                <value>
+                    <fullName>Government Agencies</fullName>
+                    <default>false</default>
+                    <label>Government Agencies</label>
+                </value>
+                <value>
+                    <fullName>Health</fullName>
+                    <default>false</default>
+                    <label>Health</label>
+                </value>
+                <value>
+                    <fullName>Human Resource Management</fullName>
+                    <default>false</default>
+                    <label>Human Resource Management</label>
+                </value>
+                <value>
+                    <fullName>Legal: Business</fullName>
+                    <default>false</default>
+                    <label>Legal: Business</label>
+                </value>
+                <value>
+                    <fullName>Legal: Personal</fullName>
+                    <default>false</default>
+                    <label>Legal: Personal</label>
+                </value>
+                <value>
+                    <fullName>Management</fullName>
+                    <default>false</default>
+                    <label>Management</label>
+                </value>
+                <value>
+                    <fullName>Manufacturing and Distribution</fullName>
+                    <default>false</default>
+                    <label>Manufacturing and Distribution</label>
+                </value>
+                <value>
+                    <fullName>Ownership</fullName>
+                    <default>false</default>
+                    <label>Ownership</label>
+                </value>
+                <value>
+                    <fullName>Personal</fullName>
+                    <default>false</default>
+                    <label>Personal</label>
+                </value>
+                <value>
+                    <fullName>Presidents&apos; Action Net - Social Enterprise</fullName>
+                    <default>false</default>
+                    <label>Presidents&apos; Action Net - Social Enterprise</label>
+                </value>
+                <value>
+                    <fullName>Quality</fullName>
+                    <default>false</default>
+                    <label>Quality</label>
+                </value>
+                <value>
+                    <fullName>Regional Topics</fullName>
+                    <default>false</default>
+                    <label>Regional Topics</label>
+                </value>
+                <value>
+                    <fullName>Sales and Marketing</fullName>
+                    <default>false</default>
+                    <label>Sales and Marketing</label>
+                </value>
+                <value>
+                    <fullName>Security</fullName>
+                    <default>false</default>
+                    <label>Security</label>
+                </value>
+                <value>
+                    <fullName>Technology</fullName>
+                    <default>false</default>
+                    <label>Technology</label>
+                </value>
+            </valueSetDefinition>
+        </valueSet>
+    </fields>
+    <fields>
+        <fullName>Expertise__c</fullName>
+        <externalId>false</externalId>
+        <label>Expertise</label>
+        <length>255</length>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>GUID__c</fullName>
+        <caseSensitive>false</caseSensitive>
+        <externalId>true</externalId>
+        <label>GUID</label>
+        <length>50</length>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>true</unique>
+    </fields>
+    <fields>
+        <fullName>Sub_Category__c</fullName>
+        <externalId>false</externalId>
+        <label>Sub-Category</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Picklist</type>
+        <valueSet>
+            <controllingField>Category__c</controllingField>
+            <valueSetDefinition>
+                <sorted>false</sorted>
+                <value>
+                    <fullName>Addiction</fullName>
+                    <default>false</default>
+                    <label>Addiction</label>
+                </value>
+                <value>
+                    <fullName>Advertising</fullName>
+                    <default>false</default>
+                    <label>Advertising</label>
+                </value>
+                <value>
+                    <fullName>Africa</fullName>
+                    <default>false</default>
+                    <label>Africa</label>
+                </value>
+                <value>
+                    <fullName>Aircraft Type</fullName>
+                    <default>false</default>
+                    <label>Aircraft Type</label>
+                </value>
+                <value>
+                    <fullName>Asia</fullName>
+                    <default>false</default>
+                    <label>Asia</label>
+                </value>
+                <value>
+                    <fullName>Asset Management</fullName>
+                    <default>false</default>
+                    <label>Asset Management</label>
+                </value>
+                <value>
+                    <fullName>Audit</fullName>
+                    <default>false</default>
+                    <label>Audit</label>
+                </value>
+                <value>
+                    <fullName>Australia and the South Pacific</fullName>
+                    <default>false</default>
+                    <label>Australia and the South Pacific</label>
+                </value>
+                <value>
+                    <fullName>Auto Immune Disease</fullName>
+                    <default>false</default>
+                    <label>Auto Immune Disease</label>
+                </value>
+                <value>
+                    <fullName>Banking</fullName>
+                    <default>false</default>
+                    <label>Banking</label>
+                </value>
+                <value>
+                    <fullName>Bankruptcy</fullName>
+                    <default>false</default>
+                    <label>Bankruptcy</label>
+                </value>
+                <value>
+                    <fullName>Blood Disorder</fullName>
+                    <default>false</default>
+                    <label>Blood Disorder</label>
+                </value>
+                <value>
+                    <fullName>Board of Directors</fullName>
+                    <default>false</default>
+                    <label>Board of Directors</label>
+                </value>
+                <value>
+                    <fullName>Business Planning</fullName>
+                    <default>false</default>
+                    <label>Business Planning</label>
+                </value>
+                <value>
+                    <fullName>Camp</fullName>
+                    <default>false</default>
+                    <label>Camp</label>
+                </value>
+                <value>
+                    <fullName>Cancer</fullName>
+                    <default>false</default>
+                    <label>Cancer</label>
+                </value>
+                <value>
+                    <fullName>Cardiac</fullName>
+                    <default>false</default>
+                    <label>Cardiac</label>
+                </value>
+                <value>
+                    <fullName>Child Birth</fullName>
+                    <default>false</default>
+                    <label>Child Birth</label>
+                </value>
+                <value>
+                    <fullName>Construction</fullName>
+                    <default>false</default>
+                    <label>Construction</label>
+                </value>
+                <value>
+                    <fullName>Contracts</fullName>
+                    <default>false</default>
+                    <label>Contracts</label>
+                </value>
+                <value>
+                    <fullName>Corporate Development</fullName>
+                    <default>false</default>
+                    <label>Corporate Development</label>
+                </value>
+                <value>
+                    <fullName>Cosmetic Treatment</fullName>
+                    <default>false</default>
+                    <label>Cosmetic Treatment</label>
+                </value>
+                <value>
+                    <fullName>Credit</fullName>
+                    <default>false</default>
+                    <label>Credit</label>
+                </value>
+                <value>
+                    <fullName>Criminal Activity</fullName>
+                    <default>false</default>
+                    <label>Criminal Activity</label>
+                </value>
+                <value>
+                    <fullName>Data Management</fullName>
+                    <default>false</default>
+                    <label>Data Management</label>
+                </value>
+                <value>
+                    <fullName>Dental</fullName>
+                    <default>false</default>
+                    <label>Dental</label>
+                </value>
+                <value>
+                    <fullName>Dermatology</fullName>
+                    <default>false</default>
+                    <label>Dermatology</label>
+                </value>
+                <value>
+                    <fullName>Disability</fullName>
+                    <default>false</default>
+                    <label>Disability</label>
+                </value>
+                <value>
+                    <fullName>Disaster Recovery</fullName>
+                    <default>false</default>
+                    <label>Disaster Recovery</label>
+                </value>
+                <value>
+                    <fullName>Discrimination</fullName>
+                    <default>false</default>
+                    <label>Discrimination</label>
+                </value>
+                <value>
+                    <fullName>Dismissal</fullName>
+                    <default>false</default>
+                    <label>Dismissal</label>
+                </value>
+                <value>
+                    <fullName>Distribution</fullName>
+                    <default>false</default>
+                    <label>Distribution</label>
+                </value>
+                <value>
+                    <fullName>Divorce</fullName>
+                    <default>false</default>
+                    <label>Divorce</label>
+                </value>
+                <value>
+                    <fullName>Ear, Nose &amp; Throat</fullName>
+                    <default>false</default>
+                    <label>Ear, Nose &amp; Throat</label>
+                </value>
+                <value>
+                    <fullName>Economic Development</fullName>
+                    <default>false</default>
+                    <label>Economic Development</label>
+                </value>
+                <value>
+                    <fullName>Education</fullName>
+                    <default>false</default>
+                    <label>Education</label>
+                </value>
+                <value>
+                    <fullName>Employee Benefits</fullName>
+                    <default>false</default>
+                    <label>Employee Benefits</label>
+                </value>
+                <value>
+                    <fullName>Employee Benefits Planning</fullName>
+                    <default>false</default>
+                    <label>Employee Benefits Planning</label>
+                </value>
+                <value>
+                    <fullName>Employee Evaluations</fullName>
+                    <default>false</default>
+                    <label>Employee Evaluations</label>
+                </value>
+                <value>
+                    <fullName>Employee Relations</fullName>
+                    <default>false</default>
+                    <label>Employee Relations</label>
+                </value>
+                <value>
+                    <fullName>Employee Turnover</fullName>
+                    <default>false</default>
+                    <label>Employee Turnover</label>
+                </value>
+                <value>
+                    <fullName>Employment Contract</fullName>
+                    <default>false</default>
+                    <label>Employment Contract</label>
+                </value>
+                <value>
+                    <fullName>Endocrinology</fullName>
+                    <default>false</default>
+                    <label>Endocrinology</label>
+                </value>
+                <value>
+                    <fullName>Environmental</fullName>
+                    <default>false</default>
+                    <label>Environmental</label>
+                </value>
+                <value>
+                    <fullName>Estate Planning</fullName>
+                    <default>false</default>
+                    <label>Estate Planning</label>
+                </value>
+                <value>
+                    <fullName>Europe</fullName>
+                    <default>false</default>
+                    <label>Europe</label>
+                </value>
+                <value>
+                    <fullName>Executive Recruiting</fullName>
+                    <default>false</default>
+                    <label>Executive Recruiting</label>
+                </value>
+                <value>
+                    <fullName>Eyes</fullName>
+                    <default>false</default>
+                    <label>Eyes</label>
+                </value>
+                <value>
+                    <fullName>Facilities</fullName>
+                    <default>false</default>
+                    <label>Facilities</label>
+                </value>
+                <value>
+                    <fullName>Family Issues</fullName>
+                    <default>false</default>
+                    <label>Family Issues</label>
+                </value>
+                <value>
+                    <fullName>Family Law</fullName>
+                    <default>false</default>
+                    <label>Family Law</label>
+                </value>
+                <value>
+                    <fullName>Family Philanthropy</fullName>
+                    <default>false</default>
+                    <label>Family Philanthropy</label>
+                </value>
+                <value>
+                    <fullName>Funding</fullName>
+                    <default>false</default>
+                    <label>Funding</label>
+                </value>
+                <value>
+                    <fullName>Gastrointestinal</fullName>
+                    <default>false</default>
+                    <label>Gastrointestinal</label>
+                </value>
+                <value>
+                    <fullName>Gynecology</fullName>
+                    <default>false</default>
+                    <label>Gynecology</label>
+                </value>
+                <value>
+                    <fullName>Hiring</fullName>
+                    <default>false</default>
+                    <label>Hiring</label>
+                </value>
+                <value>
+                    <fullName>Home Ownership</fullName>
+                    <default>false</default>
+                    <label>Home Ownership</label>
+                </value>
+                <value>
+                    <fullName>Incentive Plans</fullName>
+                    <default>false</default>
+                    <label>Incentive Plans</label>
+                </value>
+                <value>
+                    <fullName>Infectious Diseases</fullName>
+                    <default>false</default>
+                    <label>Infectious Diseases</label>
+                </value>
+                <value>
+                    <fullName>Information Systems Design</fullName>
+                    <default>false</default>
+                    <label>Information Systems Design</label>
+                </value>
+                <value>
+                    <fullName>Insurance</fullName>
+                    <default>false</default>
+                    <label>Insurance</label>
+                </value>
+                <value>
+                    <fullName>Intellectual Property Rights</fullName>
+                    <default>false</default>
+                    <label>Intellectual Property Rights</label>
+                </value>
+                <value>
+                    <fullName>International Finance</fullName>
+                    <default>false</default>
+                    <label>International Finance</label>
+                </value>
+                <value>
+                    <fullName>International Operations</fullName>
+                    <default>false</default>
+                    <label>International Operations</label>
+                </value>
+                <value>
+                    <fullName>International Organizations</fullName>
+                    <default>false</default>
+                    <label>International Organizations</label>
+                </value>
+                <value>
+                    <fullName>Investing</fullName>
+                    <default>false</default>
+                    <label>Investing</label>
+                </value>
+                <value>
+                    <fullName>Kidney</fullName>
+                    <default>false</default>
+                    <label>Kidney</label>
+                </value>
+                <value>
+                    <fullName>Latin America and Caribbean</fullName>
+                    <default>false</default>
+                    <label>Latin America and Caribbean</label>
+                </value>
+                <value>
+                    <fullName>Leasing</fullName>
+                    <default>false</default>
+                    <label>Leasing</label>
+                </value>
+                <value>
+                    <fullName>Legal Speciality</fullName>
+                    <default>false</default>
+                    <label>Legal Speciality</label>
+                </value>
+                <value>
+                    <fullName>Liability</fullName>
+                    <default>false</default>
+                    <label>Liability</label>
+                </value>
+                <value>
+                    <fullName>Licenses</fullName>
+                    <default>false</default>
+                    <label>Licenses</label>
+                </value>
+                <value>
+                    <fullName>Litigation</fullName>
+                    <default>false</default>
+                    <label>Litigation</label>
+                </value>
+                <value>
+                    <fullName>Live/Work in Another Country</fullName>
+                    <default>false</default>
+                    <label>Live/Work in Another Country</label>
+                </value>
+                <value>
+                    <fullName>Liver</fullName>
+                    <default>false</default>
+                    <label>Liver</label>
+                </value>
+                <value>
+                    <fullName>Management of Growth</fullName>
+                    <default>false</default>
+                    <label>Management of Growth</label>
+                </value>
+                <value>
+                    <fullName>Manufacturing</fullName>
+                    <default>false</default>
+                    <label>Manufacturing</label>
+                </value>
+                <value>
+                    <fullName>Mental Health</fullName>
+                    <default>false</default>
+                    <label>Mental Health</label>
+                </value>
+                <value>
+                    <fullName>Miscellaneous</fullName>
+                    <default>false</default>
+                    <label>Miscellaneous</label>
+                </value>
+                <value>
+                    <fullName>Monitoring</fullName>
+                    <default>false</default>
+                    <label>Monitoring</label>
+                </value>
+                <value>
+                    <fullName>N. America: Canada</fullName>
+                    <default>false</default>
+                    <label>N. America: Canada</label>
+                </value>
+                <value>
+                    <fullName>N. America: United States</fullName>
+                    <default>false</default>
+                    <label>N. America: United States</label>
+                </value>
+                <value>
+                    <fullName>Neurology</fullName>
+                    <default>false</default>
+                    <label>Neurology</label>
+                </value>
+                <value>
+                    <fullName>None</fullName>
+                    <default>false</default>
+                    <label>None</label>
+                </value>
+                <value>
+                    <fullName>North America</fullName>
+                    <default>false</default>
+                    <label>North America</label>
+                </value>
+                <value>
+                    <fullName>North and Southeast Asia</fullName>
+                    <default>false</default>
+                    <label>North and Southeast Asia</label>
+                </value>
+                <value>
+                    <fullName>Oceania</fullName>
+                    <default>false</default>
+                    <label>Oceania</label>
+                </value>
+                <value>
+                    <fullName>Operation</fullName>
+                    <default>false</default>
+                    <label>Operation</label>
+                </value>
+                <value>
+                    <fullName>Orthopedic</fullName>
+                    <default>false</default>
+                    <label>Orthopedic</label>
+                </value>
+                <value>
+                    <fullName>Ownership</fullName>
+                    <default>false</default>
+                    <label>Ownership</label>
+                </value>
+                <value>
+                    <fullName>Paralysis</fullName>
+                    <default>false</default>
+                    <label>Paralysis</label>
+                </value>
+                <value>
+                    <fullName>Partnership</fullName>
+                    <default>false</default>
+                    <label>Partnership</label>
+                </value>
+                <value>
+                    <fullName>Pediatric</fullName>
+                    <default>false</default>
+                    <label>Pediatric</label>
+                </value>
+                <value>
+                    <fullName>Policies and Procedures</fullName>
+                    <default>false</default>
+                    <label>Policies and Procedures</label>
+                </value>
+                <value>
+                    <fullName>Pregnancy/ Child Birth</fullName>
+                    <default>false</default>
+                    <label>Pregnancy/ Child Birth</label>
+                </value>
+                <value>
+                    <fullName>Pulmonary</fullName>
+                    <default>false</default>
+                    <label>Pulmonary</label>
+                </value>
+                <value>
+                    <fullName>Real Estate</fullName>
+                    <default>false</default>
+                    <label>Real Estate</label>
+                </value>
+                <value>
+                    <fullName>Regional</fullName>
+                    <default>false</default>
+                    <label>Regional</label>
+                </value>
+                <value>
+                    <fullName>Rheumatology</fullName>
+                    <default>false</default>
+                    <label>Rheumatology</label>
+                </value>
+                <value>
+                    <fullName>Sales</fullName>
+                    <default>false</default>
+                    <label>Sales</label>
+                </value>
+                <value>
+                    <fullName>Security System</fullName>
+                    <default>false</default>
+                    <label>Security System</label>
+                </value>
+                <value>
+                    <fullName>Sexuality</fullName>
+                    <default>false</default>
+                    <label>Sexuality</label>
+                </value>
+                <value>
+                    <fullName>Sexually Transmitted Disease</fullName>
+                    <default>false</default>
+                    <label>Sexually Transmitted Disease</label>
+                </value>
+                <value>
+                    <fullName>Software</fullName>
+                    <default>false</default>
+                    <label>Software</label>
+                </value>
+                <value>
+                    <fullName>South America</fullName>
+                    <default>false</default>
+                    <label>South America</label>
+                </value>
+                <value>
+                    <fullName>Southern Asia and the Middle East</fullName>
+                    <default>false</default>
+                    <label>Southern Asia and the Middle East</label>
+                </value>
+                <value>
+                    <fullName>Strategic Planning</fullName>
+                    <default>false</default>
+                    <label>Strategic Planning</label>
+                </value>
+                <value>
+                    <fullName>Substance Abuse</fullName>
+                    <default>false</default>
+                    <label>Substance Abuse</label>
+                </value>
+                <value>
+                    <fullName>Taxes</fullName>
+                    <default>false</default>
+                    <label>Taxes</label>
+                </value>
+                <value>
+                    <fullName>Tax Structure</fullName>
+                    <default>false</default>
+                    <label>Tax Structure</label>
+                </value>
+                <value>
+                    <fullName>Testing</fullName>
+                    <default>false</default>
+                    <label>Testing</label>
+                </value>
+                <value>
+                    <fullName>Trading</fullName>
+                    <default>false</default>
+                    <label>Trading</label>
+                </value>
+                <value>
+                    <fullName>Training</fullName>
+                    <default>false</default>
+                    <label>Training</label>
+                </value>
+                <value>
+                    <fullName>Transportation</fullName>
+                    <default>false</default>
+                    <label>Transportation</label>
+                </value>
+                <value>
+                    <fullName>Unemployment</fullName>
+                    <default>false</default>
+                    <label>Unemployment</label>
+                </value>
+                <value>
+                    <fullName>Unions</fullName>
+                    <default>false</default>
+                    <label>Unions</label>
+                </value>
+                <value>
+                    <fullName>Urology</fullName>
+                    <default>false</default>
+                    <label>Urology</label>
+                </value>
+                <value>
+                    <fullName>Vascular</fullName>
+                    <default>false</default>
+                    <label>Vascular</label>
+                </value>
+                <value>
+                    <fullName>Web Design</fullName>
+                    <default>false</default>
+                    <label>Web Design</label>
+                </value>
+                <value>
+                    <fullName>Workers Compensation</fullName>
+                    <default>false</default>
+                    <label>Workers Compensation</label>
+                </value>
+                <value>
+                    <fullName>Workplace Safety</fullName>
+                    <default>false</default>
+                    <label>Workplace Safety</label>
+                </value>
+                <value>
+                    <fullName>YSEN</fullName>
+                    <default>false</default>
+                    <label>YSEN</label>
+                </value>
+            </valueSetDefinition>
+            <valueSettings>
+                <controllingFieldValue>Adolescents and Children</controllingFieldValue>
+                <valueName>Camp</valueName>
+            </valueSettings>
+            <valueSettings>
+                <controllingFieldValue>Aviation</controllingFieldValue>
+                <valueName>Education</valueName>
+            </valueSettings>
+        </valueSet>
+    </fields>
+    <fields>
+        <fullName>Validation_Check__c</fullName>
+        <defaultValue>false</defaultValue>
+        <externalId>false</externalId>
+        <label>Validation Check</label>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Checkbox</type>
+    </fields>
+    <label>M2MX Skillsets Expertise</label>
+    <listViews>
+        <fullName>M2MXE</fullName>
+        <columns>NAME</columns>
+        <columns>OBJECT_ID</columns>
+        <columns>Category__c</columns>
+        <columns>Sub_Category__c</columns>
+        <columns>Expertise__c</columns>
+        <columns>GUID__c</columns>
+        <columns>CREATED_DATE</columns>
+        <filterScope>Everything</filterScope>
+        <label>M2MXE</label>
+        <sharedTo>
+            <allInternalUsers></allInternalUsers>
+        </sharedTo>
+    </listViews>
+    <nameField>
+        <displayFormat>M2MX Expertise-{0000}</displayFormat>
+        <label>M2MX Skillsets Expertise Name</label>
+        <trackHistory>false</trackHistory>
+        <type>AutoNumber</type>
+    </nameField>
+    <pluralLabel>M2MX Skillsets Expertise</pluralLabel>
+    <searchLayouts/>
+    <sharingModel>ReadWrite</sharingModel>
+    <visibility>Public</visibility>
+</CustomObject>

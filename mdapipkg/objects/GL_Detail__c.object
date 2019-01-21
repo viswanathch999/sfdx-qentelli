@@ -1,0 +1,544 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomObject xmlns="http://soap.sforce.com/2006/04/metadata">
+    <actionOverrides>
+        <actionName>Accept</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>CancelEdit</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Clone</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Delete</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Edit</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>List</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>New</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>SaveEdit</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Tab</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>View</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <allowInChatterGroups>false</allowInChatterGroups>
+    <compactLayoutAssignment>SYSTEM</compactLayoutAssignment>
+    <deploymentStatus>Deployed</deploymentStatus>
+    <enableActivities>true</enableActivities>
+    <enableBulkApi>true</enableBulkApi>
+    <enableChangeDataCapture>false</enableChangeDataCapture>
+    <enableEnhancedLookup>true</enableEnhancedLookup>
+    <enableFeeds>false</enableFeeds>
+    <enableHistory>true</enableHistory>
+    <enableReports>true</enableReports>
+    <enableSearch>true</enableSearch>
+    <enableSharing>true</enableSharing>
+    <enableStreamingApi>true</enableStreamingApi>
+    <externalSharingModel>ControlledByParent</externalSharingModel>
+    <fields>
+        <fullName>AP_Reference__c</fullName>
+        <externalId>false</externalId>
+        <label>AP Reference</label>
+        <length>100</length>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Account__c</fullName>
+        <deleteConstraint>SetNull</deleteConstraint>
+        <externalId>false</externalId>
+        <label>Account</label>
+        <referenceTo>Account</referenceTo>
+        <relationshipLabel>GL Details</relationshipLabel>
+        <relationshipName>GL_Details</relationshipName>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Lookup</type>
+    </fields>
+    <fields>
+        <fullName>Accounts_Payable__c</fullName>
+        <externalId>false</externalId>
+        <label>Accounts Payable</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Picklist</type>
+        <valueSet>
+            <valueSetDefinition>
+                <sorted>false</sorted>
+                <value>
+                    <fullName>Yes</fullName>
+                    <default>false</default>
+                    <label>Yes</label>
+                </value>
+                <value>
+                    <fullName>No</fullName>
+                    <default>false</default>
+                    <label>No</label>
+                </value>
+            </valueSetDefinition>
+        </valueSet>
+    </fields>
+    <fields>
+        <fullName>Amount__c</fullName>
+        <externalId>false</externalId>
+        <label>Amount</label>
+        <precision>14</precision>
+        <required>false</required>
+        <scale>2</scale>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Currency</type>
+    </fields>
+    <fields>
+        <fullName>Chapter_Number__c</fullName>
+        <externalId>false</externalId>
+        <label>Chapter Number</label>
+        <length>100</length>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Credit_Debit__c</fullName>
+        <externalId>false</externalId>
+        <formula>IF(GL_Original_Detail__r.Id =&quot;&quot;, &quot;&quot;, IF(Amount__c &lt;0, &quot;Credit&quot;, &quot;Debit&quot;))</formula>
+        <label>Credit/Debit</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Deferral_Flag__c</fullName>
+        <externalId>false</externalId>
+        <label>Deferral Flag</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Picklist</type>
+        <valueSet>
+            <valueSetDefinition>
+                <sorted>false</sorted>
+                <value>
+                    <fullName>Yes</fullName>
+                    <default>false</default>
+                    <label>Yes</label>
+                </value>
+                <value>
+                    <fullName>No</fullName>
+                    <default>false</default>
+                    <label>No</label>
+                </value>
+            </valueSetDefinition>
+        </valueSet>
+    </fields>
+    <fields>
+        <fullName>Event_Number__c</fullName>
+        <externalId>false</externalId>
+        <label>Event Number</label>
+        <length>100</length>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Event__c</fullName>
+        <deleteConstraint>SetNull</deleteConstraint>
+        <externalId>false</externalId>
+        <label>Event</label>
+        <referenceTo>Event__c</referenceTo>
+        <relationshipLabel>GL Details</relationshipLabel>
+        <relationshipName>GL_Details</relationshipName>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Lookup</type>
+    </fields>
+    <fields>
+        <fullName>Fiscal_Date__c</fullName>
+        <description>This is the field from which fiscal year, month, day, etc. can be derived.</description>
+        <externalId>false</externalId>
+        <label>Fiscal Date</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>DateTime</type>
+    </fields>
+    <fields>
+        <fullName>Fiscal_Month_End__c</fullName>
+        <externalId>false</externalId>
+        <formula>&quot;End &quot; &amp; CASE(MONTH(DATEVALUE(Fiscal_Date__c)), 1,&quot;Jan&quot;, 2, &quot;Feb&quot;, 3, &quot;Mar&quot;, 4, &quot;Apr&quot;, 5, &quot;May&quot;, 6, &quot;Jun&quot;, 7, &quot;Jul&quot;, 8, &quot;Aug&quot;, 9, &quot;Sep&quot;, 10, &quot;Oct&quot;, 11, &quot;Nov&quot;, 12, &quot;Dec&quot;,&quot;&quot;) &amp; &quot; - &quot; &amp; TEXT(YEAR(DATEVALUE(Fiscal_Date__c)))</formula>
+        <label>Fiscal Month End</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>GL_Account_Number__c</fullName>
+        <externalId>false</externalId>
+        <formula>GL_Account__r.Account_Number__c</formula>
+        <label>GL Account Number</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>GL_Account__c</fullName>
+        <deleteConstraint>SetNull</deleteConstraint>
+        <externalId>false</externalId>
+        <label>GL Coding</label>
+        <referenceTo>GL_Coding__c</referenceTo>
+        <relationshipLabel>GL Details</relationshipLabel>
+        <relationshipName>GL_Details</relationshipName>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Lookup</type>
+    </fields>
+    <fields>
+        <fullName>GL_Batch__c</fullName>
+        <externalId>false</externalId>
+        <label>GL Batch</label>
+        <referenceTo>GL_Batch__c</referenceTo>
+        <relationshipLabel>GL Details</relationshipLabel>
+        <relationshipName>GL_Details</relationshipName>
+        <relationshipOrder>0</relationshipOrder>
+        <reparentableMasterDetail>false</reparentableMasterDetail>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>MasterDetail</type>
+        <writeRequiresMasterRead>false</writeRequiresMasterRead>
+    </fields>
+    <fields>
+        <fullName>GL_Original_Detail__c</fullName>
+        <deleteConstraint>SetNull</deleteConstraint>
+        <description>This looks up to the original GL Detail record from which the subsequent deferral and reconciliation records are derived.</description>
+        <externalId>false</externalId>
+        <inlineHelpText>Original GL Detail record - Not subsequent monthly reconciliations</inlineHelpText>
+        <label>GL Original Detail</label>
+        <referenceTo>GL_Detail__c</referenceTo>
+        <relationshipLabel>GL Details</relationshipLabel>
+        <relationshipName>GL_Child_Details</relationshipName>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Lookup</type>
+    </fields>
+    <fields>
+        <fullName>GL_Revenue_Account__c</fullName>
+        <deleteConstraint>SetNull</deleteConstraint>
+        <description>This is to provide the account that will be credited each month during revenue recognition.</description>
+        <externalId>false</externalId>
+        <label>GL Revenue Account</label>
+        <referenceTo>GL_Coding__c</referenceTo>
+        <relationshipLabel>GL Details (GL Revenue Account)</relationshipLabel>
+        <relationshipName>GL_Details1</relationshipName>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Lookup</type>
+    </fields>
+    <fields>
+        <fullName>GL_Sub_Account_Number__c</fullName>
+        <externalId>false</externalId>
+        <formula>GL_Account__r.GL_Sub_Account_Number__c</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>GL Sub-Account Number</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>GUID__c</fullName>
+        <caseSensitive>false</caseSensitive>
+        <externalId>true</externalId>
+        <label>GUID</label>
+        <length>50</length>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>true</unique>
+    </fields>
+    <fields>
+        <fullName>IncUnapAr_Flag__c</fullName>
+        <description>This field name stands for “INCome, UNAPplied, AR Flag”.
+Accounts Receivable related records (These are from the Standard Batch Processing): 
+I=Income (usually a credit) .  GL Account from Primary Account in product.
+P=Payment (usually a debit for payment or credit for refund).  GL Account from Primary Account in product.
+U=Unapplied (usually a credit opposite payment).  GL Account from AR Account in product.
+T=Sales Tax (usually a credit).  GL Account from the Primary Account in the TAX Product.
+R=A/R (usually a debit opposite Income and credit opposite payment).GL Account from AR Account in Product.
+ 
+Accounts Payable related records (These are from either the Refund Process or Chapter Reimbursement Process):
+P=Refund or Chapter Reimbursement (usually a debit). GL Account from Primary Account on Refund Product or Chapter Product.
+X=Accounts Payable (usually a credit).  GL Account from the AP Account on either the Refund Product or Chapter Product.</description>
+        <externalId>false</externalId>
+        <label>IncUnapAr Flag</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Picklist</type>
+        <valueSet>
+            <valueSetDefinition>
+                <sorted>false</sorted>
+                <value>
+                    <fullName>I</fullName>
+                    <default>false</default>
+                    <label>I</label>
+                </value>
+                <value>
+                    <fullName>P</fullName>
+                    <default>false</default>
+                    <label>P</label>
+                </value>
+                <value>
+                    <fullName>U</fullName>
+                    <default>false</default>
+                    <label>U</label>
+                </value>
+                <value>
+                    <fullName>T</fullName>
+                    <default>false</default>
+                    <label>T</label>
+                </value>
+                <value>
+                    <fullName>R</fullName>
+                    <default>false</default>
+                    <label>R</label>
+                </value>
+                <value>
+                    <fullName>X</fullName>
+                    <default>false</default>
+                    <label>X</label>
+                </value>
+            </valueSetDefinition>
+        </valueSet>
+    </fields>
+    <fields>
+        <fullName>Invoice_Number__c</fullName>
+        <externalId>false</externalId>
+        <label>Invoice Number (Historical)</label>
+        <length>100</length>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Invoice__c</fullName>
+        <deleteConstraint>SetNull</deleteConstraint>
+        <description>Links to KG Invoice Object</description>
+        <externalId>false</externalId>
+        <label>Invoice</label>
+        <referenceTo>KGRenewal__Invoice__c</referenceTo>
+        <relationshipLabel>GL Details</relationshipLabel>
+        <relationshipName>GL_Details</relationshipName>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Lookup</type>
+    </fields>
+    <fields>
+        <fullName>Opportunity__c</fullName>
+        <deleteConstraint>SetNull</deleteConstraint>
+        <description>Changed to Lookup Relationship without it being required to populate in order to migrate legacy data. Once legacy data is migrated the Lookup to Opportunity will be made required.</description>
+        <externalId>false</externalId>
+        <label>Opportunity</label>
+        <referenceTo>Opportunity</referenceTo>
+        <relationshipLabel>GL Details</relationshipLabel>
+        <relationshipName>GL_Details</relationshipName>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Lookup</type>
+    </fields>
+    <fields>
+        <fullName>ProjectTaskID__c</fullName>
+        <description>This is for historical purposes only and will not be used going forward.</description>
+        <externalId>false</externalId>
+        <label>ProjectTaskID</label>
+        <length>50</length>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Recognition_Periods_Left__c</fullName>
+        <description>This is the number of periods that the monthly recognition has left to run on this revenue.</description>
+        <externalId>false</externalId>
+        <label>Recognition Periods Left</label>
+        <precision>6</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Revenue_Recognition_Status__c</fullName>
+        <description>To let the process know which items are to be recognized each month.</description>
+        <externalId>false</externalId>
+        <label>Revenue Recognition Status</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Picklist</type>
+        <valueSet>
+            <valueSetDefinition>
+                <sorted>false</sorted>
+                <value>
+                    <fullName>In Process</fullName>
+                    <default>false</default>
+                    <label>In Process</label>
+                </value>
+                <value>
+                    <fullName>Complete</fullName>
+                    <default>false</default>
+                    <label>Complete</label>
+                </value>
+                <value>
+                    <fullName>N/A</fullName>
+                    <default>false</default>
+                    <label>N/A</label>
+                </value>
+            </valueSetDefinition>
+        </valueSet>
+    </fields>
+    <fields>
+        <fullName>Total_Periods_To_Recognize__c</fullName>
+        <description>This is the total periods that we will recognize this revenue.  This will be used to calculate how much is recognized each period.</description>
+        <externalId>false</externalId>
+        <label>Total Periods To Recognize</label>
+        <precision>6</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Transaction_Date__c</fullName>
+        <externalId>false</externalId>
+        <label>Transaction Date</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>DateTime</type>
+    </fields>
+    <fields>
+        <fullName>Transaction_Number__c</fullName>
+        <externalId>false</externalId>
+        <label>Transaction Number</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Validation_Check__c</fullName>
+        <defaultValue>false</defaultValue>
+        <externalId>false</externalId>
+        <label>Validation Check</label>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Checkbox</type>
+    </fields>
+    <label>GL Detail</label>
+    <listViews>
+        <fullName>GL_Details</fullName>
+        <columns>NAME</columns>
+        <columns>Accounts_Payable__c</columns>
+        <columns>Amount__c</columns>
+        <columns>Deferral_Flag__c</columns>
+        <columns>GL_Account_Number__c</columns>
+        <columns>GL_Original_Detail__c</columns>
+        <columns>GL_Revenue_Account__c</columns>
+        <columns>Recognition_Periods_Left__c</columns>
+        <columns>Revenue_Recognition_Status__c</columns>
+        <columns>Total_Periods_To_Recognize__c</columns>
+        <columns>Transaction_Date__c</columns>
+        <columns>GL_Account__c</columns>
+        <filterScope>Everything</filterScope>
+        <label>GL Details</label>
+    </listViews>
+    <nameField>
+        <displayFormat>GLD-{0000}</displayFormat>
+        <label>GL Detail Name</label>
+        <trackHistory>false</trackHistory>
+        <type>AutoNumber</type>
+    </nameField>
+    <pluralLabel>GL Details</pluralLabel>
+    <searchLayouts>
+        <customTabListAdditionalFields>Accounts_Payable__c</customTabListAdditionalFields>
+        <customTabListAdditionalFields>Amount__c</customTabListAdditionalFields>
+        <customTabListAdditionalFields>Credit_Debit__c</customTabListAdditionalFields>
+        <customTabListAdditionalFields>Deferral_Flag__c</customTabListAdditionalFields>
+        <customTabListAdditionalFields>GL_Account__c</customTabListAdditionalFields>
+        <customTabListAdditionalFields>GL_Original_Detail__c</customTabListAdditionalFields>
+        <customTabListAdditionalFields>GL_Revenue_Account__c</customTabListAdditionalFields>
+        <customTabListAdditionalFields>GL_Account_Number__c</customTabListAdditionalFields>
+        <customTabListAdditionalFields>GL_Sub_Account_Number__c</customTabListAdditionalFields>
+        <searchFilterFields>Account__c</searchFilterFields>
+        <searchFilterFields>NAME</searchFilterFields>
+        <searchFilterFields>Amount__c</searchFilterFields>
+        <searchFilterFields>Accounts_Payable__c</searchFilterFields>
+        <searchFilterFields>Credit_Debit__c</searchFilterFields>
+        <searchFilterFields>Deferral_Flag__c</searchFilterFields>
+        <searchFilterFields>GL_Account__c</searchFilterFields>
+        <searchFilterFields>GL_Revenue_Account__c</searchFilterFields>
+        <searchResultsAdditionalFields>Account__c</searchResultsAdditionalFields>
+        <searchResultsAdditionalFields>Accounts_Payable__c</searchResultsAdditionalFields>
+        <searchResultsAdditionalFields>Amount__c</searchResultsAdditionalFields>
+        <searchResultsAdditionalFields>Deferral_Flag__c</searchResultsAdditionalFields>
+        <searchResultsAdditionalFields>GL_Account__c</searchResultsAdditionalFields>
+        <searchResultsAdditionalFields>GL_Account_Number__c</searchResultsAdditionalFields>
+        <searchResultsAdditionalFields>GL_Original_Detail__c</searchResultsAdditionalFields>
+        <searchResultsAdditionalFields>GL_Revenue_Account__c</searchResultsAdditionalFields>
+    </searchLayouts>
+    <sharingModel>ControlledByParent</sharingModel>
+    <visibility>Public</visibility>
+</CustomObject>

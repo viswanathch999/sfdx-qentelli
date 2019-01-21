@@ -1,0 +1,273 @@
+<!--COPYRIGHT KINETIC GROWTH INC-->
+<apex:page applyHtmlTag="false" controller="KGRenewal.VenueCatalogController" docType="html-5.0" showHeader="false" sidebar="false" standardStylesheets="false" title="Product catalog">
+  <!--<apex:composition template="{! $Site.Template}">-->
+  <apex:composition template="v_template">
+    <apex:define name="title">
+      <title>Products | {! $Organization.Name}</title>
+    </apex:define>
+    <apex:define name="content">
+
+      <apex:variable value="{! IF(ISBLANK(currentCategory),'',currentCategory)}" var="v_currentCategory"/>
+      <apex:variable value="{! IF(currentPageSize==10,'',currentPageSize)}" var="v_currentPageSize"/>
+      <apex:variable value="{! IF(sortBy=='Name','',sortBy)}" var="v_sortBy"/>
+      <apex:variable value="true" var="v_showCart"/>
+      <apex:variable value="scriptonly" var="v_cartMode"/>
+      <div class="row">
+
+        <div class="col-sm-3"></div>
+
+        <div class="col-sm-9">
+          <h1 class="page-header">Product Catalog</h1>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-sm-3">
+          <!-- CATALOG SIDEBAR -->
+          <div class="panel panel-default">
+            <div class="panel-body">
+              <h4>Search</h4>
+              <form>
+                <div class="input-group">
+                  <input class="form-control" name="search-term" placeholder="Search for products..." value="{!searchTerm}"/>
+                  <span class="input-group-btn">
+                    <button class="btn btn-info" type="submit">Go</button>
+                  </span>
+                </div>
+                <input name="category" type="hidden" value="{!currentCategory}"/>
+                <input name="page-size" type="hidden" value="{!currentPageSize}"/>
+                <input name="filters" type="hidden" value="{!$CurrentPage.parameters.filters}"/>
+              </form>
+              <hr/>
+              <h4>Sort</h4>
+              <form>
+                <div class="input-group">
+                  <select class="form-control" name="sort">
+                    <apex:repeat value="{!sortOptions}" var="sortOption">
+                      <apex:outputPanel layout="none" rendered="{!sortOption.value == sortBy}">
+                        <option selected="selected" value="{!sortOption.value}">{!sortOption.label}</option>
+                      </apex:outputPanel>
+                      <apex:outputPanel layout="none" rendered="{!sortOption.value != sortBy}">
+                        <option value="{!sortOption.value}">{!sortOption.label}</option>
+                      </apex:outputPanel>
+                    </apex:repeat>
+                  </select>
+                  <span class="input-group-btn">
+                    <button class="btn btn-info" type="submit">Go</button>
+                  </span>
+                </div>
+                <input name="category" type="hidden" value="{!currentCategory}"/>
+                <input name="search-term" type="hidden" value="{!searchTerm}"/>
+                <input name="page-number" type="hidden" value="{!currentPage}"/>
+                <input name="page-size" type="hidden" value="{!currentPageSize}"/>
+                <input name="filters" type="hidden" value="{!$CurrentPage.parameters.filters}"/>
+              </form>
+              <hr/>
+              <h4>Categories</h4>
+              <div class="list-group">
+                <a class="list-group-item {!IF('' == currentCategory, 'active', '')}" href="{!URLFOR($Page.v_catalog, null, ['category'='', 'page-number'=1, 'search-term'=searchTerm])}">All Products</a>
+                <apex:repeat value="{!categories}" var="category">
+                  <apex:outputPanel layout="none" rendered="{!category['level'] == '0'}">
+                    <a class="list-group-item {!IF(category['value'] == currentCategory, 'active', '')}" href="{!URLFOR($Page.v_catalog, null, ['category'=category['value'], 'page-number'=1, 'search-term'=searchTerm])}">{!category['label']}</a>
+                    <apex:repeat value="{!categories}" var="childCategory">
+                      <apex:outputPanel layout="none" rendered="{!AND(childCategory['level'] == '1', childCategory['parent'] == ('-' & category['value'] & '-'))}">
+                        <a class="list-group-item {!IF(childCategory['value'] == currentCategory, 'active', '')}" href="{!URLFOR($Page.v_catalog, null, ['category'=childCategory['value'], 'page-number'=1, 'search-term'=searchTerm])}">
+                          &nbsp;&nbsp;&nbsp;{!childCategory['label']}
+                        </a>
+                      </apex:outputPanel>
+                    </apex:repeat>
+                  </apex:outputPanel>
+                </apex:repeat>
+              </div>
+              <hr/>
+              <h4>Filters</h4>
+              <form>
+                <apex:repeat value="{!filters}" var="filter">
+                  <apex:outputPanel layout="none" rendered="{!filter.isMultiSelect}">
+                    Multi-pick goes here
+                  </apex:outputPanel>
+                  <apex:outputPanel layout="none" rendered="{!NOT(filter.isMultiSelect)}">
+                    <div class="form-group">
+                      <label for="filter-{!filter.apiName}">{!filter.Label}</label>
+                      <select class="form-control" data-api-name="{!filter.apiName}" data-define="venue-filter" id="filter-{!filter.apiName}" onchange="updateFilters()">
+                        <apex:repeat value="{!filter.options}" var="filterOption">
+                          <apex:outputPanel layout="none" rendered="{!filterOption.value == filter.value}">
+                            <option selected="selected" value="{!filterOption.value}">{!filterOption.label}</option>
+                          </apex:outputPanel>
+                          <apex:outputPanel layout="none" rendered="{!filterOption.value != filter.value}">
+                            <option value="{!filterOption.value}">{!filterOption.label}</option>
+                          </apex:outputPanel>
+                        </apex:repeat>
+                      </select>
+                    </div>
+                  </apex:outputPanel>
+                </apex:repeat>
+                <input name="category" type="hidden" value="{!currentCategory}"/>
+                <input name="search-term" type="hidden" value="{!searchTerm}"/>
+                <input name="page-number" type="hidden" value="{!currentPage}"/>
+                <input name="page-size" type="hidden" value="{!currentPageSize}"/>
+                <input id="filter-input" name="filters" type="hidden" value="{!$CurrentPage.parameters.filters}"/>
+                <button class="btn btn-info btn-block" type="submit">Apply</button>
+                <script>
+                  var updateFilters = function () {
+                    var filterString = '';
+                    $('[data-define="venue-filter"]').each(function () {
+                      var $filter = $(this);
+                      var apiName = $filter.data('api-name');
+                      filterString += apiName + ':';
+                      filterString += $filter.val();
+                      filterString += '::';
+                    });
+                    console.log(filterString);
+                    var $input = $('#filter-input');
+                    console.dir($input);
+                    $input.val(filterString);
+                  }
+                </script>
+              </form>
+            </div>
+          </div>
+        </div>
+        <!--/.col-->
+
+        <div class="col-sm-9">
+
+          <c:vBreadCrumbs crumbs="{!breadcrumbTrail}" currentCategory="{!currentCategory}" pageSize="{!currentPageSize}" searchTerm="{!searchTerm}" sortBy="{!sortBy}"/>
+
+          <!--errors-->
+          <apex:repeat value="{! siteErrors}" var="siteError">
+            <div class="alert alert-danger" role="alert">
+              <span aria-hidden="true" class="glyphicon glyphicon-exclamation-sign"></span>
+              <b>siteError[summary]</b><br/>
+              siteError[description]
+              <!--<br />siteError[trace]-->
+            </div>
+            <!--/.alert-->
+          </apex:repeat>
+
+          <!--no products to display-->
+          <apex:outputPanel layout="none" rendered="{! productDisplayItems.size == 0}">
+            <div class="alert alert-warning" role="alert">
+              <span aria-hidden="true" class="glyphicon glyphicon-ban-circle"></span>
+              <b>No results found.</b>
+              Please change your search and filter options
+            </div>
+            <!--/.alert-->
+          </apex:outputPanel>
+
+          <apex:repeat value="{! productDisplayItems}" var="item">
+            <!--Venue product classes: kgvenue product id-->
+            <div class="row kgvenue product id" data-venue-define="product" data-venue-id="{! item.record.Id}" data-venue-name="{! item.name}" id="{! item.productId}">
+              <!--product image-->
+              <div class="col-xs-12 col-sm-3">
+                <apex:outputLink rendered="{! NOT(ISNULL(item.record.KGRenewal__MainImageSmall__c))}" value="{! URLFOR($Page.v_detail, null, ['id'=item.productId])}">
+                  <img alt="{! item.name}" class="center-block img-responsive" src="{! $Site.Prefix}{! item.record.KGRenewal__MainImageSmall__c}"/>
+                  <br/>
+                </apex:outputlink>
+              </div>
+              <!--/.col-->
+              <!--/product image-->
+
+              <div class="col-xs-12 col-sm-9">
+                <!--product name-->
+                <a href="{! URLFOR($Page.v_detail, null, ['id'=item.productId])}">
+                  <!--Venue product name classes: kgvenue name-->
+                  <h3 class="media-heading text-primary">
+                    <span class="kgvenue name">{! item.name}</span>
+                  </h3>
+                </a>
+                <!--product description-->
+                <!--<p>{! item.description}</p>-->
+                <p>
+                  <apex:outputText value="{! IF(LEN(item.description) > 200, LEFT(item.description, 200) + '...', item.description)}"></apex:outputText>
+                </p>
+                <!--price, quantity, add to cart row-->
+                <div class="row">
+                  <!--standard price-->
+                  <div class="col-xs-6 col-sm-offset-4 col-sm-4 {! IF(v_showCart=='true','col-md-offset-0','col-md-offset-6')} col-md-3 {! IF(v_showCart=='true','col-lg-offset-3','col-lg-offset-8')} col-lg-2">
+                    <!--show standard eCommerce price (aka list price) with strikethrough format if it is higher than original price-->
+                    <apex:outputPanel layout="none" rendered="{! item.hasCustomPrice}">
+                      <h4 class="text-muted text-right">
+                        <s>
+                          <!--strikethrough-->
+                          <apex:outputText value="{0, number, currency}">
+                            <!--<apex:param value="{! ROUND(item.standardEcommercePrice, 2)}"/>-->
+                            <apex:param value="{! item.standardEcommercePrice}"/>
+                          </apex:outputText>
+                        </s>
+                        <!--/strikethrough-->
+                      </h4>
+                    </apex:outputPanel>
+                  </div>
+                  <!--/.col-->
+                  <!--/standard eCommerce price (aka list price)-->
+                  <!--original price-->
+                  <div class="col-xs-6 col-sm-4 col-md-3 col-lg-2">
+                    <!--Venue product price classes: kgvenue unitprice-field decimal-->
+                    <h4 class="text-right text-danger kgvenue unitprice-field decimal">
+                      <apex:outputText value="{0, number, currency}">
+                        <apex:param value="{! item.discountedPrice}"/>
+                      </apex:outputText>
+                    </h4>
+                    <br/>
+                    <!--used to vertically add space between price and add to cart button in xs view-->
+                  </div>
+                  <!--/.col-->
+                  <apex:outputPanel layout="none" rendered="{! v_showCart=='true'}">
+                    <!--Add to cart button-->
+                    <div class="col-xs-6 col-sm-4 col-md-3 col-lg-5">
+                      <!--Venue Add to Cart button classes: kgvenue add single-->
+                      <div class="input-group">
+                        <input class="form-control" data-venue-field-input="quantity" data-venue-field-type="integer" min="1" required="true" step="1" type="number" value="1"/>
+                        <span class="input-group-btn">
+                          <a class="btn btn-warning btn-block" data-venue-action="add" href="{! URLFOR($Page.v_cart, null, ['id'=item.productId])}" role="button">
+                            Add to cart
+                            <span class="glyphicon glyphicon-shopping-cart"></span>
+                          </a>
+                        </span>
+                      </div>
+                    </div>
+                    <!--/.col-->
+                  </apex:outputPanel>
+                </div>
+                <!--/.row-->
+
+              </div>
+              <!--/.col-->
+            </div>
+            <!--/.row item.record.ID-->
+            <hr/>
+          </apex:repeat>
+
+          <apex:outputPanel layout="none" rendered="{! hasPreviousPage || hasNextPage}">
+            <ul class="pager">
+              <li style="{! IF(hasFirstPage, '', 'visibility:hidden;')}">
+                <a href="{! IF(hasFirstPage, URLFOR($Page.v_catalog, null, ['category'=v_currentCategory, 'page-size'=v_currentPageSize, 'sort'=v_sortBy, 'search-term'=searchTerm]),'#')}">&laquo;</a>
+              </li>
+              <li style="{! IF(hasPreviousPage, '', 'visibility:hidden;')}">
+                <a href="{! IF(hasPreviousPage, URLFOR($Page.v_catalog, null, ['category'=v_currentCategory, 'page-number'=currentPage-1, 'page-size'=v_currentPageSize, 'sort'=v_sortBy, 'search-term'=searchTerm]),'#')}">&lsaquo; Previous</a>
+              </li>
+              <li style="{! IF(hasNextPage, '', 'visibility:hidden;')}">
+                <a href="{! IF(hasNextPage, URLFOR($Page.v_catalog, null, ['category'=v_currentCategory, 'page-number'=currentPage+1, 'page-size'=v_currentPageSize, 'sort'=v_sortBy, 'search-term'=searchTerm]),'#')}">Next &rsaquo;</a>
+              </li>
+              <li style="{! IF(hasLastPage, '', 'visibility:hidden;')}">
+                <!-- need to update currentPage+1 to lastPage in controller extension -->
+                <a href="{! IF(hasLastPage, URLFOR($Page.v_catalog, null, ['category'=v_currentCategory, 'page-number'=currentPage+1, 'page-size'=v_currentPageSize, 'sort'=v_sortBy, 'search-term'=searchTerm]),'#')}">&raquo;</a>
+              </li>
+            </ul>
+            <!--/.pager-->
+          </apex:outputPanel>
+
+          <div class="kgvenue-shopping-cart" id="shopping-bag">
+            <KGRenewal:CartComponent mode="{!v_cartMode}"/>
+          </div>
+          <!--/kgvenue-shopping-cart-->
+
+        </div>
+        <!--/.col-->
+      </div>
+      <!--/.row-->
+
+    </apex:define>
+    <!--/content-->
+  </apex:composition>
+</apex:page>

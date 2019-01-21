@@ -1,0 +1,3 @@
+<apex:page standardController="KGRenewal__Transaction__c" extensions="ffirule.IntegrationRuleEngine" action="{!convert}" recordSetVar="records">
+<ffirule:IntegrationRule engine="{!engine}"/>
+</apex:page>

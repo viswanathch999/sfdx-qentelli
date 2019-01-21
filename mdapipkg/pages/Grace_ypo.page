@@ -1,0 +1,280 @@
+﻿<apex:page standardcontroller="Contact" extensions="GraceExtension_YPO" action="{!init}" sidebar="false" showheader="false" standardstylesheets="false" applyhtmltag="false" doctype="html-5.0">
+    <head>
+        
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" />
+        <title>YPO Renewals</title>
+        
+        <link rel="stylesheet" type="text/css" href="{!URLFOR($Resource.YPORenew, 'ypo-renewals/assets/css/bootstrap.min.css')}" />
+        <link rel="stylesheet" type="text/css" href="{!URLFOR($Resource.YPORenew, 'ypo-renewals/assets/css/styles.css')}" />
+        
+        <apex:includescript value="{!URLFOR($Resource.knockout)}" />
+        <apex:includescript value="{!URLFOR($Resource.knockoutvalidation)}" />
+        
+        <style>
+            .form-control-tb {
+                color: #4C5767;
+                width: 100%;
+                border-radius: 4px;
+                border: 1px solid #D8D8D8;
+                font-size: 1.6rem;
+            }
+        </style>
+        
+    </head>
+
+    <body>
+        
+        <!-- Global site tag (gtag.js) - Google Analytics -->
+        <script async="true" src="https://www.googletagmanager.com/gtag/js?id={!$Label.Google_Analytics_ID}"></script>
+        <script>
+            window.dataLayer = window.dataLayer || [];
+            function gtag(){dataLayer.push(arguments);}
+            gtag('js', new Date());
+            gtag('config', '{!$Label.Google_Analytics_ID}');
+        </script>
+        <!-- End Google Analytics code -->
+        
+        <!--   <apex:composition template="V_Template_ProspectFlow_YPO">
+               <apex:define name="nav_links" >
+                   <li>
+                       <apex:outputPanel id="kgrencartcompId">
+                           <KGRenewal:CartComponent mode="link" includeBootstrapModalResources="false"  />
+                       </apex:outputPanel>
+                   </li>
+               </apex:define>
+              <apex:define name="content">-->
+        <nav class="navbar navbar-default navbar-fixed-top">
+            <div class="container">
+                <img class="logo" src="{!URLFOR($Resource.YPORenew, 'ypo-renewals/assets/img/ypo.svg')}" />
+            </div>
+        </nav>
+        
+        <div class="content-title">
+            <div class="container">
+                <h1 class="v-center">{!$Label.GRACE_YPO_GRACE}</h1>
+            </div>
+        </div>
+        <!-- Site Content -->
+        <div class="container">
+            <div class="content">
+                <div style="color:black"> <apex:pagemessages id="messagesStart" /> </div>
+                <p class="desc">{!$Label.GRACE_YPO_Youmaybe}</p>
+                <div class="row">
+                    <div class="col-md-9">
+                        <div class="panel">
+                            <div class="panel-header">
+                                <img class="pull-left" src="{!URLFOR($Resource.YPORenew, 'ypo-renewals/assets/img/badge.png')}" />
+                                <h3 class="pull-left">{!$Label.GRACE_WHATISGRACE2}</h3>
+                                <div class="clearfix"></div>
+                            </div>
+                            <apex:outputtext value="{!$Label.GRACE_WHATISGRACE}" escape="false" />
+    
+                        </div>
+    
+                        <apex:form >
+                            <div id="update-profile-alert" class="alert alert-danger help-block with-errors hide" role="alert">
+                                <i class="icon-caution"></i> All of the required fields have not been completed.
+                            </div>
+                            <div class="panel">
+                                <div class="panel-header">
+                                    <h3 class="pull-left">Request Grace</h3>
+                                    <div class="pull-right"><span class="required"></span> Indicates required field</div>
+                                    <div class="clearfix"></div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <div class="form-group" data-bind="validationElement1: requiredTextInput1, css: {'is-not-empty': requiredTextInput1}">
+                                            <label class="required" for="reasonInputTextId">Reason</label>
+                                            <apex:selectlist id="reasonInputTextId" value="{!graceReasonSelected}" size="1" styleclass="form-control" html-data-bind="textInput: requiredTextInput1" onchange="validateSelection()">
+                                                <apex:selectoptions value="{!graceReasons2}" />
+                                            </apex:selectlist>
+                                            <span class="validationMessage" data-bind="validationMessage: requiredTextInput1"></span>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-12">
+                                        <div class="form-group" data-bind="validationElement2: requiredTextInput2, css: {'is-not-empty': requiredTextInput2}">
+                                            <label for="additionalcommtsId" id="additionalcommentLabelId">{!$Label.GRACE_YPO_Additionalcomments}</label>
+                                            <!--  <textarea rows="4"  class="form-control-tb" value="{!exceptionDesc}" id="additionalcommtsId" onkeyup="validateSelection()"></textarea> -->
+                                            <apex:inputtextarea value="{!exceptionDesc}" id="additionalcommtsId" html-data-bind="textInput:requiredTextInput2" rows="4" onkeyup="validateSelection()" styleclass="form-control-tb"/>
+                                            <span class="validationMessage" data-bind="validationMessage: requiredTextInput2"></span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- ***** grace option START ***** -->
+                            <!-- ***** buttons block START ***** -->
+                            <div class="action-panel">
+                                <div class="row">
+                                    <div class="col-xs-6">
+                                        <button class="btn btn-default pull-left action-button" id="backbtnId" onclick="callActionFuncForBack()" role="button" type="button">{!$Label.Back}</button>
+                                        <!--<apex:commandButton value="{!$Label.Back}" title="{!$Label.Back}" styleclass="btn btn-default pull-left action-button" action="{!redirectTo}" onClick="return backButton()" />-->
+                                    </div>
+                                    <div class="col-xs-6">
+                                        <button class="btn btn-primary pull-right action-button" id="saveContinueId" onclick="validate()" role="button" type="button">CONTINUE</button>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- ***** buttons block END ***** -->
+    
+                            <apex:actionfunction name="callActionFuncFOrSaveContinue" action="{!createGracecase}" />
+                            <apex:actionfunction name="callActionFuncForBack" action="{!redirectTo}" />
+    
+                        </apex:form>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="panel help visible-md visible-lg">
+                            <div class="panel-header text-center">
+                                <img class="panel-header-img" src="{!URLFOR($Resource.YPORenew, 'ypo-renewals/assets/img/buoy.jpg')}" />
+                                <h3 class="help">{!$Label.Help_NeedHelp}</h3>
+                            </div>
+                            <p>{!$Label.Help_ifYouNeed} </p>
+                            <p class="clearfix need-help-phone">
+                                <!--<img class="pull-left need-help-phone" src="{!URLFOR($Resource.YPORenew, 'ypo-renewals/assets/img/phone.png')}"/>                        -->
+                                <i class="icon-phone"></i>
+                                <span class="pull-left">{!$Label.Help_Phone1}<br />{!$Label.Help_Phone2} </span>
+                            </p>
+                            <p class="clearfix need-help-email">
+                                <!--  <img class="pull-left" src="{!URLFOR($Resource.YPORenew, 'ypo-renewals/assets/img/email.png')}"/>-->
+                                <i class="icon-email"></i>
+                                <span class="pull-left need-help-email">{!$Label.Help_Email} </span>
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    
+        <!-- <div style="color:black"> <apex:pagemessages id="messagesStart" /> </div> -->
+    </body>
+    
+    <footer>
+        <div class="container">
+            <div class="row">
+                <div class="col-md-4"><img class="logo" src="{!URLFOR($Resource.YPORenew, 'ypo-renewals/assets/img/ypo-white.png')}" /></div>
+                <div class="col-md-4 text-center"><a href="https://media.ypowpo.org/libraries/publicLegal/exchange/TOU.pdf" target="_blank" style="color: #fdfeff;">{!$Label.Copyright_TOU}</a></div>
+                <div class="col-md-4 text-right">&copy; {!$Label.Copyright_YPO}</div>
+            </div>
+        </div>
+    </footer>
+    <!-- Scripts -->
+    <script src="{!URLFOR($Resource.YPORenew, 'ypo-renewals/assets/js/jquery-3.2.1.min.js')}"></script>
+    <script src="{!URLFOR($Resource.YPORenew, 'ypo-renewals/assets/js/bootstrap.min.js')}"></script>
+    <script src="{!URLFOR($Resource.YPORenew, 'ypo-renewals/assets/js/validator.min.js')}"></script>
+
+
+    <!--</apex:define>
+    </apex:composition>-->
+    <apex:includescript value="https://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js" />
+    <apex:includescript value="{!URLFOR($Resource.KGQuickstart_dist, '/js/detail.min.js')}" />
+    <apex:includescript value="{!URLFOR($Resource.knockout)}" />
+    <apex:includescript value="{!URLFOR($Resource.knockoutvalidation)}" />
+
+    <script>
+        $(document).ready(function(){
+             // knockjs function
+            ko.applyBindings(new inputSelectModel());
+            $('[id*="reasonInputTextId"]').prop('required', true);
+        });
+
+        function validate() {
+            //validator form
+            $('form').validator('validate');
+
+            // Show the alert box when there is a error in the form
+            if ($('form').data('bs.validator').validate().hasErrors()) {
+                $('#update-profile-alert').removeClass('hide').addClass('show');
+                window.setTimeout(function () {
+                    $('html, body').animate({ scrollTop: $('#update-profile-alert').offset().top - 90 }, 500);
+                }, 0);
+            } else {
+                $('#update-profile-alert').removeClass('show').addClass('hide');
+                callActionFuncFOrSaveContinue();
+            }
+        }
+
+        // textarea function
+        $( document ).ready(function() {
+            setTextAreaPlaceHolder($('[id*="additionalcommtsId"]'), "Text area content");
+        });
+        
+        $('.expanding').keyup(function () {
+                if ($.trim($(this).val()).length) {
+                $(this).css("color", "#3D7099");
+                $(".textareaLabel").css("color", "#717171");
+            }else {
+                $(this).css("color", "#717171");
+                $(".textareaLabel").css("color", "#3D7099");
+            }
+            });
+        var self;
+        var inputSelectModel = function(){
+            self = this;
+            self.requiredTextInput1 = ko.observable('').extend({ required: true });
+            self.requiredTextInput2 = ko.observable('').extend({ required: { onlyIf: function () {return self.requiredTextInput1() == 'Other';} } })
+        }
+        
+        function setTextAreaPlaceHolder($someTextArea, placeHolder) {
+            if ($someTextArea.val() === "" || $someTextArea.val() === null || $someTextArea.val() === undefined) {
+                $someTextArea.val(placeHolder);
+                $someTextArea.css('color', 'gray');
+            }
+            
+            $someTextArea.focus(function() {
+                if ($(this).val() === placeHolder)
+                    $(this).val("");
+                    $(this).css('color', 'black');
+                }
+            );
+            $someTextArea.blur(function() {
+                if ($(this).val() === "")
+                    $(this).val(placeHolder);
+                    $(this).css('color', 'gray');
+                }
+            );
+            
+            
+        }
+        
+        function validateSelection() {
+            var toEnable=false;
+            if($('.validationMessage').text() != '' ){
+                toEnable=false;
+            }
+            if($('[id*="reasonInputTextId"]').val().length==0 ){
+                toEnable=false;
+            }
+            if($('[id*="additionalcommtsId"]').val().length==0 && $('[id*="reasonInputTextId"]').val() == 'Other' ){
+                toEnable=false;
+            }
+            if($('[id*="reasonInputTextId"]').val() == 'Other'){
+                if($('#additionalcommentLabelId').hasClass('is-required')){
+                }else{
+                    $("#additionalcommentLabelId").addClass("is-required");
+                }
+                if($('[id*="additionalcommtsId"]').val().length==0){
+                    self.requiredTextInput2(' Dummy text');
+                    self.requiredTextInput2('');
+                }
+            }else{
+                if($('#additionalcommentLabelId').hasClass('is-required')){
+                    $("#additionalcommentLabelId").removeClass("is-required");
+                }
+            }
+            //document.getElementById('saveContinueId').disabled=false;
+        }
+
+        ko.validation.init({
+               registerExtenders: true,
+               messagesOnModified: true,
+               insertMessages: false,
+               parseInputAttributes: true,
+               messageTemplate: null,
+               decorateInputElement: false,
+               grouping: {
+                    deep: true, observable: false
+               }
+           },
+           true);
+    </script>
+</apex:page>

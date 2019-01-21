@@ -1,0 +1,15 @@
+<apex:page standardStylesheets="false" showHeader="false" sidebar="false" doctype="html-5.0" applyHtmlTag="false">
+  <apex:composition template="{!$Site.Template}">
+    <apex:define name="pageTitle">Error</apex:define>
+    <apex:define name="body">
+      <div class="text-center">
+        <h2>An unexpected error has occurred</h2>
+        <p class="lead">Please try using your browser's back button to return to your previous page. If you need to contact support at <a href="mailto:{!$Site.AdminEmailAddress}">{!$Site.AdminEmailAddress}</a> please include the following information:</p>
+        <div class="well">
+          <p>{!$Site.ErrorMessage}</p>
+          <p>{!$Site.ErrorDescription}</p>
+        </div>
+      </div>
+    </apex:define>
+  </apex:composition>
+</apex:page>

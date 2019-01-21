@@ -1,0 +1,198 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomObject xmlns="http://soap.sforce.com/2006/04/metadata">
+    <actionOverrides>
+        <actionName>Accept</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>CancelEdit</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Clone</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Delete</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Edit</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>List</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>New</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>SaveEdit</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Tab</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>View</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <allowInChatterGroups>true</allowInChatterGroups>
+    <compactLayoutAssignment>SYSTEM</compactLayoutAssignment>
+    <deploymentStatus>Deployed</deploymentStatus>
+    <description>Custom Audit Log object to manage error emails</description>
+    <enableActivities>true</enableActivities>
+    <enableBulkApi>true</enableBulkApi>
+    <enableChangeDataCapture>false</enableChangeDataCapture>
+    <enableFeeds>false</enableFeeds>
+    <enableHistory>true</enableHistory>
+    <enableReports>true</enableReports>
+    <enableSearch>true</enableSearch>
+    <enableSharing>true</enableSharing>
+    <enableStreamingApi>true</enableStreamingApi>
+    <externalSharingModel>ReadWrite</externalSharingModel>
+    <fields>
+        <fullName>Error_String__c</fullName>
+        <description>Holds the entire error string of the failure</description>
+        <externalId>false</externalId>
+        <inlineHelpText>Please enter the entire error string of the failure here</inlineHelpText>
+        <label>Error String</label>
+        <length>131072</length>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>LongTextArea</type>
+        <visibleLines>2</visibleLines>
+    </fields>
+    <fields>
+        <fullName>Error_Type__c</fullName>
+        <externalId>false</externalId>
+        <label>Error Type</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Picklist</type>
+        <valueSet>
+            <restricted>true</restricted>
+            <valueSetDefinition>
+                <sorted>false</sorted>
+                <value>
+                    <fullName>Account Affiliation Transfer Batch</fullName>
+                    <default>false</default>
+                    <label>Account Affiliation Transfer Batch</label>
+                </value>
+                <value>
+                    <fullName>Chapter Health Batch</fullName>
+                    <default>false</default>
+                    <label>Chapter Health Batch</label>
+                </value>
+                <value>
+                    <fullName>KG Opportunity Trigger</fullName>
+                    <default>false</default>
+                    <label>KG Opportunity Trigger</label>
+                </value>
+                <value>
+                    <fullName>Set as Prospect</fullName>
+                    <default>false</default>
+                    <label>Set as Prospect</label>
+                </value>
+                <value>
+                    <fullName>Set Products</fullName>
+                    <default>false</default>
+                    <label>Set Products</label>
+                </value>
+                <value>
+                    <fullName>Transition Batch</fullName>
+                    <default>false</default>
+                    <label>Transition Batch</label>
+                </value>
+                <value>
+                    <fullName>FIELD_CUSTOM_VALIDATION_EXCEPTION</fullName>
+                    <default>false</default>
+                    <label>FIELD_CUSTOM_VALIDATION_EXCEPTION</label>
+                </value>
+                <value>
+                    <fullName>CANNOT_INSERT_UPDATE_ACTIVATE_ENTITY</fullName>
+                    <default>false</default>
+                    <label>CANNOT_INSERT_UPDATE_ACTIVATE_ENTITY</label>
+                </value>
+            </valueSetDefinition>
+        </valueSet>
+    </fields>
+    <fields>
+        <fullName>Opportunity__c</fullName>
+        <deleteConstraint>SetNull</deleteConstraint>
+        <description>Lookup to related opportunity</description>
+        <externalId>false</externalId>
+        <label>Opportunity</label>
+        <referenceTo>Opportunity</referenceTo>
+        <relationshipLabel>Error Logs</relationshipLabel>
+        <relationshipName>Error_Logs</relationshipName>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Lookup</type>
+    </fields>
+    <fields>
+        <fullName>Record_Id__c</fullName>
+        <description>Holds the ID of the record the failure occurred on</description>
+        <externalId>false</externalId>
+        <inlineHelpText>Please enter the Id of the record this failure occurred on</inlineHelpText>
+        <label>Record Id</label>
+        <length>255</length>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <label>Error Log</label>
+    <listViews>
+        <fullName>All</fullName>
+        <columns>NAME</columns>
+        <columns>CREATED_DATE</columns>
+        <columns>CREATEDBY_USER</columns>
+        <columns>Error_Type__c</columns>
+        <columns>Opportunity__c</columns>
+        <columns>Record_Id__c</columns>
+        <columns>Error_String__c</columns>
+        <filterScope>Everything</filterScope>
+        <label>All</label>
+    </listViews>
+    <listViews>
+        <fullName>AllTy</fullName>
+        <columns>NAME</columns>
+        <columns>CREATED_DATE</columns>
+        <columns>CREATEDBY_USER</columns>
+        <columns>Error_Type__c</columns>
+        <columns>Error_String__c</columns>
+        <columns>Opportunity__c</columns>
+        <columns>Record_Id__c</columns>
+        <filterScope>Everything</filterScope>
+        <filters>
+            <field>Opportunity__c</field>
+            <operation>contains</operation>
+            <value>jacobs</value>
+        </filters>
+        <label>All Ty</label>
+    </listViews>
+    <nameField>
+        <displayFormat>ERL-{0000}</displayFormat>
+        <label>Error Log Name</label>
+        <trackHistory>false</trackHistory>
+        <type>AutoNumber</type>
+    </nameField>
+    <pluralLabel>Error Logs</pluralLabel>
+    <searchLayouts>
+        <customTabListAdditionalFields>CREATEDBY_USER</customTabListAdditionalFields>
+        <customTabListAdditionalFields>Error_Type__c</customTabListAdditionalFields>
+        <customTabListAdditionalFields>Opportunity__c</customTabListAdditionalFields>
+        <customTabListAdditionalFields>Record_Id__c</customTabListAdditionalFields>
+        <customTabListAdditionalFields>Error_String__c</customTabListAdditionalFields>
+    </searchLayouts>
+    <sharingModel>ReadWrite</sharingModel>
+    <startsWith>Vowel</startsWith>
+    <visibility>Public</visibility>
+</CustomObject>

@@ -1,0 +1,335 @@
+<!-- Component -->
+<apex:component controller="QuoteComponentCtrl" access="global" allowDML="true">
+    <apex:attribute name="opportunity" description="The Opportunity to render this PDF for." type="Opportunity" assignTo="{!opportunityRecord}" />
+    <apex:attribute name="quoteName" description="The quote number for this PDF." type="String" assignTo="{!quoteNumber}" />
+    <head>
+        <style>
+            @page{
+            margin:0.20in;
+            }
+            body {
+            margin: 0;
+            font-size: 11px;
+            font-family: sans-serif;
+            color: #3d3d3d;
+            }
+            table { 
+            border-spacing:0;
+            border-collapse:collapse;
+            }
+            table.line-items {
+            margin-top: 10px;
+            }
+            h1 {
+            font-size: 14px;
+            display: block;
+            margin: 0 0 4px 0;
+            }
+            h2 {
+            font-size: 12px;
+            display: block;
+            margin: 0 0 2px 0;
+            }
+            td {
+            padding: 2px;
+            }
+            td.company-header {
+            width: 50%;
+            text-align: left;
+            }
+            td.quote-header {
+            width: 50%;
+            text-align: right;
+            }
+            td.quote-header div{
+            text-align: left;
+            }
+            td.quote-header h1 {
+            display:inline-block;
+            background: #0b486b;
+            color: #FFF;
+            text-align: left;
+            font-size: 200%;
+            width: 100%;
+            padding: 3px 5px;
+            border-left: 4px solid #3b8686;
+            border-bottom: 1px solid #3b8686;
+            }
+            td.quote-header label {
+            font-weight: 700;
+            display: inline-block;
+            width: 130px;
+            text-align: left;
+            padding-left: 10px;
+            }
+            td.quote-header span {
+            display: inline-block;
+            text-align: left;
+            }
+            table.line-items tr.single-item-headers {
+            background: #ddd;
+            }
+            table.line-items tr.cell-header {
+            background: #ddd;
+            }
+            table.line-items td.column-header {
+            background: none;
+            text-align: center;
+            border-bottom: none;
+            margin-top: 5px;
+            vertical-align: middle;
+            color: #444;
+            border-left: 1px solid #e5e5e5;
+            }
+            table.line-items td.column-header-spacer {
+            background: #FFF;
+            }
+            table.line-items td {
+            width: 10%;
+            padding: 2px;
+            text-align: center;
+            vertical-align: middle;
+            }
+            table.line-items td.description {
+            width: 30%;
+            }
+            table.line-items tr.repeat-items td {
+            border-top: 1px solid #EEE;
+            }
+            table.line-items tr.item-totals.cell-header td {
+                
+            }
+            table.line-items tr.item-totals td {
+            }
+            div.header-arrow {
+            display: none;
+            }
+            td.legal {
+            padding-top: 15px;
+            }
+            td.shipping-address {
+            padding-top: 15px;
+            }
+        </style>
+    </head>
+    <table>
+        <tr class="header">
+            <td class="company-header">
+                <div>
+                    <h1>
+                        <img src="{!$Resource.logoPlaceHolder}" alt="Logo Place Holder" width="200" />
+                    </h1>
+                </div>
+                <div>
+                    <h2>{!$Organization.Street}</h2>
+                </div>
+                <div>
+                    <h2>{!$Organization.City}, {!$Organization.State} {!$Organization.PostalCode}</h2>
+                </div>
+                <div>
+                    <apex:outputLink value="http://www.placeholdercompanyname.com">
+                        <h2>http://www.placeholdercompanyname.com</h2>
+                    </apex:outputLink>
+                </div>
+            </td>
+            <td class="quote-header">
+                <div>
+                    <h1>Quote</h1>
+                </div>
+                <div>
+                    <label>Quote Number:</label>
+                    <span>QTE-CB20130392349</span>
+                </div>
+                <div>
+                    <label>Date:</label>
+                    <span>{!currentDate}</span>
+                </div>
+                <div>
+                    <label>Expiration Date:</label>
+                    <span>{!expirationDate}</span>
+                </div>
+            </td>
+        </tr>
+        <tr class="shipping">
+            <td class="shipping-address">
+                <h1>Ship To</h1>
+                <div>{!Opportunity.Account.Name}</div>
+                <div>{!Opportunity.Account.BillingStreet}</div>
+                <div>{!Opportunity.Account.BillingCity}, {!Opportunity.Account.BillingState} {!Opportunity.Account.BillingPostalCode}</div>
+            </td>
+        </tr>
+        <tr>
+            <td width="100%" colspan="2">
+                <table class="line-items">
+                    <tr class="single-item-headers cell-header">
+                        <td class="column-header" colspan="2">
+                            <h2>License Term: From/To</h2>
+                            <div class="header-arrow">&nbsp;</div>
+                        </td>
+                        <td class="column-header">
+                            <div class="header-arrow">&nbsp;</div>
+                            <h2>Currency</h2>
+                        </td>
+                        <td class="column-header">
+                            <div class="header-arrow">&nbsp;</div>
+                            <h2>Industry</h2>
+                        </td>
+                        <td class="column-header">
+                            <div class="header-arrow">&nbsp;</div>
+                            <h2>Salesperson Name</h2>
+                        </td>
+                        <td class="column-header">
+                            <div class="header-arrow">&nbsp;</div>
+                            <h2>Payment Terms</h2>
+                        </td>
+                    </tr>
+                    <tr class="single-items">
+                        <td>
+                            <apex:outputField value="{!Opportunity.KGRenewal__ContractEffectiveDate__c}" />
+                        </td>
+                        <td>
+                            <apex:outputField value="{!Opportunity.KGRenewal__ContractEndDate__c}" />
+                        </td>
+                        <td>
+                            <span>{!currencyISOCode}</span>
+                        </td>
+                        <td>
+                            <span>{!Opportunity.Pricebook2.Name}</span>
+                        </td>
+                        <td>
+                            <span>{!Opportunity.Owner.Name}</span>
+                        </td>
+                        <td>
+                            <span>Net 30</span>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td colspan="6">
+                            &nbsp;
+                        </td>
+                    </tr>
+                    <tr class="repeat-item-headers cell-header">
+                        <td class="column-header">
+                            <div class="header-arrow">&nbsp;</div>
+                            <h2>Quantity</h2>
+                        </td>
+                        <td class="column-header">
+                            <div class="header-arrow">&nbsp;</div>
+                            <h2>Item Number</h2>
+                        </td>
+                        <td class="column-header">
+                            <div class="header-arrow">&nbsp;</div>
+                            <h2>Unit List Price</h2>
+                        </td>
+                        <td class="column-header">
+                            <div class="header-arrow">&nbsp;</div>
+                            <h2>Discount</h2>
+                        </td>
+                        <td class="column-header">
+                            <div class="header-arrow">&nbsp;</div>
+                            <h2>Unit Discount Price</h2>
+                        </td>
+                        <td class="column-header">
+                            <div class="header-arrow">&nbsp;</div>
+                            <h2>Extended Price</h2>
+                        </td>
+                    </tr>
+                    <apex:repeat value="{!lineItems}" var="item">
+                        <tr class="repeat-items">
+                            <td class="titles">
+                                <apex:outputField value="{!item.Quantity}" />
+                            </td>
+                            <td class="titles">
+                                <apex:outputField value="{!item.PricebookEntry.Product2.Name}" />
+                            </td>
+                            <td class="titles">
+                                <apex:outputText value="{!currencyISOCode}" />
+                                <apex:outputText value="{0,number, #,###,###.00}">
+                                    <apex:param value="{!item.KGRenewal__UnitPrice__c}" />
+                                </apex:outputText>
+                            </td>
+                            <td class="titles">
+                                <apex:outputField value="{!item.Discount}" />
+                            </td>
+                            <td class="titles">
+                                <apex:outputText value="{!currencyISOCode}" />
+                                <apex:outputText value="{0,number, #,###,###.00}" rendered="{!NOT(ISNULL(item.Discount))}">
+                                    <apex:param value="{!item.UnitPrice * (1 - (item.Discount / 100))}" />
+                                </apex:outputText>
+                                <apex:outputText value="{0,number, #,###,###.00}" rendered="{!ISNULL(item.Discount)}">
+                                    <apex:param value="{!item.UnitPrice}" />
+                                </apex:outputText>
+                            </td>
+                            <td class="titles">
+                                <!-- <apex:outputField value="{!item.TotalPrice}" /> -->
+                                <apex:outputText value="{!currencyISOCode}" />
+                                <apex:outputText value="{0,number, #,###,###.00}">
+                                    <apex:param value="{!item.TotalPrice}" />
+                                </apex:outputText>
+                            </td>
+                        </tr>
+                    </apex:repeat>
+                    <tr class="item-totals cell-header">
+                        <td colspan="5" class="column-header-spacer">
+                            &nbsp;
+                        </td>
+                        <td class="column-header">
+                            <div class="header-arrow">&nbsp;</div>
+                            <h2>Tax</h2>
+                        </td>
+                    </tr>
+                    <tr class="item-totals">
+                        <td colspan="5" class="column-header-spacer">
+                            &nbsp;
+                        </td>
+                        <td>
+                            <apex:outputText value="{!currencyISOCode}" />
+                            <apex:outputText value="{0,number, #,###,###.00}">
+                                <apex:param value="{!Opportunity.KGRenewal__Tax__c}" />
+                            </apex:outputText>
+                        </td>
+                    </tr>
+                    <tr class="item-totals cell-header">
+                        <td colspan="5" class="column-header-spacer">
+                            &nbsp;
+                        </td>
+                        <td class="column-header">
+                            <div class="header-arrow">&nbsp;</div>
+                            <h2>Total</h2>
+                        </td>
+                    </tr>
+                    <tr class="item-totals">
+                        <td colspan="5" class="column-header-spacer">
+                            &nbsp;
+                        </td>
+                        <td>
+                            <apex:outputText value="{!currencyISOCode}" />
+                            <apex:outputText value="{0,number, #,###,###.00}">
+                                <apex:param value="{!Opportunity.Amount}" />
+                            </apex:outputText>
+                        </td>
+                    </tr>
+                </table>
+            </td>
+        </tr>
+        <tr>
+            <td class="questions legal" colspan="2">
+                <div>For questions please email or call:</div>
+                <div>{!Opportunity.Owner.Name} at {!Opportunity.Owner.Email} - {!Opportunity.Owner.Phone}</div>
+                <div>or email sales@placeholdercompanyname.com</div>
+            </td>
+        </tr>
+        <tr>
+            <td class="order-submit legal" colspan="2">
+                <div>Please fax or email your purchase order referencing the quote number above to:</div>
+                <div>Fax: 1-123-555-2990</div>
+                <div>Email: accounts@placeholdercompanyname.com</div>
+            </td>
+        </tr>
+        <tr>
+            <td class="feed-legal legal" colspan="2">
+                <div>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut non neque orci. Pellentesque rutrum mi nec tellus viverra vulputate. Suspendisse libero leo, vehicula non semper et, laoreet scelerisque metus. Nulla ipsum lacus, bibendum sed hendrerit at, laoreet in nisi. Vestibulum.</div>
+            </td>
+        </tr>
+    </table>
+</apex:component>

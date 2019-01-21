@@ -1,0 +1,45 @@
+<apex:page standardController="Contact_Position__c" extensions="ContactPositionEditController">
+    <apex:pageMessages id="msgs"/>
+    <apex:form id="ContactPositionForm">
+        
+            
+            <apex:actionRegion >
+        <apex:pageBlock id="ContactPositionBlock">
+            <apex:pageBlockButtons id="buttons">
+                <apex:commandButton action="{!saveCustom}" value="Save" rendered="{!NOT(saveAttempted)}" rerender="msgs, ContactPositionOutputPanel, ContactPositionBlock" />
+                <apex:commandButton action="{!save}" value="Save - Ignore Alert" rendered="{!saveAttempted}" rerender="msgs, ContactPositionOutputPanel" />
+                <apex:commandButton action="{!saveAndNew}" value="Save & New" rendered="{!NOT(saveNewAttempted)}" rerender="msgs, ContactPositionOutputPanel, buttons" />
+                <apex:commandButton action="{!save}" value="Save New - Ignore Alert" rendered="{!saveNewAttempted}" rerender="msgs, ContactPositionOutputPanel" />
+                <apex:commandButton action="{!cancel}" value="Cancel" immediate="true"/>
+            </apex:pageBlockButtons>
+            
+            <apex:outputPanel id="ContactPositionOutputPanel" layout="none">
+                
+                <!-- This is the edit page component -->
+                <c:EditPage sObjectApiName="Contact_Position__c" 
+                                   recordTypeId="{!recordTypeId}" 
+                                   obj="{!theCP}" 
+                                   panel="ContactPositionOutputPanel"/>
+                <!-- END COMPONENT -->
+                
+            </apex:outputPanel>
+        </apex:pageBlock>
+            </apex:actionRegion>
+             
+        
+        
+    </apex:form>
+    
+    <script type="text/javascript">
+        
+        //Calling the render function will allow the component to display the page after it has 
+        //Received the pagelayout information via the ajax toolkit 
+             
+        $(document).ready(function() {      
+            DynamicEditPage.render();
+        });
+               
+            
+    </script>
+
+</apex:page>

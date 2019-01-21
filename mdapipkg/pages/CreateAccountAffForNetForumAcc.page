@@ -1,0 +1,30 @@
+<apex:page standardController="Account" extensions="CreateAccountAffForNetForumAccExt" docType="html-5.0" sidebar="false" showHeader="false" >
+    <apex:form id="results">
+        <apex:pageBlock title="Affiliate Non Chapter Member to a Network/Forum">
+            <apex:pageMessages ></apex:pageMessages>
+            <apex:pageBlockSection columns="2">
+                <apex:pageBlockSectionItem >
+                    <apex:outputLabel value="Search String" ></apex:outputLabel>
+                    <apex:inputField id="searchString" value="{!acc.name}" ></apex:inputField>      
+                </apex:pageBlockSectionItem>               
+                <apex:commandButton value="Search" action="{!getRelatedContactsToAccViaSOSL}" rerender="results"/>
+            </apex:pageBlockSection>
+            <apex:outputPanel >
+                <apex:pageBlockSection title="Search Results">
+                    <apex:outputPanel rendered="{!wrapContactList.size==0}">
+                    No records found
+                    </apex:outputPanel>
+                    <apex:pageBlockTable value="{!wrapContactList}" var="contacts"  rendered="{!wrapContactList.size>0}">
+                        <apex:column title="Select"><apex:inputCheckbox value="{!contacts.selected}"/></apex:column>
+                        <apex:column value="{!contacts.contact.Name}"></apex:column>
+                        <apex:column value="{!contacts.contact.Email}"></apex:column>
+                        <apex:column value="{!contacts.contact.AccountId}"></apex:column>
+                    </apex:pageBlockTable>
+                </apex:pageBlockSection>
+            </apex:outputPanel>
+            <apex:pageBlockButtons location="bottom">                
+                <apex:commandButton value="Add Non Chapter Member" action="{!processSelected}" disabled="{!wrapContactList.size==0}"/>
+            </apex:pageBlockButtons>
+        </apex:pageBlock>
+    </apex:form>
+</apex:page>

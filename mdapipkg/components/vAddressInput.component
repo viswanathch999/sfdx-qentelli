@@ -1,0 +1,110 @@
+<apex:component >
+  <apex:includeScript value="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js" />
+  <apex:includeScript value="{!URLFOR($Resource.KGRenewal__dist, 'js/forms.min.js')}" />
+  <apex:attribute type="KGRenewal.AddressDisplayItem" name="address" required="true" description="The address being entered." />
+
+  <!-- BEGIN new address -->
+  <apex:outputPanel rendered="{!ISNULL(address.Id)}">
+    <div class="col-xs-12 form-group" data-required="true">
+      <apex:outputLabel styleclass="control-label" for="firstName">First Name</apex:outputLabel>
+      <apex:inputText value="{!address.firstName}" styleclass="form-control" id="firstName" />
+    </div>
+    <!-- /.form-group -->
+    <div class="col-xs-12 form-group" data-required="true">
+      <apex:outputLabel styleclass="control-label" for="lastName">Last Name</apex:outputLabel>
+      <apex:inputText value="{!address.lastName}" styleclass="form-control" id="lastName" />
+    </div>
+    <!-- /.form-group -->
+    <div class="col-xs-12 form-group" data-required="true">
+      <apex:outputLabel styleclass="control-label" for="organization">Organization</apex:outputLabel>
+      <apex:inputText value="{!address.organization}" styleclass="form-control" id="organization" />
+    </div>
+    <!-- /.form-group -->
+    <div class="col-xs-12 form-group" data-required="true">
+      <apex:outputLabel styleclass="control-label" for="street1"> Street Line 1</apex:outputLabel>
+      <apex:inputText value="{!address.streetAddress1}" styleclass="form-control" id="street1" />
+    </div>
+    <!-- /.form-group -->
+    <div class="col-xs-12 form-group">
+      <apex:outputLabel styleclass="control-label" for="Street2"> Street Line 2</apex:outputLabel>
+      <apex:inputText value="{!address.streetAddress2}" styleclass="form-control" id="Street2" />
+    </div>
+    <!-- /.form-group -->
+    <div class="col-xs-12 form-group" data-required="true">
+      <apex:outputLabel styleclass="control-label" for="City"> City</apex:outputLabel>
+      <apex:inputText value="{!address.city}" styleclass="form-control" id="City" />
+    </div>
+    <!-- /.form-group -->
+    <div class="col-xs-12 form-group" data-required="true">
+      <apex:outputLabel styleclass="control-label" for="State"> State</apex:outputLabel>
+      <apex:inputText value="{!address.state}" styleclass="form-control" id="State" />
+    </div>
+    <!-- /.form-group -->
+    <div class="col-xs-12 form-group" data-required="true">
+      <apex:outputLabel styleclass="control-label" for="PostalCode"> Postal Code</apex:outputLabel>
+      <apex:inputText value="{!address.postalCode}" styleclass="form-control" id="PostalCode" />
+    </div>
+    <!-- /.form-group -->
+  </apex:outputPanel>
+  <!-- END new address -->
+  <!-- BEGIN saved address -->
+  <apex:outputPanel rendered="{!NOT(ISNULL(address.Id))}">
+    <div class="col-xs-12 form-group">
+      <apex:outputLabel styleclass="control-label" for="firstName">First Name</apex:outputLabel>
+      <p class="form-control-static">
+        {!address.firstName}
+      </p>
+    </div>
+    <!-- /.form-group -->
+    <div class="col-xs-12 form-group">
+      <apex:outputLabel styleclass="control-label" for="lastName">Last Name</apex:outputLabel>
+      <p class="form-control-static">
+        {!address.lastName}
+      </p>
+    </div>
+    <!-- /.form-group -->
+    <div class="col-xs-12 form-group">
+      <apex:outputLabel styleclass="control-label" for="organization">Organization</apex:outputLabel>
+      <p class="form-control-static">
+        {!address.organization}
+      </p>
+    </div>
+    <!-- /.form-group -->
+    <div class="col-xs-12 form-group">
+      <apex:outputLabel styleclass="control-label" for="street1"> Street Line 1</apex:outputLabel>
+      <p class="form-control-static">
+        {!address.streetAddress1}
+      </p>
+    </div>
+    <!-- /.form-group -->
+    <div class="col-xs-12 form-group">
+      <apex:outputLabel styleclass="control-label" for="Street2"> Street Line 2</apex:outputLabel>
+      <p class="form-control-static">
+        {!address.streetAddress2}
+      </p>
+    </div>
+    <!-- /.form-group -->
+    <div class="col-xs-12 form-group">
+      <apex:outputLabel styleclass="control-label" for="City"> City</apex:outputLabel>
+      <p class="form-control-static">
+        {!address.city}
+      </p>
+    </div>
+    <!-- /.form-group -->
+    <div class="col-xs-12 form-group">
+      <apex:outputLabel styleclass="control-label" for="State"> State</apex:outputLabel>
+      <p class="form-control-static">
+        {!address.state}
+      </p>
+    </div>
+    <!-- /.form-group -->
+    <div class="col-xs-12 form-group">
+      <apex:outputLabel styleclass="control-label" for="PostalCode"> Postal Code</apex:outputLabel>
+      <p class="form-control-static">
+        {!address.postalCode}
+      </p>
+    </div>
+    <!-- /.form-group -->
+  </apex:outputPanel>
+  <!-- END saved address -->
+</apex:component>

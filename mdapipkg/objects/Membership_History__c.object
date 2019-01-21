@@ -1,0 +1,422 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomObject xmlns="http://soap.sforce.com/2006/04/metadata">
+    <actionOverrides>
+        <actionName>Accept</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>CancelEdit</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Clone</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Delete</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Edit</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>List</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>New</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>SaveEdit</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Tab</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>View</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <allowInChatterGroups>false</allowInChatterGroups>
+    <compactLayoutAssignment>SYSTEM</compactLayoutAssignment>
+    <deploymentStatus>Deployed</deploymentStatus>
+    <description>This houses acceptance data (from which renewal qualifications are determined. It also allows for members to leave and then create a new record when rejoining.
+
+RP:15/12: Renamed it to &apos;Membership History&apos; from &apos;Acceptance Data&apos;.</description>
+    <enableActivities>true</enableActivities>
+    <enableBulkApi>true</enableBulkApi>
+    <enableChangeDataCapture>false</enableChangeDataCapture>
+    <enableEnhancedLookup>true</enableEnhancedLookup>
+    <enableFeeds>false</enableFeeds>
+    <enableHistory>true</enableHistory>
+    <enableReports>true</enableReports>
+    <enableSearch>true</enableSearch>
+    <enableSharing>true</enableSharing>
+    <enableStreamingApi>true</enableStreamingApi>
+    <externalSharingModel>ControlledByParent</externalSharingModel>
+    <fields>
+        <fullName>Account__c</fullName>
+        <deleteConstraint>SetNull</deleteConstraint>
+        <externalId>false</externalId>
+        <label>Account</label>
+        <referenceTo>Account</referenceTo>
+        <relationshipName>Acceptance_Data</relationshipName>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Lookup</type>
+    </fields>
+    <fields>
+        <fullName>Chapter_Active__c</fullName>
+        <externalId>false</externalId>
+        <label>Chapter Active?</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Picklist</type>
+        <valueSet>
+            <controllingField>Reason__c</controllingField>
+            <valueSetDefinition>
+                <sorted>false</sorted>
+                <value>
+                    <fullName>Deactivate old primary chapter</fullName>
+                    <default>false</default>
+                    <label>Deactivate old primary chapter</label>
+                </value>
+                <value>
+                    <fullName>Keep old primary chapter as secondary</fullName>
+                    <default>false</default>
+                    <label>Keep old primary chapter as secondary</label>
+                </value>
+            </valueSetDefinition>
+            <valueSettings>
+                <controllingFieldValue>Transfer</controllingFieldValue>
+                <controllingFieldValue>Transitioned</controllingFieldValue>
+                <valueName>Deactivate old primary chapter</valueName>
+            </valueSettings>
+            <valueSettings>
+                <controllingFieldValue>Transfer</controllingFieldValue>
+                <valueName>Keep old primary chapter as secondary</valueName>
+            </valueSettings>
+        </valueSet>
+    </fields>
+    <fields>
+        <fullName>Contact__c</fullName>
+        <externalId>false</externalId>
+        <label>Contact</label>
+        <referenceTo>Contact</referenceTo>
+        <relationshipName>Acceptance_Data</relationshipName>
+        <relationshipOrder>0</relationshipOrder>
+        <reparentableMasterDetail>false</reparentableMasterDetail>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>MasterDetail</type>
+        <writeRequiresMasterRead>false</writeRequiresMasterRead>
+    </fields>
+    <fields>
+        <fullName>Cycle_Start_Date__c</fullName>
+        <externalId>false</externalId>
+        <label>Cycle Start Date</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Date</type>
+    </fields>
+    <fields>
+        <fullName>Date_Left__c</fullName>
+        <externalId>false</externalId>
+        <label>Date Left</label>
+        <required>false</required>
+        <trackHistory>true</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Date</type>
+    </fields>
+    <fields>
+        <fullName>GUID__c</fullName>
+        <caseSensitive>false</caseSensitive>
+        <externalId>true</externalId>
+        <label>GUID</label>
+        <length>50</length>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>true</unique>
+    </fields>
+    <fields>
+        <fullName>Join_Date__c</fullName>
+        <description>Date joined YPO or YPO Gold. Field YPO Gold/YPO? will show if this is YPO join date or YPO Gold join date.</description>
+        <externalId>false</externalId>
+        <inlineHelpText>Date joined YPO or YPO Gold. Field YPO Gold/YPO? will show if this is YPO join date or YPO Gold join date.</inlineHelpText>
+        <label>Date Joined</label>
+        <required>false</required>
+        <trackHistory>true</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Date</type>
+    </fields>
+    <fields>
+        <fullName>Reason_Other__c</fullName>
+        <externalId>false</externalId>
+        <inlineHelpText>Populate this field if &apos;Other&apos; is selected as  Reason</inlineHelpText>
+        <label>Reason Other</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>TextArea</type>
+    </fields>
+    <fields>
+        <fullName>Reason__c</fullName>
+        <externalId>false</externalId>
+        <label>Reason</label>
+        <required>false</required>
+        <trackHistory>true</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Picklist</type>
+        <valueSet>
+            <controllingField>Status__c</controllingField>
+            <valueSetDefinition>
+                <sorted>false</sorted>
+                <value>
+                    <fullName>Deceased</fullName>
+                    <default>false</default>
+                    <label>Deceased</label>
+                </value>
+                <value>
+                    <fullName>Expelled</fullName>
+                    <default>false</default>
+                    <label>Expelled</label>
+                </value>
+                <value>
+                    <fullName>Failure to Pay Dues and Recertify</fullName>
+                    <default>false</default>
+                    <label>Failure to Pay Dues and Recertify</label>
+                </value>
+                <value>
+                    <fullName>Failure to pay dues</fullName>
+                    <default>false</default>
+                    <label>Failure to Pay Dues</label>
+                </value>
+                <value>
+                    <fullName>Failure to recertify</fullName>
+                    <default>false</default>
+                    <label>Failure to Recertify</label>
+                </value>
+                <value>
+                    <fullName>Transfer</fullName>
+                    <default>false</default>
+                    <label>Transfer</label>
+                </value>
+                <value>
+                    <fullName>Transitioned</fullName>
+                    <default>false</default>
+                    <label>Transitioned</label>
+                </value>
+                <value>
+                    <fullName>Voluntary</fullName>
+                    <default>false</default>
+                    <label>Voluntary</label>
+                </value>
+            </valueSetDefinition>
+            <valueSettings>
+                <controllingFieldValue>Resigned</controllingFieldValue>
+                <controllingFieldValue>Deceased</controllingFieldValue>
+                <valueName>Deceased</valueName>
+            </valueSettings>
+            <valueSettings>
+                <controllingFieldValue>Resigned</controllingFieldValue>
+                <valueName>Expelled</valueName>
+            </valueSettings>
+            <valueSettings>
+                <controllingFieldValue>Resigned</controllingFieldValue>
+                <valueName>Failure to Pay Dues and Recertify</valueName>
+            </valueSettings>
+            <valueSettings>
+                <controllingFieldValue>Resigned</controllingFieldValue>
+                <valueName>Failure to pay dues</valueName>
+            </valueSettings>
+            <valueSettings>
+                <controllingFieldValue>Resigned</controllingFieldValue>
+                <valueName>Failure to recertify</valueName>
+            </valueSettings>
+            <valueSettings>
+                <controllingFieldValue>Resigned</controllingFieldValue>
+                <valueName>Transitioned</valueName>
+            </valueSettings>
+            <valueSettings>
+                <controllingFieldValue>Resigned</controllingFieldValue>
+                <valueName>Voluntary</valueName>
+            </valueSettings>
+        </valueSet>
+    </fields>
+    <fields>
+        <fullName>Status__c</fullName>
+        <externalId>false</externalId>
+        <label>Status</label>
+        <required>false</required>
+        <trackHistory>true</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Picklist</type>
+        <valueSet>
+            <valueSetDefinition>
+                <sorted>false</sorted>
+                <value>
+                    <fullName>Member</fullName>
+                    <default>false</default>
+                    <label>Member</label>
+                </value>
+                <value>
+                    <fullName>Reinstated</fullName>
+                    <default>false</default>
+                    <label>Reinstated</label>
+                </value>
+                <value>
+                    <fullName>Resigned</fullName>
+                    <default>false</default>
+                    <label>Resigned</label>
+                </value>
+                <value>
+                    <fullName>Deceased</fullName>
+                    <default>false</default>
+                    <label>Deceased</label>
+                </value>
+            </valueSetDefinition>
+        </valueSet>
+    </fields>
+    <fields>
+        <fullName>Validation_Check__c</fullName>
+        <defaultValue>false</defaultValue>
+        <externalId>false</externalId>
+        <label>Validation Check</label>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>YPO_WPO__c</fullName>
+        <externalId>false</externalId>
+        <label>YPO/YPO Gold?</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Picklist</type>
+        <valueSet>
+            <valueSetDefinition>
+                <sorted>false</sorted>
+                <value>
+                    <fullName>YPO</fullName>
+                    <default>false</default>
+                    <label>YPO</label>
+                </value>
+                <value>
+                    <fullName>YPO Gold</fullName>
+                    <default>false</default>
+                    <label>YPO Gold</label>
+                </value>
+            </valueSetDefinition>
+        </valueSet>
+    </fields>
+    <label>Membership History</label>
+    <listViews>
+        <fullName>Membership_History_All</fullName>
+        <columns>Contact__c</columns>
+        <columns>Account__c</columns>
+        <columns>NAME</columns>
+        <columns>Status__c</columns>
+        <columns>YPO_WPO__c</columns>
+        <columns>Join_Date__c</columns>
+        <columns>Date_Left__c</columns>
+        <columns>Reason__c</columns>
+        <filterScope>Everything</filterScope>
+        <label>Membership History - All</label>
+    </listViews>
+    <listViews>
+        <fullName>Membership_History_Deceased</fullName>
+        <columns>Contact__c</columns>
+        <columns>Account__c</columns>
+        <columns>NAME</columns>
+        <columns>Status__c</columns>
+        <columns>YPO_WPO__c</columns>
+        <columns>Join_Date__c</columns>
+        <columns>Date_Left__c</columns>
+        <columns>Reason__c</columns>
+        <filterScope>Everything</filterScope>
+        <filters>
+            <field>Status__c</field>
+            <operation>equals</operation>
+            <value>Deceased</value>
+        </filters>
+        <label>Membership History - Deceased</label>
+    </listViews>
+    <listViews>
+        <fullName>Membership_History_Member</fullName>
+        <columns>Contact__c</columns>
+        <columns>Account__c</columns>
+        <columns>NAME</columns>
+        <columns>Status__c</columns>
+        <columns>YPO_WPO__c</columns>
+        <columns>Join_Date__c</columns>
+        <columns>Date_Left__c</columns>
+        <columns>Reason__c</columns>
+        <filterScope>Everything</filterScope>
+        <filters>
+            <field>Status__c</field>
+            <operation>equals</operation>
+            <value>Member</value>
+        </filters>
+        <label>Membership History - Member</label>
+    </listViews>
+    <listViews>
+        <fullName>Membership_History_Resigned</fullName>
+        <columns>Contact__c</columns>
+        <columns>Account__c</columns>
+        <columns>NAME</columns>
+        <columns>Status__c</columns>
+        <columns>YPO_WPO__c</columns>
+        <columns>Join_Date__c</columns>
+        <columns>Date_Left__c</columns>
+        <columns>Reason__c</columns>
+        <filterScope>Everything</filterScope>
+        <filters>
+            <field>Status__c</field>
+            <operation>equals</operation>
+            <value>Resigned</value>
+        </filters>
+        <label>Membership History - Resigned</label>
+    </listViews>
+    <nameField>
+        <displayFormat>MH-{0000}</displayFormat>
+        <label>Membership History Name</label>
+        <trackHistory>false</trackHistory>
+        <type>AutoNumber</type>
+    </nameField>
+    <pluralLabel>Membership Histories</pluralLabel>
+    <searchLayouts/>
+    <sharingModel>ControlledByParent</sharingModel>
+    <startsWith>Vowel</startsWith>
+    <validationRules>
+        <fullName>Date_Left_to_be_Populated</fullName>
+        <active>false</active>
+        <description>Filll in date left</description>
+        <errorConditionFormula>IF(AND( OR( ISPICKVAL( Status__c , &apos;Resigned&apos;), ISPICKVAL( Status__c , &apos;Deceased&apos;)), ISBLANK( Date_Left__c )) , TRUE, FALSE)</errorConditionFormula>
+        <errorDisplayField>Date_Left__c</errorDisplayField>
+        <errorMessage>Fill in Date Left</errorMessage>
+    </validationRules>
+    <validationRules>
+        <fullName>Populate_Reason_Other</fullName>
+        <active>false</active>
+        <description>This VR will make sure to fill in Reason Other field if Reason is populated with &apos;Other&apos;.</description>
+        <errorConditionFormula>IF(AND(ISPICKVAL( Reason__c , &apos;Other&apos; ), ISBLANK( Reason_Other__c )), TRUE, FALSE)</errorConditionFormula>
+        <errorMessage>Please fill in Reason Other field</errorMessage>
+    </validationRules>
+    <validationRules>
+        <fullName>Reason_to_be_Populated</fullName>
+        <active>false</active>
+        <description>This VR will make sure that &apos;Reason&apos; field is filled if Status &apos;Resigned&apos;</description>
+        <errorConditionFormula>IF(AND( OR(ISPICKVAL( Status__c , &apos;Resigned&apos;), ISPICKVAL( Status__c , &apos;Deceased&apos;)), ISPICKVAL( Reason__c , &apos;&apos;)), TRUE, FALSE)</errorConditionFormula>
+        <errorMessage>Please select the reason for resigning</errorMessage>
+    </validationRules>
+    <visibility>Public</visibility>
+</CustomObject>

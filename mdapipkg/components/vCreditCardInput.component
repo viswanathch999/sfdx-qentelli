@@ -1,0 +1,80 @@
+<apex:component >
+  <apex:includeScript value="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js" />
+  <apex:includeScript value="{!URLFOR($Resource.KGRenewal__dist, 'js/forms.min.js')}" />
+  <apex:includeScript value="{!URLFOR($Resource.KGRenewal__dist, 'js/credit-card.min.js')}" />
+  <apex:stylesheet value="{!URLFOR($Resource.KGRenewal__dist, 'css/credit-card.min.css')}" />
+  <apex:attribute type="KGRenewal.PaymentCardDisplayItem" name="paymentCard" required="true" description="The payment card being entered." />
+
+  <!-- BEGIN new card -->
+  <apex:outputPanel layout="none" rendered="{!ISNULL(paymentCard.Id)}">
+    <div class="col-xs-12 form-group" data-required="true">
+      <apex:outputlabel styleclass="control-label" for="cardNumber">Card Number</apex:outputLabel>
+      <apex:inputText value="{!paymentCard.CardNumber}" styleclass="form-control" id="cardNumber" html-placeholder="****-****-****-****" html-data-format="credit-card" />
+    </div>
+    <!-- /.form-group -->
+    <div class="col-xs-12 form-group" data-required="true">
+      <apex:outputlabel styleclass="control-label" for="cardDateMonth">Expiration Date</apex:outputlabel>
+      <div>
+        <span class="pull-left">
+          <apex:selectList value="{!paymentCard.expirationMonth}" styleclass="form-control" id="cardMonth" size="1">
+            <apex:selectOptions value="{!paymentCard.monthOptions}" />
+          </apex:selectList>
+        </span>
+        <!-- /.pull-left -->
+        <span class="pull-left">
+          <apex:selectList value="{!paymentCard.expirationYear}" styleclass="form-control" id="cardYear" size="1">
+            <apex:selectOptions value="{!paymentCard.yearOptions}" />
+          </apex:selectList>
+        </span>
+        <!-- /.pull-left -->
+      </div>
+    </div>
+    <!-- /.form-group -->
+    <div class="col-xs-12 form-group" data-required="true">
+      <apex:outputlabel styleclass="control-label" for="cvc">CVC</apex:outputlabel>
+      <apex:input value="{!paymentCard.securityCode}" styleclass="form-control" id="cvc" html-placeholder="***" />
+    </div>
+    <!-- /.form-group -->
+  </apex:outputPanel>
+  <!-- END new card -->
+  <!-- BEGIN saved card -->
+  <apex:outputPanel layout="none" rendered="{!NOT(ISNULL(paymentCard.Id))}">
+    <div class="col-xs-12 form-group">
+      <apex:outputlabel styleclass="control-label" for="cardNumber">Card Number</apex:outputLabel>
+      <p class="form-control-static">
+        {!paymentCard.maskedCardNumber}
+      </p>
+    </div>
+    <!-- /.form-group -->
+    <div class="col-xs-12 form-group">
+      <apex:outputlabel styleclass="control-label" for="cardDateMonth">Expiration Date</apex:outputlabel>
+      <div>
+        <span class="pull-left">
+          <p class="form-control-static">
+            {!paymentCard.expirationMonth}
+          </p>
+        </span>
+        <!-- /.pull-left -->
+        <span class="pull-left">
+          <p class="form-control-static">
+            /
+          </p>
+        </span>
+        <!-- /.pull-left -->
+        <span class="pull-left">
+          <p class="form-control-static">
+            {!paymentCard.expirationYear}
+          </p>
+        </span>
+        <!-- /.pull-left -->
+      </div>
+    </div>
+    <!-- /.form-group -->
+    <div class="col-xs-12 form-group" data-required="true">
+      <apex:outputlabel styleclass="control-label" for="cvc2">CVC</apex:outputlabel>
+      <apex:input value="{!paymentCard.securityCode}" styleclass="form-control" id="cvc2" html-placeholder="***" />
+    </div>
+    <!-- /.form-group -->
+  </apex:outputPanel>
+  <!-- END saved card -->
+</apex:component>

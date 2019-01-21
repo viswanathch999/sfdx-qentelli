@@ -1,0 +1,605 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomObject xmlns="http://soap.sforce.com/2006/04/metadata">
+    <actionOverrides>
+        <actionName>Accept</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>CancelEdit</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Clone</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Delete</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Edit</actionName>
+        <content>ContactPositionEdit</content>
+        <skipRecordTypeSelect>false</skipRecordTypeSelect>
+        <type>Visualforce</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>List</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>New</actionName>
+        <content>ContactPositionEdit</content>
+        <skipRecordTypeSelect>false</skipRecordTypeSelect>
+        <type>Visualforce</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>SaveEdit</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Tab</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>View</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <allowInChatterGroups>false</allowInChatterGroups>
+    <compactLayoutAssignment>SYSTEM</compactLayoutAssignment>
+    <deploymentStatus>Deployed</deploymentStatus>
+    <enableActivities>true</enableActivities>
+    <enableBulkApi>true</enableBulkApi>
+    <enableChangeDataCapture>false</enableChangeDataCapture>
+    <enableEnhancedLookup>true</enableEnhancedLookup>
+    <enableFeeds>false</enableFeeds>
+    <enableHistory>true</enableHistory>
+    <enableReports>true</enableReports>
+    <enableSearch>true</enableSearch>
+    <enableSharing>true</enableSharing>
+    <enableStreamingApi>true</enableStreamingApi>
+    <externalSharingModel>ControlledByParent</externalSharingModel>
+    <fieldSets>
+        <fullName>AwardsBioPdfFields</fullName>
+        <description>Used in AwardsBioPdfFields VF Page.</description>
+        <displayedFields>
+            <field>Account__r.Name</field>
+            <isFieldManaged>false</isFieldManaged>
+            <isRequired>false</isRequired>
+        </displayedFields>
+        <displayedFields>
+            <field>Position_Title__c</field>
+            <isFieldManaged>false</isFieldManaged>
+            <isRequired>false</isRequired>
+        </displayedFields>
+        <displayedFields>
+            <field>Start_Date__c</field>
+            <isFieldManaged>false</isFieldManaged>
+            <isRequired>false</isRequired>
+        </displayedFields>
+        <displayedFields>
+            <field>End_Date__c</field>
+            <isFieldManaged>false</isFieldManaged>
+            <isRequired>false</isRequired>
+        </displayedFields>
+        <label>AwardsBioPdfFields</label>
+    </fieldSets>
+    <fields>
+        <fullName>Account__c</fullName>
+        <deleteConstraint>SetNull</deleteConstraint>
+        <externalId>false</externalId>
+        <inlineHelpText>Name of the Community for which the person is a Champion</inlineHelpText>
+        <label>Account</label>
+        <referenceTo>Account</referenceTo>
+        <relationshipLabel>Contact Positions</relationshipLabel>
+        <relationshipName>Contact_Positions</relationshipName>
+        <required>false</required>
+        <trackHistory>true</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Lookup</type>
+    </fields>
+    <fields>
+        <fullName>Committee_Member_Type__c</fullName>
+        <externalId>false</externalId>
+        <label>Member Type</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Picklist</type>
+        <valueSet>
+            <valueSetDefinition>
+                <sorted>false</sorted>
+                <value>
+                    <fullName>Member</fullName>
+                    <default>false</default>
+                    <label>Member</label>
+                </value>
+                <value>
+                    <fullName>Spouse/Partner</fullName>
+                    <default>false</default>
+                    <label>Spouse/Partner</label>
+                </value>
+                <value>
+                    <fullName>Team Member</fullName>
+                    <default>false</default>
+                    <label>Team Member</label>
+                </value>
+            </valueSetDefinition>
+        </valueSet>
+    </fields>
+    <fields>
+        <fullName>Contact__c</fullName>
+        <deleteConstraint>SetNull</deleteConstraint>
+        <externalId>false</externalId>
+        <label>Contact</label>
+        <referenceTo>Contact</referenceTo>
+        <relationshipLabel>Contact Positions</relationshipLabel>
+        <relationshipName>Contact_Positions</relationshipName>
+        <required>false</required>
+        <trackHistory>true</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Lookup</type>
+    </fields>
+    <fields>
+        <fullName>End_Date__c</fullName>
+        <externalId>false</externalId>
+        <label>End Date</label>
+        <required>false</required>
+        <trackHistory>true</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Date</type>
+    </fields>
+    <fields>
+        <fullName>Event__c</fullName>
+        <deleteConstraint>SetNull</deleteConstraint>
+        <externalId>false</externalId>
+        <inlineHelpText>Name of the Event for which the person is a Champion</inlineHelpText>
+        <label>Event</label>
+        <referenceTo>Event__c</referenceTo>
+        <relationshipLabel>Contact Positions</relationshipLabel>
+        <relationshipName>Contact_Positions</relationshipName>
+        <required>false</required>
+        <trackHistory>true</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Lookup</type>
+    </fields>
+    <fields>
+        <fullName>Event_text__c</fullName>
+        <externalId>false</externalId>
+        <formula>Event__r.Event_Name__c</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>Event</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>GUID__c</fullName>
+        <caseSensitive>false</caseSensitive>
+        <externalId>true</externalId>
+        <label>GUID</label>
+        <length>50</length>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>true</unique>
+    </fields>
+    <fields>
+        <fullName>Identification_Status__c</fullName>
+        <externalId>false</externalId>
+        <label>Identification Status</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Picklist</type>
+        <valueSet>
+            <restricted>true</restricted>
+            <valueSetDefinition>
+                <sorted>false</sorted>
+                <value>
+                    <fullName>Filled</fullName>
+                    <default>false</default>
+                    <label>Filled</label>
+                </value>
+                <value>
+                    <fullName>No Plan to Fill</fullName>
+                    <default>false</default>
+                    <label>No Plan to Fill</label>
+                </value>
+                <value>
+                    <fullName>Plan to Fill</fullName>
+                    <default>false</default>
+                    <label>Plan to Fill</label>
+                </value>
+            </valueSetDefinition>
+        </valueSet>
+    </fields>
+    <fields>
+        <fullName>Is_Expert__c</fullName>
+        <defaultValue>false</defaultValue>
+        <externalId>false</externalId>
+        <inlineHelpText>Is this person an Expert for this Position?</inlineHelpText>
+        <label>Expert?</label>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>Is_Officer_Position__c</fullName>
+        <externalId>false</externalId>
+        <formula>Position__r.Is_Officer_Position__c</formula>
+        <label>Requires Annual Third Party Verification</label>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>Position_Category__c</fullName>
+        <externalId>false</externalId>
+        <formula>TEXT(Position__r.Position_Category__c )</formula>
+        <label>Position Category</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Position_Title__c</fullName>
+        <externalId>false</externalId>
+        <formula>Position__r.Title__c</formula>
+        <label>Position Title</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Position__c</fullName>
+        <externalId>false</externalId>
+        <label>Position</label>
+        <lookupFilter>
+            <active>false</active>
+            <errorMessage>Value does not exist or does not match filter criteria.</errorMessage>
+            <filterItems>
+                <field>Position__c.Position_Status__c</field>
+                <operation>equals</operation>
+                <value>Active</value>
+            </filterItems>
+            <isOptional>false</isOptional>
+        </lookupFilter>
+        <referenceTo>Position__c</referenceTo>
+        <relationshipLabel>Contact Positions</relationshipLabel>
+        <relationshipName>Contact_Positions</relationshipName>
+        <relationshipOrder>0</relationshipOrder>
+        <reparentableMasterDetail>false</reparentableMasterDetail>
+        <trackHistory>true</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>MasterDetail</type>
+        <writeRequiresMasterRead>false</writeRequiresMasterRead>
+    </fields>
+    <fields>
+        <fullName>Send_OBM__c</fullName>
+        <externalId>false</externalId>
+        <label>Send OBM</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Date</type>
+    </fields>
+    <fields>
+        <fullName>Start_Date__c</fullName>
+        <externalId>false</externalId>
+        <label>Start Date</label>
+        <required>false</required>
+        <trackHistory>true</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Date</type>
+    </fields>
+    <fields>
+        <fullName>Status__c</fullName>
+        <externalId>false</externalId>
+        <label>Status</label>
+        <required>false</required>
+        <trackHistory>true</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Picklist</type>
+        <valueSet>
+            <valueSetDefinition>
+                <sorted>false</sorted>
+                <value>
+                    <fullName>Current</fullName>
+                    <default>false</default>
+                    <label>Current</label>
+                </value>
+                <value>
+                    <fullName>Elect</fullName>
+                    <default>false</default>
+                    <label>Elect</label>
+                </value>
+                <value>
+                    <fullName>Pre-Elect</fullName>
+                    <default>false</default>
+                    <label>Pre-Elect</label>
+                </value>
+                <value>
+                    <fullName>Past</fullName>
+                    <default>false</default>
+                    <label>Past</label>
+                </value>
+            </valueSetDefinition>
+        </valueSet>
+    </fields>
+    <fields>
+        <fullName>Validation_Check__c</fullName>
+        <defaultValue>false</defaultValue>
+        <externalId>false</externalId>
+        <label>Validation Check</label>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>YPOI_Organizational_Code__c</fullName>
+        <externalId>false</externalId>
+        <label>YPOI Organizational Code</label>
+        <length>32</length>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <label>Contact Position</label>
+    <listViews>
+        <fullName>AH_CP</fullName>
+        <columns>NAME</columns>
+        <columns>Account__c</columns>
+        <columns>Contact__c</columns>
+        <columns>Event__c</columns>
+        <columns>GUID__c</columns>
+        <columns>Position__c</columns>
+        <columns>Start_Date__c</columns>
+        <columns>End_Date__c</columns>
+        <columns>Status__c</columns>
+        <columns>YPOI_Organizational_Code__c</columns>
+        <filterScope>Everything</filterScope>
+        <filters>
+            <field>Status__c</field>
+            <operation>contains</operation>
+            <value>Elect</value>
+        </filters>
+        <label>AH_CP</label>
+    </listViews>
+    <listViews>
+        <fullName>All_Contact_Positions</fullName>
+        <columns>NAME</columns>
+        <columns>Account__c</columns>
+        <columns>Contact__c</columns>
+        <columns>Position__c</columns>
+        <columns>Position_Title__c</columns>
+        <columns>Start_Date__c</columns>
+        <columns>End_Date__c</columns>
+        <columns>Status__c</columns>
+        <filterScope>Everything</filterScope>
+        <label>All Contact Positions</label>
+    </listViews>
+    <listViews>
+        <fullName>Chapter_Administrators_Current</fullName>
+        <columns>Contact__c</columns>
+        <columns>Account__c</columns>
+        <columns>Start_Date__c</columns>
+        <columns>End_Date__c</columns>
+        <columns>Position__c</columns>
+        <columns>Identification_Status__c</columns>
+        <columns>NAME</columns>
+        <filterScope>Everything</filterScope>
+        <filters>
+            <field>Position_Title__c</field>
+            <operation>equals</operation>
+            <value>Chapter Administrator</value>
+        </filters>
+        <filters>
+            <field>Status__c</field>
+            <operation>equals</operation>
+            <value>Current</value>
+        </filters>
+        <label>Chapter Administrators Current</label>
+        <sharedTo>
+            <allInternalUsers></allInternalUsers>
+        </sharedTo>
+    </listViews>
+    <listViews>
+        <fullName>Chptr_ALOContact_Positions</fullName>
+        <columns>NAME</columns>
+        <columns>Account__c</columns>
+        <columns>Contact__c</columns>
+        <columns>Position__c</columns>
+        <columns>Position_Title__c</columns>
+        <columns>Start_Date__c</columns>
+        <columns>End_Date__c</columns>
+        <columns>Status__c</columns>
+        <filterScope>Everything</filterScope>
+        <filters>
+            <field>Position_Category__c</field>
+            <operation>equals</operation>
+            <value>Chapter</value>
+        </filters>
+        <filters>
+            <field>Position_Title__c</field>
+            <operation>equals</operation>
+            <value>Chapter Chair</value>
+        </filters>
+        <filters>
+            <field>Status__c</field>
+            <operation>equals</operation>
+            <value>Elect</value>
+        </filters>
+        <label>Chapter ALO Contact Positions</label>
+    </listViews>
+    <listViews>
+        <fullName>Chptr_Contact_PositionsNoFill</fullName>
+        <columns>NAME</columns>
+        <columns>Account__c</columns>
+        <columns>Contact__c</columns>
+        <columns>Position__c</columns>
+        <columns>Position_Title__c</columns>
+        <columns>Start_Date__c</columns>
+        <columns>End_Date__c</columns>
+        <columns>Status__c</columns>
+        <filterScope>Everything</filterScope>
+        <filters>
+            <field>Position_Category__c</field>
+            <operation>equals</operation>
+            <value>Chapter</value>
+        </filters>
+        <filters>
+            <field>Identification_Status__c</field>
+            <operation>equals</operation>
+            <value>No Plan to Fill</value>
+        </filters>
+        <label>Chapter Contact Position no plan to fill</label>
+    </listViews>
+    <listViews>
+        <fullName>Committee_Contact_Positions</fullName>
+        <columns>NAME</columns>
+        <columns>Account__c</columns>
+        <columns>Contact__c</columns>
+        <columns>Position__c</columns>
+        <columns>Position_Title__c</columns>
+        <columns>Start_Date__c</columns>
+        <columns>End_Date__c</columns>
+        <columns>Status__c</columns>
+        <filterScope>Everything</filterScope>
+        <filters>
+            <field>Position_Category__c</field>
+            <operation>equals</operation>
+            <value>Committee</value>
+        </filters>
+        <label>Committee Contact Positions</label>
+    </listViews>
+    <listViews>
+        <fullName>Network_Contact_Positions</fullName>
+        <columns>NAME</columns>
+        <columns>Account__c</columns>
+        <columns>Contact__c</columns>
+        <columns>Position__c</columns>
+        <columns>Position_Title__c</columns>
+        <columns>Start_Date__c</columns>
+        <columns>End_Date__c</columns>
+        <columns>Status__c</columns>
+        <filterScope>Everything</filterScope>
+        <filters>
+            <field>Position_Category__c</field>
+            <operation>equals</operation>
+            <value>Network</value>
+        </filters>
+        <label>Network Contact Positions</label>
+    </listViews>
+    <listViews>
+        <fullName>Region_Contact_Positions</fullName>
+        <columns>NAME</columns>
+        <columns>Account__c</columns>
+        <columns>Contact__c</columns>
+        <columns>Position__c</columns>
+        <columns>Position_Title__c</columns>
+        <columns>Start_Date__c</columns>
+        <columns>End_Date__c</columns>
+        <columns>Status__c</columns>
+        <filterScope>Everything</filterScope>
+        <filters>
+            <field>Position_Category__c</field>
+            <operation>equals</operation>
+            <value>Region</value>
+        </filters>
+        <label>Region Contact Positions</label>
+    </listViews>
+    <listViews>
+        <fullName>lynnsview</fullName>
+        <columns>NAME</columns>
+        <columns>Account__c</columns>
+        <columns>Contact__c</columns>
+        <columns>Position__c</columns>
+        <columns>Position_Category__c</columns>
+        <columns>Start_Date__c</columns>
+        <columns>End_Date__c</columns>
+        <columns>Status__c</columns>
+        <columns>CREATED_DATE</columns>
+        <filterScope>Everything</filterScope>
+        <filters>
+            <field>Status__c</field>
+            <operation>equals</operation>
+            <value>Current</value>
+        </filters>
+        <filters>
+            <field>Start_Date__c</field>
+            <operation>lessThan</operation>
+            <value>7/1/2017</value>
+        </filters>
+        <label>Lynn&apos;s view</label>
+    </listViews>
+    <nameField>
+        <displayFormat>CP-{0000}</displayFormat>
+        <label>Contact Position Name</label>
+        <trackHistory>true</trackHistory>
+        <type>AutoNumber</type>
+    </nameField>
+    <pluralLabel>Contact Positions</pluralLabel>
+    <searchLayouts/>
+    <sharingModel>ControlledByParent</sharingModel>
+    <validationRules>
+        <fullName>Account_or_Event</fullName>
+        <active>true</active>
+        <errorConditionFormula>AND( 
+(ISBLANK(Account__c)) , 
+(ISBLANK(Event__c)))</errorConditionFormula>
+        <errorMessage>Please select either an Account or an Event</errorMessage>
+    </validationRules>
+    <validationRules>
+        <fullName>Contact_RT_nd_Position_Member_Type_match</fullName>
+        <active>true</active>
+        <description>Member of specific record type can be attached to Contact Position having position of particular Member Type only.
+Contact of type Non-Member cannot be attached to any Contact Position.</description>
+        <errorConditionFormula>AND(NOT(ISBLANK( Contact__c)) , 
+OR(NOT(
+OR(
+AND( Contact__r.Record_Type_Name__c = &apos;Spouse/Partner&apos;,OR(IsPICKVAL(Position__r.Member_Type__c, &apos;Either a Member or Spouse/Partner&apos;),IsPICKVAL(Position__r.Member_Type__c, &apos;Spouse/Partner&apos;))),
+AND( Contact__r.Record_Type_Name__c = &apos;Member&apos;,OR(IsPICKVAL(Position__r.Member_Type__c, &apos;Either a Member or Spouse/Partner&apos;),IsPICKVAL(Position__r.Member_Type__c, &apos;Member&apos;))),
+AND( Contact__r.Record_Type_Name__c = &apos;Team Member&apos;,IsPICKVAL(Position__r.Member_Type__c, &apos;Management Team Member&apos;)),
+AND( Contact__r.Record_Type_Name__c = &apos;Chapter Administrator&apos;,OR(IsPICKVAL(Position__r.Member_Type__c, &apos;Chapter Administrator&apos;),IsPICKVAL(Position__r.Member_Type__c, &apos;Management Team Member&apos;)))
+)),
+Contact__r.Record_Type_Name__c = &apos;Non-Member&apos;
+))</errorConditionFormula>
+        <errorMessage>The Contact Record Type and the Member type on Position must be the same</errorMessage>
+    </validationRules>
+    <validationRules>
+        <fullName>Contact_is_required_for_filled_positions</fullName>
+        <active>true</active>
+        <errorConditionFormula>AND(
+ISPICKVAL( Identification_Status__c , &apos;Filled&apos;),
+ISBLANK( Contact__c )
+)</errorConditionFormula>
+        <errorMessage>Please indicate which Contact will be filling this position.</errorMessage>
+    </validationRules>
+    <validationRules>
+        <fullName>Required_Contact_Position_Fields</fullName>
+        <active>true</active>
+        <description>I need to be required to enter certain fields when assigning an officer position: 
+Status, Member Type, Start Date, End Date and either Account or Event are required. 
+I should not be able to save a record if all the required fields aren&apos;t entered.</description>
+        <errorConditionFormula>OR(
+ISBLANK(TEXT(Status__c)),
+ISBLANK(Start_Date__c),
+ISBLANK(End_Date__c), 
+AND(
+ISBLANK(Account__c),
+ISBLANK(Event__c)
+)
+)</errorConditionFormula>
+        <errorMessage>Status, Start Date, End Date and either Account or Event are required.</errorMessage>
+    </validationRules>
+    <visibility>Public</visibility>
+</CustomObject>
