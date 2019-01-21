@@ -1,3 +1,192 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<pmd version="5.5.2" timestamp="2019-01-21T09:23:30.909">
+<pmd version="5.5.2" timestamp="2019-01-21T10:03:06.442">
+<file name="C:\Users\Administrator\Documents\sfdx-qentelli\mdapipkg\test-classes\AccountAffiliationProfileCheck.cls">
+<violation beginline="21" endline="57" begincolumn="15" endcolumn="2" rule="NcssMethodCount" ruleset="Apex Rules" priority="3">
+This rule uses the NCSS (Non-Commenting Source Statements) algorithm to determine the number of lines of code for a given method. NCSS ignores comments, and counts actual statements. Using this algorithm, lines of code that are split are counted as one.
+</violation>
+<violation beginline="37" endline="37" begincolumn="6" endcolumn="7" rule="AvoidDeeplyNestedIfStmts" ruleset="Apex Rules" priority="3">
+Avoid creating deeply nested if-then statements since they are harder to read and error-prone to maintain.
+</violation>
+<violation beginline="45" endline="45" begincolumn="6" endcolumn="7" rule="AvoidDeeplyNestedIfStmts" ruleset="Apex Rules" priority="3">
+Avoid creating deeply nested if-then statements since they are harder to read and error-prone to maintain.
+</violation>
+</file>
+<file name="C:\Users\Administrator\Documents\sfdx-qentelli\mdapipkg\test-classes\AddProductsForQ4Prospects.cls">
+<violation beginline="3" endline="107" begincolumn="24" endcolumn="5" rule="NcssMethodCount" ruleset="Apex Rules" priority="3">
+This rule uses the NCSS (Non-Commenting Source Statements) algorithm to determine the number of lines of code for a given method. NCSS ignores comments, and counts actual statements. Using this algorithm, lines of code that are split are counted as one.
+</violation>
+<violation beginline="90" endline="90" begincolumn="9" endcolumn="10" rule="AvoidDeeplyNestedIfStmts" ruleset="Apex Rules" priority="3">
+Avoid creating deeply nested if-then statements since they are harder to read and error-prone to maintain.
+</violation>
+<violation beginline="102" endline="102" begincolumn="8" endcolumn="9" rule="AvoidDeeplyNestedIfStmts" ruleset="Apex Rules" priority="3">
+Avoid creating deeply nested if-then statements since they are harder to read and error-prone to maintain.
+</violation>
+</file>
+<file name="C:\Users\Administrator\Documents\sfdx-qentelli\mdapipkg\test-classes\AdditionalDataFormContactContExt.cls">
+<violation beginline="103" endline="105" begincolumn="21" endcolumn="24" rule="AvoidDeeplyNestedIfStmts" ruleset="Apex Rules" priority="3">
+Avoid creating deeply nested if-then statements since they are harder to read and error-prone to maintain.
+</violation>
+<violation beginline="103" endline="105" begincolumn="21" endcolumn="24" rule="AvoidDeeplyNestedIfStmts" ruleset="Apex Rules" priority="3">
+Avoid creating deeply nested if-then statements since they are harder to read and error-prone to maintain.
+</violation>
+<violation beginline="226" endline="344" begincolumn="26" endcolumn="5" rule="NcssMethodCount" ruleset="Apex Rules" priority="3">
+This rule uses the NCSS (Non-Commenting Source Statements) algorithm to determine the number of lines of code for a given method. NCSS ignores comments, and counts actual statements. Using this algorithm, lines of code that are split are counted as one.
+</violation>
+</file>
+<file name="C:\Users\Administrator\Documents\sfdx-qentelli\mdapipkg\test-classes\AwardsBioPdfCtrl.cls">
+<violation beginline="193" endline="193" begincolumn="17" endcolumn="18" rule="AvoidDeeplyNestedIfStmts" ruleset="Apex Rules" priority="3">
+Avoid creating deeply nested if-then statements since they are harder to read and error-prone to maintain.
+</violation>
+</file>
+<file name="C:\Users\Administrator\Documents\sfdx-qentelli\mdapipkg\test-classes\AwardsBioPdfExt.cls">
+<violation beginline="102" endline="124" begincolumn="16" endcolumn="35" rule="ExcessiveParameterList" ruleset="Apex Rules" priority="3">
+Methods with numerous parameters are a challenge to maintain, especially if most of them share the same datatype. These situations usually denote the need for new objects to wrap the numerous parameters.
+</violation>
+</file>
+<file name="C:\Users\Administrator\Documents\sfdx-qentelli\mdapipkg\test-classes\CatalogExtension_YPO.cls">
+<violation beginline="84" endline="84" begincolumn="6" endcolumn="7" rule="AvoidDeeplyNestedIfStmts" ruleset="Apex Rules" priority="3">
+Avoid creating deeply nested if-then statements since they are harder to read and error-prone to maintain.
+</violation>
+<violation beginline="174" endline="174" begincolumn="6" endcolumn="7" rule="AvoidDeeplyNestedIfStmts" ruleset="Apex Rules" priority="3">
+Avoid creating deeply nested if-then statements since they are harder to read and error-prone to maintain.
+</violation>
+<violation beginline="186" endline="186" begincolumn="6" endcolumn="7" rule="AvoidDeeplyNestedIfStmts" ruleset="Apex Rules" priority="3">
+Avoid creating deeply nested if-then statements since they are harder to read and error-prone to maintain.
+</violation>
+<violation beginline="195" endline="195" begincolumn="5" endcolumn="6" rule="AvoidDeeplyNestedIfStmts" ruleset="Apex Rules" priority="3">
+Avoid creating deeply nested if-then statements since they are harder to read and error-prone to maintain.
+</violation>
+</file>
+<file name="C:\Users\Administrator\Documents\sfdx-qentelli\mdapipkg\test-classes\CatalogItemDetailed_Extension.cls">
+<violation beginline="117" endline="158" begincolumn="26" endcolumn="5" rule="NcssMethodCount" ruleset="Apex Rules" priority="3">
+This rule uses the NCSS (Non-Commenting Source Statements) algorithm to determine the number of lines of code for a given method. NCSS ignores comments, and counts actual statements. Using this algorithm, lines of code that are split are counted as one.
+</violation>
+<violation beginline="214" endline="288" begincolumn="17" endcolumn="5" rule="NcssMethodCount" ruleset="Apex Rules" priority="3">
+This rule uses the NCSS (Non-Commenting Source Statements) algorithm to determine the number of lines of code for a given method. NCSS ignores comments, and counts actual statements. Using this algorithm, lines of code that are split are counted as one.
+</violation>
+<violation beginline="314" endline="370" begincolumn="26" endcolumn="5" rule="NcssMethodCount" ruleset="Apex Rules" priority="3">
+This rule uses the NCSS (Non-Commenting Source Statements) algorithm to determine the number of lines of code for a given method. NCSS ignores comments, and counts actual statements. Using this algorithm, lines of code that are split are counted as one.
+</violation>
+<violation beginline="434" endline="463" begincolumn="25" endcolumn="2" rule="NcssMethodCount" ruleset="Apex Rules" priority="3">
+This rule uses the NCSS (Non-Commenting Source Statements) algorithm to determine the number of lines of code for a given method. NCSS ignores comments, and counts actual statements. Using this algorithm, lines of code that are split are counted as one.
+</violation>
+</file>
+<file name="C:\Users\Administrator\Documents\sfdx-qentelli\mdapipkg\test-classes\CheckoutCreditCardExtension_YPO.cls">
+<violation beginline="244" endline="244" begincolumn="6" endcolumn="7" rule="AvoidDeeplyNestedIfStmts" ruleset="Apex Rules" priority="3">
+Avoid creating deeply nested if-then statements since they are harder to read and error-prone to maintain.
+</violation>
+<violation beginline="412" endline="576" begincolumn="23" endcolumn="2" rule="NcssMethodCount" ruleset="Apex Rules" priority="3">
+This rule uses the NCSS (Non-Commenting Source Statements) algorithm to determine the number of lines of code for a given method. NCSS ignores comments, and counts actual statements. Using this algorithm, lines of code that are split are counted as one.
+</violation>
+</file>
+<file name="C:\Users\Administrator\Documents\sfdx-qentelli\mdapipkg\test-classes\ContactProfileCalculation.cls">
+<violation beginline="2" endline="58" begincolumn="22" endcolumn="3" rule="NcssMethodCount" ruleset="Apex Rules" priority="3">
+This rule uses the NCSS (Non-Commenting Source Statements) algorithm to determine the number of lines of code for a given method. NCSS ignores comments, and counts actual statements. Using this algorithm, lines of code that are split are counted as one.
+</violation>
+</file>
+<file name="C:\Users\Administrator\Documents\sfdx-qentelli\mdapipkg\test-classes\ContactProfileCompletion.cls">
+<violation beginline="38" endline="172" begincolumn="15" endcolumn="2" rule="NcssMethodCount" ruleset="Apex Rules" priority="3">
+This rule uses the NCSS (Non-Commenting Source Statements) algorithm to determine the number of lines of code for a given method. NCSS ignores comments, and counts actual statements. Using this algorithm, lines of code that are split are counted as one.
+</violation>
+<violation beginline="174" endline="221" begincolumn="15" endcolumn="2" rule="NcssMethodCount" ruleset="Apex Rules" priority="3">
+This rule uses the NCSS (Non-Commenting Source Statements) algorithm to determine the number of lines of code for a given method. NCSS ignores comments, and counts actual statements. Using this algorithm, lines of code that are split are counted as one.
+</violation>
+</file>
+<file name="C:\Users\Administrator\Documents\sfdx-qentelli\mdapipkg\test-classes\ContactServices.cls">
+<violation beginline="157" endline="234" begincolumn="45" endcolumn="2" rule="NcssMethodCount" ruleset="Apex Rules" priority="3">
+This rule uses the NCSS (Non-Commenting Source Statements) algorithm to determine the number of lines of code for a given method. NCSS ignores comments, and counts actual statements. Using this algorithm, lines of code that are split are counted as one.
+</violation>
+<violation beginline="201" endline="206" begincolumn="6" endcolumn="11" rule="AvoidDeeplyNestedIfStmts" ruleset="Apex Rules" priority="3">
+Avoid creating deeply nested if-then statements since they are harder to read and error-prone to maintain.
+</violation>
+<violation beginline="201" endline="206" begincolumn="6" endcolumn="11" rule="AvoidDeeplyNestedIfStmts" ruleset="Apex Rules" priority="3">
+Avoid creating deeply nested if-then statements since they are harder to read and error-prone to maintain.
+</violation>
+<violation beginline="201" endline="206" begincolumn="6" endcolumn="11" rule="AvoidDeeplyNestedIfStmts" ruleset="Apex Rules" priority="3">
+Avoid creating deeply nested if-then statements since they are harder to read and error-prone to maintain.
+</violation>
+<violation beginline="491" endline="580" begincolumn="24" endcolumn="2" rule="NcssMethodCount" ruleset="Apex Rules" priority="3">
+This rule uses the NCSS (Non-Commenting Source Statements) algorithm to determine the number of lines of code for a given method. NCSS ignores comments, and counts actual statements. Using this algorithm, lines of code that are split are counted as one.
+</violation>
+<violation beginline="637" endline="706" begincolumn="14" endcolumn="2" rule="NcssMethodCount" ruleset="Apex Rules" priority="3">
+This rule uses the NCSS (Non-Commenting Source Statements) algorithm to determine the number of lines of code for a given method. NCSS ignores comments, and counts actual statements. Using this algorithm, lines of code that are split are counted as one.
+</violation>
+<violation beginline="664" endline="664" begincolumn="7" endcolumn="8" rule="AvoidDeeplyNestedIfStmts" ruleset="Apex Rules" priority="3">
+Avoid creating deeply nested if-then statements since they are harder to read and error-prone to maintain.
+</violation>
+<violation beginline="699" endline="699" begincolumn="5" endcolumn="6" rule="AvoidDeeplyNestedIfStmts" ruleset="Apex Rules" priority="3">
+Avoid creating deeply nested if-then statements since they are harder to read and error-prone to maintain.
+</violation>
+<violation beginline="708" endline="770" begincolumn="14" endcolumn="2" rule="NcssMethodCount" ruleset="Apex Rules" priority="3">
+This rule uses the NCSS (Non-Commenting Source Statements) algorithm to determine the number of lines of code for a given method. NCSS ignores comments, and counts actual statements. Using this algorithm, lines of code that are split are counted as one.
+</violation>
+<violation beginline="726" endline="726" begincolumn="7" endcolumn="8" rule="AvoidDeeplyNestedIfStmts" ruleset="Apex Rules" priority="3">
+Avoid creating deeply nested if-then statements since they are harder to read and error-prone to maintain.
+</violation>
+<violation beginline="762" endline="762" begincolumn="5" endcolumn="6" rule="AvoidDeeplyNestedIfStmts" ruleset="Apex Rules" priority="3">
+Avoid creating deeply nested if-then statements since they are harder to read and error-prone to maintain.
+</violation>
+<violation beginline="791" endline="825" begincolumn="14" endcolumn="2" rule="NcssMethodCount" ruleset="Apex Rules" priority="3">
+This rule uses the NCSS (Non-Commenting Source Statements) algorithm to determine the number of lines of code for a given method. NCSS ignores comments, and counts actual statements. Using this algorithm, lines of code that are split are counted as one.
+</violation>
+<violation beginline="818" endline="818" begincolumn="5" endcolumn="6" rule="AvoidDeeplyNestedIfStmts" ruleset="Apex Rules" priority="3">
+Avoid creating deeply nested if-then statements since they are harder to read and error-prone to maintain.
+</violation>
+</file>
+<file name="C:\Users\Administrator\Documents\sfdx-qentelli\mdapipkg\test-classes\ContactServicesTest.cls">
+<violation beginline="201" endline="383" begincolumn="17" endcolumn="5" rule="NcssMethodCount" ruleset="Apex Rules" priority="3">
+This rule uses the NCSS (Non-Commenting Source Statements) algorithm to determine the number of lines of code for a given method. NCSS ignores comments, and counts actual statements. Using this algorithm, lines of code that are split are counted as one.
+</violation>
+</file>
+<file name="C:\Users\Administrator\Documents\sfdx-qentelli\mdapipkg\test-classes\ContactUserServices.cls">
+<violation beginline="13" endline="70" begincolumn="24" endcolumn="5" rule="NcssMethodCount" ruleset="Apex Rules" priority="3">
+This rule uses the NCSS (Non-Commenting Source Statements) algorithm to determine the number of lines of code for a given method. NCSS ignores comments, and counts actual statements. Using this algorithm, lines of code that are split are counted as one.
+</violation>
+</file>
+<file name="C:\Users\Administrator\Documents\sfdx-qentelli\mdapipkg\test-classes\EmailServices.cls">
+<violation beginline="9" endline="68" begincolumn="33" endcolumn="2" rule="NcssMethodCount" ruleset="Apex Rules" priority="3">
+This rule uses the NCSS (Non-Commenting Source Statements) algorithm to determine the number of lines of code for a given method. NCSS ignores comments, and counts actual statements. Using this algorithm, lines of code that are split are counted as one.
+</violation>
+</file>
+<file name="C:\Users\Administrator\Documents\sfdx-qentelli\mdapipkg\test-classes\ErrorLogUtil.cls">
+<violation beginline="72" endline="81" begincolumn="32" endcolumn="5" rule="ExcessiveParameterList" ruleset="Apex Rules" priority="3">
+Methods with numerous parameters are a challenge to maintain, especially if most of them share the same datatype. These situations usually denote the need for new objects to wrap the numerous parameters.
+</violation>
+</file>
+<file name="C:\Users\Administrator\Documents\sfdx-qentelli\mdapipkg\test-classes\GoldTransitionOption_YPO.cls">
+<violation beginline="56" endline="56" begincolumn="7" endcolumn="8" rule="AvoidDeeplyNestedIfStmts" ruleset="Apex Rules" priority="3">
+Avoid creating deeply nested if-then statements since they are harder to read and error-prone to maintain.
+</violation>
+<violation beginline="154" endline="237" begincolumn="26" endcolumn="5" rule="NcssMethodCount" ruleset="Apex Rules" priority="3">
+This rule uses the NCSS (Non-Commenting Source Statements) algorithm to determine the number of lines of code for a given method. NCSS ignores comments, and counts actual statements. Using this algorithm, lines of code that are split are counted as one.
+</violation>
+</file>
+<file name="C:\Users\Administrator\Documents\sfdx-qentelli\mdapipkg\test-classes\GoldTransitionOption_YPOTest.cls">
+<violation beginline="162" endline="252" begincolumn="28" endcolumn="5" rule="NcssMethodCount" ruleset="Apex Rules" priority="3">
+This rule uses the NCSS (Non-Commenting Source Statements) algorithm to determine the number of lines of code for a given method. NCSS ignores comments, and counts actual statements. Using this algorithm, lines of code that are split are counted as one.
+</violation>
+</file>
+<file name="C:\Users\Administrator\Documents\sfdx-qentelli\mdapipkg\test-classes\GroupByTest.cls">
+<violation beginline="58" endline="106" begincolumn="36" endcolumn="5" rule="NcssMethodCount" ruleset="Apex Rules" priority="3">
+This rule uses the NCSS (Non-Commenting Source Statements) algorithm to determine the number of lines of code for a given method. NCSS ignores comments, and counts actual statements. Using this algorithm, lines of code that are split are counted as one.
+</violation>
+<violation beginline="108" endline="156" begincolumn="36" endcolumn="5" rule="NcssMethodCount" ruleset="Apex Rules" priority="3">
+This rule uses the NCSS (Non-Commenting Source Statements) algorithm to determine the number of lines of code for a given method. NCSS ignores comments, and counts actual statements. Using this algorithm, lines of code that are split are counted as one.
+</violation>
+</file>
+<file name="C:\Users\Administrator\Documents\sfdx-qentelli\mdapipkg\test-classes\KGServiceClass.cls">
+<violation beginline="280" endline="280" begincolumn="17" endcolumn="18" rule="AvoidDeeplyNestedIfStmts" ruleset="Apex Rules" priority="3">
+Avoid creating deeply nested if-then statements since they are harder to read and error-prone to maintain.
+</violation>
+</file>
+<file name="C:\Users\Administrator\Documents\sfdx-qentelli\mdapipkg\test-classes\KGServiceClassTest.cls">
+<violation beginline="456" endline="527" begincolumn="22" endcolumn="3" rule="NcssMethodCount" ruleset="Apex Rules" priority="3">
+This rule uses the NCSS (Non-Commenting Source Statements) algorithm to determine the number of lines of code for a given method. NCSS ignores comments, and counts actual statements. Using this algorithm, lines of code that are split are counted as one.
+</violation>
+</file>
+<file name="C:\Users\Administrator\Documents\sfdx-qentelli\mdapipkg\test-classes\M2MXCaseSearchCaseContExt.cls">
+<violation beginline="260" endline="274" begincolumn="16" endcolumn="9" rule="ExcessiveParameterList" ruleset="Apex Rules" priority="3">
+Methods with numerous parameters are a challenge to maintain, especially if most of them share the same datatype. These situations usually denote the need for new objects to wrap the numerous parameters.
+</violation>
+</file>
 </pmd>
